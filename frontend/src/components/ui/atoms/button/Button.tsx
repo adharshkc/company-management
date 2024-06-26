@@ -1,5 +1,6 @@
+
 type Button={
-    className: string;
+    className?: string;
     children: JSX.Element|string;
     onClick?:()=>void
 }
@@ -8,7 +9,7 @@ type Button={
 export const Button=({ className, children, onClick}:Button)=>{
     return(
         <button type="submit" className={className} onClick={onClick} >
-            {children}
+            {children}  
         </button>
     )
 }
