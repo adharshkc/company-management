@@ -1,9 +1,12 @@
-// import { Button } from "@components/ui/atoms/button/Button";
+import { Button } from "@components/ui/atoms/button/Button";
 import styles from "../../components/styles/styledButton.module.scss";
-import { Box, Button, Paper, TextField, Typography } from "@mui/material";
+import { Box, Paper, Typography } from "@mui/material";
 import { theme } from "../../theme";
+import { Input } from "@components/ui/atoms/input/Input";
+import { useState } from "react";
 
 const Login = () => {
+  const [inputValue, setInputValue] = useState('')
   return (
     <Box className={styles.adminLogin}>
       <Box className={styles.vShape}></Box>
@@ -40,8 +43,10 @@ const Login = () => {
                 Email Address
               </Typography>
             </label>
-            <TextField
-              variant="outlined"
+            <Input
+            inputValue={inputValue}
+            setInputValue={setInputValue}
+            type="text"
               fullWidth
               sx={{
                 "& .MuiOutlinedInput-root": {
@@ -65,8 +70,9 @@ const Login = () => {
               </Typography>
               <Typography variant="body2">Forgot Password</Typography>
             </label>
-            <TextField
-              variant="outlined"
+            <Input
+            inputValue={inputValue}
+            setInputValue={setInputValue}
               fullWidth
               type="password"
               sx={{
@@ -85,11 +91,9 @@ const Login = () => {
             />
           </div>
           <div>
+
             <Button
-              variant="contained"
-              disableRipple
-              color="secondary"
-              disableElevation
+              buttonColor="secondary"
               fullWidth
               sx={{
                 fontWeight: "semiBold",
