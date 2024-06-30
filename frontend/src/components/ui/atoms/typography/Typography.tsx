@@ -2,10 +2,11 @@ import { Typography as MuiTypography, TypographyProps } from "@mui/material";
 
 type Typography = {
   className?: string;
-  children: JSX.Element | string;
+  align?:TypographyProps["align"];
+  children?: JSX.Element | string;
   props?: unknown;
   sx?: object;
-  variant: TypographyProps["variant"];
+  variant?: TypographyProps["variant"];
   color?: string;
 };
 
@@ -14,10 +15,11 @@ export const Typography = ({
   children,
   sx,
   className,
+  align,
   ...props
 }: Typography) => {
   return (
-    <MuiTypography variant={variant} sx={sx} className={className} {...props}>
+    <MuiTypography variant={variant} align={align} sx={sx} className={className} {...props}>
       {children}
     </MuiTypography>
   );

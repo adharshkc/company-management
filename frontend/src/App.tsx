@@ -6,7 +6,8 @@ function App() {
 
   return (
     <>
-      <Login/>
+    
+      <Login role="admin"/>
     </>
   )
 }

@@ -1,0 +1,83 @@
+.adminLogin {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    .vShape {
+      background: linear-gradient(rgba(89, 137, 226, 0.507), rgba(0, 0, 0, 0.5)),
+        url("../../assets/login.jpg") no-repeat center center/cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      clip-path: polygon(0 0, 100% 0%, 100% 50%, 52% 78%, 0% 50%);
+      
+      @media (max-width: 768px) {
+        clip-path: polygon(0 0, 100% 0%, 100% 40%, 50% 70%, 0% 40%);
+      }
+  
+      @media (max-width: 480px) {
+        height: 100%;
+        // clip-path: polygon(100% , 100% 100%, 100% 100%, 100% 100%, 100% 100%);
+        clip-path: none;
+      }
+    }
+  
+    .loginForm {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      top: 30px;
+  
+      @media (max-width: 768px) {
+        top: 100px;
+      }
+  
+      @media (max-width: 480px) {
+        top: 1px;
+      }
+    }
+  
+    .loginCard {
+      width: 400px;
+      height: 260px;
+      padding: 2rem;
+      border-radius: 8px;
+  
+      @media (max-width: 768px) {
+        width: 90%;
+        height: auto;
+      }
+  
+      @media (max-width: 480px) {
+        width: 100%;
+        padding: 1rem;
+      }
+  
+      .emailField {
+        margin-top: 30px;
+  
+        @media (max-width: 480px) {
+          margin-top: 20px;
+        }
+  
+        label {
+          display: flex;
+          justify-content: space-between;
+  
+          p {
+            font-size: 15px;
+          }
+        }
+      }
+    }
+  }
+  
