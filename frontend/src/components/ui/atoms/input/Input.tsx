@@ -7,6 +7,8 @@ type Input = {
   fullWidth?: boolean;
   setInputValue: React.Dispatch<React.SetStateAction<string>>;
   sx?:object
+  InputProps?:object
+  size?: "small" | "medium" | undefined
 };
 
 export const Input = ({
@@ -15,6 +17,8 @@ export const Input = ({
   inputValue,
   setInputValue,
   type,
+  InputProps,
+  size,
   ...props
 }: Input) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,8 +30,10 @@ export const Input = ({
       fullWidth={fullWidth}
       type={type}
       value={inputValue}
+      InputProps={InputProps}
       className={className}
       onChange={handleChange}
+      size={size}
       sx={props.sx}
     />
   );

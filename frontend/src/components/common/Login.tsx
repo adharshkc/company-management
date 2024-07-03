@@ -4,6 +4,7 @@ import { Box } from "@mui/material";
 // import { theme } from "../../theme"
 import { useState } from "react";
 import { LoginOtp } from "@components/ui/organism/LoginOtp";
+import { LoginCard } from "@components/ui/organism/LoginCard";
 
 const Login = ({role}) => {
   const [inputValue, setInputValue] = useState('')
@@ -12,8 +13,8 @@ const Login = ({role}) => {
       <Box className={styles.vShape}></Box>
       <Box className={styles.loginForm}>
         
-        {/* <LoginCard inputValue={inputValue} setInputValue={setInputValue}/> */}
-     <LoginOtp inputValue={inputValue} setInputValue={setInputValue}/>
+        <LoginCard inputValue={inputValue} setInputValue={setInputValue}/>
+     {/* <LoginOtp inputValue={inputValue} setInputValue={setInputValue}/> */}
       </Box>
     </Box>
   );

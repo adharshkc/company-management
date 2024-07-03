@@ -11,9 +11,10 @@ import { Button } from "../atoms/button/Button";
 export const LoginOtp = ({inputValue, setInputValue})=>{
     return(
         <Paper
+        elevation={6}
       className={styles.loginCard}
       sx={{
-        backgroundColor: theme.palette.primary.main,
+        backgroundColor: '#fff',
         padding: { xs: "1rem", sm: "2rem" },
         width: { xs: "100%", sm: "90%", md: "400px" },
         height: { xs: "auto", md: "350px", lg:"260px" },
@@ -65,7 +66,7 @@ export const LoginOtp = ({inputValue, setInputValue})=>{
               sx={{
                 fontWeight: "medium",
                 
-                fontSize: { xs: "16px", sm: "20px" },
+                fontSize: { lg: "17px",xs: "16px", sm: "17px" },
                 marginTop: "20px",
               }}
             >

@@ -10,7 +10,7 @@ export const LoginCard = ({inputValue, setInputValue}) => {
     <Paper
       className={styles.loginCard}
       sx={{
-        backgroundColor: theme.palette.primary.main,
+        backgroundColor: "#fff",
         padding: { xs: "1rem", sm: "2rem" },
         width: { xs: "100%", sm: "90%", md: "400px" },
         height: { xs: "auto", md: "350px" },
@@ -19,8 +19,8 @@ export const LoginCard = ({inputValue, setInputValue}) => {
       <Typography
         variant="h5"
         align="center"
-        sx={{ fontWeight: "bold", fontSize: { xs: "1.2rem", sm: "1.5rem" } }}
-      >LOGIN</Typography>
+        sx={{ fontWeight: "medium", fontSize: { xs: "1.2rem", sm: "1.5rem" } }}
+      >Login</Typography>
        <Typography
             variant="h6"
             color={"#7A7C7F"}
@@ -29,10 +29,10 @@ export const LoginCard = ({inputValue, setInputValue}) => {
           >
             Access to our dashboard
           </Typography>
-          <div className={styles.emailField}>
+          <div className={styles.emailField} style={{marginTop:"30px"}}>
             <label htmlFor="">
               <Typography sx={{ fontWeight: "semiBold", fontSize: { xs: "14px", sm: "16px" } }}>
-                Enter your Email / Phone
+                Enter your Email
               </Typography>
             </label>
             <Input
@@ -56,8 +56,8 @@ export const LoginCard = ({inputValue, setInputValue}) => {
             />
           </div>{
             
-          <div className={styles.emailField}>
-            <label htmlFor="">
+          <div className={styles.emailField}style={{marginTop:"30px"}}>
+            <label htmlFor="" style={{display:"flex", justifyContent:'space-between'}}>
               <Typography sx={{ fontWeight: "semiBold", fontSize: { xs: "14px", sm: "16px" } }}>
                 Password
               </Typography>

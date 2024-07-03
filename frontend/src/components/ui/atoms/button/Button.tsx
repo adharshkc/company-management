@@ -5,22 +5,26 @@ type Button = {
   children: JSX.Element | string;
   buttonColor?:ButtonProps['color']
   fullWidth?:boolean;
+  disabled?:boolean
   sx?:object;
-//   onClick?: () => void;
+  onClick?: () => void;
   props?: unknown;
+  
 };
 
-export const Button = ({ buttonColor,fullWidth, className, children, ...props }: Button) => {
+export const Button = ({ buttonColor,fullWidth, disabled, className,onClick, children, ...props }: Button) => {
   return (
     <MuiButton
       type="submit"
       variant="contained"
       color={buttonColor}
       disableRipple
+      disabled={disabled}
       disableElevation
       fullWidth={fullWidth}
       className={className}
       sx={props.sx}
+      onClick={onClick}
     //   onClick={onClick}
       {...props}
     >

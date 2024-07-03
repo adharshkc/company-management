@@ -1,0 +1,52 @@
+.sidebar {
+  position: absolute; /* or absolute */
+  top: 0;
+  left: 0;
+  width: 250px; /* or whatever width you need */
+  height: 100vh; /* full height */
+  background-color: #3d52a0; /* example background color */
+  z-index: 500; /* lower z-index */
+  transition: all 0.5s ease;
+  .logoDetails {
+    height: 60px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-top: 11px;
+    img {
+      margin-left: 39px;
+    }
+  }
+  .logo_name {
+    // font-size: 22px;
+    margin-left: 30px;
+    color: #fff;
+    font-weight: 600;
+    transition: 0.3s ease;
+    transition-delay: 0.1s;
+  }
+  .line {
+    margin: 13px 30px 0 35px;
+    height: 3px;
+    flex: 1;
+    background-color: #ffffff;
+  }
+}
+.sideContent {
+  margin-top: 37px;
+}
+.nav_links {
+    margin-top: 29px;
+  .liWithFocus {
+    background-color: #fff;
+    display: flex;
+    padding-top: 8px;
+    height: 37px;
+    padding-left: 37px;
+    border-radius: 0 0 47px;
+  }
+  h6 {
+    color: #433939;
+    margin-left: 20px;
+  }
+}
