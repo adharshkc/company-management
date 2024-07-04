@@ -2,9 +2,9 @@
   position: absolute; /* or absolute */
   top: 0;
   left: 0;
-  width: 250px; /* or whatever width you need */
+  width: 300px; /* or whatever width you need */
   height: 100vh; /* full height */
-  background-color: #3d52a0; /* example background color */
+//   background-color: #3d52a0; 
   z-index: 500; /* lower z-index */
   transition: all 0.5s ease;
   .logoDetails {
@@ -36,7 +36,8 @@
   margin-top: 37px;
 }
 .nav_links {
-    margin-top: 29px;
+  margin-top: 29px;
+
   .liWithFocus {
     background-color: #fff;
     display: flex;
@@ -44,9 +45,20 @@
     height: 37px;
     padding-left: 37px;
     border-radius: 0 0 47px;
-  }
-  h6 {
-    color: #433939;
-    margin-left: 20px;
-  }
+    h6 {
+        color: #433939;
+        margin-left: 20px;
+    }
+}
+    .liWithoutFocus{
+      display: flex;
+      padding-top: 8px;
+      
+      height: 37px;
+      padding-left: 41px;
+      h6 {
+        color: #ffffff;
+        margin-left: 20px;
+      }
+    }
 }
