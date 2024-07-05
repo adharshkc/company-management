@@ -1,5 +1,5 @@
 import styles from "../../styles/styledSidebar.module.scss";
-import logo from "../../../assets/Untitled logo.png";
+import logo from "../../../assets/blue logo.png";
 import homeIcon from '../../../assets/icons/house-solid 1.svg'
 import projectIcon from '../../../assets/icons/project.svg'
 import employeesIcon from "../../../assets/icons/employees.svg"

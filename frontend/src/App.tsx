@@ -2,7 +2,7 @@
 import Login from '@components/common/Login'
 import './App.css'
 import OtpVerification from '@components/common/OtpVerification'
-import AdminDasboard from '@components/admin/AdminDasboard'
+import Dasboard from '@components/admin/Dasboard'
 
 function App() {
 
@@ -11,7 +11,7 @@ function App() {
     
       {/* <Login role="admin"/> */}
       {/* <OtpVerification/> */}
-      <AdminDasboard/>
+      <Dasboard/>
     </>
   )
 }

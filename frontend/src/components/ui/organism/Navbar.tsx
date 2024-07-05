@@ -48,7 +48,7 @@ const Navbar = () => {
             </Box>
           </Box>
         </Box>
-        <div className={style.line}></div>
+        <Box className={style.line}></Box>
       </div>
     </>
   );

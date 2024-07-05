@@ -1,5 +1,5 @@
 .sidebar {
-  position: absolute; /* or absolute */
+  position: fixed; /* or absolute */
   top: 0;
   left: 0;
   width: 300px; /* or whatever width you need */
@@ -12,14 +12,15 @@
     width: 100%;
     display: flex;
     align-items: center;
-    margin-top: 11px;
+    margin-top: 12px;
+    margin-left: 10px;
     img {
       margin-left: 39px;
     }
   }
   .logo_name {
     // font-size: 22px;
-    margin-left: 30px;
+    margin-left: 18px;
     color: #fff;
     font-weight: 600;
     transition: 0.3s ease;
