@@ -4,7 +4,7 @@ import AdminDasboard from "@components/ui/templates/AdminDashboard"
 
 const Dashboard = () => {
   return (
-    <div>
+    <div style={{position:'absolute'}}>
 
       <AdminDasboard/>
     </div>

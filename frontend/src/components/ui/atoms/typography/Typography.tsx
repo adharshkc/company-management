@@ -3,7 +3,7 @@ import { Typography as MuiTypography, TypographyProps } from "@mui/material";
 type Typography = {
   className?: string;
   align?:TypographyProps["align"];
-  children?: JSX.Element | string;
+  children?: JSX.Element | string| string[];
   props?: unknown;
   sx?: object;
   variant?: TypographyProps["variant"];

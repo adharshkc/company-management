@@ -1,0 +1,1 @@
+export const QUOTE_API = 'https://zenquotes.io/api/today'
