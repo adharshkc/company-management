@@ -6,17 +6,18 @@ type Button = {
   buttonColor?:ButtonProps['color']
   fullWidth?:boolean;
   disabled?:boolean
+  variant?: "contained" | "outlined"
   sx?:object;
   onClick?: () => void;
   props?: unknown;
   
 };
 
-export const Button = ({ buttonColor,fullWidth, disabled, className,onClick, children, ...props }: Button) => {
+export const Button = ({ buttonColor,fullWidth, disabled, className,onClick, variant, children, ...props }: Button) => {
   return (
     <MuiButton
       type="submit"
-      variant="contained"
+      variant={variant?variant: "contained"}
       color={buttonColor}
       disableRipple
       disabled={disabled}

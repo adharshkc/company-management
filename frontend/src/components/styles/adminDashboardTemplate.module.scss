@@ -1,20 +1,57 @@
-.bodyPart{
-    position: fixed;
-    margin-left: 340px;
-    display: flex;
-    .chart{
-        background-color: #F9F7F7;
+.body{
+    height: 100vh;
+    width: auto;
+    
+    .bodyPart {
+    //   position: fixed;
+      margin-left: 340px;
+      display: flex;
+      width: calc(100% - 340px);
+      justify-content: space-between;
+      .chart {
+        background-color: #f9f7f7;
         width: 490px;
+        height: 450px;
         margin-top: 100px;
         border: #bdbdbd 1px solid;
         border-radius: 5px;
-        h6{
-            padding: 20px 30px;
+        h6 {
+          padding: 20px 30px;
         }
-    }
-    .quote{
+      }
+      .quote {
         margin-top: 100px;
-        margin-left: 69px;
+        margin-right: 30px;
+        .quoteBody {
+          display: flex;
+          align-items: flex-start;
+          .quoteData {
+            margin-left: 15px;
+            flex: 1;
+            word-wrap: break-word; /* Ensure long words break and wrap */
+            overflow: hidden; /* Ensure overflowing content is hidden */
+            text-overflow: ellipsis; /* Show ellipsis for overflowing content */
+            white-space: pre-wrap;
+            img{
+                padding-right:15px ;
+            }
+          }
+        }
+      }
     }
 }
 
+.addButton{
+  width: 40px;
+    height: 32px;
+    margin-top: 13px;
+    //   border-right: 1px solid;
+    //   border-left: 1px  ;
+    // border: none;
+    background: #f8f8f8;
+    text-align: center;
+    color: #000000;
+    //   border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    font-size: 20px;
+}

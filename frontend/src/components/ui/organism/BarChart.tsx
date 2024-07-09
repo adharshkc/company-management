@@ -14,7 +14,7 @@ export default function BarChart({}) {
   return (
     <Chart
       width={500}
-      height={300}
+      height={370}
       series={[
         { data: pData, label: 'pv', id: 'pvId', color:theme.palette.secondary.main},
         { data: uData, label: 'uv', id: 'uvId', color:theme.palette.primary.dark },

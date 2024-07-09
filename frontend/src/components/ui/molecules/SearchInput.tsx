@@ -1,15 +1,14 @@
-import { InputAdornment, SxProps } from "@mui/material";
-import { IoSearch } from "react-icons/io5";
-import { Input } from "../atoms/input/Input";
+
+import { IconType } from "react-icons";
 import style from "../../styles/styledNavbar.module.scss";
-import { BorderAllRounded } from "@mui/icons-material";
 
 type SearchInput = {
   inputValue: string;
   setInputValue: React.Dispatch<React.SetStateAction<string>>;
+  children: IconType 
 };
 
-export const SearchInput = ({ inputValue, setInputValue }: SearchInput) => {
+export const SearchInput = ({ inputValue, setInputValue, children }: SearchInput) => {
   return (
     <>
       <div className={style.search}>
@@ -19,7 +18,7 @@ export const SearchInput = ({ inputValue, setInputValue }: SearchInput) => {
           placeholder="What are you looking for?"
         />
         <button type="submit" className={style.searchButton}>
-          <IoSearch />
+          {children}
           
         </button>
       </div>

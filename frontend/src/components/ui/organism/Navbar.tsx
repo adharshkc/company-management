@@ -4,6 +4,7 @@ import { SearchInput } from "../molecules/SearchInput";
 import style from "../../styles/styledNavbar.module.scss";
 import { useState } from "react";
 import avatar from "../../../assets/user.png";
+import { IoSearch } from "react-icons/io5";
 
 const Navbar = () => {
   const [inputValue, setInputValue] = useState("");
@@ -40,6 +41,7 @@ const Navbar = () => {
               <SearchInput
                 inputValue={inputValue}
                 setInputValue={setInputValue}
+                children={<IoSearch/>}
               />
             </Box>
             <Box className={style.avatarBox}>

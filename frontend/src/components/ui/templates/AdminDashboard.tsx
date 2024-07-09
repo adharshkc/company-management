@@ -5,28 +5,26 @@ import style from "../../styles/adminDashboardTemplate.module.scss";
 import { Typography } from "../atoms/typography/Typography";
 import Quotes from "../molecules/Quotes";
 import { Box } from "@mui/material";
+import ProjectStatics from "../organism/ProjectStatics";
+import TodoContainer from "../organism/TodoContainer";
 
 const AdminDasboard = () => {
   return (
-    <>
-      <div style={{width:'100%'}}>
-        <Box>
-          <Sidebar />
-        </Box>
-        <div>
-          <Navbar />
+    <div className={style.body}>
+      <Sidebar />
+      <Navbar />
+      <div className={style.bodyPart}>
+        <div className={style.chart}>
+          <Typography variant="h6">Project Status</Typography>
+          <BarChart />
         </div>
-        <div className={style.bodyPart}>
-          <div className={style.chart}>
-            <Typography variant="h6">Project Status</Typography>
-            <BarChart />
-          </div>
-          <div className={style.quote}>
-            <Quotes />
-          </div>
+        <div className={style.quote}>
+          <Quotes />
+          <ProjectStatics />
+          <TodoContainer />
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
