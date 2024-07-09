@@ -5,6 +5,7 @@ type Input = {
   inputValue: string | number;
   className?: string;
   fullWidth?: boolean;
+  placeHolder?:string;
   setInputValue: React.Dispatch<React.SetStateAction<string>>;
   sx?:object
   InputProps?:object
@@ -18,6 +19,7 @@ export const Input = ({
   setInputValue,
   type,
   InputProps,
+  placeHolder,
   size,
   ...props
 }: Input) => {
@@ -28,6 +30,7 @@ export const Input = ({
     <TextField
       variant="outlined"
       fullWidth={fullWidth}
+      placeholder={placeHolder}
       type={type}
       value={inputValue}
       InputProps={InputProps}

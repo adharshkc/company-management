@@ -1,16 +1,14 @@
-import { Box } from "@mui/material";
+import { Box, Paper } from "@mui/material";
 import { Typography } from "../atoms/typography/Typography";
 import { useState } from "react";
-import { SearchInput } from "../molecules/SearchInput";
-import AddIcon from '@mui/icons-material/Add';
+import AddIcon from "@mui/icons-material/Add";
 import { Input } from "../atoms/input/Input";
-import style from '../../styles/adminDashboardTemplate.module.scss'
+import style from "../../styles/adminDashboardTemplate.module.scss";
 import { Button } from "../atoms/button/Button";
-import {theme} from "../../../theme"
-
+import { Delete, Done } from "@mui/icons-material";
 
 const TodoContainer = () => {
-    const [inputValue, setInputValue] = useState('')
+  const [inputValue, setInputValue] = useState("");
   return (
     <Box
       sx={{
@@ -20,17 +18,52 @@ const TodoContainer = () => {
         borderRadius: "5px",
       }}
     >
-        <Box sx={{display:'flex', justifyContent:'space-around'}}>
-
-      <Typography sx={{ padding: 2 }} variant="body1">
-        Your Todos
-      </Typography>
-      <Input inputValue={inputValue} fullWidth={false} setInputValue={setInputValue} sx={{width:'50%', marginTop:1}} size="small"  type="text"  />
-      <Button className={style.addButton} sx={{marginTop:'13px', borderRadius: '2px solid black'}} buttonColor={theme.palette.primary.main}>
-          <AddIcon/>
-          
+      <Box sx={{ display: "flex", justifyContent: "space-around" }}>
+        <Typography sx={{ padding: 2 }} variant="body1">
+          My Day
+        </Typography>
+        <Input
+          inputValue={inputValue}
+          fullWidth={false}
+          setInputValue={setInputValue}
+          placeHolder="Add todos here..."
+          sx={{ width: "50%", marginTop: 1 }}
+          size="small"
+          type="text"
+        />
+        <Button
+          className={style.addButton}
+          sx={{
+            marginTop: "13px",
+            borderRadius: "2px solid black",
+            color: "black",
+            backgroundColor: "#EDE8F5",
+          }}
+          variant="outlined"
+        >
+          <AddIcon />
         </Button>
-        </Box>
+      </Box>
+      <Box sx={{ padding: 2 }}>
+        <Paper
+          variant="outlined"
+          elevation={5}
+          sx={{
+            height: 35,
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <Typography sx={{ marginLeft: 2 }} variant="body1" align="center">
+            this is todo
+          </Typography>
+          <Box sx={{ paddingRight: 1 }}>
+            <Done fontSize="small" sx={{ cursor: "pointer", marginRight: 3 }} />
+            <Delete fontSize="small" sx={{ cursor: "pointer" }} />
+          </Box>
+        </Paper>
+      </Box>
     </Box>
   );
 };
