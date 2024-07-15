@@ -1,7 +1,10 @@
-import app from "../src/frameworks/webserver/ExpressServer";
+import 'module-alias/register'
+import app from "@frameworks/webserver/ExpressServer";
 import "dotenv/config";
-import { connectDatabase } from "./frameworks/database/postgresql";
+import { connectDatabase } from "@infrastructure/database/postgresql";
+import adminRouter from "@frameworks/routes/adminRoutes"
 
+app.use('/admin', adminRouter)
 
 connectDatabase()
 app.listen(process.env.PORT, () => {
