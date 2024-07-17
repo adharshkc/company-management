@@ -12,9 +12,9 @@ const sequelize = new Sequelize({
 export const connectDatabase = async () => {
   try {
     await sequelize.authenticate();
-    console.log("connected to dbsssd");
+    console.log("connected to dbsdfsd");
 
-    await sequelize.sync({force: false})
+    await sequelize.sync({alter: true})
     console.log("database synced")
   } catch (error) {
     console.error("Unable to connect to the database:", error);

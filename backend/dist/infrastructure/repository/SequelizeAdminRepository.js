@@ -12,26 +12,19 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.connectDatabase = void 0;
-const sequelize_typescript_1 = require("sequelize-typescript");
-const AdminModel_1 = __importDefault(require("../models/AdminModel"));
-const sequelize = new sequelize_typescript_1.Sequelize({
-    database: "companyManagement",
-    dialect: "postgres",
-    username: "postgres",
-    password: "148118198",
-    models: [AdminModel_1.default]
-});
-const connectDatabase = () => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        yield sequelize.authenticate();
-        console.log("connected to dbsdfsd");
-        yield sequelize.sync({ alter: true });
-        console.log("database synced");
+exports.SequelizeAdminRepository = void 0;
+const Admin_1 = require("@domain/entities/Admin");
+const AdminModel_1 = __importDefault(require("@infrastructure/models/AdminModel"));
+class SequelizeAdminRepository {
+    findByEmail(email) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const admin = yield AdminModel_1.default.findOne({ where: { email } });
+            console.log(admin, "admin");
+            if (admin) {
+                return new Admin_1.Admin(admin.name, admin.email, admin.password, admin.dob, admin.gender, admin.phone, admin.admin_id);
+            }
+            return null;
+        });
     }
-    catch (error) {
-        console.error("Unable to connect to the database:", error);
-    }
-});
-exports.connectDatabase = connectDatabase;
-exports.default = sequelize;
+}
+exports.SequelizeAdminRepository = SequelizeAdminRepository;

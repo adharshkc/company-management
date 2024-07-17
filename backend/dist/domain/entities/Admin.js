@@ -1,8 +1,17 @@
 "use strict";
+// export interface AdminProps {
+//   adminId?: number;
+//   name: string;
+//   email: string;
+//   password: string;
+//   dob: Date;
+//   gender: string;
+//   phone: string;
+// }
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Admin = void 0;
 class Admin {
-    constructor({ adminId, name, email, password, dob, gender, phone }) {
+    constructor(name, email, password, dob, gender, phone, adminId) {
         this.adminId = adminId;
         this.name = name;
         this.email = email;
