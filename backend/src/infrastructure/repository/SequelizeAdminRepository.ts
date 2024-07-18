@@ -1,11 +1,12 @@
 import { Admin } from "@domain/entities/Admin";
 
-import { AdminRepository } from "@domain/repository/AdminRepository";
+// import { AdminRepository } from "@domain/repository/AdminRepository";
+import { AdminRepository } from "@application/interface/AdminRepository";
 
 import AdminModel from "@infrastructure/models/AdminModel";
 
 export class SequelizeAdminRepository implements AdminRepository {
-  async findByEmail(email: string): Promise<Admin | null> {
+  async adminLoginCheck(email: string): Promise<Admin | null> {
     const admin = await AdminModel.findOne({ where: { email } });
 
     console.log(admin, "admin");

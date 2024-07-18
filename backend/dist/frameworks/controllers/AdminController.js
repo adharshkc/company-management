@@ -12,14 +12,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AdminController = void 0;
 class AdminController {
     constructor(loginAdmin) {
-        this.loginAdmin = loginAdmin;
+        this.adminUsecase = loginAdmin;
     }
     adminLogin(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const { email, password } = req.body;
                 console.log(email, password);
-                yield this.loginAdmin.adminLogin(email, password);
+                const admin = yield this.adminUsecase.adminLogin(email, password);
+                console.log("authentication success");
             }
             catch (error) {
                 console.log(error);

@@ -20,7 +20,8 @@ const sequelize = new sequelize_typescript_1.Sequelize({
     dialect: "postgres",
     username: "postgres",
     password: "148118198",
-    models: [AdminModel_1.default]
+    logging: false,
+    models: [AdminModel_1.default],
 });
 const connectDatabase = () => __awaiter(void 0, void 0, void 0, function* () {
     try {

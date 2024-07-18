@@ -6,7 +6,8 @@ const sequelize = new Sequelize({
   dialect: "postgres",
   username: "postgres",
   password: "148118198",
-  models:[AdminModel]
+  logging: false,
+  models: [AdminModel],
 });
 
 export const connectDatabase = async () => {
@@ -14,8 +15,8 @@ export const connectDatabase = async () => {
     await sequelize.authenticate();
     console.log("connected to dbsdfsd");
 
-    await sequelize.sync({alter: true})
-    console.log("database synced")
+    await sequelize.sync({ alter: true });
+    console.log("database synced");
   } catch (error) {
     console.error("Unable to connect to the database:", error);
   }

@@ -2,8 +2,11 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const AdminController_1 = require("@frameworks/controllers/AdminController");
+const SequelizeAdminRepository_1 = require("@infrastructure/repository/SequelizeAdminRepository");
+const AdminUsecase_1 = require("@application/use-cases/AdminUsecase");
 const router = (0, express_1.Router)();
-// const adminRepository = new SequelizeAdminRepository();
-const adminController = new AdminController_1.AdminController();
-router.post('/login', adminController.adminLogin);
+const adminRepository = new SequelizeAdminRepository_1.SequelizeAdminRepository();
+const adminUsecase = new AdminUsecase_1.AdminUsecase(adminRepository);
+const adminController = new AdminController_1.AdminController(adminUsecase);
+router.post('/login', adminController.adminLogin.bind(adminController));
 exports.default = router;

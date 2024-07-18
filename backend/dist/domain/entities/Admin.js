@@ -1,13 +1,4 @@
 "use strict";
-// export interface AdminProps {
-//   adminId?: number;
-//   name: string;
-//   email: string;
-//   password: string;
-//   dob: Date;
-//   gender: string;
-//   phone: string;
-// }
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Admin = void 0;
 class Admin {

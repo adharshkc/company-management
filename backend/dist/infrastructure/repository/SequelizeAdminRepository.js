@@ -16,7 +16,7 @@ exports.SequelizeAdminRepository = void 0;
 const Admin_1 = require("@domain/entities/Admin");
 const AdminModel_1 = __importDefault(require("@infrastructure/models/AdminModel"));
 class SequelizeAdminRepository {
-    findByEmail(email) {
+    adminLoginCheck(email) {
         return __awaiter(this, void 0, void 0, function* () {
             const admin = yield AdminModel_1.default.findOne({ where: { email } });
             console.log(admin, "admin");
