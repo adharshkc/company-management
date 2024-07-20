@@ -12,21 +12,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SequelizeAdminRepository = void 0;
-const Admin_1 = require("@domain/entities/Admin");
-const AdminModel_1 = __importDefault(require("@infrastructure/models/AdminModel"));
-class SequelizeAdminRepository {
-    adminLoginCheck(email) {
+const bcrypt_1 = __importDefault(require("bcrypt"));
+class Bcrypt {
+    compare(password, hashedPassword) {
         return __awaiter(this, void 0, void 0, function* () {
-            const all = yield AdminModel_1.default.findAll();
-            console.log(all);
-            const admin = yield AdminModel_1.default.findOne({ where: { email } });
-            console.log(admin, "admin");
-            if (admin) {
-                return new Admin_1.Admin(admin.name, admin.email, admin.password, admin.dob, admin.gender, admin.phone, admin.admin_id);
-            }
-            return null;
+            const matchPassword = yield bcrypt_1.default.compare(password, hashedPassword);
+            return matchPassword;
         });
     }
 }
-exports.SequelizeAdminRepository = SequelizeAdminRepository;
+exports.default = Bcrypt;

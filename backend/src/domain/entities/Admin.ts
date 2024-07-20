@@ -6,6 +6,7 @@ export class Admin {
   dob: Date;
   gender: string;
   phone: string;
+  role?: number| string
   constructor(
     name: string,
     email: string,
@@ -13,7 +14,8 @@ export class Admin {
     dob: Date,
     gender: string,
     phone: string,
-    adminId?: number
+    adminId?: number,
+    role?: number| string
   ) {
     this.adminId = adminId;
     this.name = name;
@@ -22,5 +24,6 @@ export class Admin {
     this.dob = dob;
     this.gender = gender;
     this.phone = phone;
+    this.role = role
   }
 }

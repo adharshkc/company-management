@@ -15,18 +15,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.connectDatabase = void 0;
 const sequelize_typescript_1 = require("sequelize-typescript");
 const AdminModel_1 = __importDefault(require("../models/AdminModel"));
+const RoleModel_1 = __importDefault(require("@infrastructure/models/RoleModel"));
 const sequelize = new sequelize_typescript_1.Sequelize({
     database: "companyManagement",
     dialect: "postgres",
     username: "postgres",
     password: "148118198",
     logging: false,
-    models: [AdminModel_1.default],
+    models: [AdminModel_1.default, RoleModel_1.default],
 });
 const connectDatabase = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         yield sequelize.authenticate();
-        console.log("connected to dbsdfsd");
+        console.log("connected to database");
         yield sequelize.sync({ alter: true });
         console.log("database synced");
     }

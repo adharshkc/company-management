@@ -1,5 +1,6 @@
 import { Sequelize } from "sequelize-typescript";
 import AdminModel from "../models/AdminModel";
+import RoleModel from "@infrastructure/models/RoleModel";
 
 const sequelize = new Sequelize({
   database: "companyManagement",
@@ -7,13 +8,13 @@ const sequelize = new Sequelize({
   username: "postgres",
   password: "148118198",
   logging: false,
-  models: [AdminModel],
+  models: [AdminModel, RoleModel],
 });
 
 export const connectDatabase = async () => {
   try {
     await sequelize.authenticate();
-    console.log("connected to dbsdfsd");
+    console.log("connected to database");
 
     await sequelize.sync({ alter: true });
     console.log("database synced");

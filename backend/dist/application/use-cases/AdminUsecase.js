@@ -8,37 +8,56 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AdminUsecase = void 0;
-const bcrypt_1 = __importDefault(require("bcrypt"));
 class AdminUsecase {
-    constructor(adminRepository) {
+    constructor(adminRepository, hashPassword, createToken) {
+        this.hashPassword = hashPassword;
         this.adminRepository = adminRepository;
+        this.createToken = createToken;
     }
     adminLogin(email, password) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const admin = yield this.adminRepository.adminLoginCheck(email);
                 if (admin) {
-                    const hashedPassword = yield bcrypt_1.default.compare(password, admin.password);
-                    if (hashedPassword) {
-                        return admin;
+                    const matchedPassword = yield this.hashPassword.compare(password, admin.password);
+                    if (matchedPassword) {
+                        const role = 'admin';
+                        const token = yield this.createToken.create(admin.adminId, role);
+                        console.log(token);
+                        return {
+                            status: 200,
+                            data: {
+                                success: true,
+                                admin,
+                                token
+                            }
+                        };
                     }
                     else {
-                        console.log("password is incorrect");
-                        return null;
+                        return {
+                            status: 401,
+                            data: {
+                                success: false,
+                                message: "incorrect passowrd"
+                            }
+                        };
                     }
                 }
                 else {
-                    return null;
+                    return {
+                        status: 401,
+                        data: {
+                            success: false,
+                            message: "admin not found"
+                        }
+                    };
                 }
             }
             catch (error) {
-                console.log("admin not found", error);
-                return null;
+                console.log("admin not found", error.message);
+                throw new Error(error.message);
             }
         });
     }

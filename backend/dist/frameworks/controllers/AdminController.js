@@ -14,15 +14,17 @@ class AdminController {
     constructor(loginAdmin) {
         this.adminUsecase = loginAdmin;
     }
-    adminLogin(req, res) {
+    adminLogin(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const { email, password } = req.body;
                 console.log(email, password);
-                const admin = yield this.adminUsecase.adminLogin(email, password);
-                console.log("authentication success");
+                const result = yield this.adminUsecase.adminLogin(email, password);
+                console.log(result.status);
+                res.status(result.status).json(result.data);
             }
             catch (error) {
+                next(error);
                 console.log(error);
             }
         });

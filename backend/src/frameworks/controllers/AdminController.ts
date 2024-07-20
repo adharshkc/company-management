@@ -1,5 +1,5 @@
 import { AdminUsecase } from "@application/use-cases/AdminUsecase";
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 
 export class AdminController {
 
@@ -8,13 +8,15 @@ export class AdminController {
     this.adminUsecase = loginAdmin;
   }
 
-  async adminLogin(req: Request, res: Response) {
+  async adminLogin(req: Request, res: Response, next: NextFunction) {
     try {
       const { email, password } = req.body;
       console.log(email, password);
-     const admin =  await this.adminUsecase.adminLogin(email, password)
-     console.log("authentication success")
+     const result =  await this.adminUsecase.adminLogin(email, password)
+     console.log(result.status)
+     res.status(result.status).json(result.data)
     } catch (error) {
+      next(error)
       console.log(error);
     }
   }

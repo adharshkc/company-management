@@ -8,9 +8,11 @@ import {
   DataType,
   ForeignKey,
 } from "sequelize-typescript";
+import RoleModel from "./RoleModel";
+
 
 @Table({
-  tableName: "Admin",
+  tableName: "admin",
   timestamps: false,
 })
 class AdminModel extends Model {
@@ -39,9 +41,9 @@ class AdminModel extends Model {
   @Column(DataType.STRING(15))
   phone!: string;
 
-  //   @ForeignKey(() => RoleModel)
-  //   @Column(DataType.INTEGER)
-  //   role_id!: number;
+    @ForeignKey(() => RoleModel)
+    @Column(DataType.INTEGER)
+    role_id!: number;
 }
 
 export default AdminModel;
