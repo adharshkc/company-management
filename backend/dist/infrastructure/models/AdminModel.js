@@ -44,8 +44,9 @@ __decorate([
 ], AdminModel.prototype, "role_id", void 0);
 AdminModel = __decorate([
     (0, sequelize_typescript_1.Table)({
-        tableName: "admin",
+        tableName: "Admin",
         timestamps: false,
+        modelName: "AdminModel"
     })
 ], AdminModel);
 exports.default = AdminModel;

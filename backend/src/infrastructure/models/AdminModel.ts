@@ -12,8 +12,9 @@ import RoleModel from "./RoleModel";
 
 
 @Table({
-  tableName: "admin",
+  tableName: "Admin",
   timestamps: false,
+  modelName: "AdminModel"
 })
 class AdminModel extends Model {
   @Column({
