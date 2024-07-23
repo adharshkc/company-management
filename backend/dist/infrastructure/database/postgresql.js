@@ -8,28 +8,32 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.connectDatabase = void 0;
 const sequelize_typescript_1 = require("sequelize-typescript");
-const AdminModel_1 = __importDefault(require("../models/AdminModel"));
-const RoleModel_1 = __importDefault(require("@infrastructure/models/RoleModel"));
+const database = process.env.DB_NAME;
+const username = process.env.DB_USERNAME;
+const password = process.env.DB_PASSWORD;
+const host = process.env.DB_HOST;
 const sequelize = new sequelize_typescript_1.Sequelize({
-    database: "companyManagement",
+    database: database,
     dialect: "postgres",
-    username: "postgres",
-    password: "148118198",
-    logging: false,
-    models: [AdminModel_1.default, RoleModel_1.default],
+    username: username,
+    password: password,
+    host: host,
+    models: [__dirname + '/../models'],
 });
 const connectDatabase = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         yield sequelize.authenticate();
         console.log("connected to database");
-        yield sequelize.sync({ alter: true });
-        console.log("database synced");
+        try {
+            yield sequelize.sync({ alter: true });
+            console.log("database synced");
+        }
+        catch (error) {
+            console.log(error);
+        }
     }
     catch (error) {
         console.error("Unable to connect to the database:", error);

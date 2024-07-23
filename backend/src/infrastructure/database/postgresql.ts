@@ -1,14 +1,17 @@
 import { Sequelize } from "sequelize-typescript";
-import AdminModel from "../models/AdminModel";
-import RoleModel from "@infrastructure/models/RoleModel";
+const database = process.env.DB_NAME
+const username = process.env.DB_USERNAME
+const password = process.env.DB_PASSWORD
+const host  = process.env.DB_HOST
+
 
 const sequelize = new Sequelize({
-  database: "companyManagement",
+  database: database,
   dialect: "postgres",
-  username: "postgres",
-  password: "148118198",
-  logging: false,
-  models: [AdminModel, RoleModel],
+  username: username,
+  password: password,
+  host: host,
+  models: [__dirname+'/../models'],
 });
 
 export const connectDatabase = async () => {
@@ -16,8 +19,13 @@ export const connectDatabase = async () => {
     await sequelize.authenticate();
     console.log("connected to database");
 
-    await sequelize.sync({ alter: true });
-    console.log("database synced");
+    try {
+      await sequelize.sync({ alter: true });
+      console.log("database synced");
+    } catch (error) {
+      console.log(error)
+    }
+
   } catch (error) {
     console.error("Unable to connect to the database:", error);
   }

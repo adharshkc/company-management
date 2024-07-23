@@ -1,50 +1,70 @@
 import {
-  Table,
-  Column,
-  Model,
-  HasMany,
-  PrimaryKey,
+  AllowNull,
   AutoIncrement,
+  Column,
   DataType,
-  ForeignKey,
+  Model,
+  NotEmpty,
+  PrimaryKey,
+  Table,
 } from "sequelize-typescript";
-import RoleModel from "./RoleModel";
 
+export interface AdminI {
+  admin_id?: number | null;
+  name: string;
+  email: string;
+  password: string;
+  dob: Date;
+  gender: string;
+  phone: string;
+  role: string;
+}
 
 @Table({
   tableName: "Admin",
   timestamps: false,
-  modelName: "AdminModel"
+  modelName: 'AdminModel'
 })
-class AdminModel extends Model {
-  @Column({
-    type: DataType.INTEGER,
-    primaryKey: true,
-    autoIncrement: true,
-  })
-  admin_id!: number;
+class AdminModel extends Model implements AdminI {
+  @AutoIncrement
+  @PrimaryKey
+  @Column({ type: DataType.INTEGER })
+  admin_id?: number;
 
-  @Column(DataType.STRING(100))
+  @AllowNull(false)
+  @NotEmpty
+  @Column({ type: DataType.STRING(100), allowNull: false })
   name!: string;
 
-  @Column(DataType.STRING(100))
+  @AllowNull(false)
+  @NotEmpty
+  @Column({ type: DataType.STRING(100), allowNull: false })
   email!: string;
 
-  @Column(DataType.STRING(100))
+  @AllowNull(false)
+  @NotEmpty
+  @Column({ type: DataType.STRING(100), allowNull: false })
   password!: string;
 
-  @Column(DataType.DATE)
+  @AllowNull(false)
+  @NotEmpty
+  @Column({ type: DataType.DATE, allowNull: false })
   dob!: Date;
 
-  @Column(DataType.STRING(10))
+  @AllowNull(false)
+  @NotEmpty
+  @Column({ type: DataType.STRING(50), allowNull: false })
   gender!: string;
 
-  @Column(DataType.STRING(15))
+  @AllowNull(false)
+  @NotEmpty
+  @Column({ type: DataType.STRING(50), allowNull: false })
   phone!: string;
 
-    @ForeignKey(() => RoleModel)
-    @Column(DataType.INTEGER)
-    role_id!: number;
+  @AllowNull(false)
+  @NotEmpty
+  @Column({ type: DataType.STRING(20) })
+  role!: string;
 }
 
 export default AdminModel;

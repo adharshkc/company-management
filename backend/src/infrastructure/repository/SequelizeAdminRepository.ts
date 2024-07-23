@@ -7,8 +7,7 @@ import AdminModel from "@infrastructure/models/AdminModel";
 
 export class SequelizeAdminRepository implements AdminRepository {
   async adminLoginCheck(email: string): Promise<Admin | null> {
-    const all = await AdminModel.findAll()
-    console.log(all)
+   
     const admin = await AdminModel.findOne({ where: { email } });
 
     console.log(admin, "admin");

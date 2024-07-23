@@ -18,8 +18,6 @@ const AdminModel_1 = __importDefault(require("@infrastructure/models/AdminModel"
 class SequelizeAdminRepository {
     adminLoginCheck(email) {
         return __awaiter(this, void 0, void 0, function* () {
-            const all = yield AdminModel_1.default.findAll();
-            console.log(all);
             const admin = yield AdminModel_1.default.findOne({ where: { email } });
             console.log(admin, "admin");
             if (admin) {
