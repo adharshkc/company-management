@@ -1,19 +1,17 @@
-
-import Login from '@components/common/Login'
-import './App.css'
-import OtpVerification from '@components/common/OtpVerification'
-import Dasboard from '@components/admin/Dasboard'
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import "./App.css";
+import AdminRoute from "./routes/AdminRoute";
+import UserRoute from "./routes/UserRoute";
 
 function App() {
-
   return (
-    <>
-    
-      {/* <Login role="admin"/> */}
-      {/* <OtpVerification/> */}
-      <Dasboard/>
-    </>
-  )
+    <BrowserRouter>
+      <Routes>
+        <Route path="/admin/*" element={<AdminRoute />} />
+        <Route path="/*" element={<UserRoute />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;

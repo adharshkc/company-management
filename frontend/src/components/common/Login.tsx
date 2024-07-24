@@ -6,7 +6,7 @@ import { useState } from "react";
 import { LoginOtp } from "@components/ui/organism/LoginOtp";
 import { LoginCard } from "@components/ui/organism/LoginCard";
 
-const Login = ({role}) => {
+const Login = () => {
   const [inputValue, setInputValue] = useState('')
   return (
     <Box className={styles.adminLogin}>

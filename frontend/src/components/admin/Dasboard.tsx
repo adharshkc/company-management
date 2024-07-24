@@ -1,4 +1,4 @@
-import AdminDasboard from "@components/ui/templates/AdminDashboard"
+import AdminDasboard from "@components/ui/templates/AdminDashboardTemplate"
 
 
 

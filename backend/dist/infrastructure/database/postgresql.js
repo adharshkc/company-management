@@ -20,6 +20,7 @@ const sequelize = new sequelize_typescript_1.Sequelize({
     dialect: "postgres",
     username: username,
     password: password,
+    logging: false,
     host: host,
     models: [__dirname + '/../models'],
 });

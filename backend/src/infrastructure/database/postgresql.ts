@@ -10,6 +10,7 @@ const sequelize = new Sequelize({
   dialect: "postgres",
   username: username,
   password: password,
+  logging: false,
   host: host,
   models: [__dirname+'/../models'],
 });

@@ -1,12 +1,12 @@
 import { Button } from "@components/ui/atoms/button/Button";
-import styles from "../../components/styles/styledButton.module.scss";
+import styles from "../../../components/styles/styledButton.module.scss";
 import { Box, Paper, } from "@mui/material";
-import { theme } from "../../theme";
+import { theme } from "../../../theme";
 import { Input } from "@components/ui/atoms/input/Input";
 import { useState } from "react";
 import { Typography } from "@components/ui/atoms/typography/Typography";
 
-const Login = () => {
+const AdminLoginTemplate = ({onSubmit}) => {
   const [inputValue, setInputValue] = useState('')
   return (
     <Box className={styles.adminLogin}>
@@ -99,6 +99,7 @@ const Login = () => {
                 fontSize: { xs: "16px", sm: "20px" },
                 marginTop: "20px",
               }}
+              onClick={onSubmit}
             >
               Login
             </Button>
@@ -109,4 +110,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default AdminLoginTemplate;
