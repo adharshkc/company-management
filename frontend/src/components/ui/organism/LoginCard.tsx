@@ -6,21 +6,26 @@ import { Input } from "../atoms/input/Input";
 import { Button } from "../atoms/button/Button";
 import { useState } from "react";
 import { LoginFormValues, onSubmit } from "types/types";
+import useErrorStore from "../../../zustand/ErrorStore";
+import toast, { Toaster } from "react-hot-toast"
 
 type LoginFormProps = {
   onSubmit: onSubmit
 }
 
 export const LoginCard : React.FC<LoginFormProps>= ({onSubmit}) => {
+  const {error, setError, clearError} = useErrorStore()
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  
   const handleSubmit = ()=>{
     if(!email.trim()){
-      console.log("enter the email")
+      setError("Enter your email")
       return
     }
      if(!password.trim()){
-      console.log("please enter the password..")
+      setError("Enter your password")
       return
     }
 
@@ -119,9 +124,8 @@ export const LoginCard : React.FC<LoginFormProps>= ({onSubmit}) => {
             >
               Login
             </Button>
-            {/* <Stack>
-            <Alert severity="error">This is an error Alert.</Alert>
-            </Stack> */}
+            <Toaster position="top-right"/>
+           
           </div>
     </Paper>
   );

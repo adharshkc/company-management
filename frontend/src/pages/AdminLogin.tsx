@@ -24,9 +24,10 @@ const {error, setError, clearError} = useErrorStore()
       console.log(login.data.token)
       localStorage.setItem('adminToken', token)
       navigate('/admin')
-    } catch (error:unknown) {
+    } catch (error) {
       const err = error as { response?: { data?: { message?: string } } };
-      setError(err?.response?.data?.message)
+      const errorMessage = err?.response?.data?.message
+      setError(errorMessage)
       console.log(err?.response?.data?.message)
     }
     
