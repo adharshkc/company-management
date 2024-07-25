@@ -1,16 +1,37 @@
 import styles from "../../styles/styledButton.module.scss"
-import { Paper } from "@mui/material";
+import { Alert, Paper, Stack } from "@mui/material";
 import { Typography } from "../atoms/typography/Typography";
 import { theme } from "../../../theme";
 import { Input } from "../atoms/input/Input";
 import { Button } from "../atoms/button/Button";
+import { useState } from "react";
+import { LoginFormValues, onSubmit } from "types/types";
 
-export const LoginCard = ({inputValue, setInputValue}) => {
+type LoginFormProps = {
+  onSubmit: onSubmit
+}
+
+export const LoginCard : React.FC<LoginFormProps>= ({onSubmit}) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const handleSubmit = ()=>{
+    if(!email.trim()){
+      console.log("enter the email")
+      return
+    }
+     if(!password.trim()){
+      console.log("please enter the password..")
+      return
+    }
+
+    const formValues: LoginFormValues = {email, password}
+    onSubmit(formValues)
+  }
   return (
     <Paper
       className={styles.loginCard}
       sx={{
-        backgroundColor: "#fff",
+        backgroundColor: theme.palette.primary.main,
         padding: { xs: "1rem", sm: "2rem" },
         width: { xs: "100%", sm: "90%", md: "400px" },
         height: { xs: "auto", md: "350px" },
@@ -31,14 +52,15 @@ export const LoginCard = ({inputValue, setInputValue}) => {
           </Typography>
           <div className={styles.emailField} style={{marginTop:"30px"}}>
             <label htmlFor="">
-              <Typography sx={{ fontWeight: "semiBold", fontSize: { xs: "14px", sm: "16px" } }}>
+              <Typography sx={{ fontWeight: "semiBold", fontSize: { xs: "14px", sm: "16px", lg:"18px" } }}>
                 Enter your Email
               </Typography>
             </label>
             <Input
-            inputValue={inputValue}
-            setInputValue={setInputValue}
-            type="text"
+            inputValue={email}
+            setInputValue={setEmail}
+            // onChange={(e)=>setEmail(e.target.value)}
+            type="email"
               fullWidth
               sx={{
                 "& .MuiOutlinedInput-root": {
@@ -64,8 +86,8 @@ export const LoginCard = ({inputValue, setInputValue}) => {
               <Typography variant="body2">Forgot Password</Typography>
             </label>
             <Input
-            inputValue={inputValue}
-            setInputValue={setInputValue}
+            inputValue={password}
+            setInputValue={setPassword}
               fullWidth
               type="password"
               sx={{
@@ -88,6 +110,7 @@ export const LoginCard = ({inputValue, setInputValue}) => {
           <Button
               buttonColor="secondary"
               fullWidth
+              onClick={handleSubmit}
               sx={{
                 fontWeight: "semiBold",
                 fontSize: { xs: "16px", sm: "20px" },
@@ -96,6 +119,9 @@ export const LoginCard = ({inputValue, setInputValue}) => {
             >
               Login
             </Button>
+            {/* <Stack>
+            <Alert severity="error">This is an error Alert.</Alert>
+            </Stack> */}
           </div>
     </Paper>
   );

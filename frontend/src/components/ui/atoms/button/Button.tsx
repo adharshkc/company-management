@@ -8,7 +8,7 @@ type Button = {
   disabled?:boolean
   variant?: "contained" | "outlined"
   sx?:object;
-  onClick?: () => void;
+  onClick?: ()=>void;
   props?: unknown;
   
 };

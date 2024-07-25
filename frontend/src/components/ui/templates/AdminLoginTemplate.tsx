@@ -5,14 +5,19 @@ import { theme } from "../../../theme";
 import { Input } from "@components/ui/atoms/input/Input";
 import { useState } from "react";
 import { Typography } from "@components/ui/atoms/typography/Typography";
+import { LoginCard } from "../organism/LoginCard";
+import { onSubmit } from "types/types";
 
-const AdminLoginTemplate = ({onSubmit}) => {
-  const [inputValue, setInputValue] = useState('')
+
+type LoginTemplateProps = {
+  onSubmit: onSubmit
+}
+const AdminLoginTemplate: React.FC<LoginTemplateProps> = ({onSubmit}) => {
   return (
     <Box className={styles.adminLogin}>
       <Box className={styles.vShape}></Box>
       <Box className={styles.loginForm}>
-        <Paper
+        {/* <Paper
           className={styles.loginCard}
           sx={{
             backgroundColor: theme.palette.primary.main,
@@ -43,8 +48,7 @@ const AdminLoginTemplate = ({onSubmit}) => {
               </Typography>
             </label>
             <Input
-            inputValue={inputValue}
-            setInputValue={setInputValue}
+            
             type="text"
               fullWidth
               sx={{
@@ -70,8 +74,6 @@ const AdminLoginTemplate = ({onSubmit}) => {
               <Typography variant="body2">Forgot Password</Typography>
             </label>
             <Input
-            inputValue={inputValue}
-            setInputValue={setInputValue}
               fullWidth
               type="password"
               sx={{
@@ -99,12 +101,12 @@ const AdminLoginTemplate = ({onSubmit}) => {
                 fontSize: { xs: "16px", sm: "20px" },
                 marginTop: "20px",
               }}
-              onClick={onSubmit}
             >
               Login
             </Button>
           </div>
-        </Paper>
+        </Paper> */}
+        <LoginCard onSubmit={onSubmit}/>
       </Box>
     </Box>
   );

@@ -10,6 +10,8 @@ const postgresql_1 = require("@infrastructure/database/postgresql");
 const adminRoutes_1 = __importDefault(require("@frameworks/routes/adminRoutes"));
 const ErrorHandler_1 = __importDefault(require("@frameworks/middlewares/errors/ErrorHandler"));
 const GlobalErrorHandler_1 = __importDefault(require("@frameworks/middlewares/errors/GlobalErrorHandler"));
+const cors_1 = __importDefault(require("cors"));
+ExpressServer_1.default.use((0, cors_1.default)());
 ExpressServer_1.default.use("/api/v1/admin", adminRoutes_1.default);
 ExpressServer_1.default.use(ErrorHandler_1.default);
 ExpressServer_1.default.use(GlobalErrorHandler_1.default);

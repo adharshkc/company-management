@@ -8,7 +8,7 @@ import ProjectStatics from "../organism/ProjectStatics";
 import TodoContainer from "../organism/TodoContainer";
 import TaskContainer from "../organism/TaskContainer";
 
-const AdminDasboard = () => {
+const AdminDashboard = () => {
   return (
     <div className={style.body}>
       <Sidebar />
@@ -29,4 +29,4 @@ const AdminDasboard = () => {
   );
 };
 
-export default AdminDasboard;
+export default AdminDashboard;

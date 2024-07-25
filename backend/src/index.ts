@@ -5,7 +5,10 @@ import { connectDatabase } from "@infrastructure/database/postgresql";
 import adminRouter from "@frameworks/routes/adminRoutes";
 import ErrorHandler from "@frameworks/middlewares/errors/ErrorHandler";
 import GlobalErrorHandler from "@frameworks/middlewares/errors/GlobalErrorHandler";
+import cors from 'cors'
 
+
+app.use(cors())
 app.use("/api/v1/admin", adminRouter);
 
 app.use(ErrorHandler);
