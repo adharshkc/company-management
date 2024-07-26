@@ -61,5 +61,23 @@ class AdminUsecase {
             }
         });
     }
+    getAdmin(email) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const admin = this.adminRepository.adminLoginCheck(email);
+                return {
+                    status: 200,
+                    data: {
+                        success: true,
+                        admin
+                    }
+                };
+            }
+            catch (error) {
+                console.log("admin not found", error.message);
+                throw new Error(error.message);
+            }
+        });
+    }
 }
 exports.AdminUsecase = AdminUsecase;

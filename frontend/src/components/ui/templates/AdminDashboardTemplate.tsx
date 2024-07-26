@@ -8,11 +8,11 @@ import ProjectStatics from "../organism/ProjectStatics";
 import TodoContainer from "../organism/TodoContainer";
 import TaskContainer from "../organism/TaskContainer";
 
-const AdminDashboard = () => {
+const AdminDashboard = ({adminUsername}) => {
   return (
     <div className={style.body}>
       <Sidebar />
-      <Navbar />
+      <Navbar username = {adminUsername}/>
       <div className={style.bodyPart}>
         <div className={style.chart}>
           <Typography variant="h6">Project Status</Typography>

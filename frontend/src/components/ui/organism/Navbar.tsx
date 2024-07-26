@@ -6,7 +6,8 @@ import { useState } from "react";
 import avatar from "../../../assets/user.png";
 import { IoSearch } from "react-icons/io5";
 
-const Navbar = () => {
+const Navbar = ({username}) => {
+  console.log(username.name)
   const [inputValue, setInputValue] = useState("");
   return (
     <>
@@ -45,7 +46,7 @@ const Navbar = () => {
               />
             </Box>
             <Box className={style.avatarBox}>
-              <Typography>username</Typography>
+              <Typography>{username.name}</Typography>
               <img src={avatar} height={43} alt="" />
             </Box>
           </Box>

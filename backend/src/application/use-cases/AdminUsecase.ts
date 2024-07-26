@@ -51,4 +51,20 @@ export class AdminUsecase {
       throw new Error(error.message);
     }
   }
+
+  async getAdmin(email:string){
+    try{
+      const admin = this.adminRepository.adminLoginCheck(email)
+      return {
+        status: 200,
+        data:{
+          success: true,
+          admin
+        }
+      }
+    }catch (error:any) {
+      console.log("admin not found", error.message);
+      throw new Error(error.message);
+    }
+  }
 }
