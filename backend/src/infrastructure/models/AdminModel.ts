@@ -1,13 +1,17 @@
 import {
   AllowNull,
   AutoIncrement,
+  BelongsTo,
   Column,
   DataType,
+  ForeignKey,
   Model,
   NotEmpty,
   PrimaryKey,
   Table,
 } from "sequelize-typescript";
+
+import UserModel from "./UserModel";
 
 export interface AdminI {
   admin_id?: number | null;
@@ -17,7 +21,7 @@ export interface AdminI {
   dob: Date;
   gender: string;
   phone: string;
-  role: string;
+  userId: number;
 }
 
 @Table({
@@ -61,10 +65,13 @@ class AdminModel extends Model implements AdminI {
   @Column({ type: DataType.STRING(50), allowNull: false })
   phone!: string;
 
-  @AllowNull(false)
+  @ForeignKey(()=>UserModel)
   @NotEmpty
-  @Column({ type: DataType.STRING(20) })
-  role!: string;
+  @Column({type:DataType.INTEGER, allowNull: false})
+  userId!: number;
+
+  @BelongsTo(()=>UserModel)
+  user!:UserModel
 }
 
 export default AdminModel;

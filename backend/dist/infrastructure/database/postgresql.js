@@ -24,6 +24,11 @@ const sequelize = new sequelize_typescript_1.Sequelize({
     host: host,
     models: [__dirname + '/../models'],
 });
+// Object.values(associations).forEach((model:any)=>{
+//   if(model.associate){
+//     model.associate(sequelize.models)
+//   }
+// })
 const connectDatabase = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         yield sequelize.authenticate();
