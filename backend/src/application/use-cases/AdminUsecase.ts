@@ -18,14 +18,16 @@ export class AdminUsecase {
         const matchedPassword = await this.hashPassword.compare(password, admin.password)
         if (matchedPassword) {
           const role = 'admin'
-          const token = await this.createToken.create(admin.adminId, role)
-          console.log(token)
+          const accessToken = await this.createToken.createAccessToken(admin.adminId, role)
+          const refreshToken = await this.createToken.createRefreshToken(admin.adminId, role)
+          console.log()
           return {
             status: 200,
             data: {
                 success: true,
                 admin,
-                token
+                accessToken,
+                refreshToken
             }
         } as const;
         } else {

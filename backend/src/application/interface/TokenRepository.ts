@@ -1,3 +1,4 @@
 export interface TokenRepository {
-  create(userId: number|undefined, role: string): Promise<string>;
+  createAccessToken(userId: number|undefined, role: string): Promise<string>;
+  createRefreshToken(userId: number| undefined, role: string): Promise<string>;
 }

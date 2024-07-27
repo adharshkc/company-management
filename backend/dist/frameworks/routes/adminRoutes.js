@@ -17,5 +17,5 @@ const adminRepository = new SequelizeAdminRepository_1.SequelizeAdminRepository(
 const adminUsecase = new AdminUsecase_1.AdminUsecase(adminRepository, bcypt, generateToken);
 const adminController = new AdminController_1.AdminController(adminUsecase);
 router.post('/login', adminController.adminLogin.bind(adminController));
-router.get('/', jwtVerify_1.verifyAdminAccess, (req, res) => res.send('Welcome to Admin'));
+router.get('/', jwtVerify_1.verifyAdminAccess, adminController.getAdmin.bind(adminController));
 exports.default = router;

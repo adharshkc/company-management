@@ -29,5 +29,18 @@ class AdminController {
             }
         });
     }
+    getAdmin(req, res, next) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const payload = req.adminId;
+                console.log(payload);
+                res.status(200).json("status");
+            }
+            catch (error) {
+                next(error);
+                console.log(error);
+            }
+        });
+    }
 }
 exports.AdminController = AdminController;

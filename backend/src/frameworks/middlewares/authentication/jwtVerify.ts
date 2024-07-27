@@ -1,24 +1,46 @@
-import { NextFunction, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import createError from "http-errors";
 import jwt from "jsonwebtoken";
-import { CustomRequest } from "@frameworks/utils/customRequest";
 
-const jwtAccessSecret = process.env.JWT_ACCESS_TOKEN
+declare global{
+    namespace Express{
+        interface Request{
+            adminId: string
+        }
+    }
+}
 
-export const verifyAdminAccess = (req: CustomRequest, res: Response, next: NextFunction) => {
-  const authorization = req.header("authorization");
+const jwtAccessSecret = process.env.JWT_ACCESS_SECRET;
+
+export const verifyAdminAccess = (req: Request, res: Response, next: NextFunction) => {
+  const authorization = req.header("Authorization");
   if (!authorization) return next(createError.Unauthorized());
   const bearerToken = authorization.split(" ");
   const token = bearerToken[1];
-  if(jwtAccessSecret){
+  if (jwtAccessSecret) {
+    jwt.verify(token, jwtAccessSecret, (err, payload) => {
+      if (err) {
+        // if(err.name==='JsonWebTokenError'){
+        //   return next(createError.Unauthorized());
 
-      jwt.verify(token, jwtAccessSecret,(err, payload)=>{
-        if(err){
-            return next(createError.Unauthorized())
-        }
-
-        req.payload = payload;
-        next()
-      })
+        // }else{
+        //   return next(createError.Unauthorized(err.message))
+        // }
+        const message = err.name==='JsonWebTokenError'?'Unauthorized': err.message
+        return next(createError.Unauthorized(message))
+      }
+      req.adminId = payload as string;
+      next();
+    });
   }
 };
+
+
+export const verifyAdminRefresh = (refreshToken: string) =>{
+  return new Promise((resolve, reject)=>{
+    jwt.verify(refreshToken, jwtAccessSecret as string, (err, payload)=>{
+      if(err) return reject(createError.Unauthorized())
+         resolve(payload)
+    })
+  })
+}

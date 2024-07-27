@@ -20,4 +20,15 @@ export class AdminController {
       console.log(error);
     }
   }
+
+  async getAdmin(req:Request, res: Response, next:NextFunction){
+    try {
+      const payload = req.adminId
+      console.log(payload)
+      res.status(200).json("status")
+    } catch (error) {
+      next(error)
+      console.log(error)
+    }
+  }
 }
