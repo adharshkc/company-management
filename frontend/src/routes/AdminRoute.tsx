@@ -1,16 +1,17 @@
-
+import { Route, Routes } from "react-router-dom";
 import Dashboard from "../pages/Dashboard";
 import AdminLogin from "../pages/AdminLogin";
-import { Route, Routes } from "react-router-dom";
+import ProtectedRoutes from "./ProtectedRoutes";
 
+const AdminRoute = () => {
+  return (
+    <Routes>
+      <Route path="/login" element={<AdminLogin />} />
+      <Route element={<ProtectedRoutes />}>
+        <Route path="/" element={<Dashboard />} />
+      </Route>
+    </Routes>
+  );
+};
 
-const AdminRoute = ()=>{
-    return (
-        <Routes>
-            <Route path="/login" element={<AdminLogin/>}/>
-            <Route path="/" element={<Dashboard/>}/>
-        </Routes>
-    )
-}
-
-export default AdminRoute
+export default AdminRoute;
