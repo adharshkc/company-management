@@ -20,8 +20,26 @@ export class SequelizeAdminRepository implements AdminRepository {
         admin.dob,
         admin.gender,
         admin.phone,
+        admin.userId,
         admin.admin_id,
       );
+    }
+    return null
+  }
+
+  async getAdmin(adminId: number): Promise<Admin | null> {
+    const admin = await AdminModel.findOne({where: {admin_id: adminId}})
+    if(admin){
+      return new Admin(
+        admin.name,
+        admin.email,
+        admin.password,
+        admin.dob,
+        admin.gender,
+        admin.phone,
+        admin.userId,
+        admin.admin_id,
+      )
     }
     return null
   }

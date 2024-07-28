@@ -63,10 +63,11 @@ class AdminUsecase {
             }
         });
     }
-    getAdmin(email) {
+    getAdmin(adminId) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const admin = this.adminRepository.adminLoginCheck(email);
+                const admin = yield this.adminRepository.getAdmin(adminId);
+                console.log(admin);
                 return {
                     status: 200,
                     data: {

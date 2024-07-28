@@ -33,8 +33,10 @@ class AdminController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const payload = req.adminId;
-                console.log(payload);
-                res.status(200).json("status");
+                const adminId = payload === null || payload === void 0 ? void 0 : payload.userId;
+                console.log(adminId);
+                const result = yield this.adminUsecase.getAdmin(parseInt(adminId));
+                res.status(result.status).json(result.data);
             }
             catch (error) {
                 next(error);

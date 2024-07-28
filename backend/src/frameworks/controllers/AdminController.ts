@@ -23,9 +23,11 @@ export class AdminController {
 
   async getAdmin(req:Request, res: Response, next:NextFunction){
     try {
-      const payload = req.adminId
-      console.log(payload)
-      res.status(200).json("status")
+      const payload:any = req.adminId;
+      const adminId:string = payload?.userId;
+      console.log(adminId)
+      const result = await this.adminUsecase.getAdmin(parseInt(adminId))
+      res.status(result.status).json(result.data)
     } catch (error) {
       next(error)
       console.log(error)

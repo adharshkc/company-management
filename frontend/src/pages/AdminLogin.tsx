@@ -15,6 +15,7 @@ const {setAdmin} = useAdminStore()
 const adminValid = async()=>{
    try {
     const response= await AdminDetails()
+    console.log(response)
     if(response.status==200){
       navigate('/admin')
     }
@@ -23,6 +24,7 @@ const adminValid = async()=>{
   }
 }
   useEffect(()=>{
+    
     adminValid()
   },[])
 
