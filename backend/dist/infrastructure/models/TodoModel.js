@@ -10,31 +10,37 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_typescript_1 = require("sequelize-typescript");
-const AdminModel_1 = __importDefault(require("./AdminModel"));
-const TodoModel_1 = __importDefault(require("./TodoModel"));
-let UserModel = class UserModel extends sequelize_typescript_1.Model {
+const UserModel_1 = __importDefault(require("./UserModel"));
+let TodoModel = class TodoModel extends sequelize_typescript_1.Model {
 };
 __decorate([
     sequelize_typescript_1.AutoIncrement,
     sequelize_typescript_1.PrimaryKey,
     (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.INTEGER })
-], UserModel.prototype, "user_id", void 0);
+], TodoModel.prototype, "todo_id", void 0);
+__decorate([
+    (0, sequelize_typescript_1.AllowNull)(false),
+    sequelize_typescript_1.NotEmpty,
+    (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.TEXT, allowNull: false })
+], TodoModel.prototype, "todo", void 0);
 __decorate([
     (0, sequelize_typescript_1.AllowNull)(false),
     sequelize_typescript_1.NotEmpty,
     (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.STRING(50), allowNull: false })
-], UserModel.prototype, "role", void 0);
+], TodoModel.prototype, "status", void 0);
 __decorate([
-    (0, sequelize_typescript_1.HasOne)(() => AdminModel_1.default)
-], UserModel.prototype, "admin", void 0);
+    (0, sequelize_typescript_1.ForeignKey)(() => UserModel_1.default),
+    sequelize_typescript_1.NotEmpty,
+    (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.INTEGER, allowNull: false })
+], TodoModel.prototype, "userId", void 0);
 __decorate([
-    (0, sequelize_typescript_1.HasMany)(() => TodoModel_1.default)
-], UserModel.prototype, "todos", void 0);
-UserModel = __decorate([
+    (0, sequelize_typescript_1.BelongsTo)(() => UserModel_1.default)
+], TodoModel.prototype, "user", void 0);
+TodoModel = __decorate([
     (0, sequelize_typescript_1.Table)({
-        tableName: "User",
+        tableName: "Todo",
         timestamps: false,
-        modelName: "UserModel",
+        modelName: "TodoModel"
     })
-], UserModel);
-exports.default = UserModel;
+], TodoModel);
+exports.default = TodoModel;

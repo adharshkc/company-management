@@ -17,9 +17,9 @@ const useUserAuth =  function(){
             adminLogout()
         }
     }
-    // useEffect(()=>{
+    useEffect(()=>{
         checkAuth()
-    // },[])
+    },[])
 }
 
 export default useUserAuth;

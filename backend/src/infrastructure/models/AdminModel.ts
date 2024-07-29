@@ -72,6 +72,8 @@ class AdminModel extends Model implements AdminI {
 
   @BelongsTo(()=>UserModel)
   user!:UserModel
+
+  
 }
 
 export default AdminModel;
