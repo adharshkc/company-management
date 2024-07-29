@@ -1,21 +1,21 @@
-export interface ITodo{
-    todo_id?: number
-    todo: string
-    status: string
-    userId: number
+export interface ITodo {
+  todo_id?: number;
+  todo: string;
+  status: string;
+  userId?: number|null;
 }
 
 export class Todo implements ITodo {
   todo_id?: number;
   todo: string;
-  status: "pending" | "done";
+  status: string
   userId: number;
 
   constructor(
-      todo: string,
-      status: "pending" | "done",
-      userId: number,
-      todo_id?: number,
+    todo: string,
+    status: string,
+    userId: number,
+    todo_id?: number|undefined
   ) {
     this.todo_id = todo_id;
     this.todo = todo;

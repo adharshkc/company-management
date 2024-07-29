@@ -1,4 +1,4 @@
-import { Response, Router } from "express";
+import {  Router } from "express";
 import { AdminController } from "@frameworks/controllers/AdminController";
 import { SequelizeAdminRepository } from "@infrastructure/repository/SequelizeAdminRepository";
 import { AdminUsecase } from "@application/use-cases/AdminUsecase";

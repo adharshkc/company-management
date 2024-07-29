@@ -6,6 +6,7 @@ declare global{
     namespace Express{
         interface Request{
             adminId: string
+            commonId: string
         }
     }
 }
@@ -20,12 +21,6 @@ export const verifyAdminAccess = (req: Request, res: Response, next: NextFunctio
   if (jwtAccessSecret) {
     jwt.verify(token, jwtAccessSecret, (err, payload) => {
       if (err) {
-        // if(err.name==='JsonWebTokenError'){
-        //   return next(createError.Unauthorized());
-
-        // }else{
-        //   return next(createError.Unauthorized(err.message))
-        // }
         const message = err.name==='JsonWebTokenError'?'Unauthorized': err.message
         return next(createError.Unauthorized(message))
       }
@@ -34,6 +29,24 @@ export const verifyAdminAccess = (req: Request, res: Response, next: NextFunctio
     });
   }
 };
+
+
+export const VerifyCommonAccess = (req: Request, res: Response, next: NextFunction)=>{
+  const authorization = req.header("Authorization");
+  if (!authorization) return next(createError.Unauthorized());
+  const bearerToken = authorization.split(" ");
+  const token = bearerToken[1];
+  if (jwtAccessSecret) {
+    jwt.verify(token, jwtAccessSecret, (err, payload) => {
+      if (err) {
+        const message = err.name==='JsonWebTokenError'?'Unauthorized': err.message
+        return next(createError.Unauthorized(message))
+      }
+      req.commonId = payload as string;
+      next();
+    });
+  }
+}
 
 
 export const verifyAdminRefresh = (refreshToken: string) =>{

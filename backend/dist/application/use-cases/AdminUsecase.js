@@ -24,7 +24,7 @@ class AdminUsecase {
                     const matchedPassword = yield this.hashPassword.compare(password, admin.password);
                     if (matchedPassword) {
                         const role = 'admin';
-                        const accessToken = yield this.createToken.createAccessToken(admin.adminId, role);
+                        const accessToken = yield this.createToken.createAccessToken(admin.adminId, admin.userId, role);
                         const refreshToken = yield this.createToken.createRefreshToken(admin.adminId, role);
                         console.log();
                         return {

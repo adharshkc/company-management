@@ -1,0 +1,14 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const jwtVerify_1 = require("@frameworks/middlewares/authentication/jwtVerify");
+const UserUseCase_1 = require("@application/use-cases/UserUseCase");
+const SequelizeTodoRepository_1 = require("@infrastructure/repository/SequelizeTodoRepository");
+const UserController_1 = require("@frameworks/controllers/UserController");
+const router = (0, express_1.Router)();
+const todoRepository = new SequelizeTodoRepository_1.SequelizeTodoRepository();
+const todoUsercase = new UserUseCase_1.UserUseCase(todoRepository);
+const userController = new UserController_1.UserController(todoUsercase);
+router.post('/todo', jwtVerify_1.VerifyCommonAccess, userController.makeTodo.bind(userController));
+router.get('/todos', jwtVerify_1.VerifyCommonAccess, userController.getTodo.bind(userController));
+exports.default = router;

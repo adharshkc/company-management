@@ -39,8 +39,8 @@ __decorate([
 TodoModel = __decorate([
     (0, sequelize_typescript_1.Table)({
         tableName: "Todo",
-        timestamps: false,
-        modelName: "TodoModel"
+        timestamps: true,
+        modelName: "TodoModel",
     })
 ], TodoModel);
 exports.default = TodoModel;

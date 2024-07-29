@@ -1,4 +1,4 @@
-import associations from "@infrastructure/associations";
+
 import { Sequelize } from "sequelize-typescript";
 const database = process.env.DB_NAME
 const username = process.env.DB_USERNAME
@@ -15,12 +15,6 @@ const sequelize = new Sequelize({
   host: host,
   models: [__dirname+'/../models'],
 });
-
-// Object.values(associations).forEach((model:any)=>{
-//   if(model.associate){
-//     model.associate(sequelize.models)
-//   }
-// })
 
 export const connectDatabase = async () => {
   try {

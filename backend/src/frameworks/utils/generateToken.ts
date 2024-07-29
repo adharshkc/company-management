@@ -2,7 +2,7 @@ import { TokenRepository } from "@application/interface/TokenRepository";
 import jwt from "jsonwebtoken";
 
 class GenerateToken implements TokenRepository {
-  async createAccessToken(userId: number|undefined, role: string): Promise<string> {
+  async createAccessToken(userId: number|undefined,commonId: number|undefined, role: string): Promise<string> {
     return new Promise((resolve, reject) => {
       const secret = process.env.JWT_ACCESS_SECRET;
       // const payload = {
@@ -13,7 +13,7 @@ class GenerateToken implements TokenRepository {
       };
 
       if (secret) {
-        jwt.sign({userId:userId, role:role}, secret, options, (err, token) => {
+        jwt.sign({userId:userId,commonId:commonId, role:role}, secret, options, (err, token) => {
           if (err) {
             return reject(new Error("Error signing token"));
           }

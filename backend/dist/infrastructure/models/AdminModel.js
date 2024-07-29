@@ -60,7 +60,7 @@ AdminModel = __decorate([
     (0, sequelize_typescript_1.Table)({
         tableName: "Admin",
         timestamps: false,
-        modelName: 'AdminModel'
+        modelName: "AdminModel",
     })
 ], AdminModel);
 exports.default = AdminModel;

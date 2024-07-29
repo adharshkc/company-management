@@ -27,7 +27,7 @@ export interface AdminI {
 @Table({
   tableName: "Admin",
   timestamps: false,
-  modelName: 'AdminModel'
+  modelName: "AdminModel",
 })
 class AdminModel extends Model implements AdminI {
   @AutoIncrement
@@ -65,15 +65,13 @@ class AdminModel extends Model implements AdminI {
   @Column({ type: DataType.STRING(50), allowNull: false })
   phone!: string;
 
-  @ForeignKey(()=>UserModel)
+  @ForeignKey(() => UserModel)
   @NotEmpty
-  @Column({type:DataType.INTEGER, allowNull: false})
+  @Column({ type: DataType.INTEGER, allowNull: false })
   userId!: number;
 
-  @BelongsTo(()=>UserModel)
-  user!:UserModel
-
-  
+  @BelongsTo(() => UserModel)
+  user!: UserModel;
 }
 
 export default AdminModel;
