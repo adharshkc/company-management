@@ -1,9 +1,10 @@
 import axios from "axios";
 import axiosInstance from "./configs/axiosConfig";
 
-const AdminBaseURL = "http://localhost:3000/api/v1/admin/";
+const adminBaseURL = "http://localhost:3000/api/v1/admin/";
+const commonBaseUrl = 'http://localhost:3000/api/v1/common/'
 
-export const adminAxiosInstance = axiosInstance(AdminBaseURL);
+export const adminAxiosInstance = axiosInstance(adminBaseURL);
 
 adminAxiosInstance.interceptors.request.use(async (req) => {
   const token = localStorage.getItem("adminToken");
@@ -13,6 +14,10 @@ adminAxiosInstance.interceptors.request.use(async (req) => {
   return req;
 });
 
+export const commonAxiosInstance = axiosInstance(commonBaseUrl)
+commonAxiosInstance.interceptors.request.use(async(req)=>{
+    const token = localStorage.getItem('')
+})
 
 export const refreshToken = async function(){
     try {
@@ -20,7 +25,7 @@ export const refreshToken = async function(){
         if(!refToken){
             console.log('token not found')
         }
-            const response = await axios.post(`${AdminBaseURL}refresh`,{
+            const response = await axios.post(`${adminBaseURL}refresh`,{
                 token: refToken
             })
 

@@ -8,7 +8,11 @@ import ProjectStatics from "../organism/ProjectStatics";
 import TodoContainer from "../organism/TodoContainer";
 import TaskContainer from "../organism/TaskContainer";
 
-const AdminDashboard = ({adminUsername}) => {
+type AdminDashboardProps = {
+  adminUsername: string|null|object
+}
+
+const AdminDashboard: React.FC<AdminDashboardProps> = ({adminUsername}) => {
   return (
     <div className={style.body}>
       <Sidebar />

@@ -35,11 +35,36 @@ class SequelizeTodoRepository {
             }
         });
     }
-    getTodo(userId) {
+    getTodo() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const todos = yield TodoModel_1.default.findAll({ where: { userId: 1 }, raw: true });
                 return todos;
+            }
+            catch (error) {
+                throw new Error(error);
+            }
+        });
+    }
+    updateStatus(todoId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const todo = yield TodoModel_1.default.findOne({ where: { todo_id: todoId } });
+                todo === null || todo === void 0 ? void 0 : todo.update({ status: "done" });
+                todo === null || todo === void 0 ? void 0 : todo.save();
+                return todo;
+            }
+            catch (error) {
+                throw new Error(error);
+            }
+        });
+    }
+    deleteTodo(todoId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const todo = yield TodoModel_1.default.destroy({ where: { todo_id: todoId } });
+                console.log(todo);
+                return todo;
             }
             catch (error) {
                 throw new Error(error);

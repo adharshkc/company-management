@@ -12,6 +12,7 @@ const AdminLogin: React.FC = () => {
 const navigate = useNavigate()
 const { setError} = useErrorStore()
 const {setAdmin} = useAdminStore()
+const token = localStorage.getItem('adminToken')
 const adminValid = async()=>{
    try {
     const response= await AdminDetails()
@@ -26,7 +27,7 @@ const adminValid = async()=>{
   useEffect(()=>{
     
     adminValid()
-  },[])
+  },[token])
 
 
   const handleLogin = async({email, password}:LoginFormValues)=>{
