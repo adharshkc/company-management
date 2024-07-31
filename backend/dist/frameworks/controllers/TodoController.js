@@ -48,9 +48,14 @@ class TodoController {
     changeStatus(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
+                const payload = req.commonId;
+                const userId = payload === null || payload === void 0 ? void 0 : payload.commonId;
                 const todoId = req.params.id;
                 const result = yield this.todoUseCase.updateStatus(parseInt(todoId));
-                res.status(result.status).json(result.data);
+                if (result) {
+                    const todos = yield this.todoUseCase.getTodo(parseInt(userId));
+                    res.status(todos.status).json(todos.data);
+                }
             }
             catch (error) {
                 next(error);

@@ -34,12 +34,13 @@ const adminValid = async()=>{
     try {
       const login = await adminLogin({email, password})
       const token = login.data?.accessToken
-      const refreshToken = login.data?.refreshToken;
+      // const refreshToken = login.data?.refreshToken;
       const adminDetails = login?.data?.admin
       console.log(login)
       setAdmin(adminDetails)
       localStorage.setItem('adminToken', token)
-      localStorage.setItem('adminRefreshToken',refreshToken )
+      localStorage.setItem('commonToken', token)
+      // localStorage.setItem('adminRefreshToken',refreshToken )
       navigate('/admin')
     } catch (error) {
       const err = error as { response?: { data?: { message?: string } } };

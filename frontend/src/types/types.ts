@@ -5,3 +5,12 @@ export type LoginFormValues ={
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type onSubmit = (param: any)=>void|Promise<void>|object
+
+export type todo = {
+    todo_id: number
+    todo: string
+    status: string
+    createdAt: Date
+    updatedAt: Date
+    userId: number
+}

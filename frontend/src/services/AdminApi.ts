@@ -11,7 +11,3 @@ export const adminLogin = async({email, password}: LoginFormValues)=>{
 export const AdminDetails = async()=>{
     return await adminAxiosInstance.get('/')
 }
-
-export const getTodo = async()=>{
-    
-}

@@ -59,12 +59,7 @@ export class TodoUseCase {
     try {
         const completedTodo = await this.todoRepository.updateStatus(todoId)
         if(completedTodo){
-            return{
-                status: 200,
-                data:{
-                    success: true,
-                }
-            }
+         return completedTodo
         }
         return {
             status:404,

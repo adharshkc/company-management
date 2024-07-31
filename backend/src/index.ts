@@ -7,11 +7,13 @@ import userRouter from "@frameworks/routes/userRoutes"
 import ErrorHandler from "@frameworks/middlewares/errors/ErrorHandler";
 import GlobalErrorHandler from "@frameworks/middlewares/errors/GlobalErrorHandler";
 import cors from 'cors'
+import morganMiddleware from "@frameworks/middlewares/logging/logger";
 
 
 app.use(cors())
+app.use(morganMiddleware)
 app.use("/api/v1/admin", adminRouter);
-app.use("/api/v1/", userRouter)
+app.use("/api/v1/common", userRouter)
 
 app.use(ErrorHandler);
 app.use(GlobalErrorHandler);

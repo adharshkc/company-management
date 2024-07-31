@@ -33,6 +33,7 @@ export const verifyAdminAccess = (req: Request, res: Response, next: NextFunctio
 
 export const VerifyCommonAccess = (req: Request, res: Response, next: NextFunction)=>{
   const authorization = req.header("Authorization");
+  console.log(authorization)
   if (!authorization) return next(createError.Unauthorized());
   const bearerToken = authorization.split(" ");
   const token = bearerToken[1];
@@ -42,6 +43,7 @@ export const VerifyCommonAccess = (req: Request, res: Response, next: NextFuncti
         const message = err.name==='JsonWebTokenError'?'Unauthorized': err.message
         return next(createError.Unauthorized(message))
       }
+      console.log(payload)
       req.commonId = payload as string;
       next();
     });

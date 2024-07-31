@@ -2,6 +2,7 @@ import axios from "axios";
 
 
 const axiosInstance = (baseURL: string) => {
+  console.log(baseURL,"jehlo")
   const instance = axios.create({
     baseURL,
     timeout: 4000,

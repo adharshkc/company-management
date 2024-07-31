@@ -16,7 +16,11 @@ adminAxiosInstance.interceptors.request.use(async (req) => {
 
 export const commonAxiosInstance = axiosInstance(commonBaseUrl)
 commonAxiosInstance.interceptors.request.use(async(req)=>{
-    const token = localStorage.getItem('')
+    const token = localStorage.getItem('commonToken')
+    if(token){
+        req.headers.Authorization = `Bearer ${token}`
+    }
+    return req
 })
 
 export const refreshToken = async function(){

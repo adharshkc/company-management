@@ -35,9 +35,15 @@ export class TodoController {
 
   async changeStatus(req: Request, res: Response, next: NextFunction){
     try {
+      const payload: any = req.commonId;
+      const userId: string = payload?.commonId;
         const todoId: string = req.params.id
         const result = await this.todoUseCase.updateStatus(parseInt(todoId))
-        res.status(result.status).json(result.data)
+        if(result){
+          const todos = await this.todoUseCase.getTodo(parseInt(userId))
+          res.status(todos.status).json(todos.data)
+
+        }
     } catch (error) {
         next(error)
     }
