@@ -6,34 +6,69 @@ import { Input } from "../atoms/input/Input";
 import style from "../../styles/adminDashboardTemplate.module.scss";
 import { Button } from "../atoms/button/Button";
 import { Delete, Done } from "@mui/icons-material";
-import { getTodo, updateTodo } from "../../../services/CommonApi";
+import { createTodo, deleteTodo, getTodo, updateTodo } from "../../../services/CommonApi";
 import { todo } from "types/types";
+import toast,{Toaster} from "react-hot-toast";
 
 const TodoContainer = () => {
-const [todos, setTodos] = useState<todo[]>([])
-const [completedTodo, setCompletedTodo] = useState<todo[]>([])
-  const allTodos = async()=>{
-    try {
-      const response = await getTodo()
-      console.log(response.data.todos)
-      setTodos(response.data?.todos)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-  const onComplete = async(todoId: number)=>{
-    try {
-      const response = await updateTodo(todoId)
-      setCompletedTodo(true)
-    } catch (error) {
-      setCompletedTodo(false)
-      console.log(error)
-    }
-  }
-  useEffect(()=>{
-    allTodos()
-  },[completedTodo])
+  const [pendingTodos, setPendingTodos] = useState<todo[]>([]);
+  const [completedTodo, setCompletedTodo] = useState<todo[]>([]);
   const [inputValue, setInputValue] = useState("");
+  const makeTodo= async function(){
+    try {
+      if(inputValue.length===0)toast.error('Cannot add empty todo...')
+      const response = await createTodo(inputValue)
+      const pendingTodo = filterTodo(response.data?.todos);
+      const doneTodo = updatedTodos(response.data?.todos);
+      setPendingTodos(pendingTodo);
+      setCompletedTodo(doneTodo);
+      setInputValue('')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  const getAllTodos = async () => {
+    try {
+      const response = await getTodo();
+      const pendingTodo = filterTodo(response.data?.todos);
+      const doneTodo = updatedTodos(response.data?.todos);
+      setPendingTodos(pendingTodo);
+      setCompletedTodo(doneTodo);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const filterTodo = function (data: todo[]) {
+    return data.filter((todo: todo) => todo.status === "pending");
+  };
+  const updatedTodos = function (data: todo[]) {
+    return data.filter((todo: todo) => todo.status === "done");
+  };
+  const onComplete = async (todoId: number) => {
+    try {
+      const response = await updateTodo(todoId);
+      const doneTodo = updatedTodos(response.data?.todos);
+      const pendingTodo = filterTodo(response.data?.todos);
+      setCompletedTodo(doneTodo);
+      setPendingTodos(pendingTodo);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const onDelete = async (todoId: number) =>{
+    try {
+      const response = await deleteTodo(todoId)
+      const doneTodo = updatedTodos(response.data?.todos);
+      const pendingTodo = filterTodo(response.data?.todos);
+      setCompletedTodo(doneTodo);
+      setPendingTodos(pendingTodo);
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  useEffect(() => {
+    getAllTodos();
+  }, []);
   return (
     <Box
       sx={{
@@ -43,6 +78,7 @@ const [completedTodo, setCompletedTodo] = useState<todo[]>([])
         borderRadius: "5px",
       }}
     >
+      <Toaster position="top-right"/>
       <Box sx={{ display: "flex", justifyContent: "space-around" }}>
         <Typography sx={{ padding: 2 }} variant="body1">
           My Day
@@ -65,42 +101,67 @@ const [completedTodo, setCompletedTodo] = useState<todo[]>([])
             backgroundColor: "#EDE8F5",
           }}
           variant="outlined"
+          onClick={makeTodo}
         >
           <AddIcon />
         </Button>
       </Box>
-      <Box sx={{ padding: 2 }}>
-        {
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          todos.map((todo:todo, index: number)=>{
-
-        return (<Paper
-        key= {index}
-          variant="outlined"
-          elevation={5}
-          sx={{
-            height: 35,
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
-          
-         { todo.status ==='done'? <Typography sx={{ marginLeft: 2 }} variant="body1" align="center">
-           <del>
-            {todo?.todo}
-            </del> 
-          </Typography>: <Typography sx={{ marginLeft: 2 }} variant="body1" align="center">
-            {todo?.todo}
-          </Typography>}
-          <Box sx={{ paddingRight: 1 }}>
-            <Done fontSize="small" sx={{ cursor: "pointer", marginRight: 3 }} onClick={()=>{onComplete(todo.todo_id)}} />
-            <Delete fontSize="small" sx={{ cursor: "pointer" }} />
-          </Box>
-        </Paper>)
-          })
-        }
-      </Box>
+     { (pendingTodos.length !==0||completedTodo.length!==0 )&&
+      <Box sx={{ height: "140px", overflowY: "auto", padding: 1 }}>
+        {pendingTodos.map((todo, index) => {
+          return (
+            <Paper
+              key={index}
+              variant="outlined"
+              elevation={5}
+              sx={{
+                height: 35,
+                display: "flex",
+                marginTop: 1,
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <Typography sx={{ marginLeft: 2 }} variant="body1" align="center">
+                {todo.todo}
+              </Typography>
+              <Box sx={{ paddingRight: 1 }}>
+                <Done
+                  fontSize="small"
+                  sx={{ cursor: "pointer", marginRight: 3 }}
+                  onClick={() => {
+                    onComplete(todo.todo_id);
+                  }}
+                />
+                <Delete fontSize="small" sx={{ cursor: "pointer" }} onClick={()=>onDelete(todo.todo_id)} />
+              </Box>
+            </Paper>
+          );
+        })}
+        {completedTodo.map((todo) => {
+          return (
+            <Paper
+              key={todo.todo_id}
+              variant="outlined"
+              elevation={5}
+              sx={{
+                height: 35,
+                display: "flex",
+                marginTop: 1,
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <Typography sx={{ marginLeft: 2 }} variant="body1" align="center">
+                <del>{todo.todo}</del>
+              </Typography>
+              <Box sx={{ paddingRight: 1 }}>
+                <Delete fontSize="small" sx={{ cursor: "pointer" }} onClick={()=>onDelete(todo.todo_id)} />
+              </Box>
+            </Paper>
+          );
+        })}
+      </Box>}
     </Box>
   );
 };

@@ -3,6 +3,7 @@ import axiosInstance from "./configs/axiosConfig";
 
 const adminBaseURL = "http://localhost:3000/api/v1/admin/";
 const commonBaseUrl = 'http://localhost:3000/api/v1/common/'
+const quoteBaseUrl = 'https://api.quotable.io/'
 
 export const adminAxiosInstance = axiosInstance(adminBaseURL);
 
@@ -20,6 +21,11 @@ commonAxiosInstance.interceptors.request.use(async(req)=>{
     if(token){
         req.headers.Authorization = `Bearer ${token}`
     }
+    return req
+})
+
+export const quoteAxiosInstance = axiosInstance(quoteBaseUrl)
+quoteAxiosInstance.interceptors.request.use(async(req)=>{
     return req
 })
 

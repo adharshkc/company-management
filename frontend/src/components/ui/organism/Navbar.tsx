@@ -7,7 +7,6 @@ import avatar from "../../../assets/user.png";
 import { IoSearch } from "react-icons/io5";
 
 const Navbar = ({username}) => {
-  console.log(username.name)
   const [inputValue, setInputValue] = useState("");
   return (
     <>

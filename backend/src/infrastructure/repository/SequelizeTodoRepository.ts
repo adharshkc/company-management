@@ -3,22 +3,17 @@ import { TodoRepository } from "@application/interface/TodoRepository";
 import TodoModel from "@infrastructure/models/TodoModel";
 
 export class SequelizeTodoRepository implements TodoRepository {
-  async createTodo(todo: Todo): Promise<Todo | null> {
+  async createTodo(todo: Todo): Promise<Todo []| null> {
+    console.log(todo)
     try {
-      
-      console.log(todo)
       const newTodo = await TodoModel.create({
         todo: todo.todo,
         status: todo.status,
         userId: todo.userId
       });
       if (newTodo) {
-        return new Todo(
-          newTodo.todo,
-          newTodo.status,
-          newTodo.userId,
-          newTodo.todo_id
-        );
+        const todos = await TodoModel.findAll({where: {userId: todo.userId}, raw: true})
+        return todos
       }
       return null
     } catch (error:any) {
@@ -26,29 +21,29 @@ export class SequelizeTodoRepository implements TodoRepository {
     }
   }
 
-  async getTodo(){
+  async getTodo(userId:number){
     try {
-      const todos = await TodoModel.findAll({where: {userId: 1}, raw: true})
+      const todos = await TodoModel.findAll({where: {userId: userId}, raw: true})
       return todos
     } catch (error:any) {
       throw new Error(error)
     }
   }
   
-  async updateStatus(todoId: number): Promise<Todo | null> {
+  async updateStatus(todoId: number, userId: number): Promise<Todo[] | null> {
     try {
-      const todo = await TodoModel.findOne({where: {todo_id: todoId}})
-      todo?.update({status: "done"})
-      todo?.save()
-      return todo
+    const todo=  await TodoModel.update({ status: "done" }, { where: { todo_id: todoId } });
+     console.log("todo",todo)
+      const allTodos = await TodoModel.findAll({where: {userId: userId}, raw: true})
+      return allTodos
     } catch (error: any) {
       throw new Error(error)
     }
   }
- async deleteTodo(todoId: number): Promise<number | null> {
+ async deleteTodo(todoId: number, userId: number): Promise<Todo[] | null> {
     try {
-      const todo = await TodoModel.destroy({where: {todo_id: todoId}})
-      console.log(todo)
+      await TodoModel.destroy({where: {todo_id: todoId}})
+      const todo = await TodoModel.findAll({where: {userId: 1}, raw: true})
       return todo
     } catch (error:any) {
       throw new Error(error)

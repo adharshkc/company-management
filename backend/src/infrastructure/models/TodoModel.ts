@@ -4,6 +4,7 @@ import {
   BelongsTo,
   Column,
   DataType,
+  Default,
   ForeignKey,
   Model,
   NotEmpty,
@@ -31,6 +32,7 @@ class TodoModel extends Model implements ITodo {
 
   @AllowNull(false)
   @NotEmpty
+  @Default('pending')
   @Column({ type: DataType.STRING(50), allowNull: false })
   status!: string;
 

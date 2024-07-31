@@ -13,20 +13,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SequelizeTodoRepository = void 0;
-const Todo_1 = require("@domain/entities/Todo");
 const TodoModel_1 = __importDefault(require("@infrastructure/models/TodoModel"));
 class SequelizeTodoRepository {
     createTodo(todo) {
         return __awaiter(this, void 0, void 0, function* () {
+            console.log(todo);
             try {
-                console.log(todo);
                 const newTodo = yield TodoModel_1.default.create({
                     todo: todo.todo,
                     status: todo.status,
                     userId: todo.userId
                 });
                 if (newTodo) {
-                    return new Todo_1.Todo(newTodo.todo, newTodo.status, newTodo.userId, newTodo.todo_id);
+                    const todos = yield TodoModel_1.default.findAll({ where: { userId: todo.userId }, raw: true });
+                    return todos;
                 }
                 return null;
             }
@@ -35,10 +35,10 @@ class SequelizeTodoRepository {
             }
         });
     }
-    getTodo() {
+    getTodo(userId) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const todos = yield TodoModel_1.default.findAll({ where: { userId: 1 }, raw: true });
+                const todos = yield TodoModel_1.default.findAll({ where: { userId: userId }, raw: true });
                 return todos;
             }
             catch (error) {
@@ -46,24 +46,24 @@ class SequelizeTodoRepository {
             }
         });
     }
-    updateStatus(todoId) {
+    updateStatus(todoId, userId) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const todo = yield TodoModel_1.default.findOne({ where: { todo_id: todoId } });
-                todo === null || todo === void 0 ? void 0 : todo.update({ status: "done" });
-                todo === null || todo === void 0 ? void 0 : todo.save();
-                return todo;
+                const todo = yield TodoModel_1.default.update({ status: "done" }, { where: { todo_id: todoId } });
+                console.log("todo", todo);
+                const allTodos = yield TodoModel_1.default.findAll({ where: { userId: userId }, raw: true });
+                return allTodos;
             }
             catch (error) {
                 throw new Error(error);
             }
         });
     }
-    deleteTodo(todoId) {
+    deleteTodo(todoId, userId) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const todo = yield TodoModel_1.default.destroy({ where: { todo_id: todoId } });
-                console.log(todo);
+                yield TodoModel_1.default.destroy({ where: { todo_id: todoId } });
+                const todo = yield TodoModel_1.default.findAll({ where: { userId: 1 }, raw: true });
                 return todo;
             }
             catch (error) {

@@ -27,7 +27,6 @@ const verifyAdminAccess = (req, res, next) => {
 exports.verifyAdminAccess = verifyAdminAccess;
 const VerifyCommonAccess = (req, res, next) => {
     const authorization = req.header("Authorization");
-    console.log(authorization);
     if (!authorization)
         return next(http_errors_1.default.Unauthorized());
     const bearerToken = authorization.split(" ");
@@ -38,7 +37,6 @@ const VerifyCommonAccess = (req, res, next) => {
                 const message = err.name === 'JsonWebTokenError' ? 'Unauthorized' : err.message;
                 return next(http_errors_1.default.Unauthorized(message));
             }
-            console.log(payload);
             req.commonId = payload;
             next();
         });

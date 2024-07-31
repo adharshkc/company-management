@@ -23,7 +23,6 @@ class TodoController {
                     return res.status(400).json("body is missing");
                 const payload = req.commonId;
                 const userId = payload === null || payload === void 0 ? void 0 : payload.commonId;
-                console.log(userId);
                 const result = yield this.todoUseCase.makeTodo(todo, parseInt(userId));
                 res.status(result.status).json(result.data);
             }
@@ -51,11 +50,9 @@ class TodoController {
                 const payload = req.commonId;
                 const userId = payload === null || payload === void 0 ? void 0 : payload.commonId;
                 const todoId = req.params.id;
-                const result = yield this.todoUseCase.updateStatus(parseInt(todoId));
-                if (result) {
-                    const todos = yield this.todoUseCase.getTodo(parseInt(userId));
-                    res.status(todos.status).json(todos.data);
-                }
+                console.log(todoId);
+                const result = yield this.todoUseCase.updateStatus(parseInt(todoId), parseInt(userId));
+                res.status(result.status).json(result.data);
             }
             catch (error) {
                 next(error);
@@ -65,8 +62,10 @@ class TodoController {
     deleteTodo(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
+                const payload = req.commonId;
+                const userId = payload === null || payload === void 0 ? void 0 : payload.commonId;
                 const todoId = req.params.id;
-                const result = yield this.todoUseCase.deleteTodo(parseInt(todoId));
+                const result = yield this.todoUseCase.deleteTodo(parseInt(todoId), parseInt(userId));
                 res.status(result.status).json(result.data);
             }
             catch (error) {

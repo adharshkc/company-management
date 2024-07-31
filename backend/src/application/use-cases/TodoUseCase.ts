@@ -8,6 +8,7 @@ export class TodoUseCase {
   }
 
   async makeTodo(todo: Todo, user_id: number) {
+    console.log(todo)
     try {
       todo.userId = user_id;
       const newTodo = await this.todoRepository.createTodo(todo);
@@ -16,13 +17,14 @@ export class TodoUseCase {
           status: 200,
           data: {
             success: true,
+            todos: newTodo
           },
         };
       }
       return {
         status: 500,
         data: {
-          message: "internal server error",
+          message: "error creating todo",
         },
       };
     } catch (error: any) {
@@ -33,20 +35,19 @@ export class TodoUseCase {
   async getTodo(user_id: number) {
     try {
       const todos = await this.todoRepository.getTodo(user_id);
-      console.log(todos);
       if (todos) {
         return {
           status: 200,
           data: {
             success: true,
-            todos,
+            todos:todos,
           },
         };
       }
       return {
         status: 404,
         data: {
-            success: false,
+          success: false,
           message: "todo not found",
         },
       };
@@ -55,43 +56,51 @@ export class TodoUseCase {
     }
   }
 
-  async updateStatus(todoId:number){
+  async updateStatus(todoId: number, userId: number) {
     try {
-        const completedTodo = await this.todoRepository.updateStatus(todoId)
-        if(completedTodo){
-         return completedTodo
-        }
+      const allTodos = await this.todoRepository.updateStatus(todoId, userId);
+      console.log(allTodos)
+      if (allTodos) {
         return {
-            status:404,
-            data:{
-                success: false,
-                    message: "todo not found"
-            }
-        }
-    } catch (error:any) {
-        throw new Error(error.message);
+          status: 200,
+          data: {
+            success: true,
+            todos: allTodos,
+          },
+        };
+      }
+      return {
+        status: 404,
+        data: {
+          success: false,
+          message: "todo not found",
+        },
+      };
+    } catch (error: any) {
+      throw new Error(error.message);
     }
   }
-  async deleteTodo(todoId:number){
+  async deleteTodo(todoId: number, userId: number) {
     try {
-        const deletedTodo = await this.todoRepository.deleteTodo(todoId)
-        if(deletedTodo){
-            return{
-                status: 200,
-                data:{
-                    success: true,
-                }
-            }
-        }
+      const deletedTodo = await this.todoRepository.deleteTodo(todoId, userId);
+      if (deletedTodo) {
         return {
-            status:404,
-            data:{
-                success: false,
-                    message: "todo not found"
-            }
-        }
-    } catch (error:any) {
-        throw new Error(error.message);
+          status: 200,
+          data: {
+            success: true,
+            todos: deletedTodo
+          },
+        };
+      }
+      return {
+        status: 404,
+        data: {
+          success: false,
+          message: "todo not found",
+        },
+      };
+    } catch (error: any) {
+      throw new Error(error.message);
     }
   }
 }

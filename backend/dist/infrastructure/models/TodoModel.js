@@ -26,6 +26,7 @@ __decorate([
 __decorate([
     (0, sequelize_typescript_1.AllowNull)(false),
     sequelize_typescript_1.NotEmpty,
+    (0, sequelize_typescript_1.Default)('pending'),
     (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.STRING(50), allowNull: false })
 ], TodoModel.prototype, "status", void 0);
 __decorate([

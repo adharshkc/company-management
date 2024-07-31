@@ -16,6 +16,7 @@ class TodoUseCase {
     }
     makeTodo(todo, user_id) {
         return __awaiter(this, void 0, void 0, function* () {
+            console.log(todo);
             try {
                 todo.userId = user_id;
                 const newTodo = yield this.todoRepository.createTodo(todo);
@@ -24,13 +25,14 @@ class TodoUseCase {
                         status: 200,
                         data: {
                             success: true,
+                            todos: newTodo
                         },
                     };
                 }
                 return {
                     status: 500,
                     data: {
-                        message: "internal server error",
+                        message: "error creating todo",
                     },
                 };
             }
@@ -43,13 +45,12 @@ class TodoUseCase {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const todos = yield this.todoRepository.getTodo(user_id);
-                console.log(todos);
                 if (todos) {
                     return {
                         status: 200,
                         data: {
                             success: true,
-                            todos,
+                            todos: todos,
                         },
                     };
                 }
@@ -66,19 +67,26 @@ class TodoUseCase {
             }
         });
     }
-    updateStatus(todoId) {
+    updateStatus(todoId, userId) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const completedTodo = yield this.todoRepository.updateStatus(todoId);
-                if (completedTodo) {
-                    return completedTodo;
+                const allTodos = yield this.todoRepository.updateStatus(todoId, userId);
+                console.log(allTodos);
+                if (allTodos) {
+                    return {
+                        status: 200,
+                        data: {
+                            success: true,
+                            todos: allTodos,
+                        },
+                    };
                 }
                 return {
                     status: 404,
                     data: {
                         success: false,
-                        message: "todo not found"
-                    }
+                        message: "todo not found",
+                    },
                 };
             }
             catch (error) {
@@ -86,24 +94,25 @@ class TodoUseCase {
             }
         });
     }
-    deleteTodo(todoId) {
+    deleteTodo(todoId, userId) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const deletedTodo = yield this.todoRepository.deleteTodo(todoId);
+                const deletedTodo = yield this.todoRepository.deleteTodo(todoId, userId);
                 if (deletedTodo) {
                     return {
                         status: 200,
                         data: {
                             success: true,
-                        }
+                            todos: deletedTodo
+                        },
                     };
                 }
                 return {
                     status: 404,
                     data: {
                         success: false,
-                        message: "todo not found"
-                    }
+                        message: "todo not found",
+                    },
                 };
             }
             catch (error) {
