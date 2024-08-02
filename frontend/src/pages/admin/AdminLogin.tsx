@@ -1,11 +1,11 @@
-import AdminLoginTemplate from "@components/ui/templates/AdminLoginTemplate"
-import { adminLogin } from "../services/AdminApi"
+import AdminLoginTemplate from "@components/ui/templates/admin/LoginTemplate"
+import { adminLogin } from "../../services/AdminApi"
 import { LoginFormValues } from "types/types"
 import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
-import useErrorStore from "../zustand/ErrorStore"
-import useAdminStore from "../zustand/AdminStore"
-import { AdminDetails } from "../services/AdminApi"
+import useErrorStore from "../../zustand/ErrorStore"
+import useAdminStore from "../../zustand/AdminStore"
+import { AdminDetails } from "../../services/AdminApi"
 
 
 const AdminLogin: React.FC = () => {

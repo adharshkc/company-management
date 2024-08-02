@@ -1,11 +1,11 @@
-import { Button } from "@components/ui/atoms/button/Button";
-import styles from "../../../components/styles/styledButton.module.scss";
-import { Box, Paper, } from "@mui/material";
-import { theme } from "../../../theme";
-import { Input } from "@components/ui/atoms/input/Input";
-import { useState } from "react";
-import { Typography } from "@components/ui/atoms/typography/Typography";
-import { LoginCard } from "../organism/LoginCard";
+// import { Button } from "@components/ui/atoms/button/Button";
+import styles from "../../../../components/styles/styledButton.module.scss";
+import { Box } from "@mui/material";
+// import { theme } from "../../../theme";
+// import { Input } from "@components/ui/atoms/input/Input";
+// import { useState } from "react";
+// import { Typography } from "@components/ui/atoms/typography/Typography";
+import { LoginCard } from "../../organism/LoginCard";
 import { onSubmit } from "types/types";
 
 

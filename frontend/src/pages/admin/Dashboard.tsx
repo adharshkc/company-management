@@ -1,7 +1,7 @@
-import AdminDashboard from "@components/ui/templates/AdminDashboardTemplate";
-import useAdminStore from "../zustand/AdminStore";
-import { AdminDetails } from "../services/AdminApi";
-import useErrorStore from "../zustand/ErrorStore";
+import AdminDashboard from "@components/ui/templates/admin/DashboardTemplate";
+import useAdminStore from "../..//zustand/AdminStore";
+import { AdminDetails } from "../../services/AdminApi";
+import useErrorStore from "../../zustand/ErrorStore";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
