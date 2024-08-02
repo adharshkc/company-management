@@ -1,8 +1,8 @@
 import { TableCell as Cell, TableCellBaseProps } from "@mui/material";
-import { ElementType } from "react";
+import { ElementType, ReactNode } from "react";
 
 type TableCell = {
-  children: string;
+  children: ReactNode;
   component?: ElementType<TableCellBaseProps, keyof React.JSX.IntrinsicElements>
   scope?: string|undefined
   sx?:object;

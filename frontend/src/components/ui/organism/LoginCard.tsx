@@ -39,7 +39,7 @@ export const LoginCard : React.FC<LoginFormProps>= ({onSubmit}) => {
         backgroundColor: theme.palette.primary.main,
         padding: { xs: "1rem", sm: "2rem" },
         width: { xs: "100%", sm: "90%", md: "400px" },
-        height: { xs: "auto", md: "350px" },
+        height: { xs: "auto", md: "450px" },
       }}
     >
       <Typography

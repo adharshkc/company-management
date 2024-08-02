@@ -13,6 +13,7 @@ const AdminRoute = () => {
         <Route element={<AdminLayout />}>
           <Route path="/" element={<Dashboard />} />
           <Route path="/projects" element={<ProjectDashboard />} />
+          <Route path="/projects/add" element={<ProjectDashboard />} />
         </Route>
       </Route>
     </Routes>

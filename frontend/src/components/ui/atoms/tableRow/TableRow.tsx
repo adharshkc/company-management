@@ -1,13 +1,14 @@
 import { TableRow as Row } from "@mui/material";
+import { ReactNode } from "react";
 
 type TableRow = {
-  children: JSX.Element | string|Element[];
+  children: ReactNode;
   sx?:object
   props?: unknown;
 };
 
 const TableRow = ({ children, ...props }: TableRow) => {
-  return <Row sx={props.sx}>{children}</Row>;
+  return <Row hover sx={props.sx}>{children}</Row>;
 };
 
 export default TableRow;

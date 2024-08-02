@@ -107,7 +107,7 @@ const TodoContainer = () => {
         </Button>
       </Box>
      { (pendingTodos.length !==0||completedTodo.length!==0 )&&
-      <Box sx={{ height: "140px", overflowY: "auto", padding: 1 }}>
+      <Box sx={{ height: "190px", overflowY: "auto", padding: 1 }}>
         {pendingTodos.map((todo, index) => {
           return (
             <Paper

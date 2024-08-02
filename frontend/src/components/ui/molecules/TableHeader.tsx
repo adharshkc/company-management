@@ -2,7 +2,12 @@ import { TableHead } from "@mui/material";
 import TableRow from "../atoms/tableRow/TableRow";
 import TableCell from "../atoms/TableCell/TableCell";
 
-const TableHeader: React.FC = ({ headers }) => {
+type TableHeaderProps={
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    headers: any
+}
+
+const TableHeader: React.FC<TableHeaderProps> = ({ headers }) => {
   return (
     <TableHead>
       <TableRow>

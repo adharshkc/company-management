@@ -1,6 +1,6 @@
 import { Outlet, useNavigate } from "react-router-dom"
 import style from "../components/styles/adminLayout.module.scss"
-import Sidebar from "@components/ui/organism/Sidebar"
+import AdminSidebar from "@components/ui/organism/AdminSidebar"
 import Navbar from "@components/ui/organism/Navbar"
 import useErrorStore from "../zustand/ErrorStore"
 import useAdminStore from "../zustand/AdminStore"
@@ -28,7 +28,7 @@ const AdminLayout = () => {
   }, []);
   return (
     <div className={style.body}>
-        <Sidebar/>
+        <AdminSidebar/>
         <Navbar username={admin}/>
         <Outlet/>
     </div>
