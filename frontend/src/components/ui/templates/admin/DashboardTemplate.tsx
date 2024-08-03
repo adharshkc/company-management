@@ -1,5 +1,5 @@
 import BarChart from "@components/ui/organism/BarChart";
-import Navbar from "@components/ui/organism/Navbar";
+import Navbar from "@components/ui/organism/Navbar/Navbar";
 import Sidebar from "@components/ui/organism/AdminSidebar";
 import style from "../../../styles/adminDashboardTemplate.module.scss";
 import { Typography } from "../../atoms/typography/Typography";

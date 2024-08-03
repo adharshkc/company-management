@@ -5,7 +5,7 @@ import { Box } from "@mui/material";
 // import { Input } from "@components/ui/atoms/input/Input";
 // import { useState } from "react";
 // import { Typography } from "@components/ui/atoms/typography/Typography";
-import { LoginCard } from "../../organism/LoginCard";
+import { LoginCard } from "../../organism/Login/LoginCard";
 import { onSubmit } from "types/types";
 
 

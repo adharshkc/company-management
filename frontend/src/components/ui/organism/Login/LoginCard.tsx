@@ -1,12 +1,12 @@
 import styles from "../../styles/styledButton.module.scss"
 import { Alert, Paper, Stack } from "@mui/material";
-import { Typography } from "../atoms/typography/Typography";
-import { theme } from "../../../theme";
-import { Input } from "../atoms/input/Input";
-import { Button } from "../atoms/button/Button";
+import { Typography } from "../../atoms/typography/Typography";
+import { theme } from "../../../../theme";
+import { Input } from "../../atoms/input/Input";
+import { Button } from "../../atoms/button/Button";
 import { useState } from "react";
 import { LoginFormValues, onSubmit } from "types/types";
-import useErrorStore from "../../../zustand/ErrorStore";
+import useErrorStore from "../../../../zustand/ErrorStore";
 import toast, { Toaster } from "react-hot-toast"
 
 type LoginFormProps = {

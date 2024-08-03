@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
-import { Typography } from "../atoms/typography/Typography";
-import { SearchInput } from "../molecules/SearchInput";
+import { Typography } from "../../atoms/typography/Typography";
+import { SearchInput } from "../../molecules/SearchInput";
 import style from "../../styles/styledNavbar.module.scss";
 import { useState } from "react";
 import avatar from "../../../assets/user.png";

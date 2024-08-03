@@ -4,7 +4,7 @@ import { Box } from "@mui/material";
 // import { theme } from "../../theme"
 import { useState } from "react";
 import { LoginOtp } from "@components/ui/organism/LoginOtp";
-import { LoginCard } from "@components/ui/organism/LoginCard";
+import { LoginCard } from "@components/ui/organism/Login/LoginCard";
 
 const Login = () => {
   const [inputValue, setInputValue] = useState('')

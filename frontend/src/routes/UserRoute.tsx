@@ -1,5 +1,5 @@
 
-import { LoginCard } from "@components/ui/organism/LoginCard";
+import { LoginCard } from "@components/ui/organism/Login/LoginCard";
 import { Route, Routes } from "react-router-dom";
 
 
