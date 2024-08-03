@@ -4,6 +4,7 @@ import AdminLogin from "../pages/admin/AdminLogin";
 import ProtectedRoutes from "./ProtectedRoutes";
 import ProjectDashboard from "../pages/admin/ProjectDashboard";
 import AdminLayout from "../layouts/AdminLayout";
+import CreateProject from "../pages/admin/CreateProject";
 
 const AdminRoute = () => {
   return (
@@ -13,8 +14,8 @@ const AdminRoute = () => {
         <Route element={<AdminLayout />}>
           <Route path="/" element={<Dashboard />} />
           <Route path="/projects" element={<ProjectDashboard />} />
-          <Route path="/projects/add" element={<ProjectDashboard />} />
         </Route>
+          <Route path="/projects/add" element={<CreateProject />} />
       </Route>
     </Routes>
   );

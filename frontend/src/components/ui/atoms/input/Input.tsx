@@ -7,6 +7,10 @@ type Input = {
   fullWidth?: boolean;
   placeHolder?:string;
   setInputValue: React.Dispatch<React.SetStateAction<string>>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  id?:any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  lable?:any;
   sx?:object
   InputProps?:object
   size?: "small" | "medium" | undefined

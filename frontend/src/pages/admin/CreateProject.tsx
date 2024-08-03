@@ -1,8 +1,8 @@
-import React from 'react'
+import AddProjectTemplate from "@components/ui/templates/admin/AddProjectTemplate"
 
 const CreateProject = () => {
   return (
-    <div>CreateProject</div>
+    <AddProjectTemplate/>
   )
 }
 

@@ -3,6 +3,7 @@ import style from "../../../styles/projectDashboardTemplate.module.scss";
 import { Button } from "@components/ui/atoms/button/Button";
 import { theme } from "../../../../theme";
 import Table from "@components/ui/organism/Table";
+import { Link } from "react-router-dom";
 
 const ProjectDashboardTemplate = () => {
   const headers = ["ID", "Name", "Lead", "URL", "Progress"];
@@ -38,6 +39,7 @@ const ProjectDashboardTemplate = () => {
         }}
       >
         <Typography variant="h6">Projects</Typography>
+        <Link to={"/admin/projects/add"}>
         <Button
           sx={{
             backgroundColor: theme.palette.primary.dark,
@@ -47,9 +49,10 @@ const ProjectDashboardTemplate = () => {
               backgroundColor: "secondary.main",
             },
           }}
-        >
+          >
           Create Project
         </Button>
+          </Link>
       </Box>
       <Box>
         <Table headers={headers} body={data} />
