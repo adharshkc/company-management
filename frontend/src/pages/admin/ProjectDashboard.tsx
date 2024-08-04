@@ -1,4 +1,4 @@
-import ProjectDashboardTemplate from "@components/ui/templates/admin/ProjectDashboardTemplate"
+import ProjectDashboardTemplate from "@components/templates/admin/ProjectDashboardTemplate"
 
 
 const ProjectDashboard = () => {

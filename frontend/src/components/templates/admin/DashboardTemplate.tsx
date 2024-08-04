@@ -1,12 +1,9 @@
-import BarChart from "@components/ui/organism/BarChart";
-import Navbar from "@components/organism/Navbar/Navbar";
-import Sidebar from "@components/organism/AdminSidebar";
-import style from "../../../styles/adminDashboardTemplate.module.scss";
-import { Typography } from "../../../atoms/typography/Typography";
-import Quotes from "../../../molecules/Quotes"
-import ProjectStatics from "../../../organism/ProjectStatics";
-import TodoContainer from "../../../organism/Todo/TodoContainer";
-import TaskContainer from "../../../organism/TaskContainer";
+import BarChart from "@components/organism/Charts/BarChart";
+import style from "../../../components/styles/adminDashboardTemplate.module.scss";
+import { Typography } from "../../atoms/typography/Typography";
+import ProjectStatics from "../../organism/ProjectStatics";
+import TodoContainer from "../../organism/Todo/TodoContainer";
+import TaskContainer from "../../organism/TaskContainer";
 
 type AdminDashboardProps = {
   adminUsername: string|null|object

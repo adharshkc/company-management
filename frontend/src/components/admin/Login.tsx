@@ -1,10 +1,10 @@
-import { Button } from "@components/ui/atoms/button/Button";
+import { Button } from "@components/atoms/button/Button";
 import styles from "../../components/styles/styledButton.module.scss";
 import { Box, Paper, } from "@mui/material";
 import { theme } from "../../theme";
-import { Input } from "@components/ui/atoms/input/Input";
+import { Input } from "@components/atoms/input/Input";
 import { useState } from "react";
-import { Typography } from "@components/ui/atoms/typography/Typography";
+import { Typography } from "@components/atoms/typography/Typography";
 
 const Login = () => {
   const [inputValue, setInputValue] = useState('')

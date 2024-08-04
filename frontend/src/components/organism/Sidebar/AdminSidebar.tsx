@@ -9,7 +9,7 @@ import employeesIconDark from "../../../assets/icons/users-solid 1 (1).svg"
 import channelIcon from "../../../assets/icons/hashtag-solid 1.svg"
 import channelIconDark from "../../../assets/icons/hashtag-solid 1 (2).svg"
 import { theme } from "../../../theme";
-import { Typography } from "../atoms/typography/Typography";
+import { Typography } from "@components/atoms/typography/Typography"; 
 import { Link, useLocation } from "react-router-dom";
 const AdminSidebar = () => {
 

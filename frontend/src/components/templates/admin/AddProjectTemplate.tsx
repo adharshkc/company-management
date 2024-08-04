@@ -8,14 +8,17 @@ import {
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import CloseIcon from "@mui/icons-material/Close";
-import { Typography } from "@components/ui/atoms/typography/Typography";
+import { Typography } from "@components/atoms/typography/Typography";
 import { useState } from "react";
-import { Button } from "@components/ui/atoms/button/Button";
+import { Button } from "@components/atoms/button/Button";
+import AddProjectShimmer from "@components/organism/Shimmer/AddProjectShimmer";
 
 const AddProjectTemplate = () => {
-  const [inputValue, setInputValue] = useState("");
+  const [projectName, SetProjectName] = useState("");
   const [selectValue, setSelectValue] = useState("");
+  const handleSubmit = function(){
 
+  }
   const handleSelectChange = (event) => {
     setSelectValue(event.target.value);
   };
@@ -32,8 +35,8 @@ const AddProjectTemplate = () => {
         <ArrowBackIcon />
         <CloseIcon />
       </Box>
-      <Box>
-        <Box sx={{ margin: 5 }}>
+      <Box sx={{display:'flex'}}>
+        <Box sx={{ marginLeft: 5, width:'30%' }}>
           <Typography variant="h5" sx={{ marginBottom: 2, marginLeft: 1 }}>
             New Project
           </Typography>
@@ -42,18 +45,20 @@ const AddProjectTemplate = () => {
               margin: 2,
               display: "flex",
               flexDirection: "column",
-              width: "30%",
+              // width: "30%",
             }}
           >
             <TextField
               id="filled-basic"
               label="Project name"
               color="info"
+              value={projectName}
+              onChange={(e)=>SetProjectName(e.target.value)}
               variant="filled"
               sx={{
                 "& .MuiFilledInput-root": {
                   color: "#000",
-                  height: "50px",
+                  // height: "50px",
                   width: "100%",
                   backgroundColor: "#f2f2f2",
                 },
@@ -138,6 +143,10 @@ const AddProjectTemplate = () => {
               Create Project
             </Button>
           </Box>
+        </Box>
+        <Box sx={{marginLeft: 10, width:'68%', border:'1px solid #CFCBCB',borderRadius:'10px'}}>
+
+        <AddProjectShimmer projectName={projectName} />
         </Box>
       </Box>
     </Box>

@@ -1,6 +1,6 @@
 import {Table as MUITable, TableContainer} from "@mui/material"
-import TableHeader from "../molecules/TableHeader"
-import TableBody from "../molecules/TableBody"
+import TableHeader from "../../molecules/TableHeader"
+import TableBody from "../../molecules/TableBody"
 
 const Table = function({headers, body}){
 return (

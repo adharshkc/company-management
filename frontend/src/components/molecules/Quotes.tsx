@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 import { Typography } from "../atoms/typography/Typography"
 import style from "../../styles/adminDashboardTemplate.module.scss"
 import quoteIcon from "../../../assets/icons/quote-left-solid 1.svg"
-import { getQuote } from "../../../services/CommonApi"
+import { getQuote } from "../../services/CommonApi"
 
 const Quotes = () => {
   const [data, setData] = useState('')

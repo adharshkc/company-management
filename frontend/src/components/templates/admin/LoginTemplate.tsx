@@ -1,5 +1,5 @@
 // import { Button } from "@components/ui/atoms/button/Button";
-import styles from "../../../../components/styles/styledButton.module.scss";
+import styles from "../../styles/styledButton.module.scss"
 import { Box } from "@mui/material";
 // import { theme } from "../../../theme";
 // import { Input } from "@components/ui/atoms/input/Input";

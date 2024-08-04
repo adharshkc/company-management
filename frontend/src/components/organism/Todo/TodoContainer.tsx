@@ -1,10 +1,10 @@
 import { Box, Paper } from "@mui/material";
-import { Typography } from "../atoms/typography/Typography";
+import { Typography } from "../../atoms/typography/Typography";
 import { useEffect, useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
-import { Input } from "../atoms/input/Input";
+import { Input } from "../../atoms/input/Input";
 import style from "../../styles/adminDashboardTemplate.module.scss";
-import { Button } from "../atoms/button/Button";
+import { Button } from "../../atoms/button/Button";
 import { Delete, Done } from "@mui/icons-material";
 import { createTodo, deleteTodo, getTodo, updateTodo } from "../../../services/CommonApi";
 import { todo } from "types/types";

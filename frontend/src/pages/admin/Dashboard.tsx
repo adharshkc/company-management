@@ -1,4 +1,4 @@
-import AdminDashboard from "@components/ui/templates/admin/DashboardTemplate";
+import AdminDashboard from "@components/templates/admin/DashboardTemplate";
 import useAdminStore from "../..//zustand/AdminStore";
 import { AdminDetails } from "../../services/AdminApi";
 import useErrorStore from "../../zustand/ErrorStore";

@@ -1,4 +1,4 @@
-import AdminLoginTemplate from "@components/ui/templates/admin/LoginTemplate"
+import AdminLoginTemplate from "@components/templates/admin/LoginTemplate"
 import { adminLogin } from "../../services/AdminApi"
 import { LoginFormValues } from "types/types"
 import { useEffect } from "react"

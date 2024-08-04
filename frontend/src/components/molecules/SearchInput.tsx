@@ -1,6 +1,6 @@
 
 import { IconType } from "react-icons";
-import style from "../../styles/styledNavbar.module.scss";
+import style from "../styles/styledNavbar.module.scss";
 
 type SearchInput = {
   inputValue: string;

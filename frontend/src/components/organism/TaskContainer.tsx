@@ -1,5 +1,5 @@
 import { Box } from "@mui/material"
-import taskIcon from "../../../assets/icons/task icon.svg"
+import taskIcon from "../../assets/icons/task icon.svg"
 import { Typography } from "../atoms/typography/Typography"
 
 

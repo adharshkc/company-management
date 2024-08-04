@@ -1,8 +1,8 @@
 import { Box, CircularProgress, Typography } from "@mui/material";
-import style from "../../../styles/projectDashboardTemplate.module.scss";
-import { Button } from "@components/ui/atoms/button/Button";
-import { theme } from "../../../../theme";
-import Table from "@components/ui/organism/Table";
+import style from "../../../components/styles/projectDashboardTemplate.module.scss";
+import { Button } from "@components/atoms/button/Button";
+import { theme } from "../../../theme";
+import Table from "@components/organism/Table/Table";
 import { Link } from "react-router-dom";
 
 const ProjectDashboardTemplate = () => {
