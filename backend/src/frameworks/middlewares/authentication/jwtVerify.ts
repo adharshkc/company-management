@@ -15,6 +15,7 @@ const jwtAccessSecret = process.env.JWT_ACCESS_SECRET;
 
 export const verifyAdminAccess = (req: Request, res: Response, next: NextFunction) => {
   const authorization = req.header("Authorization");
+  console.log(authorization)
   if (!authorization) return next(createError.Unauthorized());
   const bearerToken = authorization.split(" ");
   const token = bearerToken[1];

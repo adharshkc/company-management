@@ -21,4 +21,15 @@ router.get(
   adminController.getAdmin.bind(adminController)
 );
 
+
+import { ProjectUsecase } from "@application/use-cases/ProjectUsecase";
+import { SequelizeProjectRepository } from "@infrastructure/repository/SequelizeProjectRepository";
+import { ProjectController } from "@frameworks/controllers/ProjectController";
+
+
+const projectRepository = new SequelizeProjectRepository()
+const projectUsecase = new ProjectUsecase(projectRepository)
+const projectController = new ProjectController(projectUsecase)
+router.post('/projects/create',verifyAdminAccess, projectController.createProject.bind(projectController) )
+
 export default router;

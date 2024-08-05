@@ -9,6 +9,7 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const jwtAccessSecret = process.env.JWT_ACCESS_SECRET;
 const verifyAdminAccess = (req, res, next) => {
     const authorization = req.header("Authorization");
+    console.log(authorization);
     if (!authorization)
         return next(http_errors_1.default.Unauthorized());
     const bearerToken = authorization.split(" ");

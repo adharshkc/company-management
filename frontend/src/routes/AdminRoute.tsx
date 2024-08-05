@@ -15,7 +15,7 @@ const AdminRoute = () => {
           <Route path="/" element={<Dashboard />} />
           <Route path="/projects" element={<ProjectDashboard />} />
         </Route>
-          <Route path="/projects/add" element={<CreateProject />} />
+        <Route path="/projects/add" element={<CreateProject />} />
       </Route>
     </Routes>
   );

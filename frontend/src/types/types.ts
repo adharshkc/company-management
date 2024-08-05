@@ -14,3 +14,10 @@ export type todo = {
     updatedAt: Date
     userId: number
 }
+
+export type Project ={
+    name: string
+    priority: string
+    team: string
+    dueDate: Date|string
+}

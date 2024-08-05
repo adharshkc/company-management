@@ -18,4 +18,11 @@ const adminUsecase = new AdminUsecase_1.AdminUsecase(adminRepository, bcypt, gen
 const adminController = new AdminController_1.AdminController(adminUsecase);
 router.post("/login", adminController.adminLogin.bind(adminController));
 router.get("/", jwtVerify_1.verifyAdminAccess, adminController.getAdmin.bind(adminController));
+const ProjectUsecase_1 = require("@application/use-cases/ProjectUsecase");
+const SequelizeProjectRepository_1 = require("@infrastructure/repository/SequelizeProjectRepository");
+const ProjectController_1 = require("@frameworks/controllers/ProjectController");
+const projectRepository = new SequelizeProjectRepository_1.SequelizeProjectRepository();
+const projectUsecase = new ProjectUsecase_1.ProjectUsecase(projectRepository);
+const projectController = new ProjectController_1.ProjectController(projectUsecase);
+router.post('/projects/create', jwtVerify_1.verifyAdminAccess, projectController.createProject.bind(projectController));
 exports.default = router;

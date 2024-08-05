@@ -14,8 +14,8 @@ const AddProjectShimmer = ({projectName}:AddProjectShimmerProps) => {
     sx={{
       position: 'absolute',
       zIndex: 1,
-      top: '18px',  // Adjust as needed
-      left: '75px', // Adjust as needed
+      top: '18px', 
+      left: '75px',
     }}
   >
     {projectName}
@@ -25,8 +25,8 @@ const AddProjectShimmer = ({projectName}:AddProjectShimmerProps) => {
     sx={{
       position: 'absolute',
       zIndex: 1,
-      top: '80px',  // Adjust as needed
-      left: '30px', // Adjust as needed
+      top: '80px', 
+      left: '30px',
     }}
   >
     Todo
@@ -36,8 +36,8 @@ const AddProjectShimmer = ({projectName}:AddProjectShimmerProps) => {
     sx={{
       position: 'absolute',
       zIndex: 1,
-      top: '80px',  // Adjust as needed
-      left: '300px', // Adjust as needed
+      top: '80px',  
+      left: '300px', 
     }}
   >
     In Progress
@@ -47,8 +47,8 @@ const AddProjectShimmer = ({projectName}:AddProjectShimmerProps) => {
     sx={{
       position: 'absolute',
       zIndex: 1,
-      top: '80px',  // Adjust as needed
-      left: '600px', // Adjust as needed
+      top: '80px',  
+      left: '600px', 
     }}
   >
     Completed
