@@ -30,7 +30,7 @@ class ProjectUsecase {
                 }
                 else {
                     return {
-                        status: 401,
+                        status: 500,
                         data: {
                             success: false,
                             message: "Error creating project",
@@ -40,6 +40,29 @@ class ProjectUsecase {
             }
             catch (error) {
                 console.log(error);
+                throw new Error(error.message);
+            }
+        });
+    }
+    getProjects() {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const response = yield this.projectRepository.getProjects();
+                if (response) {
+                    return {
+                        status: 200,
+                        data: {
+                            success: true,
+                            projects: response
+                        }
+                    };
+                }
+                else {
+                    return { status: 404, data: { success: false }
+                    };
+                }
+            }
+            catch (error) {
                 throw new Error(error.message);
             }
         });

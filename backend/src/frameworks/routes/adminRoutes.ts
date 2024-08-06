@@ -31,5 +31,6 @@ const projectRepository = new SequelizeProjectRepository()
 const projectUsecase = new ProjectUsecase(projectRepository)
 const projectController = new ProjectController(projectUsecase)
 router.post('/projects/create',verifyAdminAccess, projectController.createProject.bind(projectController) )
+router.get('/projects', verifyAdminAccess, projectController.getProjects.bind(projectController))
 
 export default router;

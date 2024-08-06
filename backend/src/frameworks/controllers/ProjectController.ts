@@ -27,4 +27,13 @@ export class ProjectController{
         
 
     }
+    async getProjects(req: Request, res: Response, next:NextFunction){
+        try {
+            const result = await this.projectUsecase.getProjects()
+            console.log(result)
+            res.status(result.status).json(result.data)
+        } catch (error) {
+            next(error)
+        }
+    }
 }

@@ -33,5 +33,17 @@ class ProjectController {
             }
         });
     }
+    getProjects(req, res, next) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const result = yield this.projectUsecase.getProjects();
+                console.log(result);
+                res.status(result.status).json(result.data);
+            }
+            catch (error) {
+                next(error);
+            }
+        });
+    }
 }
 exports.ProjectController = ProjectController;

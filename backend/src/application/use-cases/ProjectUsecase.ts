@@ -22,7 +22,7 @@ export class ProjectUsecase {
        } as const;
      } else {
        return {
-         status: 401,
+         status: 500,
          data: {
            success: false,
            message: "Error creating project",
@@ -34,5 +34,25 @@ export class ProjectUsecase {
     console.log(error)
     throw new Error(error.message)
    }
+  }
+
+  async getProjects(){
+    try {
+      const response = await this.projectRepository.getProjects()
+      if(response){
+        return {
+          status: 200,
+          data: {
+            success: true,
+            projects: response
+          }
+        }
+      }else{
+        return {status:   404, data: {success: false}
+        }
+      }
+    } catch (error:any) {
+      throw new Error(error.message)
+    }
   }
 }

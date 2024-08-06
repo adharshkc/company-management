@@ -7,7 +7,7 @@ return (
     <TableContainer >
         <MUITable>
             <TableHeader headers = {headers}/>
-            <TableBody body={body}/>
+            <TableBody body={body} headers={headers}/>
         </MUITable>
     </TableContainer>
 )

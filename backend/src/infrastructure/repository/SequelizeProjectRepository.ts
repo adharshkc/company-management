@@ -23,4 +23,17 @@ export class SequelizeProjectRepository implements ProjectRepository{
             throw new Error(error)
         }
     }
+
+    async getProjects(): Promise<Project[] | null> {
+        try {
+            const projects = await ProjectModel.findAll()
+            if(projects){
+                return projects
+            }else{
+                return null
+            }
+        } catch (error: any) {
+            throw new Error(error)
+        }
+    }
 }

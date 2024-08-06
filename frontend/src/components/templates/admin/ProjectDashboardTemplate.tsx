@@ -1,33 +1,28 @@
-import { Box, CircularProgress, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import style from "../../../components/styles/projectDashboardTemplate.module.scss";
 import { Button } from "@components/atoms/button/Button";
 import { theme } from "../../../theme";
 import Table from "@components/organism/Table/Table";
 import { Link } from "react-router-dom";
+import { getAllProjects } from "../../../services/AdminApi";
+import { useEffect, useState } from "react";
 
 const ProjectDashboardTemplate = () => {
-  const headers = ["ID", "Name", "Lead", "URL", "Progress"];
-  const data = [
-    {
-      id: 1,
-      name: "E-Commerce",
-      email: "John Doe",
-      url: "http://localhost:3000",
-      progress: (
-        <CircularProgress variant="determinate" sx={{color:"secondary.dark"}} value={25} />
-      ),
-    },
-    {
-      id: 2,
-      name: "Social Media",
-      email: "Jane",
-      url: "http://localhost:3000",
-      progress: (
-        <CircularProgress variant="determinate"  sx={{color:"secondary.dark"}} value={90} />
-      ),
-    },
-  ];
+  const headers = [ "Name", "Team", "Priority", "Due Date"];
+  const [projects, setProjects] = useState([])
+  
+  const getProjects = async function(){
+    const response = await getAllProjects()
+    console.log(response)
+    setProjects(response.data.projects)
+  }
+  useEffect(()=>{
+    getProjects()
+  }, [])
 
+ if(projects.length===0){
+  return <h1>loading...</h1>
+ }
   return (
     <div className={style.bodyPart}>
       <Box
@@ -55,7 +50,7 @@ const ProjectDashboardTemplate = () => {
           </Link>
       </Box>
       <Box>
-        <Table headers={headers} body={data} />
+        <Table headers={headers} body={projects} />
       </Box>
     </div>
   );

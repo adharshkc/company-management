@@ -36,5 +36,21 @@ class SequelizeProjectRepository {
             }
         });
     }
+    getProjects() {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const projects = yield ProjectModel_1.default.findAll();
+                if (projects) {
+                    return projects;
+                }
+                else {
+                    return null;
+                }
+            }
+            catch (error) {
+                throw new Error(error);
+            }
+        });
+    }
 }
 exports.SequelizeProjectRepository = SequelizeProjectRepository;
