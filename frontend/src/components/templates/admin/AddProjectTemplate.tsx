@@ -7,6 +7,8 @@ import {
   InputLabel,
   FormHelperText,
   SelectChangeEvent,
+  Backdrop,
+  CircularProgress,
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import CloseIcon from "@mui/icons-material/Close";
@@ -15,17 +17,22 @@ import { useState } from "react";
 import { Button } from "@components/atoms/button/Button";
 import AddProjectShimmer from "@components/organism/Shimmer/AddProjectShimmer";
 import { createProject } from "../../../services/AdminApi";
+import { Link, useNavigate } from "react-router-dom";
 
 const AddProjectTemplate = () => {
   const [projectName, SetProjectName] = useState("");
   const [selectPriority, setSelectPriority] = useState("");
   const [selectTeam, setSelectTeam] = useState("");
   const [dueDate, setDueDate] = useState<Date | null>(null);
+  const [date, setDate] = useState<string>("");
   const [nameError, setNameError] = useState(false);
   const [PriorityError, setPriorityError] = useState(false);
   const [teamError, setTeamError] = useState(false);
   const [dueDateError, setDueDateError] = useState("");
+  const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
   const handleSubmit = async function () {
+    setOpen(true);
     setNameError(false);
     setPriorityError(false);
     setTeamError(false);
@@ -35,7 +42,6 @@ const AddProjectTemplate = () => {
     if (selectTeam === "") return setTeamError(true);
     if (dueDate === null) return setDueDateError("date is required");
     if (dueDateError !== "") return setDueDateError("Select a future date");
-    console.log(selectTeam);
     try {
       const response = await createProject({
         name: projectName,
@@ -43,8 +49,11 @@ const AddProjectTemplate = () => {
         team: selectTeam,
         dueDate: dueDate,
       });
+      setOpen(false);
+      navigate("/admin/projects");
       console.log(response);
     } catch (error) {
+      setOpen(false);
       console.log(error);
     }
   };
@@ -53,8 +62,9 @@ const AddProjectTemplate = () => {
 
   const handleTeamChange = (event: SelectChangeEvent<string>) =>
     setSelectTeam(event.target.value);
-
+  const handleClose = () => setOpen(false);
   const handleDate = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(event.target.value);
     setDueDateError("");
     const selectedDate = event.target.value
       ? new Date(event.target.value)
@@ -65,6 +75,7 @@ const AddProjectTemplate = () => {
     if (selectedDate < currentDate)
       return setDueDateError("Select a future date");
     setDueDate(selectedDate);
+    setDate(event.target.value);
   };
   return (
     <Box>
@@ -75,8 +86,12 @@ const AddProjectTemplate = () => {
           justifyContent: "space-between",
         }}
       >
-        <ArrowBackIcon />
-        <CloseIcon />
+        <Link to={"/admin/projects"}>
+          <ArrowBackIcon />
+        </Link>
+        <Link to={"/admin/projects"}>
+          <CloseIcon />
+        </Link>
       </Box>
       <Box sx={{ display: "flex" }}>
         <Box sx={{ marginLeft: 5, width: "30%" }}>
@@ -176,7 +191,7 @@ const AddProjectTemplate = () => {
               helperText={dueDateError ? dueDateError : ""}
               type="date"
               color="info"
-              value={dueDate}
+              value={date}
               onChange={handleDate}
               variant="filled"
               sx={{
@@ -215,6 +230,9 @@ const AddProjectTemplate = () => {
         >
           <AddProjectShimmer projectName={projectName} />
         </Box>
+        <Backdrop onClick={handleClose} open={open}>
+          <CircularProgress color="inherit" />
+        </Backdrop>
       </Box>
     </Box>
   );

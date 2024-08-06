@@ -19,5 +19,5 @@ export type Project ={
     name: string
     priority: string
     team: string
-    dueDate: Date|string
+    dueDate: Date|string|number
 }

@@ -6,12 +6,14 @@ import {
   Column,
   DataType,
   ForeignKey,
+  HasMany,
   Model,
   NotEmpty,
   PrimaryKey,
   Table,
 } from "sequelize-typescript";
 import TeamModel from "./TeamModel";
+import CommentModel from "./CommentModel";
 
 @Table({
   tableName: "Project",
@@ -38,6 +40,10 @@ class ProjectModel extends Model implements IProject {
   @NotEmpty
   @Column({ type: DataType.DATE, allowNull: false })
   dueDate!: Date;
+  
+  @AllowNull(true)
+  @Column({type:DataType.TEXT})
+  description?:string
 
   @ForeignKey(() => TeamModel)
   @NotEmpty
@@ -46,6 +52,9 @@ class ProjectModel extends Model implements IProject {
 
   @BelongsTo(() => TeamModel)
   team!: TeamModel;
+
+  @HasMany(()=>CommentModel, {scope:{commentableType: 'Project'}, foreignKey:'commentableId'})
+  comments!:CommentModel
 }
 
 export default ProjectModel;
