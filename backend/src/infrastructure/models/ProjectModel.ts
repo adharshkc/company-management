@@ -13,7 +13,7 @@ import {
   Table,
 } from "sequelize-typescript";
 import TeamModel from "./TeamModel";
-import CommentModel from "./CommentModel";
+// import CommentModel from "./CommentModel";
 
 @Table({
   tableName: "Project",
@@ -39,11 +39,16 @@ class ProjectModel extends Model implements IProject {
   @AllowNull(false)
   @NotEmpty
   @Column({ type: DataType.DATE, allowNull: false })
-  dueDate!: Date;
+  startDate!: Date;
   
   @AllowNull(true)
   @Column({type:DataType.TEXT})
   description?:string
+
+  @AllowNull(false)
+  @NotEmpty
+  @Column({type:DataType.STRING(50), allowNull: false, defaultValue:'pending'})
+  status!:string
 
   @ForeignKey(() => TeamModel)
   @NotEmpty
@@ -52,9 +57,6 @@ class ProjectModel extends Model implements IProject {
 
   @BelongsTo(() => TeamModel)
   team!: TeamModel;
-
-  @HasMany(()=>CommentModel, {scope:{commentableType: 'Project'}, foreignKey:'commentableId'})
-  comments!:CommentModel
 }
 
 export default ProjectModel;

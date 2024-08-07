@@ -11,7 +11,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_typescript_1 = require("sequelize-typescript");
 const TeamModel_1 = __importDefault(require("./TeamModel"));
-const CommentModel_1 = __importDefault(require("./CommentModel"));
+// import CommentModel from "./CommentModel";
 let ProjectModel = class ProjectModel extends sequelize_typescript_1.Model {
 };
 __decorate([
@@ -33,11 +33,16 @@ __decorate([
     (0, sequelize_typescript_1.AllowNull)(false),
     sequelize_typescript_1.NotEmpty,
     (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.DATE, allowNull: false })
-], ProjectModel.prototype, "dueDate", void 0);
+], ProjectModel.prototype, "startDate", void 0);
 __decorate([
     (0, sequelize_typescript_1.AllowNull)(true),
     (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.TEXT })
 ], ProjectModel.prototype, "description", void 0);
+__decorate([
+    (0, sequelize_typescript_1.AllowNull)(false),
+    sequelize_typescript_1.NotEmpty,
+    (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.STRING(50), allowNull: false, defaultValue: 'pending' })
+], ProjectModel.prototype, "status", void 0);
 __decorate([
     (0, sequelize_typescript_1.ForeignKey)(() => TeamModel_1.default),
     sequelize_typescript_1.NotEmpty,
@@ -46,9 +51,6 @@ __decorate([
 __decorate([
     (0, sequelize_typescript_1.BelongsTo)(() => TeamModel_1.default)
 ], ProjectModel.prototype, "team", void 0);
-__decorate([
-    (0, sequelize_typescript_1.HasMany)(() => CommentModel_1.default, { scope: { commentableType: 'Project' }, foreignKey: 'commentableId' })
-], ProjectModel.prototype, "comments", void 0);
 ProjectModel = __decorate([
     (0, sequelize_typescript_1.Table)({
         tableName: "Project",

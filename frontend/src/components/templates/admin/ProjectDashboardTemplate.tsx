@@ -10,19 +10,23 @@ import { useEffect, useState } from "react";
 const ProjectDashboardTemplate = () => {
   const headers = [ "Name", "Team", "Priority", "Due Date"];
   const [projects, setProjects] = useState([])
+  const [teams, setTeams] = useState([])
   
   const getProjects = async function(){
     const response = await getAllProjects()
     console.log(response)
     setProjects(response.data.projects)
   }
+  const getTeams  = async function(){
+    const response = await getAllTeams()
+    setTeams(response.data.teams)
+  }
   useEffect(()=>{
     getProjects()
+    getTeams()
   }, [])
 
- if(projects.length===0){
-  return <h1>loading...</h1>
- }
+ 
   return (
     <div className={style.bodyPart}>
       <Box
@@ -50,7 +54,10 @@ const ProjectDashboardTemplate = () => {
           </Link>
       </Box>
       <Box>
+        {projects.length===0? <h4 style={{textAlign:'center', marginTop:'10px'}}>No projects available</h4>:
+ 
         <Table headers={headers} body={projects} />
+}
       </Box>
     </div>
   );

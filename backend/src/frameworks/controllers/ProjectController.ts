@@ -10,14 +10,14 @@ export class ProjectController{
     }
 
     async createProject (req:Request, res:Response, next:NextFunction){
-        console.log("respnse")
         // const project = req.body;
         const project = {
             name:req.body.name,
             priority:req.body.priority,
-            team_id: parseInt(req.body.team),
-            dueDate: req.body.dueDate
+            team_id: parseInt(req.body.team_id),
+            startDate: req.body.startDate
         }
+        console.log("eke", project)
         try {
             const result = await this.projectUsecase.createProject(project)
             res.status(result.status).json(result.data)

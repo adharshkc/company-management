@@ -2,11 +2,32 @@ import { Box } from "@mui/material";
 import { Typography } from "../../atoms/typography/Typography";
 import { SearchInput } from "../../molecules/SearchInput";
 import style from "../../styles/styledNavbar.module.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import avatar from "../../../assets/user.png";
 import { IoSearch } from "react-icons/io5";
+import { useLocation } from "react-router-dom";
 
 const Navbar = ({username}) => {
+  const location = useLocation()
+  const {pathname} = location
+  const [title, setTitle] = useState('')
+
+  const date = new Date()
+  console.log(date.getTime())
+  useEffect(()=>{
+    if(pathname === '/admin/'){
+      setTitle('Dashboard')
+    }
+    if(pathname ==='/admin/projects'){
+      setTitle('Projects')
+    }
+    if(pathname ==='/admin/employees'){
+      setTitle('Employees')
+    }
+    if(pathname ==='/admin/channels'){
+      setTitle('Channels')
+    }
+  },[location])
   const [inputValue, setInputValue] = useState("");
   return (
     <>
@@ -31,9 +52,11 @@ const Navbar = ({username}) => {
               </svg>
             </div>
             <Box>
-              <Typography variant="h6" sx={{ marginLeft: "15px" }}>
-                Dashboard
+              <Typography variant="h6" className={style.heading} sx={{ marginLeft: "15px" }}>
+                {title}
+                 {/* <span className={style.span}>| Good afternoon, {username.name}</span> */}
               </Typography>
+              
             </Box>
           </Box>
           <Box className={style.leftSide}>
@@ -45,7 +68,7 @@ const Navbar = ({username}) => {
               />
             </Box>
             <Box className={style.avatarBox}>
-              <Typography>{username.name}</Typography>
+              {/* <Typography>{username.name}</Typography> */}
               <img src={avatar} height={43} alt="" />
             </Box>
           </Box>

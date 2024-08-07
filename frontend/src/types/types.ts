@@ -15,9 +15,24 @@ export type todo = {
     userId: number
 }
 
-export type Project ={
-    name: string
-    priority: string
-    team: string
-    dueDate: Date|string|number
-}
+
+export interface Project {
+    project_id?: number;
+    name: string;
+    priority: string;
+    startDate: string|Date;
+    description?: string | null;
+    team_id: number|string;
+    createdAt?: string;
+    updatedAt?: string;
+    team?:{
+      team_id?:number,
+      name?:string|undefined
+    }|undefined
+    
+  }
+  
+  export interface TableBodyProps {
+    body: Project[];
+    headers: string[];
+  }

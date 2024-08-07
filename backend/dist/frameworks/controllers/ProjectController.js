@@ -16,14 +16,14 @@ class ProjectController {
     }
     createProject(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log("respnse");
             // const project = req.body;
             const project = {
                 name: req.body.name,
                 priority: req.body.priority,
-                team_id: parseInt(req.body.team),
-                dueDate: req.body.dueDate
+                team_id: parseInt(req.body.team_id),
+                startDate: req.body.startDate
             };
+            console.log("eke", project);
             try {
                 const result = yield this.projectUsecase.createProject(project);
                 res.status(result.status).json(result.data);

@@ -14,16 +14,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SequelizeProjectRepository = void 0;
 const ProjectModel_1 = __importDefault(require("@infrastructure/models/ProjectModel"));
+const TeamModel_1 = __importDefault(require("@infrastructure/models/TeamModel"));
 class SequelizeProjectRepository {
     createProject(project) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log(project);
+            console.log(project.startDate);
             try {
                 const newProject = yield ProjectModel_1.default.create({
                     name: project.name,
                     priority: project.priority,
-                    dueDate: project.dueDate,
-                    team_id: project.team_id
+                    startDate: project.startDate,
+                    team_id: project.team_id,
                 });
                 if (newProject) {
                     return newProject;
@@ -39,7 +40,15 @@ class SequelizeProjectRepository {
     getProjects() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const projects = yield ProjectModel_1.default.findAll();
+                const projects = yield ProjectModel_1.default.findAll({
+                    include: [
+                        {
+                            model: TeamModel_1.default,
+                            attributes: ["team_id", "name"],
+                        },
+                    ],
+                });
+                console.log(projects);
                 if (projects) {
                     return projects;
                 }
@@ -48,6 +57,7 @@ class SequelizeProjectRepository {
                 }
             }
             catch (error) {
+                console.log(error);
                 throw new Error(error);
             }
         });

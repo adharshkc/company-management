@@ -3,12 +3,12 @@ import { AllowNull, AutoIncrement, Column, DataType, Model, NotEmpty, PrimaryKey
 
 
 @Table({
-    tableName:"Comment",
+    tableName:"ProjectComment",
     timestamps:true,
-    modelName:'CommentModel',
+    modelName:'ProjectCommentModel',
 })
 
-class CommentModel extends Model{
+class ProjectCommentModel extends Model{
     @AutoIncrement
     @PrimaryKey
     @Column({type: DataType.INTEGER})
@@ -27,16 +27,8 @@ class CommentModel extends Model{
 
     @AllowNull(false)
     @NotEmpty
-    @Column({type: DataType.STRING, allowNull: false})
-    commentableType!:string
-
-    @AllowNull(false)
-    @NotEmpty
-    @Column({type: DataType.INTEGER, allowNull: false})
-    commentableId!:number
-
-    
-
+    @Column({type:DataType.INTEGER, allowNull:false})
+    project_id!:number
 }
 
-export default CommentModel
+export default ProjectCommentModel

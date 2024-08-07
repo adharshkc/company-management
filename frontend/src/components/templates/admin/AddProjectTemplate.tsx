@@ -23,12 +23,12 @@ const AddProjectTemplate = () => {
   const [projectName, SetProjectName] = useState("");
   const [selectPriority, setSelectPriority] = useState("");
   const [selectTeam, setSelectTeam] = useState("");
-  const [dueDate, setDueDate] = useState<Date | null>(null);
+  const [startDate, setStartDate] = useState<Date | null>(null);
   const [date, setDate] = useState<string>("");
   const [nameError, setNameError] = useState(false);
   const [PriorityError, setPriorityError] = useState(false);
   const [teamError, setTeamError] = useState(false);
-  const [dueDateError, setDueDateError] = useState("");
+  const [startDateError, setStartDateError] = useState("");
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const handleSubmit = async function () {
@@ -36,18 +36,19 @@ const AddProjectTemplate = () => {
     setNameError(false);
     setPriorityError(false);
     setTeamError(false);
-    setDueDateError("");
+    setStartDateError("");
     if (projectName.trim() === "") return setNameError(true);
     if (selectPriority === "") return setPriorityError(true);
     if (selectTeam === "") return setTeamError(true);
-    if (dueDate === null) return setDueDateError("date is required");
-    if (dueDateError !== "") return setDueDateError("Select a future date");
+    if (startDate === null) return setStartDateError("date is required");
+    if (startDateError !== "") return setStartDateError("Select a future date");
     try {
+      console.log(typeof selectTeam)
       const response = await createProject({
         name: projectName,
         priority: selectPriority,
-        team: selectTeam,
-        dueDate: dueDate,
+        team_id: parseInt(selectTeam),
+        startDate: startDate,
       });
       setOpen(false);
       navigate("/admin/projects");
@@ -64,17 +65,17 @@ const AddProjectTemplate = () => {
     setSelectTeam(event.target.value);
   const handleClose = () => setOpen(false);
   const handleDate = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event.target.value);
-    setDueDateError("");
+    setStartDateError("");
     const selectedDate = event.target.value
-      ? new Date(event.target.value)
-      : null;
+    ? new Date(event.target.value)
+    : null;
     const currentDate = new Date();
+    console.log(selectedDate);
     currentDate.setHours(0, 0, 0, 0);
-    if (selectedDate === null) return setDueDateError("date is required");
+    if (selectedDate === null) return setStartDateError("date is required");
     if (selectedDate < currentDate)
-      return setDueDateError("Select a future date");
-    setDueDate(selectedDate);
+      return setStartDateError("Select a future date");
+    setStartDate(selectedDate);
     setDate(event.target.value);
   };
   return (
@@ -186,9 +187,9 @@ const AddProjectTemplate = () => {
             </FormControl>
             <TextField
               id="filled-basic"
-              label="Due Date"
-              error={!!dueDateError}
-              helperText={dueDateError ? dueDateError : ""}
+              label="Start Date"
+              error={!!startDateError}
+              helperText={startDateError ? startDateError : ""}
               type="date"
               color="info"
               value={date}

@@ -6,6 +6,7 @@ const password = process.env.DB_PASSWORD
 const host  = process.env.DB_HOST
 
 
+
 const sequelize = new Sequelize({
   database: database,
   dialect: "postgres",

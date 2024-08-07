@@ -11,10 +11,45 @@ import channelIconDark from "../../../assets/icons/hashtag-solid 1 (2).svg"
 import { theme } from "../../../theme";
 import { Typography } from "@components/atoms/typography/Typography"; 
 import { Link, useLocation } from "react-router-dom";
-const AdminSidebar = () => {
+import { useEffect, useState } from "react";
 
+
+const AdminSidebar = () => {
   const location = useLocation()
   const {pathname} = location
+  const [project, setProject] = useState(false)
+  const [dashboard, setDashboard] = useState(false)
+  const [employees, setEmployees] = useState(false)
+  const [channel, setChannel] = useState(false)
+  const path = pathname.split('/')
+  useEffect(()=>{
+
+    if(path[2]==='projects'){
+      setDashboard(false)
+      setChannel(false)
+      setEmployees(false)
+      setProject(true)
+    }
+    if(path[2]===''){
+      setChannel(false)
+      setEmployees(false)
+      setProject(false)
+      setDashboard(true)
+    }
+    if(path[2]==='employees'){
+      setChannel(false)
+      setEmployees(true)
+      setProject(false)
+      setDashboard(false)
+    }
+    if(path[2]==='channel'){
+      setChannel(true)
+      setEmployees(false)
+      setProject(false)
+      setDashboard(false)
+    }
+  },[pathname] )
+
   return (
     <div className={styles.sidebar} style={{backgroundColor:theme.palette.primary.dark}}>
       <div className={styles.logoDetails}>
@@ -26,33 +61,33 @@ const AdminSidebar = () => {
       <div className={styles.line}></div>
       <div className={styles.sideContent}>
         <ul className={styles.nav_links}>
-          <Link to={"/admin"} style={{textDecoration:'none', color:'inherit'}}>
-          <li className={pathname==='/admin'?styles.liWithFocus:styles.liWithoutFocus}>
-            <img src={pathname==='/admin'?homeIconDark:homeIcon} height={25} alt="" />
+          <Link to={"/admin/"} style={{textDecoration:'none', color:'inherit'}}>
+          <li className={dashboard?styles.liWithFocus:styles.liWithoutFocus}>
+            <img src={dashboard?homeIconDark:homeIcon} height={25} alt="" />
             <Typography variant="h6">Dashboard</Typography>
           </li>
           </Link>
         </ul>
         <ul className={styles.nav_links}>
           <Link to={"/admin/projects"} style={{textDecoration:'none', color:'inherit'}}>
-        <li className={pathname==='/admin/projects'?styles.liWithFocus:styles.liWithoutFocus}>
-            <img src={pathname==='/admin/projects'?projectIconDark:projectIcon} style={{"marginTop":'5px'}} height={25} alt="" />
+        <li className={project?styles.liWithFocus:styles.liWithoutFocus}>
+            <img src={project?projectIconDark:projectIcon} style={{"marginTop":'5px'}} height={25} alt="" />
             <Typography variant="h6" >Projects</Typography>
           </li>
           </Link>
         </ul>
         <ul className={styles.nav_links}>
           <Link to={"/admin/employees"} style={{textDecoration:'none', color:'inherit'}}>
-        <li className={pathname==='/admin/employees'?styles.liWithFocus:styles.liWithoutFocus}>
-            <img src={pathname==='/admin/employees'?employeesIconDark:employeesIcon} height={25} alt="" />
+        <li className={employees?styles.liWithFocus:styles.liWithoutFocus}>
+            <img src={employees?employeesIconDark:employeesIcon} height={25} alt="" />
             <Typography variant="h6">Employees</Typography>
           </li>
           </Link>
         </ul>
         <ul className={styles.nav_links}>
           <Link to={"/admin/channels"} style={{textDecoration:'none', color:'inherit'}}>
-        <li className={pathname==='/admin/channels'?styles.liWithFocus:styles.liWithoutFocus}>
-            <img src={pathname==='/admin/channels'?channelIconDark:channelIcon} height={25} alt="" />
+        <li className={channel?styles.liWithFocus:styles.liWithoutFocus}>
+            <img src={channel?channelIconDark:channelIcon} height={25} alt="" />
             <Typography variant="h6">Channels</Typography>
           </li>
           </Link>
