@@ -14,9 +14,9 @@ import { Link } from "react-router-dom";
 import { Button } from "@components/atoms/button/Button";
 import { theme } from "../../../theme";
 import { useState } from "react";
+import AddHr from "@components/organism/Form/AddHr";
 
-const EmployeeDashboardTemplate = () => {
-  const [value, setValue] = useState(0);
+const EmployeeDashboardTemplate = () => { 
   return (
     <div className={style.bodyPart}>
       <Box
@@ -27,15 +27,7 @@ const EmployeeDashboardTemplate = () => {
           boxSizing: "border-box",
         }}
       >
-        <Box >
-          {/* <List sx={{ listStyle: "none", display:'flex' }}>
-            <ListItem sx={{"&:hover":{border:"2 solid black", backgroundColor:'secondary.main'}}}>
-              <ListItemText primary="Employees"  />
-            </ListItem>
-            <ListItem sx={{  }}>
-              <ListItemText primary="Teams" />
-            </ListItem>
-          </List> */}
+        <Box>
         </Box>
         {/* <Typography variant="h6">Employees</Typography> */}
         <Link to={"/admin/projects/add"}>
@@ -54,10 +46,7 @@ const EmployeeDashboardTemplate = () => {
         </Link>
       </Box>
       <Box>
-        {/* {projects.length===0? <h4 style={{textAlign:'center', marginTop:'10px'}}>No projects available</h4>:
-
-      <Table headers={headers} body={projects} />
-} */}
+       <AddHr/>
       </Box>
     </div>
   );
