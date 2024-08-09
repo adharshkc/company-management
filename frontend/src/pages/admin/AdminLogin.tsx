@@ -41,7 +41,7 @@ const adminValid = async()=>{
       localStorage.setItem('adminToken', token)
       localStorage.setItem('commonToken', token)
       // localStorage.setItem('adminRefreshToken',refreshToken )
-      navigate('/admin')
+      navigate('/admin/')
     } catch (error) {
       const err = error as { response?: { data?: { message?: string } } };
       const errorMessage = err?.response?.data?.message
