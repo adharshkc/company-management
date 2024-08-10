@@ -74,9 +74,15 @@ export class AdminUsecase {
   async addHr(data:Hr){
     try {
       const hr = await this.adminRepository.addHr(data)
-      console.log(hr)
+      return {
+        status:200,
+        data:{
+          success:true,
+          hr
+        }
+      }
     } catch (error) {
-      
+      throw new Error((error as Error).message );
     }
   }
 }

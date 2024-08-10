@@ -43,8 +43,8 @@ const AddHr:React.FC<AddHrProps> = ({ addHr, openModal }) => {
       }
       if (
         !phone.trim() ||
-        phone.length < 10 ||
-        phone.length > 12 ||
+        // phone.length < 8 ||
+        // phone.length > 12 ||
         !phonePattern.test(phone)
       ) {
         toast.error("Please enter a valid phone number");
@@ -99,6 +99,7 @@ const AddHr:React.FC<AddHrProps> = ({ addHr, openModal }) => {
             id="filled-basic"
             required
             label="Name"
+            color="info"
             value={name}
             onChange={(e) => setName(e.target.value)}
             variant="standard"

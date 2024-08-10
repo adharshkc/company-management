@@ -15,6 +15,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.SequelizeAdminRepository = void 0;
 const Admin_1 = require("@domain/entities/Admin");
 const AdminModel_1 = __importDefault(require("@infrastructure/models/AdminModel"));
+const UserModel_1 = __importDefault(require("@infrastructure/models/UserModel"));
+const HrModel_1 = __importDefault(require("@infrastructure/models/HrModel"));
 class SequelizeAdminRepository {
     adminLoginCheck(email) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -37,8 +39,29 @@ class SequelizeAdminRepository {
     }
     addHr(data) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log(data);
-            return null;
+            try {
+                console.log(data);
+                const newHr = yield UserModel_1.default.create({ role: 'hr' });
+                console.log("new Hr: ", newHr);
+                if (newHr) {
+                    const result = yield HrModel_1.default.create({
+                        name: data.name,
+                        email: data.email,
+                        phone: data.phone,
+                        joiningDate: data.startDate,
+                        user_id: newHr.user_id
+                    });
+                    console.log("result", result);
+                    return result;
+                }
+                else {
+                    throw new Error("Error creating user");
+                }
+            }
+            catch (error) {
+                console.log(error);
+                throw new Error(error);
+            }
         });
     }
 }

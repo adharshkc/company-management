@@ -50,9 +50,11 @@ class AdminController {
                 const data = req.body;
                 const result = yield this.adminUsecase.addHr(data);
                 console.log(result);
+                res.status(result.status).json(result.data);
             }
             catch (error) {
                 console.log(error);
+                next(error);
             }
         });
     }

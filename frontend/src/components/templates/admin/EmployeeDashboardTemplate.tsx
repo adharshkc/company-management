@@ -9,12 +9,14 @@ import { useState } from "react";
 import AddHr from "@components/organism/Form/AddHr";
 import { createHr } from "../../../services/AdminApi";
 import { HrDetails } from "../../../types/types";
+import toast, { Toaster } from "react-hot-toast";
 
 const EmployeeDashboardTemplate = () => { 
   const[openModal, setOpenModal] = useState<boolean>(false)
   const addHr=async function({name, email, phone, startDate}:HrDetails){
     try {
       const response = await createHr({name, email, phone, startDate})
+      toast.success('Hr added successfully')
       return response
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error:any) {
@@ -26,6 +28,7 @@ const EmployeeDashboardTemplate = () => {
   }
   return (
     <div className={style.bodyPart}>
+      <Toaster position="top-right"/>
       <Box
         sx={{
           display: "flex",

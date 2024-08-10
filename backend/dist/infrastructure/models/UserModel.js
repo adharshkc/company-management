@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_typescript_1 = require("sequelize-typescript");
 const AdminModel_1 = __importDefault(require("./AdminModel"));
 const TodoModel_1 = __importDefault(require("./TodoModel"));
+const HrModel_1 = __importDefault(require("./HrModel"));
 let UserModel = class UserModel extends sequelize_typescript_1.Model {
 };
 __decorate([
@@ -27,6 +28,9 @@ __decorate([
 __decorate([
     (0, sequelize_typescript_1.HasOne)(() => AdminModel_1.default)
 ], UserModel.prototype, "admin", void 0);
+__decorate([
+    (0, sequelize_typescript_1.HasOne)(() => HrModel_1.default)
+], UserModel.prototype, "hr", void 0);
 __decorate([
     (0, sequelize_typescript_1.HasMany)(() => TodoModel_1.default)
 ], UserModel.prototype, "todos", void 0);

@@ -68,7 +68,7 @@ const Navbar = ({username}) => {
               />
             </Box>
             <Box className={style.avatarBox}>
-              {/* <Typography>{username.name}</Typography> */}
+              <Typography>{username.name}</Typography>
               <img src={avatar} height={43} alt="" />
             </Box>
           </Box>

@@ -12,6 +12,7 @@ import {
 } from "sequelize-typescript";
 import AdminModel from "./AdminModel";
 import TodoModel from "./TodoModel";
+import HrModel from "./HrModel";
 
 export interface UserI {
   user_id?: number | null;
@@ -36,6 +37,9 @@ class UserModel extends Model implements UserI {
 
   @HasOne(() => AdminModel)
   admin!: AdminModel;
+
+  @HasOne(()=>HrModel)
+  hr!:HrModel;
 
   @HasMany(() => TodoModel)
   todos!: TodoModel;

@@ -5,6 +5,8 @@ import { AdminRepository } from "@application/interface/AdminRepository";
 
 import AdminModel from "@infrastructure/models/AdminModel";
 import { Hr } from "@domain/entities/Hr";
+import UserModel from "@infrastructure/models/UserModel";
+import HrModel from "@infrastructure/models/HrModel";
 
 export class SequelizeAdminRepository implements AdminRepository {
   async adminLoginCheck(email: string): Promise<Admin | null> {
@@ -45,7 +47,26 @@ export class SequelizeAdminRepository implements AdminRepository {
     return null
   }
   async addHr(data: Hr): Promise<Hr | null> {
-    console.log(data)
-    return null
+   try {
+     console.log(data)
+     const newHr = await UserModel.create({role:'hr'})
+     console.log("new Hr: ", newHr)
+     if(newHr){
+       const result = await HrModel.create({
+        name:data.name,
+        email:data.email,
+        phone:data.phone,
+        joiningDate: data.startDate,
+        user_id: newHr.user_id
+       })
+       console.log("result",result)
+       return result
+     }else{
+      throw new Error("Error creating user")
+     }
+   } catch (error:any) {
+    console.log(error)
+    throw new Error(error)
+   }
   }
 }

@@ -86,9 +86,16 @@ class AdminUsecase {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const hr = yield this.adminRepository.addHr(data);
-                console.log(hr);
+                return {
+                    status: 200,
+                    data: {
+                        success: true,
+                        hr
+                    }
+                };
             }
             catch (error) {
+                throw new Error(error.message);
             }
         });
     }
