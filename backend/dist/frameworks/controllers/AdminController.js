@@ -44,5 +44,17 @@ class AdminController {
             }
         });
     }
+    createHr(req, res, next) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const data = req.body;
+                const result = yield this.adminUsecase.addHr(data);
+                console.log(result);
+            }
+            catch (error) {
+                console.log(error);
+            }
+        });
+    }
 }
 exports.AdminController = AdminController;

@@ -1,6 +1,7 @@
 import { Admin } from "@domain/entities/Admin";
 import { AdminRepository, HashPassword } from "../interface/AdminRepository";
 import { TokenRepository } from "@application/interface/TokenRepository";
+import { Hr } from "@domain/entities/Hr";
 
 export class AdminUsecase {
   private adminRepository: AdminRepository;
@@ -68,6 +69,14 @@ export class AdminUsecase {
     }catch (error:any) {
       console.log("admin not found", error.message);
       throw new Error(error.message);
+    }
+  }
+  async addHr(data:Hr){
+    try {
+      const hr = await this.adminRepository.addHr(data)
+      console.log(hr)
+    } catch (error) {
+      
     }
   }
 }

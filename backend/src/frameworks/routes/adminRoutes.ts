@@ -20,6 +20,7 @@ router.get(
   verifyAdminAccess,
   adminController.getAdmin.bind(adminController)
 );
+router.post("/addHr", adminController.createHr.bind(adminController))
 
 
 import { ProjectUsecase } from "@application/use-cases/ProjectUsecase";

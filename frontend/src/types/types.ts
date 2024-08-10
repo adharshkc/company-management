@@ -36,3 +36,10 @@ export interface Project {
     body: Project[];
     headers: string[];
   }
+
+  export type HrDetails={
+    name:string
+    email:string
+    phone: string|number
+    startDate:Date|undefined
+  } 

@@ -4,6 +4,7 @@ import { Admin } from "@domain/entities/Admin";
 import { AdminRepository } from "@application/interface/AdminRepository";
 
 import AdminModel from "@infrastructure/models/AdminModel";
+import { Hr } from "@domain/entities/Hr";
 
 export class SequelizeAdminRepository implements AdminRepository {
   async adminLoginCheck(email: string): Promise<Admin | null> {
@@ -41,6 +42,10 @@ export class SequelizeAdminRepository implements AdminRepository {
         admin.admin_id,
       )
     }
+    return null
+  }
+  async addHr(data: Hr): Promise<Hr | null> {
+    console.log(data)
     return null
   }
 }

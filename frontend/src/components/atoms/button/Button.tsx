@@ -8,7 +8,7 @@ type Button = {
   disabled?:boolean
   variant?: "contained" | "outlined"
   sx?:object;
-  onClick?: ()=>void;
+  onClick?: (e?: React.MouseEvent<HTMLButtonElement>)=>void;
   props?: unknown;
   
 };
@@ -25,7 +25,7 @@ export const Button = ({ buttonColor,fullWidth, disabled, className,onClick, var
       fullWidth={fullWidth}
       className={className}
       sx={props.sx}
-      onClick={onClick}
+      onClick={(e)=>onClick&&onClick(e)}
     //   onClick={onClick}
       {...props}
     >

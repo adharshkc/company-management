@@ -35,5 +35,11 @@ class SequelizeAdminRepository {
             return null;
         });
     }
+    addHr(data) {
+        return __awaiter(this, void 0, void 0, function* () {
+            console.log(data);
+            return null;
+        });
+    }
 }
 exports.SequelizeAdminRepository = SequelizeAdminRepository;

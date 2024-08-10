@@ -82,5 +82,15 @@ class AdminUsecase {
             }
         });
     }
+    addHr(data) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const hr = yield this.adminRepository.addHr(data);
+                console.log(hr);
+            }
+            catch (error) {
+            }
+        });
+    }
 }
 exports.AdminUsecase = AdminUsecase;

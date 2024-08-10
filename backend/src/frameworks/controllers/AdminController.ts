@@ -33,4 +33,14 @@ export class AdminController {
       console.log(error)
     }
   }
+
+  async createHr(req:Request, res:Response, next:NextFunction){
+    try {
+      const data = req.body;
+      const result = await this.adminUsecase.addHr(data)
+      console.log(result)
+    } catch (error) {
+      console.log(error)
+    }
+  }
 }

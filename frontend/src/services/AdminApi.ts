@@ -1,6 +1,6 @@
 
 import { adminAxiosInstance } from "../apis/adminAxiosInstance"
-import { LoginFormValues, Project } from "../types/types"
+import { HrDetails, LoginFormValues, Project } from "../types/types"
 
 
 export const adminLogin = async({email, password}: LoginFormValues)=>{
@@ -18,4 +18,8 @@ export const createProject = async(projectDetails:Project)=>{
 
 export const getAllProjects = async()=>{
     return await adminAxiosInstance.get('/projects/')
+}
+
+export const createHr = async(data:HrDetails)=>{
+    return await adminAxiosInstance.post('/addHr', data)
 }
