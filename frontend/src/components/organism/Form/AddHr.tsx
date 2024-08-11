@@ -20,7 +20,6 @@ type AddHrProps = {
   addHr:({name, phone,email, startDate}:HrDetails)=>void
 }
 
-
 const AddHr:React.FC<AddHrProps> = ({ addHr, openModal }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -30,8 +29,8 @@ const AddHr:React.FC<AddHrProps> = ({ addHr, openModal }) => {
   const [backDrop, setBackdrop] = useState<boolean>(false)
   const [startDateError, setStartDateError] = useState("");
 
-  const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
+    const handleClick = async (event?: React.MouseEvent<HTMLButtonElement>) => {
+      event?.preventDefault();
     try {
       if (!name.trim() || name.length < 3) {
         toast.error("Please enter a valid name");
@@ -50,17 +49,17 @@ const AddHr:React.FC<AddHrProps> = ({ addHr, openModal }) => {
         toast.error("Please enter a valid phone number");
         return;
       }
+      if(!startDate){
+        toast.error("Please enter a valid date")
+        return 
+      }
       setBackdrop(true)
-      const response = await addHr({
+       addHr({
         name,
         email,
         phone,
         startDate}
       );
-      if(response?.status===200){
-        openModal(false)
-      }
-      // openModal(false)
     } catch (error) {
       toast.error("something went wrong");
       openModal(false);
@@ -73,7 +72,6 @@ const AddHr:React.FC<AddHrProps> = ({ addHr, openModal }) => {
       ? new Date(event.target.value)
       : null;
     const currentDate = new Date();
-    console.log(selectedDate);
     currentDate.setHours(0, 0, 0, 0);
     if (selectedDate === null) return setStartDateError("date is required");
     if (selectedDate < currentDate)

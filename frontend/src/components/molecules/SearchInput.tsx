@@ -1,14 +1,17 @@
-
-import { IconType } from "react-icons";
 import style from "../styles/styledNavbar.module.scss";
+import { ReactElement } from "react";
 
 type SearchInput = {
   inputValue: string;
   setInputValue: React.Dispatch<React.SetStateAction<string>>;
-  children: IconType 
+  icon: ReactElement;
 };
 
-export const SearchInput = ({ inputValue, setInputValue, children }: SearchInput) => {
+export const SearchInput = ({
+  inputValue,
+  setInputValue,
+  icon,
+}: SearchInput) => {
   return (
     <>
       <div className={style.search}>
@@ -18,8 +21,7 @@ export const SearchInput = ({ inputValue, setInputValue, children }: SearchInput
           placeholder="What are you looking for?"
         />
         <button type="submit" className={style.searchButton}>
-          {children}
-          
+          {icon}
         </button>
       </div>
     </>

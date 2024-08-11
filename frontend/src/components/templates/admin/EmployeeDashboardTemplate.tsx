@@ -16,8 +16,10 @@ const EmployeeDashboardTemplate = () => {
   const addHr=async function({name, email, phone, startDate}:HrDetails){
     try {
       const response = await createHr({name, email, phone, startDate})
-      toast.success('Hr added successfully')
-      return response
+      if(response.status == 200){
+        setOpenModal(false)
+        toast.success('Hr added successfully')
+      }
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error:any) {
       throw error.message

@@ -1,103 +1,103 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AdminUsecase = void 0;
 class AdminUsecase {
-    constructor(adminRepository, hashPassword, createToken) {
+    constructor(adminRepository, hashPassword, createToken, nodeMailer) {
         this.hashPassword = hashPassword;
         this.adminRepository = adminRepository;
         this.createToken = createToken;
+        this.nodeMailer = nodeMailer;
     }
-    adminLogin(email, password) {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const admin = yield this.adminRepository.adminLoginCheck(email);
-                if (admin) {
-                    const matchedPassword = yield this.hashPassword.compare(password, admin.password);
-                    if (matchedPassword) {
-                        const role = 'admin';
-                        const accessToken = yield this.createToken.createAccessToken(admin.adminId, admin.userId, role);
-                        const refreshToken = yield this.createToken.createRefreshToken(admin.adminId, role);
-                        console.log();
-                        return {
-                            status: 200,
-                            data: {
-                                success: true,
-                                admin,
-                                accessToken,
-                                refreshToken
-                            }
-                        };
-                    }
-                    else {
-                        return {
-                            status: 401,
-                            data: {
-                                success: false,
-                                message: "incorrect passowrd"
-                            }
-                        };
-                    }
+    async adminLogin(email, password) {
+        try {
+            const admin = await this.adminRepository.adminLoginCheck(email);
+            if (admin) {
+                const matchedPassword = await this.hashPassword.compare(password, admin.password);
+                if (matchedPassword) {
+                    const role = "admin";
+                    const accessToken = await this.createToken.createAccessToken(admin.adminId, admin.userId, role);
+                    const refreshToken = await this.createToken.createRefreshToken(admin.adminId, role);
+                    console.log();
+                    return {
+                        status: 200,
+                        data: {
+                            success: true,
+                            admin,
+                            accessToken,
+                            refreshToken,
+                        },
+                    };
                 }
                 else {
                     return {
                         status: 401,
                         data: {
                             success: false,
-                            message: "admin not found"
-                        }
+                            message: "incorrect passowrd",
+                        },
                     };
                 }
             }
-            catch (error) {
-                console.log("admin not found", error.message);
-                throw new Error(error.message);
-            }
-        });
-    }
-    getAdmin(adminId) {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const admin = yield this.adminRepository.getAdmin(adminId);
-                console.log(admin);
+            else {
                 return {
-                    status: 200,
+                    status: 401,
                     data: {
-                        success: true,
-                        admin
-                    }
+                        success: false,
+                        message: "admin not found",
+                    },
                 };
             }
-            catch (error) {
-                console.log("admin not found", error.message);
-                throw new Error(error.message);
-            }
-        });
+        }
+        catch (error) {
+            console.log("admin not found", error.message);
+            throw new Error(error.message);
+        }
     }
-    addHr(data) {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const hr = yield this.adminRepository.addHr(data);
-                return {
-                    status: 200,
-                    data: {
-                        success: true,
-                        hr
-                    }
-                };
+    async getAdmin(adminId) {
+        try {
+            const admin = await this.adminRepository.getAdmin(adminId);
+            console.log(admin);
+            return {
+                status: 200,
+                data: {
+                    success: true,
+                    admin,
+                },
+            };
+        }
+        catch (error) {
+            console.log("admin not found", error.message);
+            throw new Error(error.message);
+        }
+    }
+    async addHr(data) {
+        try {
+            const hr = await this.adminRepository.addHr(data);
+            if (hr) {
+                const role = "hr";
+                const accessToken = await this.createToken.createAccessToken(hr.hr_id, hr.user_id, role);
+                const from = "codilary.solutions@gmail.com";
+                const to = hr.email;
+                const subject = "Welcome mail";
+                const html = `
+  <p>Welcome <strong>${hr.name}</strong> to Codilary!</p>
+  <p>Please click the link below to verify your email address:</p>
+  <a href="http://localhost:3000/verify?token=${accessToken}">Verify Email</a>
+  <p>If you did not request this email, please ignore it.</p>
+`;
+                this.nodeMailer.sendMail(from, to, subject, html);
             }
-            catch (error) {
-                throw new Error(error.message);
-            }
-        });
+            return {
+                status: 200,
+                data: {
+                    success: true,
+                    hr,
+                },
+            };
+        }
+        catch (error) {
+            throw new Error(error.message);
+        }
     }
 }
 exports.AdminUsecase = AdminUsecase;

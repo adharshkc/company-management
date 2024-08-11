@@ -5,13 +5,15 @@ import { AdminUsecase } from "@application/use-cases/AdminUsecase";
 import Bcrypt from "@frameworks/utils/bcrypt";
 import GenerateToken from "@frameworks/utils/generateToken";
 import { verifyAdminAccess } from "@frameworks/middlewares/authentication/jwtVerify";
+import NodeMailer from "@frameworks/mailer/nodeMailer";
 
 const router = Router();
 
 const bcypt = new Bcrypt();
 const generateToken = new GenerateToken();
+const nodeMailer = new NodeMailer
 const adminRepository = new SequelizeAdminRepository();
-const adminUsecase = new AdminUsecase(adminRepository, bcypt, generateToken);
+const adminUsecase = new AdminUsecase(adminRepository, bcypt, generateToken, nodeMailer);
 const adminController = new AdminController(adminUsecase);
 
 router.post("/login", adminController.adminLogin.bind(adminController));

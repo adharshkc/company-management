@@ -12,7 +12,7 @@ const AdminRoute = () => {
   return (
     <Routes>
       <Route path="/login" element={<AdminLogin />} />
-      <Route element={<ProtectedRoutes />}>
+      <Route element={<ProtectedRoutes token="adminToken"/>}>
         <Route element={<AdminLayout />}>
           <Route path="/" element={<Dashboard />} />
           <Route path="/projects" element={<ProjectDashboard />} />

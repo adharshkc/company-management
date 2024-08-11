@@ -7,27 +7,33 @@ import avatar from "../../../assets/user.png";
 import { IoSearch } from "react-icons/io5";
 import { useLocation } from "react-router-dom";
 
-const Navbar = ({username}) => {
-  const location = useLocation()
-  const {pathname} = location
-  const [title, setTitle] = useState('')
+type NavbarProps = {
+  username: {
+    name: string;
+  };
+};
 
-  const date = new Date()
-  console.log(date.getTime())
-  useEffect(()=>{
-    if(pathname === '/admin/'){
-      setTitle('Dashboard')
+const Navbar: React.FC<NavbarProps> = ({ username }) => {
+  const location = useLocation();
+  const { pathname } = location;
+  const [title, setTitle] = useState("");
+
+  const date = new Date();
+  console.log(date.getTime());
+  useEffect(() => {
+    if (pathname === "/admin/") {
+      setTitle("Dashboard");
     }
-    if(pathname ==='/admin/projects'){
-      setTitle('Projects')
+    if (pathname === "/admin/projects") {
+      setTitle("Projects");
     }
-    if(pathname ==='/admin/employees'){
-      setTitle('Employees')
+    if (pathname === "/admin/employees") {
+      setTitle("Employees");
     }
-    if(pathname ==='/admin/channels'){
-      setTitle('Channels')
+    if (pathname === "/admin/channels") {
+      setTitle("Channels");
     }
-  },[location])
+  }, [location]);
   const [inputValue, setInputValue] = useState("");
   return (
     <>
@@ -52,11 +58,14 @@ const Navbar = ({username}) => {
               </svg>
             </div>
             <Box>
-              <Typography variant="h6" className={style.heading} sx={{ marginLeft: "15px" }}>
+              <Typography
+                variant="h6"
+                className={style.heading}
+                sx={{ marginLeft: "15px" }}
+              >
                 {title}
-                 {/* <span className={style.span}>| Good afternoon, {username.name}</span> */}
+                {/* <span className={style.span}>| Good afternoon, {username.name}</span> */}
               </Typography>
-              
             </Box>
           </Box>
           <Box className={style.leftSide}>
@@ -64,7 +73,7 @@ const Navbar = ({username}) => {
               <SearchInput
                 inputValue={inputValue}
                 setInputValue={setInputValue}
-                children={<IoSearch/>}
+                icon={<IoSearch />}
               />
             </Box>
             <Box className={style.avatarBox}>
