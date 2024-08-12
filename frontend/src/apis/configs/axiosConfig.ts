@@ -5,7 +5,7 @@ const axiosInstance = (baseURL: string) => {
   console.log(baseURL,"jehlo")
   const instance = axios.create({
     baseURL,
-    timeout: 4000,
+    timeout: 30000,
     timeoutErrorMessage: "Request timeout ... Please try again",
   });
   return instance;

@@ -20,6 +20,7 @@ export class HrUsecase {
   async hrLogin(email: string) {
     try {
       const hr = await this.hrRepository.checkHr(email);
+      console.log(hr)
       if (hr) {
         const otp = this.otpManager.generateOtp();
         const from = "codilary.solutions@gmail.com";

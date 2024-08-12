@@ -43,3 +43,8 @@ export interface Project {
     phone: string|number
     startDate:Date|undefined
   } 
+
+  export type Otp={
+    email:string|null
+    otp:string
+  }

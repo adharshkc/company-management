@@ -8,7 +8,7 @@ class HrController {
     async hrLogin(req, res, next) {
         try {
             const { email } = req.body;
-            console.log(email);
+            console.log(req.body);
             const response = await this.hrUsecase.hrLogin(email);
             return res.status(response.status).json(response.data);
         }

@@ -11,6 +11,7 @@ type Input = {
   id?:any;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   lable?:any;
+  required?:boolean
   sx?:object
   InputProps?:object
   size?: "small" | "medium" | undefined
@@ -25,6 +26,7 @@ export const Input = ({
   InputProps,
   placeHolder,
   size,
+  required,
   ...props
 }: Input) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,6 +36,7 @@ export const Input = ({
     <TextField
       variant="outlined"
       fullWidth={fullWidth}
+      required={required}
       placeholder={placeHolder}
       type={type}
       value={inputValue}

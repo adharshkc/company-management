@@ -1,8 +1,10 @@
 import axios from "axios";
 import axiosInstance from "./configs/axiosConfig";
+import { adminBaseURL } from "../constants/constants";
+import { commonBaseURL } from "../constants/constants";
 
-const adminBaseURL = "http://localhost:3000/api/v1/admin/";
-const commonBaseUrl = 'http://localhost:3000/api/v1/common/'
+// const adminBaseURL = "http://localhost:3000/api/v1/admin/";
+// const commonBaseUrl = 'http://localhost:3000/api/v1/common/'
 const quoteBaseUrl = 'https://api.quotable.io/'
 
 export const adminAxiosInstance = axiosInstance(adminBaseURL);
@@ -15,7 +17,7 @@ adminAxiosInstance.interceptors.request.use(async (req) => {
   return req;
 });
 
-export const commonAxiosInstance = axiosInstance(commonBaseUrl)
+export const commonAxiosInstance = axiosInstance(commonBaseURL)
 commonAxiosInstance.interceptors.request.use(async(req)=>{
     const token = localStorage.getItem('commonToken')
     if(token){

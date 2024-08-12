@@ -11,7 +11,7 @@ export class HrController {
   async hrLogin(req: Request, res: Response, next: NextFunction) {
     try {
         const {email} = req.body;
-        console.log(email)
+        console.log(req.body)
         const response = await this.hrUsecase.hrLogin(email);
         return res.status(response.status).json(response.data)
     } catch (error) {

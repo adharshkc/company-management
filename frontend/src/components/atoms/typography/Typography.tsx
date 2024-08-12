@@ -8,6 +8,7 @@ type Typography = {
   sx?: object;
   variant?: TypographyProps["variant"];
   color?: string;
+  onClick?: (e?: React.MouseEvent<HTMLSpanElement>)=>void;
 };
 
 export const Typography = ({
@@ -16,10 +17,11 @@ export const Typography = ({
   sx,
   className,
   align,
+  onClick,
   ...props
 }: Typography) => {
   return (
-    <MuiTypography variant={variant} align={align} sx={sx} className={className} {...props}>
+    <MuiTypography variant={variant} align={align} sx={sx} className={className} onClick={onClick} {...props}>
       {children}
     </MuiTypography>
   );
