@@ -2,10 +2,11 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.HrUsecase = void 0;
 class HrUsecase {
-    constructor(hrRepository, nodeMailer, otpManager) {
+    constructor(hrRepository, nodeMailer, otpManager, createToken) {
         this.hrRepository = hrRepository;
         this.nodeMailer = nodeMailer;
         this.otpManager = otpManager;
+        this.createToken = createToken;
     }
     async hrLogin(email) {
         var _a;
@@ -14,6 +15,7 @@ class HrUsecase {
             console.log(hr);
             if (hr) {
                 const otp = this.otpManager.generateOtp();
+                console.log(otp);
                 const from = "codilary.solutions@gmail.com";
                 const to = hr.email;
                 const user_id = (_a = hr.user_id) === null || _a === void 0 ? void 0 : _a.toString();
@@ -58,11 +60,16 @@ class HrUsecase {
                 const user_id = (_a = hr.user_id) === null || _a === void 0 ? void 0 : _a.toString();
                 const otpMatch = await this.otpManager.checkOtp(otp, user_id);
                 if (otpMatch) {
+                    const role = "hr";
+                    const accessToken = await this.createToken.createAccessToken(hr.hr_id, hr.user_id, role);
+                    const refreshToken = await this.createToken.createRefreshToken(hr.hr_id, hr.user_id, role);
                     return {
                         status: 200,
                         data: {
                             success: true,
                             hr,
+                            accessToken,
+                            refreshToken
                         },
                     };
                 }
@@ -89,6 +96,17 @@ class HrUsecase {
         catch (error) {
             throw new Error(error);
         }
+    }
+    async createNewAccessToken(userId, commonId) {
+        const role = "hr";
+        const newAccessToken = await this.createToken.createAccessToken(userId, commonId, role);
+        return {
+            status: 200,
+            data: {
+                success: true,
+                newAccessToken
+            }
+        };
     }
 }
 exports.HrUsecase = HrUsecase;

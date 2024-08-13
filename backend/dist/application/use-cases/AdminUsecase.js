@@ -16,7 +16,10 @@ class AdminUsecase {
                 if (matchedPassword) {
                     const role = "admin";
                     const accessToken = await this.createToken.createAccessToken(admin.adminId, admin.userId, role);
-                    const refreshToken = await this.createToken.createRefreshToken(admin.adminId, role);
+                    // const refreshToken = await this.createToken.createRefreshToken(
+                    //   admin.adminId,
+                    //   role
+                    // );
                     console.log();
                     return {
                         status: 200,
@@ -24,7 +27,7 @@ class AdminUsecase {
                             success: true,
                             admin,
                             accessToken,
-                            refreshToken,
+                            // refreshToken,
                         },
                     };
                 }

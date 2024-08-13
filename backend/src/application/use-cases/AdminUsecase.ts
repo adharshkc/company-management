@@ -35,10 +35,10 @@ export class AdminUsecase {
             admin.userId,
             role
           );
-          const refreshToken = await this.createToken.createRefreshToken(
-            admin.adminId,
-            role
-          );
+          // const refreshToken = await this.createToken.createRefreshToken(
+          //   admin.adminId,
+          //   role
+          // );
           console.log();
           return {
             status: 200,
@@ -46,7 +46,7 @@ export class AdminUsecase {
               success: true,
               admin,
               accessToken,
-              refreshToken,
+              // refreshToken,
             },
           } as const;
         } else {

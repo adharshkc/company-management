@@ -30,14 +30,14 @@ class GenerateToken {
             }
         });
     }
-    async createRefreshToken(userId, role) {
+    async createRefreshToken(userId, commonId, role) {
         return new Promise((resolve, reject) => {
             const secret = process.env.JWT_REFRESH_SECRET;
             const options = {
-                expiresIn: '2d',
-                issuer: 'codilary'
+                expiresIn: "2d",
+                issuer: "codilary",
             };
-            jsonwebtoken_1.default.sign({ userId: userId, role: role }, secret, options, (err, token) => {
+            jsonwebtoken_1.default.sign({ userId: userId, commonId: commonId, role: role }, secret, options, (err, token) => {
                 if (err) {
                     return reject(new Error("Error signing token"));
                 }

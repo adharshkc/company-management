@@ -10,8 +10,9 @@ import GlobalErrorHandler from "@frameworks/middlewares/errors/GlobalErrorHandle
 import cors from 'cors'
 import morganMiddleware from "@frameworks/middlewares/logging/logger";
 import { initializeRedisConnection } from "@infrastructure/database/redis";
+import cookieParser from "cookie-parser"
 
-
+app.use(cookieParser())
 app.use(cors())
 app.use(morganMiddleware)
 app.use("/api/v1/admin", adminRouter);

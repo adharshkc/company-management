@@ -1,19 +1,22 @@
 import { Navigate, Outlet } from "react-router-dom";
+import useAuthStore from "../zustand/AuthStore";
 
 type ProjectedRoutesProps={
   token:string
 }
 const ProtectedRoutes:React.FC<ProjectedRoutesProps> = ({token}) => {
+  const { accessToken } = useAuthStore()
+  console.log(accessToken)
   if(token ==='adminToken'){
   const adminToken = localStorage.getItem(token);
   if (!adminToken) {
     return <Navigate to="/admin/login" />;
   }}
   if(token ==='hrToken'){
-  const hrToken = localStorage.getItem(token);
-  if (!hrToken) {
-    return <Navigate to="/admin/login" />;
-  }}
+  
+    if (!accessToken) {
+      return <Navigate to="/hr/login" />;
+    }}
   return <Outlet />;
 };
 

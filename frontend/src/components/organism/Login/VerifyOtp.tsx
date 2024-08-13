@@ -1,7 +1,5 @@
 import { Paper } from "@mui/material";
-
 import styles from "../../styles/styledOtp.module.scss";
-// import { Typography } from "../atoms/typography/Typography";
 import { MuiOtpInput } from "mui-one-time-password-input";
 import { Button } from "@components/atoms/button/Button";
 import { Typography } from "@components/atoms/typography/Typography";
@@ -57,15 +55,15 @@ export const VerifyOtp: React.FC<VerifyOtpProps> = ({
           >
             Enter OTP
           </Typography>
-          <Link style={{textDecoration:"none"}} to={"/hr/login"}>
-          <Typography
-            variant="body1"
-            color="secondary"
-            sx={{ fontWeight: "medium" }}
-          >
-            Change?
-          </Typography>
-            </Link>
+          <Link style={{ textDecoration: "none" }} to={"/hr/login"}>
+            <Typography
+              variant="body1"
+              color="secondary"
+              sx={{ fontWeight: "medium" }}
+            >
+              Change?
+            </Typography>
+          </Link>
         </label>
         <MuiOtpInput
           value={inputValue}
@@ -94,7 +92,7 @@ export const VerifyOtp: React.FC<VerifyOtpProps> = ({
           color="secondary"
           className={styles.resendOtp}
           onClick={otpResend}
-          sx={{ fontWeight: "medium", marginTop: "10px"}}
+          sx={{ fontWeight: "medium", marginTop: "10px" }}
         >
           Resend OTP?
         </Typography>

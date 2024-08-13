@@ -1,4 +1,9 @@
-import { Alert, CircularProgress, Paper, Snackbar, SnackbarCloseReason } from "@mui/material";
+import {
+  CircularProgress,
+  Paper,
+  Snackbar,
+  SnackbarCloseReason,
+} from "@mui/material";
 import styles from "../../styles/styledOtp.module.scss";
 import { Typography } from "@components/atoms/typography/Typography";
 import { Input } from "@components/atoms/input/Input";
@@ -26,18 +31,19 @@ export const LoginOtp: React.FC<LoginOtpProps> = ({ handleSubmit, role }) => {
       return;
     }
     try {
-      setLoading(true)
-      const response = await handleSubmit(inputValue);
-      console.log(response)
+      setLoading(true);
+      await handleSubmit(inputValue);
     } catch (error) {
-      setOpen(true)
+      setOpen(true);
       setLoading(false);
       setEmailError("User not found.");
     }
   };
-  const handleClose = (event: React.SyntheticEvent | Event,
-    reason?: SnackbarCloseReason) => {
-    if (reason === 'clickaway') {
+  const handleClose = (
+    event: React.SyntheticEvent | Event,
+    reason?: SnackbarCloseReason
+  ) => {
+    if (reason === "clickaway") {
       return;
     }
 
@@ -46,7 +52,7 @@ export const LoginOtp: React.FC<LoginOtpProps> = ({ handleSubmit, role }) => {
 
   return (
     <>
-    <Snackbar
+      <Snackbar
         open={open}
         autoHideDuration={3000}
         onClose={handleClose}
@@ -134,7 +140,6 @@ export const LoginOtp: React.FC<LoginOtpProps> = ({ handleSubmit, role }) => {
             </Typography>
           </Link>
         </div>
-        
       </Paper>
     </>
   );
