@@ -1,8 +1,9 @@
+import DashboardTemplate from "@components/templates/hr/DashboardTemplate"
 
 
 const Dashboard = () => {
   return (
-    <div>Dashboard</div>
+    <DashboardTemplate/>
   )
 }
 

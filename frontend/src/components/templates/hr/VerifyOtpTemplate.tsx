@@ -19,6 +19,7 @@ const VerifyOtpTemplate = function () {
       }
      const response =  await verifyOtp({ email, otp });
      setAccessToken(response.data.accessToken)
+     localStorage.setItem("hrToken", response.data.accessToken)
       toast.success("logined");
       sessionStorage.removeItem("email");
       // eslint-disable-next-line @typescript-eslint/no-explicit-any

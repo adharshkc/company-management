@@ -15,7 +15,11 @@ const ProtectedRoutes:React.FC<ProjectedRoutesProps> = ({token}) => {
   if(token ==='hrToken'){
   
     if (!accessToken) {
-      return <Navigate to="/hr/login" />;
+      const hrToken = localStorage.getItem("hrToken")
+      if(!hrToken){
+
+        return <Navigate to="/hr/login" />;
+      }
     }}
   return <Outlet />;
 };

@@ -26,6 +26,7 @@ hrAxiosInstance.interceptors.response.use(
       const response = await hrAxiosInstance.post("/token");
       const accessToken = response.data.accessToken;
       useAuthStore.getState().setAccessToken(accessToken);
+      localStorage.setItem("hrToken", accessToken)
       originalRequest.headers.Authorization = `Bearer ${accessToken}`;
       return hrAxiosInstance(originalRequest);
     } catch (err) {
