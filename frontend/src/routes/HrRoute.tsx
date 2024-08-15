@@ -10,8 +10,8 @@ const HrRoute = function () {
     <Routes>
       <Route path="/login" element={<HrLogin />} />
       <Route path="/verify-otp" element={<Otp />} />
-      <Route element={<HrLayout />}>
         <Route element={<ProtectedRoutes token="hrToken" />}>
+      <Route element={<HrLayout />}>
           <Route path="/" element={<Dashboard />} />
         </Route>
       </Route>

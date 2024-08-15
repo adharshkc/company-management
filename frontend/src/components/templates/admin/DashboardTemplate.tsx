@@ -5,11 +5,11 @@ import ProjectStatics from "../../organism/ProjectStatics";
 import TodoContainer from "../../organism/Todo/TodoContainer";
 import TaskContainer from "../../organism/TaskContainer";
 
-type AdminDashboardProps = {
-  adminUsername: string|null|object
-}
+// type AdminDashboardProps = {
+//   adminUsername: string|null|object
+// }
 
-const AdminDashboard: React.FC<AdminDashboardProps> = () => {
+const AdminDashboard: React.FC= () => {
   return (
       <div className={style.bodyPart}>
         <div className={style.chart}>

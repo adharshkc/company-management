@@ -48,3 +48,29 @@ export interface Project {
     email:string|null
     otp:string
   }
+
+
+  export type NavbarLayout={
+    id: number;
+    name: string;
+    path: string;  
+  }
+
+  export type AdminType ={
+    adminId: number;
+    dob: string;
+    email: string;
+    gender: string;
+    name: string;
+    password: string;
+    phone: string;
+    userId: number;
+  }
+
+  export type SideLayout ={
+    id: number;
+    name: string;
+    path: string;  
+    darkIcon:string;
+    lightIcon:string
+  }

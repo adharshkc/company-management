@@ -6,31 +6,25 @@ import { useEffect, useState } from "react";
 import avatar from "../../../assets/user.png";
 import { IoSearch } from "react-icons/io5";
 import { useLocation } from "react-router-dom";
+import { NavbarLayout } from "types/types";
 
 type NavbarProps = {
-  username: {
-    name: string;
-  };
+  username: string|undefined
+  layout:NavbarLayout[]
 };
 
-const CommonNav: React.FC<NavbarProps> = ({ username }) => {
+const CommonNav: React.FC<NavbarProps> = ({ username ,layout}) => {
   const location = useLocation();
   const { pathname } = location;
   const [title, setTitle] = useState("");
-
   useEffect(() => {
-    if (pathname === "/admin/") {
-      setTitle("Dashboard");
-    }
-    if (pathname === "/admin/projects") {
-      setTitle("Projects");
-    }
-    if (pathname === "/admin/employees") {
-      setTitle("Employees");
-    }
-    if (pathname === "/admin/channels") {
-      setTitle("Channels");
-    }
+      layout.map((item)=>{
+        if(item.path===pathname){
+          setTitle(item.name)
+        }
+    
+      })
+
   }, [location]);
   const [inputValue, setInputValue] = useState("");
   return (
@@ -74,7 +68,7 @@ const CommonNav: React.FC<NavbarProps> = ({ username }) => {
               />
             </Box>
             <Box className={style.avatarBox}>
-              <Typography>{username.name}</Typography>
+              <Typography>{username}</Typography>
               <img src={avatar} height={43} alt="" />
             </Box>
           </Box>

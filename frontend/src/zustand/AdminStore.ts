@@ -1,17 +1,18 @@
+import { AdminType } from "types/types";
 import { create } from "zustand";
 
-interface AdminStore {
-  admin: object | null;
+interface AdminStore<T> {
+  admin: T | null;
   isAdminAuth: boolean|null;
-  setAdmin: (admin: object) => void;
+  setAdmin: (admin: T) => void;
   adminLogin: ()=>void;
   adminLogout: ()=>void
 }
 
-const useAdminStore = create<AdminStore>((set) => ({
-  admin: {},
+const useAdminStore = create<AdminStore<AdminType>>((set) => ({
+  admin: null,
   isAdminAuth: false,
-  setAdmin: (admin) => {
+  setAdmin: (admin:AdminType) => {
     set({admin});
   },
   adminLogin: ()=>{

@@ -36,7 +36,7 @@ const adminValid = async()=>{
       const token = login.data?.accessToken
       // const refreshToken = login.data?.refreshToken;
       const adminDetails = login?.data?.admin
-      console.log(login)
+      console.log(adminDetails)
       setAdmin(adminDetails)
       localStorage.setItem('adminToken', token)
       localStorage.setItem('commonToken', token)
