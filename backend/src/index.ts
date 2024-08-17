@@ -13,7 +13,12 @@ import { initializeRedisConnection } from "@infrastructure/database/redis";
 import cookieParser from "cookie-parser"
 
 app.use(cookieParser())
-app.use(cors())
+const corsOptions = {
+  origin:process.env.CORS_ORIGIN,
+  credentials:true,
+  optionSuccessStatus:200
+}
+app.use(cors(corsOptions))
 app.use(morganMiddleware)
 app.use("/api/v1/admin", adminRouter);
 app.use("/api/v1/common", userRouter)

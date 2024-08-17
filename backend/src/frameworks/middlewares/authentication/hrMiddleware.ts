@@ -32,29 +32,29 @@ export const verifyHrAccessToken = (
         return next(createError.Unauthorized(message));
       }
       req.hr = payload ;
+      next()
     });
   }
 };
 
-export const verifyHrRefreshToken = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  const refreshToken = req.cookies.refreshToken;
-  //   console.log("token", refreshToken);
-  if (!refreshToken) return next(createError.Unauthorized());
-  if (jwtRefreshSecret) {
-    jwt.verify(refreshToken, jwtRefreshSecret, (err: any, payload: any) => {
-      if (err) {
-        console.log(err.message);
-        const message =
-          err.name === "JsonWebTokenError" ? "Unauthorized" : err.message;
-        return next(createError.Unauthorized(message));
-      }
-      console.log(payload);
-      req.hr = payload as string;
-      next();
-    });
-  }
-};
+// export const verifyHrRefreshToken = (
+//   req: Request,
+//   res: Response,
+//   next: NextFunction
+// ) => {
+//   const refreshToken = req.cookies.hrToken;
+//   if (!refreshToken) return next(createError(419, "RefreshToken not found"));
+//   if (jwtRefreshSecret) {
+//     jwt.verify(refreshToken, jwtRefreshSecret, (err: any, payload: any) => {
+//       if (err) {
+//         console.log(err.message);
+//         const message =
+//           err.name === "JsonWebTokenError" ? "Unauthorized" : err.message;
+//         return next(createError(419,message));
+//       }
+//       // console.log(payload);
+//       req.hr = payload as string;
+//       next();
+//     });
+//   }
+// };

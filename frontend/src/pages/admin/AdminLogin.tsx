@@ -18,7 +18,7 @@ const adminValid = async()=>{
     const response= await AdminDetails()
     console.log(response)
     if(response.status==200){
-      navigate('/admin')
+      navigate('/admin/')
     }
   } catch (error) {
     console.log(error)

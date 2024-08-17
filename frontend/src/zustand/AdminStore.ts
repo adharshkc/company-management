@@ -1,4 +1,4 @@
-import { AdminType } from "types/types";
+import { AdminType } from "../types/types";
 import { create } from "zustand";
 
 interface AdminStore<T> {

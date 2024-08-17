@@ -1,14 +1,18 @@
-import Navbar from "@components/organism/Navbar/Navbar"
-import AdminSidebar from "@components/organism/Sidebar/AdminSidebar"
+// import BarChart from "@components/organism/Charts/BarChart";
+import Clock from "@components/organism/Clock/Clock";
+import style from "../../../components/styles/hrDashboardTemplate.module.scss";
+import { Typography } from "../../atoms/typography/Typography";
+import TodoContainer from "../../organism/Todo/TodoContainer";
 
 
 const DashboardTemplate = () => {
-  const username = {name:"adharsh"}
   return (
-    <div>
-      {/* <Navbar username={username}/>
-      <AdminSidebar/> */}
-    </div>
+    <div className={style.bodyPart}>
+      {/* <Quotes /> */}
+      <Clock />
+      <TodoContainer />
+    {/* </div> */}
+  </div>
   )
 }
 

@@ -76,6 +76,7 @@ const TodoContainer = () => {
         border: " #bdbdbd 1px solid",
         marginTop: "20px",
         borderRadius: "5px",
+        height:"100px"
       }}
     >
       <Toaster position="top-right"/>

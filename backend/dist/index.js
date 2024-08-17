@@ -17,7 +17,12 @@ const logger_1 = __importDefault(require("@frameworks/middlewares/logging/logger
 const redis_1 = require("@infrastructure/database/redis");
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 ExpressServer_1.default.use((0, cookie_parser_1.default)());
-ExpressServer_1.default.use((0, cors_1.default)());
+const corsOptions = {
+    origin: process.env.CORS_ORIGIN,
+    credentials: true,
+    optionSuccessStatus: 200
+};
+ExpressServer_1.default.use((0, cors_1.default)(corsOptions));
 ExpressServer_1.default.use(logger_1.default);
 ExpressServer_1.default.use("/api/v1/admin", adminRoutes_1.default);
 ExpressServer_1.default.use("/api/v1/common", userRoutes_1.default);

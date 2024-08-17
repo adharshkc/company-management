@@ -33,10 +33,11 @@ export const LoginOtp: React.FC<LoginOtpProps> = ({ handleSubmit, role }) => {
     try {
       setLoading(true);
       await handleSubmit(inputValue);
-    } catch (error) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error:any) {
       setOpen(true);
       setLoading(false);
-      setEmailError("User not found.");
+      setEmailError(error.response.data?.message);
     }
   };
   const handleClose = (
@@ -121,12 +122,15 @@ export const LoginOtp: React.FC<LoginOtpProps> = ({ handleSubmit, role }) => {
             disableRipple
             onClick={handleClick}
             fullWidth
+            loadingPosition="end"
             loadingIndicator={<CircularProgress color="primary" size={16} />}
+            endIcon={<span style={{ visibility: 'hidden' }}>•</span>}
             sx={{
               fontWeight: "medium",
               backgroundColor: "#7091e6",
               fontSize: { lg: "17px", xs: "16px", sm: "17px" },
               marginTop: "20px",
+              color: loading ? "#ffffff" : "#fffff",
               "&:hover": {
                 backgroundColor: "#5a75b9",
               },

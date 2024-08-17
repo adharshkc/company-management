@@ -1,5 +1,5 @@
 import CommonNav from "@components/organism/Navbar/CommonNav";
-import { NavbarLayout, SideLayout } from "../types/types";
+import { HrType, NavbarLayout, SideLayout } from "../types/types";
 import Sidebar from "@components/organism/Sidebar/Sidebar";
 import homeIcon from "../assets/icons/house-solid 1 (1).svg";
 import homeIconDark from "../assets/icons/house-solid 1.svg";
@@ -9,10 +9,17 @@ import channelIcon from "../assets/icons/hashtag-solid 1.svg";
 import channelIconDark from "../assets/icons/hashtag-solid 1 (2).svg";
 import attendanceIconLight from "../assets/icons/attendanceLight.svg";
 import attendanceIconDark from "../assets/icons/attendanceDark.svg";
+import { useEffect } from "react";
+import { getHr } from "../services/HrApi";
+import useHrStore from "../zustand/HrStore";
+import useErrorStore from "../zustand/ErrorStore";
+import { Outlet, useNavigate } from "react-router-dom";
 
 const HrLayout = () => {
-  const username = "adharsh";
-  console.log(attendanceIconDark);
+  const {setError} = useErrorStore()
+  const {hr, setHr} = useHrStore()
+  const navigate = useNavigate()
+  const username = hr?.name
   const layout: NavbarLayout[] = [
     { id: 1, name: "Dashboard", path: "/hr/" },
     { id: 2, name: "Employees", path: "/hr/employees" },
@@ -49,10 +56,27 @@ const HrLayout = () => {
       lightIcon: channelIcon,
     },
   ];
+
+  const fetchHr = async function () {
+    try {
+      const response = await getHr();
+      const hrDetails = response.data?.hr;
+      setHr(hrDetails);
+    } catch (error) {
+      setError("couldn't connect server");
+      navigate("/hr/login");
+    }
+  };
+  useEffect(() => {
+    if (!hr || Object.keys(hr as HrType).length === 0) {
+      fetchHr();
+    }
+  }, []);
   return (
     <div>
       <CommonNav username={username} layout={layout} />
       <Sidebar layout={sideLayout} />
+      <Outlet/>
     </div>
   );
 };

@@ -2,14 +2,14 @@ import { VerifyOtp } from "@components/organism/Login/VerifyOtp";
 import styles from "../../styles/styledOtp.module.scss";
 import { Box } from "@mui/material";
 import { useEffect } from "react";
-import { hrLogin, verifyOtp } from "../../../services/HrApi";
+import { getHr, hrLogin, verifyOtp } from "../../../services/HrApi";
 import toast, { Toaster } from "react-hot-toast";
 import useErrorStore from "../../../zustand/ErrorStore";
-import useAuthStore from "../../../zustand/AuthStore";
+import { useNavigate } from "react-router-dom";
 
 const VerifyOtpTemplate = function () {
   const { setError, clearError } = useErrorStore();
-  const {setAccessToken} = useAuthStore()
+  const navigate = useNavigate()
   const handleSubmit = async (otp: string) => {
     try {
       const email = sessionStorage.getItem("email");
@@ -18,10 +18,10 @@ const VerifyOtpTemplate = function () {
         return;
       }
      const response =  await verifyOtp({ email, otp });
-     setAccessToken(response.data.accessToken)
      localStorage.setItem("hrToken", response.data.accessToken)
       toast.success("logined");
       sessionStorage.removeItem("email");
+      navigate('/hr/')
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.log(error);
@@ -41,8 +41,20 @@ const VerifyOtpTemplate = function () {
       setError("something went wrong...");
     }
   };
+  const hrDetails = async ()=>{
+    try {
+      const response = await getHr()
+      console.log(response)
+      if(response.status===200){
+        navigate('/hr/')
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
   useEffect(() => {
     clearError();
+    hrDetails()
   }, []);
   return (
     <>

@@ -1,7 +1,7 @@
 import { HrUsecase } from "@application/use-cases/HrUsecase";
 import { HrController } from "@frameworks/controllers/HrController";
 import NodeMailer from "@frameworks/mailer/nodeMailer";
-import { verifyHrRefreshToken } from "@frameworks/middlewares/authentication/hrMiddleware";
+import { verifyHrAccessToken } from "@frameworks/middlewares/authentication/hrMiddleware";
 import GenerateToken from "@frameworks/utils/generateToken";
 import { OtpManager } from "@frameworks/utils/otpManager";
 import { SequelizeHrRepository } from "@infrastructure/repository/SequelizeHrRepository";
@@ -19,7 +19,8 @@ const hrController = new HrController(hrUsecase)
 
 router.post('/login', hrController.hrLogin.bind(hrController))
 router.post('/verify-otp', hrController.verifyOtp.bind(hrController))
-router.post('/token',verifyHrRefreshToken, hrController.refreshToken.bind(hrController))
+// router.post('/token',verifyHrRefreshToken, hrController.refreshToken.bind(hrController))
+router.get('/', verifyHrAccessToken, hrController.getHr.bind(hrController))
 
 
 export default router

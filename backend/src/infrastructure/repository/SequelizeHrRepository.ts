@@ -27,4 +27,15 @@ export class SequelizeHrRepository implements HrRepository{
   async  hrLogin(email: string): Promise<any> {
         return null
     }
+    async getHr(hr_id: number): Promise<Hr | null> {
+        try {
+            const response = await HrModel.findOne({where:{hr_id:hr_id}})
+            if(response){
+                return response
+            }
+            return null
+        } catch (error:any) {
+            throw new Error(error)
+        }
+    }
 }

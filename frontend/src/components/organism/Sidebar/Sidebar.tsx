@@ -29,7 +29,7 @@ const Sidebar: React.FC<SidebarProps> = ({ layout }) => {
         {layout.map((item) => {
           const isFocused = pathname === item.path;
           return (
-            <ul className={styles.nav_links}>
+            <ul className={styles.nav_links} key={item.id}>
               <Link
                 to={item.path}
                 style={{ textDecoration: "none", color: "inherit" }}

@@ -1,7 +1,7 @@
 import { LoginOtp } from "@components/organism/Login/LoginOtp";
 import styles from "../../styles/styledOtp.module.scss";
 import { Backdrop, Box, CircularProgress } from "@mui/material";
-import { hrLogin } from "../../../services/HrApi";
+import { getHr, hrLogin } from "../../../services/HrApi";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import useErrorStore from "../../../zustand/ErrorStore";
@@ -12,8 +12,22 @@ const Login = () => {
   const [backDrop, setBackDrop] = useState(false);
 
   useEffect(() => {
+    console.log("hello")
     clearError();
+    hrDetails()
   }, []);
+
+  const hrDetails = async ()=>{
+    try {
+      const response = await getHr()
+      console.log(response)
+      if(response.status===200){
+        navigate('/hr/')
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
   const onHrLogin = async (email: string) => {
     try {
       setBackDrop(true);

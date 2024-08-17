@@ -9,3 +9,7 @@ export const hrLogin= async(email:string)=>{
 export const verifyOtp = async ({email, otp}:Otp)=>{
     return await hrAxiosInstance.post('/verify-otp', {email, otp})
 }
+
+export const getHr = async()=>{
+    return await hrAxiosInstance.get('/')
+}

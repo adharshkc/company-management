@@ -20,5 +20,6 @@ const hrUsecase = new HrUsecase_1.HrUsecase(sequelizeHrRepository, nodeMailer, o
 const hrController = new HrController_1.HrController(hrUsecase);
 router.post('/login', hrController.hrLogin.bind(hrController));
 router.post('/verify-otp', hrController.verifyOtp.bind(hrController));
-router.post('/token', hrMiddleware_1.verifyHrRefreshToken, hrController.refreshToken.bind(hrController));
+// router.post('/token',verifyHrRefreshToken, hrController.refreshToken.bind(hrController))
+router.get('/', hrMiddleware_1.verifyHrAccessToken, hrController.getHr.bind(hrController));
 exports.default = router;

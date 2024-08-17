@@ -112,14 +112,24 @@ export class HrUsecase {
       throw new Error(error);
     }
   }
-  async createNewAccessToken (userId:number, commonId:number){
-    const role = "hr"
-    const newAccessToken = await this.createToken.createAccessToken(userId, commonId, role)
+  // async createNewAccessToken (userId:number, commonId:number){
+  //   const role = "hr"
+  //   const newAccessToken = await this.createToken.createAccessToken(userId, commonId, role)
+  //   return {
+  //     status:200,
+  //     data:{
+  //       success:true,
+  //       newAccessToken
+  //     }
+  //   }
+  // }
+  async getHr (hr_id:number){
+    const hr = await this.hrRepository.getHr(hr_id)
     return {
       status:200,
       data:{
         success:true,
-        newAccessToken
+        hr
       }
     }
   }

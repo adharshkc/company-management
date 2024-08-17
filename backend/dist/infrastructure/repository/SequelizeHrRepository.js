@@ -29,5 +29,17 @@ class SequelizeHrRepository {
     async hrLogin(email) {
         return null;
     }
+    async getHr(hr_id) {
+        try {
+            const response = await HrModel_1.default.findOne({ where: { hr_id: hr_id } });
+            if (response) {
+                return response;
+            }
+            return null;
+        }
+        catch (error) {
+            throw new Error(error);
+        }
+    }
 }
 exports.SequelizeHrRepository = SequelizeHrRepository;
