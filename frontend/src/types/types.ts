@@ -44,6 +44,14 @@ export type HrDetails = {
   startDate: Date | undefined;
 };
 
+export type EmployeeDetail = {
+  name:string
+  email:string
+  phone:string|number
+  startDate: Date | undefined
+  role:string
+}
+
 export type Otp = {
   email: string | null;
   otp: string;

@@ -4,6 +4,7 @@ import ProtectedRoutes from "./ProtectedRoutes";
 import Otp from "../pages/hr/Otp";
 import Dashboard from "../pages/hr/Dashboard";
 import HrLayout from "../layouts/HrLayout";
+import Employee from "../pages/hr/Employee";
 
 const HrRoute = function () {
   return (
@@ -13,6 +14,7 @@ const HrRoute = function () {
       <Route element={<ProtectedRoutes token="hrToken" />}>
         <Route element={<HrLayout />}>
           <Route path="/" element={<Dashboard />} />
+          <Route path="/employees" element={<Employee/>}/>
         </Route>
       </Route>
     </Routes>

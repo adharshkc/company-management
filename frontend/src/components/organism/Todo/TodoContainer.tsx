@@ -16,7 +16,7 @@ const TodoContainer = () => {
   const [inputValue, setInputValue] = useState("");
   const makeTodo= async function(){
     try {
-      if(inputValue.length===0)toast.error('Cannot add empty todo...')
+      if(inputValue.length===0){return toast.error('Cannot add empty todo...')}
       const response = await createTodo(inputValue)
       const pendingTodo = filterTodo(response.data?.todos);
       const doneTodo = updatedTodos(response.data?.todos);
@@ -76,7 +76,7 @@ const TodoContainer = () => {
         border: " #bdbdbd 1px solid",
         marginTop: "20px",
         borderRadius: "5px",
-        height:"100px"
+        height:"auto"
       }}
     >
       <Toaster position="top-right"/>

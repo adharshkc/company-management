@@ -2,7 +2,7 @@ import { Button as MuiButton, ButtonProps } from "@mui/material";
 
 type Button = {
   className?: string;
-  children: JSX.Element | string;
+  children: JSX.Element | string|string[];
   buttonColor?:ButtonProps['color']
   fullWidth?:boolean;
   disabled?:boolean

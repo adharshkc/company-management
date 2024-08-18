@@ -1,7 +1,7 @@
 import BarChart from "@components/organism/Charts/BarChart";
 import style from "../../../components/styles/adminDashboardTemplate.module.scss";
 import { Typography } from "../../atoms/typography/Typography";
-import ProjectStatics from "../../organism/ProjectStatics";
+import ProjectStatics from "../../organism/Statistics/ProjectStatics";
 import TodoContainer from "../../organism/Todo/TodoContainer";
 import TaskContainer from "../../organism/TaskContainer";
 

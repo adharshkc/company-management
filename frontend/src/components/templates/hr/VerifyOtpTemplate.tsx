@@ -19,6 +19,7 @@ const VerifyOtpTemplate = function () {
       }
      const response =  await verifyOtp({ email, otp });
      localStorage.setItem("hrToken", response.data.accessToken)
+     localStorage.setItem("commonToken", response.data.accessToken)
       toast.success("logined");
       sessionStorage.removeItem("email");
       navigate('/hr/')
