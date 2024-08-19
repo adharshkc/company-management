@@ -37,7 +37,11 @@ export const LoginOtp: React.FC<LoginOtpProps> = ({ handleSubmit, role }) => {
     } catch (error:any) {
       setOpen(true);
       setLoading(false);
-      setEmailError(error.response.data?.message);
+      setEmailError(error.response?.data?.message);
+      console.log(error)
+      if(error.response?.data?.message===undefined){
+        setEmailError(`Something Went Wrong... `)
+      }
     }
   };
   const handleClose = (

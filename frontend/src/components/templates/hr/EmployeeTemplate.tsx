@@ -4,6 +4,7 @@ import { theme } from "../../../theme";
 import style from "../../styles/hrEmployeeTemplate.module.scss";
 import { Box } from "@mui/material";
 import { Typography } from "@components/atoms/typography/Typography";
+import EmployeeCard from "@components/organism/Cards/EmployeeCard";
 
 const EmployeeTemplate = () => {
   return (
@@ -34,6 +35,15 @@ const EmployeeTemplate = () => {
             Add Employee
           </Button>
         </Link>
+      </Box>
+      <Box 
+      sx={{display:"flex", justifyContent:"space-evenly", width:"100%", marginY:5 , flexWrap:"wrap", gap:2}}
+      >
+        <EmployeeCard/>
+        <EmployeeCard/>
+        <EmployeeCard/>
+        <EmployeeCard/>
+        <EmployeeCard/>
       </Box>
     </div>
   );

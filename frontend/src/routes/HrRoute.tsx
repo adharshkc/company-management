@@ -5,6 +5,7 @@ import Otp from "../pages/hr/Otp";
 import Dashboard from "../pages/hr/Dashboard";
 import HrLayout from "../layouts/HrLayout";
 import Employee from "../pages/hr/Employee";
+import Attendance from "../pages/hr/Attendance";
 
 const HrRoute = function () {
   return (
@@ -15,6 +16,7 @@ const HrRoute = function () {
         <Route element={<HrLayout />}>
           <Route path="/" element={<Dashboard />} />
           <Route path="/employees" element={<Employee/>}/>
+          <Route path="/attendance" element={<Attendance/>}/>
         </Route>
       </Route>
     </Routes>
