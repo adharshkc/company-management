@@ -1,8 +1,9 @@
+import AttendanceTemplate from "@components/templates/hr/AttendanceTemplate"
 
 
 const Attendance = () => {
   return (
-    <div>Attendance</div>
+   <AttendanceTemplate/>
   )
 }
 
