@@ -1,5 +1,7 @@
 import {
+  Backdrop,
   Box,
+  CircularProgress,
 
 } from "@mui/material";
 import style from "../../styles/adminEmployeeTemplate.module.scss";
@@ -13,6 +15,7 @@ import toast, { Toaster } from "react-hot-toast";
 
 const EmployeeDashboardTemplate = () => { 
   const[openModal, setOpenModal] = useState<boolean>(false)
+  const[backDrop, setBackdrop] = useState<boolean|null>(false)
   const addHr=async function({name, email, phone, startDate}:HrDetails){
     try {
       const response = await createHr({name, email, phone, startDate})
@@ -20,11 +23,19 @@ const EmployeeDashboardTemplate = () => {
         setOpenModal(false)
         toast.success('Hr added successfully')
       }
+      return response
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error:any) {
-      throw error.message
+      console.log(error.response.data.error.message)
+      if(error.response.data.error.message){
+        toast.error(error.response.data.error.message)
+      }
+      // toast.error(error)
+      setBackdrop(false)
+      return error
     }
   }
+  const handleClose = () => setBackdrop(false);
   const handleModal =(bool:boolean)=>{
     setOpenModal(bool)
   }
@@ -62,6 +73,9 @@ const EmployeeDashboardTemplate = () => {
        <AddHr addHr={addHr} openModal={handleModal}/>
        }
       </Box>
+      <Backdrop onClick={handleClose} open={backDrop}>
+          <CircularProgress color="inherit" />
+        </Backdrop>
     </div>
   );
 };

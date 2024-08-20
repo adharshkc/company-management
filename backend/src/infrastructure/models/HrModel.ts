@@ -43,9 +43,6 @@ class HrModel extends Model {
   @Column({ type: DataType.DATE })
   joiningDate?: Date;
 
-  @AllowNull(true)
-  @Column({ type: DataType.STRING(6) })
-  otp?: string;
 
   @ForeignKey(() => UserModel)
   @NotEmpty

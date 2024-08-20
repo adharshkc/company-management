@@ -1,12 +1,20 @@
 import { Button } from "@components/atoms/button/Button";
-import { Link } from "react-router-dom";
 import { theme } from "../../../theme";
 import style from "../../styles/hrEmployeeTemplate.module.scss";
 import { Box } from "@mui/material";
 import { Typography } from "@components/atoms/typography/Typography";
 import EmployeeCard from "@components/organism/Cards/EmployeeCard";
+import AddEmployee from "@components/organism/Form/AddEmployee";
+import { useState } from "react";
 
 const EmployeeTemplate = () => {
+  const [openModal, setOpenModal] = useState<boolean>(false)
+  const addEmployee = async function name({name, email, phone, startDate, role}) {
+    
+  }
+  const handleModal =(bool:boolean)=>{
+    setOpenModal(bool)
+  }
   return (
     <div className={style.bodyPart}>
       <Box
@@ -21,7 +29,6 @@ const EmployeeTemplate = () => {
           <span className={style.heading1}>Dashboard </span>
           <span className="heading2">/ Project</span>{" "}
         </Typography>
-        <Link to={"/admin/projects/add"}>
           <Button
             sx={{
               backgroundColor: theme.palette.primary.dark,
@@ -31,10 +38,10 @@ const EmployeeTemplate = () => {
                 backgroundColor: "secondary.main",
               },
             }}
+            onClick = {()=>setOpenModal(true)}
           >
             Add Employee
           </Button>
-        </Link>
       </Box>
       {/* <Box className={style.line}></Box> */}
       <Box 
@@ -45,6 +52,10 @@ const EmployeeTemplate = () => {
         <EmployeeCard/>
         <EmployeeCard/>
         <EmployeeCard/>
+      </Box>
+      <Box>{openModal&&
+       <AddEmployee addEmployee={addEmployee} openModal={handleModal}/>
+       }
       </Box>
     </div>
   );

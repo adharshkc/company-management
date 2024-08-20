@@ -60,4 +60,14 @@ export class HrController {
       next(error)
     }
   }
+
+  async addEmployee(req:Request, res:Response, next:NextFunction){
+    try {
+      const data = req.body;
+      const result = await this.hrUsecase.createEmployee(data)
+      return res.status(result.status).json(result.data)
+    } catch (error) {
+      
+    }
+  }
 }

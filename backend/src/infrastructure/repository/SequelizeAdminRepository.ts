@@ -69,4 +69,12 @@ export class SequelizeAdminRepository implements AdminRepository {
     throw new Error(error)
    }
   }
+ async checkHr(email: string | undefined): Promise<string | null|undefined> {
+    try {
+      const hr = await HrModel.findOne({where:{email:email}})
+      return hr?.email
+    } catch (error:any) {
+      throw new Error(error)
+    }
+  }
 }

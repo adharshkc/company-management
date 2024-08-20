@@ -52,17 +52,17 @@ export const refreshToken = async function(){
 }
 
 
-adminAxiosInstance.interceptors.response.use(async (res)=>res, async(error)=>{
-    const originalRequest = error.config;
-    if(error.status ==='401'&& !originalRequest._retry){
-        originalRequest._retry = true
-    }
-    try {
-        const newAccessToken = await refreshToken()
-        axios.defaults.headers.common['Authorization'] = `Bearer ${newAccessToken}`;
-        originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
-        return axios(originalRequest);
-    } catch (error) {
-        console.log(error)
-    }
-})
+// adminAxiosInstance.interceptors.response.use(async (res)=>res, async(error)=>{
+//     const originalRequest = error.config;
+//     if(error.status ==='401'&& !originalRequest._retry){
+//         originalRequest._retry = true
+//     }
+//     try {
+//         const newAccessToken = await refreshToken()
+//         axios.defaults.headers.common['Authorization'] = `Bearer ${newAccessToken}`;
+//         originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
+//         return axios(originalRequest);
+//     } catch (error) {
+//         console.log(error)
+//     }
+// })

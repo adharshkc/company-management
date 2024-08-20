@@ -54,15 +54,20 @@ const AddHr:React.FC<AddHrProps> = ({ addHr, openModal }) => {
         return 
       }
       setBackdrop(true)
-       addHr({
+      const hr = await addHr({
         name,
         email,
         phone,
         startDate}
       );
+      // if(hr){
+        setBackdrop(false)
+      // }
     } catch (error) {
       toast.error("something went wrong");
-      openModal(false);
+      // openModal(false);
+      setBackdrop(false)
+      console.log(error)
     }
   };
 

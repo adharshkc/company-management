@@ -13,6 +13,7 @@ import {
 import AdminModel from "./AdminModel";
 import TodoModel from "./TodoModel";
 import HrModel from "./HrModel";
+import EmployeeModel from "./EmployeeModel";
 
 export interface UserI {
   user_id?: number | null;
@@ -41,6 +42,9 @@ class UserModel extends Model implements UserI {
   @HasOne(()=>HrModel)
   hr!:HrModel;
 
+  @HasOne(()=>EmployeeModel)
+  employee!:EmployeeModel
+  
   @HasMany(() => TodoModel)
   todos!: TodoModel;
 }

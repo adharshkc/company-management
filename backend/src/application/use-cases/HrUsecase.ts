@@ -2,6 +2,7 @@ import { HrRepository } from "@application/interface/HrRepository";
 import { MailerRepository } from "@application/interface/MailerRepository";
 import { OtpRepository } from "@application/interface/OtpRepository";
 import { TokenRepository } from "@application/interface/TokenRepository";
+import { IEmployee } from "@domain/entities/Employee";
 
 export class HrUsecase {
   private hrRepository: HrRepository;
@@ -27,8 +28,8 @@ export class HrUsecase {
       console.log(hr);
       if (hr) {
         const otp = this.otpManager.generateOtp();
-        console.log(otp)
-        
+        console.log(otp);
+
         const from = "codilary.solutions@gmail.com";
         const to = hr.email;
         const user_id = hr.user_id?.toString();
@@ -87,7 +88,7 @@ export class HrUsecase {
               success: true,
               hr,
               accessToken,
-              refreshToken
+              refreshToken,
             },
           };
         } else {
@@ -123,14 +124,49 @@ export class HrUsecase {
   //     }
   //   }
   // }
-  async getHr (hr_id:number){
-    const hr = await this.hrRepository.getHr(hr_id)
+  async getHr(hr_id: number) {
+    const hr = await this.hrRepository.getHr(hr_id);
     return {
-      status:200,
-      data:{
-        success:true,
-        hr
+      status: 200,
+      data: {
+        success: true,
+        hr,
+      },
+    };
+  }
+  async createEmployee(data: IEmployee) {
+    try {
+      const existingEmployee = await this.hrRepository.checkEmployee(
+        data.email
+      );
+      if (existingEmployee) {
+        throw new Error("Employee Already exists");
       }
+      const employee = await this.hrRepository.addEmployee(data);
+      console.log(employee)
+      if (employee) {
+        const accessToken = await this.createToken.createAccessToken(
+          employee.employee_id,
+          employee.user_id,
+          employee.role
+        );
+        const from = "codilary.solutions@gmail.com";
+        const to = employee.email;
+        const subject = "Welcome mail";
+        const html = `
+    <p>Welcome <strong>${employee.name}</strong> to Codilary!</p>
+    <p>Please click the link below to verify your email address:</p>
+    <a href="http://localhost:3000/verify?token=${accessToken}">Verify Email</a>
+    <p>If you did not request this email, please ignore it.</p>
+  `;
+        this.nodeMailer.sendMail(from, to, subject, html);
+      }
+      return {
+        status: 200,
+        data: { success: true, employee },
+      };
+    } catch (error) {
+      throw new Error((error as Error).message);
     }
   }
 }

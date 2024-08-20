@@ -8,6 +8,10 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
   TextField,
 } from "@mui/material";
 import { useState } from "react";
@@ -152,10 +156,45 @@ const AddEmployee:React.FC<AddEmployeeProps> = ({ addEmployee, openModal }) => {
               marginTop: 2,
             }}
           />
-          <Box>
+          <FormControl
+              // error={PriorityError}
+              variant="standard"
+              sx={{ marginTop: 2, width: "60%" }}
+            >
+              <InputLabel color="info" id="project-type-label">
+                Role *
+              </InputLabel>
+              <Select
+                labelId="project-type-label"
+                id="project-type-select"
+                // error={PriorityError}
+                color="info"
+                // value={selectPriority}
+                // onChange={handlePriorityChange}
+                sx={{
+                  "& .MuiFilledInput-root": {
+                    backgroundColor: "#f2f2f2",
+                  },
+                }}
+              >
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
+                <MenuItem value="High">High</MenuItem>
+                <MenuItem value="Medium">Medium</MenuItem>
+                <MenuItem value="Low">Low</MenuItem>
+              </Select>
+              {/* {PriorityError && (
+                <FormHelperText>select a severity</FormHelperText>
+              )} */}
+            </FormControl>
+          <Box marginTop="15px">
+          <InputLabel color="info" id="project-type-label">
+                Start date *
+              </InputLabel>
             <TextField
               id="filled-basic "
-              label="Start Date"
+              label=""
               required
               error={!!startDateError}
               helperText={startDateError ? startDateError : ""}
@@ -163,17 +202,18 @@ const AddEmployee:React.FC<AddEmployeeProps> = ({ addEmployee, openModal }) => {
               color="info"
               value={date}
               onChange={handleDate}
-              variant="filled"
+              variant="standard"
               sx={{
                 "& .MuiFilledInput-root": {
                   color: "#000",
-                  marginTop: 5,
+                  // marginTop: 5,
                   height: "56px",
+                  fontWeight:200,
                   width: "100%",
                   backgroundColor: "#f2f2f2",
                   borderRadius: "8px",
                 },
-                marginTop: 2,
+                // marginTop: 2,
                 width: "60%",
               }}
             />

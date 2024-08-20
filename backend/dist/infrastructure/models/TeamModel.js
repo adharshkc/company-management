@@ -11,6 +11,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_typescript_1 = require("sequelize-typescript");
 const ProjectModel_1 = __importDefault(require("./ProjectModel"));
+const EmployeeModel_1 = __importDefault(require("./EmployeeModel"));
 let TeamModel = class TeamModel extends sequelize_typescript_1.Model {
 };
 __decorate([
@@ -26,6 +27,9 @@ __decorate([
 __decorate([
     (0, sequelize_typescript_1.HasMany)(() => ProjectModel_1.default)
 ], TeamModel.prototype, "projects", void 0);
+__decorate([
+    (0, sequelize_typescript_1.HasMany)(() => EmployeeModel_1.default)
+], TeamModel.prototype, "employee", void 0);
 TeamModel = __decorate([
     (0, sequelize_typescript_1.Table)({
         tableName: "Team",

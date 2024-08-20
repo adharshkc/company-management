@@ -49,5 +49,14 @@ class SequelizeAdminRepository {
             throw new Error(error);
         }
     }
+    async checkHr(email) {
+        try {
+            const hr = await HrModel_1.default.findOne({ where: { email: email } });
+            return hr === null || hr === void 0 ? void 0 : hr.email;
+        }
+        catch (error) {
+            throw new Error(error);
+        }
+    }
 }
 exports.SequelizeAdminRepository = SequelizeAdminRepository;
