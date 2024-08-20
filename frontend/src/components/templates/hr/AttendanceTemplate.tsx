@@ -1,9 +1,10 @@
-import { Button } from "@components/atoms/button/Button"
 import { Typography } from "@components/atoms/typography/Typography"
 import { Box } from "@mui/material"
-import { Link } from "react-router-dom"
-import {theme} from "../../../theme"
+// import { Button } from "@components/atoms/button/Button"
+// import { Link } from "react-router-dom"
+// import {theme} from "../../../theme"
 import style from "../../styles/hrAttendanceTemplate.module.scss"
+import AttendanceTable from "@components/organism/Table/AttendanceTable"
 
 const AttendanceTemplate = () => {
   return (
@@ -19,7 +20,7 @@ const AttendanceTemplate = () => {
       <span className={style.heading1}>Dashboard </span>
       <span className="heading2">/ Attendance</span>{" "}
     </Typography>
-    <Link to={"/admin/projects/add"}>
+    {/* <Link to={"/admin/projects/add"}>
       <Button
         sx={{
           backgroundColor: theme.palette.primary.dark,
@@ -32,9 +33,13 @@ const AttendanceTemplate = () => {
       >
         Add Employee
       </Button>
-    </Link>
+    </Link> */}
   </Box>
     {/* <Box className={style.line}></Box> */}
+    <Box marginRight="35px">
+      {/* <AttendanceTable/> */}
+
+    </Box>
   </div>
   )
 }
