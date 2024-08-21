@@ -73,6 +73,18 @@ class HrController {
             return res.status(result.status).json(result.data);
         }
         catch (error) {
+            next(error);
+        }
+    }
+    async createTeam(req, res, next) {
+        try {
+            const name = req.body.name;
+            console.log(req.body);
+            const result = await this.hrUsecase.createTeam(name);
+            return res.status(result.status).json(result.data);
+        }
+        catch (error) {
+            next(error);
         }
     }
 }

@@ -1,6 +1,7 @@
 import { HrRepository } from "@application/interface/HrRepository";
 import { MailerRepository } from "@application/interface/MailerRepository";
 import { OtpRepository } from "@application/interface/OtpRepository";
+import { TeamRepository } from "@application/interface/TeamRepository";
 import { TokenRepository } from "@application/interface/TokenRepository";
 import { IEmployee } from "@domain/entities/Employee";
 
@@ -9,17 +10,20 @@ export class HrUsecase {
   private nodeMailer: MailerRepository;
   private otpManager: OtpRepository;
   private createToken: TokenRepository;
+  private teamRepository:TeamRepository
 
   constructor(
     hrRepository: HrRepository,
     nodeMailer: MailerRepository,
     otpManager: OtpRepository,
-    createToken: TokenRepository
+    createToken: TokenRepository,
+    teamRepository:TeamRepository
   ) {
     this.hrRepository = hrRepository;
     this.nodeMailer = nodeMailer;
     this.otpManager = otpManager;
     this.createToken = createToken;
+    this.teamRepository = teamRepository
   }
 
   async hrLogin(email: string) {
@@ -188,6 +192,21 @@ export class HrUsecase {
         data:{
           success:false,
           message: "could not retrieve the data"
+        }
+      }
+    } catch (error) {
+      throw new Error((error as Error).message)
+    }
+  }
+
+  async createTeam (name:string){
+    try {
+      const team = await this.teamRepository.addTeam(name)
+      return {
+        status:200,
+        data:{
+          success:true,
+          team
         }
       }
     } catch (error) {

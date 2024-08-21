@@ -5,6 +5,7 @@ import { verifyHrAccessToken } from "@frameworks/middlewares/authentication/hrMi
 import GenerateToken from "@frameworks/utils/generateToken";
 import { OtpManager } from "@frameworks/utils/otpManager";
 import { SequelizeHrRepository } from "@infrastructure/repository/SequelizeHrRepository";
+import { SequelizeTeamRepository } from "@infrastructure/repository/SequelizeTeamRepository";
 import { Router } from "express";
 
 
@@ -14,7 +15,8 @@ const generateToken = new GenerateToken()
 const otpManager = new OtpManager
 const nodeMailer = new NodeMailer
 const sequelizeHrRepository = new SequelizeHrRepository()
-const hrUsecase = new HrUsecase(sequelizeHrRepository,nodeMailer, otpManager, generateToken)
+const sequelizeTeamRepository = new SequelizeTeamRepository()
+const hrUsecase = new HrUsecase(sequelizeHrRepository,nodeMailer, otpManager, generateToken, sequelizeTeamRepository)
 const hrController = new HrController(hrUsecase)
 
 router.post('/login', hrController.hrLogin.bind(hrController))
@@ -23,6 +25,7 @@ router.post('/verify-otp', hrController.verifyOtp.bind(hrController))
 router.get('/', verifyHrAccessToken, hrController.getHr.bind(hrController))
 router.post('/add-employee', verifyHrAccessToken, hrController.addEmployee.bind(hrController))
 router.get('/employees', verifyHrAccessToken, hrController.getEmployees.bind(hrController))
+router.post('/add-team', verifyHrAccessToken, hrController.createTeam.bind(hrController))
 
 
 export default router

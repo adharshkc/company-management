@@ -16,21 +16,21 @@ import { emailPattern, phonePattern } from "../../../constants/constants";
 import { HrDetails } from "../../../types/types";
 
 type AddHrProps = {
-  openModal:(isOpen:boolean)=>void
-  addHr:({name, phone,email, startDate}:HrDetails)=>void
-}
+  openModal: (isOpen: boolean) => void;
+  addHr: ({ name, phone, email, startDate }: HrDetails) => void;
+};
 
-const AddHr:React.FC<AddHrProps> = ({ addHr, openModal }) => {
+const AddHr: React.FC<AddHrProps> = ({ addHr, openModal }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [date, setDate] = useState("");
   const [startDate, setStartDate] = useState<Date>();
-  const [backDrop, setBackdrop] = useState<boolean>(false)
+  const [backDrop, setBackdrop] = useState<boolean>(false);
   const [startDateError, setStartDateError] = useState("");
 
-    const handleClick = async (event?: React.MouseEvent<HTMLButtonElement>) => {
-      event?.preventDefault();
+  const handleClick = async (event?: React.MouseEvent<HTMLButtonElement>) => {
+    event?.preventDefault();
     try {
       if (!name.trim() || name.length < 3) {
         toast.error("Please enter a valid name");
@@ -40,34 +40,26 @@ const AddHr:React.FC<AddHrProps> = ({ addHr, openModal }) => {
         toast.error("Please enter a valid email");
         return;
       }
-      if (
-        !phone.trim() ||
-        // phone.length < 8 ||
-        // phone.length > 12 ||
-        !phonePattern.test(phone)
-      ) {
+      if (!phone.trim() || !phonePattern.test(phone)) {
         toast.error("Please enter a valid phone number");
         return;
       }
-      if(!startDate){
-        toast.error("Please enter a valid date")
-        return 
+      if (!startDate) {
+        toast.error("Please enter a valid date");
+        return;
       }
-      setBackdrop(true)
-      const hr = await addHr({
+      setBackdrop(true);
+      addHr({
         name,
         email,
         phone,
-        startDate}
-      );
-      // if(hr){
-        setBackdrop(false)
-      // }
+        startDate,
+      });
+      setBackdrop(false);
     } catch (error) {
       toast.error("something went wrong");
-      // openModal(false);
-      setBackdrop(false)
-      console.log(error)
+      setBackdrop(false);
+      console.log(error);
     }
   };
 
@@ -96,8 +88,7 @@ const AddHr:React.FC<AddHrProps> = ({ addHr, openModal }) => {
         sx={{ marginBottom: 2 }}
       >
         <DialogTitle marginTop={3}>Add New HR</DialogTitle>
-
-        <DialogContent sx={{}}>
+        <DialogContent>
           <TextField
             id="filled-basic"
             required
@@ -109,7 +100,6 @@ const AddHr:React.FC<AddHrProps> = ({ addHr, openModal }) => {
             sx={{
               "& .MuiFilledInput-root": {
                 color: "#000",
-                // marginTop: 4,
                 height: "56px",
                 width: "100%",
                 backgroundColor: "#f2f2f2",

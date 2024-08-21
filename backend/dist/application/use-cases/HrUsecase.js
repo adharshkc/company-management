@@ -2,11 +2,12 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.HrUsecase = void 0;
 class HrUsecase {
-    constructor(hrRepository, nodeMailer, otpManager, createToken) {
+    constructor(hrRepository, nodeMailer, otpManager, createToken, teamRepository) {
         this.hrRepository = hrRepository;
         this.nodeMailer = nodeMailer;
         this.otpManager = otpManager;
         this.createToken = createToken;
+        this.teamRepository = teamRepository;
     }
     async hrLogin(email) {
         var _a;
@@ -166,6 +167,21 @@ class HrUsecase {
                 data: {
                     success: false,
                     message: "could not retrieve the data"
+                }
+            };
+        }
+        catch (error) {
+            throw new Error(error.message);
+        }
+    }
+    async createTeam(name) {
+        try {
+            const team = await this.teamRepository.addTeam(name);
+            return {
+                status: 200,
+                data: {
+                    success: true,
+                    team
                 }
             };
         }

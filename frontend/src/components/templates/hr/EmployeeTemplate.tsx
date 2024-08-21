@@ -26,6 +26,7 @@ const EmployeeTemplate = () => {
       if(error.response.data.error.message){
         toast.error(error.response.data.error.message)
       }
+      toast.error("something went wrong")
     }
   }
 

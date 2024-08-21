@@ -79,7 +79,6 @@ const AddEmployee: React.FC<AddEmployeeProps> = ({
       setBackdrop(false)
     } catch (error) {
       toast.error("something went wrong");
-      // openModal(false);
     }
   };
 
@@ -109,7 +108,7 @@ const AddEmployee: React.FC<AddEmployeeProps> = ({
         }}
         sx={{ marginBottom: 2 }}
       >
-        <DialogTitle marginTop={3}>Add New HR</DialogTitle>
+        <DialogTitle marginTop={3}>Add New Employee</DialogTitle>
 
         <DialogContent sx={{}}>
           <TextField

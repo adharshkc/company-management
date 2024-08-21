@@ -1,5 +1,6 @@
 import { IEmployee } from "@domain/entities/Employee"
 import { Hr } from "@domain/entities/Hr"
+import { ITeam } from "@domain/entities/Team"
 
 export interface HrRepository{
     checkHr(email:string):Promise<Hr|null>
