@@ -5,9 +5,12 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
 
-export default function EmployeeCard() {
+export default function EmployeeCard(employee) {
+  const name = employee.employee.name
+  const role = employee.employee.role
+  console.log(employee)
   return (
-    <Card sx={{ width: "100%", maxWidth: 200, flexGrow: 1, marginX: 2, backgroundColor:"#F7F7F7"  }}>
+    <Card sx={{ width: "100%", maxWidth: 200, flexGrow: 1, marginX: 2, backgroundColor:"#F7F7F7",boxSizing:"border-box"  }}>
       <CardActionArea>
         <CardMedia
           component="img"
@@ -16,12 +19,12 @@ export default function EmployeeCard() {
           alt="green iguana"
           sx={{ borderRadius: '50%', width: 80, height: 80, margin: 'auto', marginTop:2}}
         />
-        <CardContent sx={{padding:0, marginBottom:4}}>
-          <Typography gutterBottom variant="h5" align='center'>
-            Lizard
+        <CardContent sx={{padding:0, marginBottom:4,boxSizing:"border-box"}}>
+          <Typography gutterBottom variant="h6" sx={{marginTop:1, fontWeight:400, }} align='center'>
+            {name}
           </Typography>
           <Typography gutterBottom sx={{fontWeight:"300"}}  variant="body1" align='center' >
-            Team Lead
+            {role}
           </Typography>
         </CardContent>
       </CardActionArea>

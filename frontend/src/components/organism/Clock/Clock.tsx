@@ -20,7 +20,7 @@ const Clock = () => {
         sx={{
           border: " #bdbdbd 0.5px solid",
           margin: "0px 16px 16px 16px",
-          backgroundColor: "#F3F0F9",
+          backgroundColor: "#f7f7f7",
           borderRadius: "5px",
         }}
       >

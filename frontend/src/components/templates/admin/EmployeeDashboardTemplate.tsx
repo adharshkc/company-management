@@ -15,7 +15,7 @@ import toast, { Toaster } from "react-hot-toast";
 
 const EmployeeDashboardTemplate = () => { 
   const[openModal, setOpenModal] = useState<boolean>(false)
-  const[backDrop, setBackdrop] = useState<boolean|null>(false)
+  const[backDrop, setBackdrop] = useState<boolean>(false)
   const addHr=async function({name, email, phone, startDate}:HrDetails){
     try {
       const response = await createHr({name, email, phone, startDate})

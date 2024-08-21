@@ -12,6 +12,7 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  SelectChangeEvent,
   TextField,
 } from "@mui/material";
 import { useState } from "react";
@@ -20,21 +21,32 @@ import { emailPattern, phonePattern } from "../../../constants/constants";
 import { EmployeeDetail } from "../../../types/types";
 
 type AddEmployeeProps = {
-  openModal:(isOpen:boolean)=>void
-  addEmployee:({name, phone,email, startDate, role}:EmployeeDetail)=>void
-}
+  openModal: (isOpen: boolean) => void;
+  addEmployee: ({
+    name,
+    phone,
+    email,
+    startDate,
+    role,
+  }: EmployeeDetail) => void;
+};
 
-const AddEmployee:React.FC<AddEmployeeProps> = ({ addEmployee, openModal }) => {
+const AddEmployee: React.FC<AddEmployeeProps> = ({
+  addEmployee,
+  openModal,
+}) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [date, setDate] = useState("");
   const [startDate, setStartDate] = useState<Date>();
-  const [backDrop, setBackdrop] = useState<boolean>(false)
+  const [backDrop, setBackdrop] = useState<boolean>(false);
   const [startDateError, setStartDateError] = useState("");
+  const [team, setTeam] = useState('')
+  const [role, setRole] = useState('')
 
-    const handleClick = async (event?: React.MouseEvent<HTMLButtonElement>) => {
-      event?.preventDefault();
+  const handleClick = async (event?: React.MouseEvent<HTMLButtonElement>) => {
+    event?.preventDefault();
     try {
       if (!name.trim() || name.length < 3) {
         toast.error("Please enter a valid name");
@@ -44,29 +56,30 @@ const AddEmployee:React.FC<AddEmployeeProps> = ({ addEmployee, openModal }) => {
         toast.error("Please enter a valid email");
         return;
       }
-      if (
-        !phone.trim() ||
-        // phone.length < 8 ||
-        // phone.length > 12 ||
-        !phonePattern.test(phone)
-      ) {
+      if (!phone.trim() || !phonePattern.test(phone)) {
         toast.error("Please enter a valid phone number");
         return;
       }
-      if(!startDate){
-        toast.error("Please enter a valid date")
-        return 
+      if(!role) return toast.error("Please select a role..")
+      if(!team) return toast.error("Please select a team..")
+      if (!startDate) {
+        toast.error("Please enter a valid date");
+        return;
       }
-      setBackdrop(true)
-       addEmployee({
+      
+      setBackdrop(true);
+      addEmployee({
         name,
         email,
         phone,
-        startDate}
-      );
+        role, 
+        team,
+        startDate,
+      });
+      setBackdrop(false)
     } catch (error) {
       toast.error("something went wrong");
-      openModal(false);
+      // openModal(false);
     }
   };
 
@@ -83,6 +96,8 @@ const AddEmployee:React.FC<AddEmployeeProps> = ({ addEmployee, openModal }) => {
     setStartDate(selectedDate);
     setDate(event.target.value);
   };
+  const handleTeam = (e:SelectChangeEvent<string>)=> setTeam(e.target.value)
+  const handleRole = (e:SelectChangeEvent<string>)=> setRole(e.target.value)
   const handleClose = () => setBackdrop(false);
   return (
     <div>
@@ -157,41 +172,73 @@ const AddEmployee:React.FC<AddEmployeeProps> = ({ addEmployee, openModal }) => {
             }}
           />
           <FormControl
+            // error={PriorityError}
+            variant="standard"
+            sx={{ marginTop: 2, width: "60%" }}
+          >
+            <InputLabel color="info" id="project-type-label">
+              Role *
+            </InputLabel>
+            <Select
+              labelId="project-type-label"
+              id="project-type-select"
               // error={PriorityError}
-              variant="standard"
-              sx={{ marginTop: 2, width: "60%" }}
+              color="info"
+              value={role}
+              onChange={handleRole}
+              sx={{
+                "& .MuiFilledInput-root": {
+                  backgroundColor: "#f2f2f2",
+                },
+              }}
             >
-              <InputLabel color="info" id="project-type-label">
-                Role *
-              </InputLabel>
-              <Select
-                labelId="project-type-label"
-                id="project-type-select"
-                // error={PriorityError}
-                color="info"
-                // value={selectPriority}
-                // onChange={handlePriorityChange}
-                sx={{
-                  "& .MuiFilledInput-root": {
-                    backgroundColor: "#f2f2f2",
-                  },
-                }}
-              >
-                <MenuItem value="">
-                  <em>None</em>
-                </MenuItem>
-                <MenuItem value="High">High</MenuItem>
-                <MenuItem value="Medium">Medium</MenuItem>
-                <MenuItem value="Low">Low</MenuItem>
-              </Select>
-              {/* {PriorityError && (
+              <MenuItem value="">
+                <em>None</em>
+              </MenuItem>
+              <MenuItem value="High">Frontend</MenuItem>
+              <MenuItem value="Medium">Backend</MenuItem>
+              <MenuItem value="Low">Full Stack</MenuItem>
+            </Select>
+            {/* {PriorityError && (
                 <FormHelperText>select a severity</FormHelperText>
               )} */}
-            </FormControl>
+          </FormControl>
+          <FormControl
+            // error={PriorityError}
+            variant="standard"
+            sx={{ marginTop: 2, width: "60%" }}
+          >
+            <InputLabel color="info" id="project-type-label">
+              Team *
+            </InputLabel>
+            <Select
+              labelId="project-type-label"
+              id="project-type-select"
+              // error={PriorityError}
+              color="info"
+              value={team}
+              onChange={handleTeam}
+              sx={{
+                "& .MuiFilledInput-root": {
+                  backgroundColor: "#f2f2f2",
+                },
+              }}
+            >
+              <MenuItem value="">
+                <em>None</em>
+              </MenuItem>
+              <MenuItem value="High">1</MenuItem>
+              <MenuItem value="Medium">Team 2</MenuItem>
+              <MenuItem value="Low">Team 3</MenuItem>
+            </Select>
+            {/* {PriorityError && (
+                <FormHelperText>select a severity</FormHelperText>
+              )} */}
+          </FormControl>
           <Box marginTop="15px">
-          <InputLabel color="info" id="project-type-label">
-                Start date *
-              </InputLabel>
+            <InputLabel color="info" id="project-type-label">
+              Start date *
+            </InputLabel>
             <TextField
               id="filled-basic "
               label=""
@@ -208,7 +255,7 @@ const AddEmployee:React.FC<AddEmployeeProps> = ({ addEmployee, openModal }) => {
                   color: "#000",
                   // marginTop: 5,
                   height: "56px",
-                  fontWeight:200,
+                  fontWeight: 200,
                   width: "100%",
                   backgroundColor: "#f2f2f2",
                   borderRadius: "8px",

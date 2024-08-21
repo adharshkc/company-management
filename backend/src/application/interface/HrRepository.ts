@@ -7,4 +7,5 @@ export interface HrRepository{
     getHr(hr_id:number):Promise<Hr|null>
     addEmployee(data:IEmployee):Promise<IEmployee|null>
     checkEmployee(email:string):Promise<string|null|undefined>
+    getEmployees():Promise<IEmployee[]|null>
 }

@@ -59,7 +59,17 @@ class HrController {
     async addEmployee(req, res, next) {
         try {
             const data = req.body;
+            console.log("requested");
             const result = await this.hrUsecase.createEmployee(data);
+            return res.status(result.status).json(result.data);
+        }
+        catch (error) {
+            next(error);
+        }
+    }
+    async getEmployees(req, res, next) {
+        try {
+            const result = await this.hrUsecase.getAllEmployees();
             return res.status(result.status).json(result.data);
         }
         catch (error) {

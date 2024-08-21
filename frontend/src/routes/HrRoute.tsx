@@ -6,6 +6,7 @@ import Dashboard from "../pages/hr/Dashboard";
 import HrLayout from "../layouts/HrLayout";
 import Employee from "../pages/hr/Employee";
 import Attendance from "../pages/hr/Attendance";
+import Teams from "../pages/hr/Teams";
 
 const HrRoute = function () {
   return (
@@ -17,6 +18,7 @@ const HrRoute = function () {
           <Route path="/" element={<Dashboard />} />
           <Route path="/employees" element={<Employee/>}/>
           <Route path="/attendance" element={<Attendance/>}/>
+          <Route path="/teams" element={<Teams/>}/>
         </Route>
       </Route>
     </Routes>

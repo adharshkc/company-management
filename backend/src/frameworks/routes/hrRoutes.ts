@@ -22,6 +22,7 @@ router.post('/verify-otp', hrController.verifyOtp.bind(hrController))
 // router.post('/token',verifyHrRefreshToken, hrController.refreshToken.bind(hrController))
 router.get('/', verifyHrAccessToken, hrController.getHr.bind(hrController))
 router.post('/add-employee', verifyHrAccessToken, hrController.addEmployee.bind(hrController))
+router.get('/employees', verifyHrAccessToken, hrController.getEmployees.bind(hrController))
 
 
 export default router

@@ -64,7 +64,16 @@ export class HrController {
   async addEmployee(req:Request, res:Response, next:NextFunction){
     try {
       const data = req.body;
+      console.log("requested")
       const result = await this.hrUsecase.createEmployee(data)
+      return res.status(result.status).json(result.data)
+    } catch (error) {
+      next(error)
+    }
+  }
+  async getEmployees(req:Request, res:Response, next:NextFunction){
+    try {
+      const result = await this.hrUsecase.getAllEmployees()
       return res.status(result.status).json(result.data)
     } catch (error) {
       

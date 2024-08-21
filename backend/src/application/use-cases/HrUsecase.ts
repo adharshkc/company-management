@@ -140,6 +140,7 @@ export class HrUsecase {
         data.email
       );
       if (existingEmployee) {
+        console.log("hello")
         throw new Error("Employee Already exists");
       }
       const employee = await this.hrRepository.addEmployee(data);
@@ -167,6 +168,30 @@ export class HrUsecase {
       };
     } catch (error) {
       throw new Error((error as Error).message);
+    }
+  }
+
+  async getAllEmployees (){
+    try {
+      const employees = await this.hrRepository.getEmployees()
+      if(employees){
+        return {
+          status:200,
+          data:{
+            success:true,
+            employees
+          }
+        }
+      }
+      return{
+        status:500,
+        data:{
+          success:false,
+          message: "could not retrieve the data"
+        }
+      }
+    } catch (error) {
+      throw new Error((error as Error).message)
     }
   }
 }

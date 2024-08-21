@@ -35,7 +35,6 @@ class AdminController {
         try {
             const data = req.body;
             const result = await this.adminUsecase.addHr(data);
-            console.log(result);
             res.status(result.status).json(result.data);
         }
         catch (error) {

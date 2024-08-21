@@ -41,6 +41,7 @@ export class SequelizeHrRepository implements HrRepository {
   }
   async addEmployee(data: IEmployee): Promise<IEmployee | null> {
     try {
+      console.log(data)
       const newEmployee = await UserModel.create({ role: data.role });
       console.log(newEmployee)
       if (newEmployee) {
@@ -52,7 +53,7 @@ export class SequelizeHrRepository implements HrRepository {
             joiningDate: data.startDate,
             user_id: newEmployee.user_id,
             role: data.role,
-            team_id: data.team_id,
+            team_id: 1
           });
           console.log(result)
           return result;
@@ -61,9 +62,11 @@ export class SequelizeHrRepository implements HrRepository {
           throw new Error
         }
       } else {
+        
         throw new Error("Error creating user");
       }
     } catch (error: any) {
+      console.log(error)
       throw new Error(error);
     }
   }
@@ -73,6 +76,15 @@ export class SequelizeHrRepository implements HrRepository {
       return employee?.email;
     } catch (error: any) {
       throw new Error(error);
+    }
+  }
+
+  async getEmployees(): Promise<IEmployee[] | null> {
+    try {
+      const employees = await EmployeeModel.findAll()
+      return employees
+    } catch (error:any) {
+      throw new Error(error)
     }
   }
 }

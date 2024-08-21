@@ -48,6 +48,7 @@ export type EmployeeDetail = {
   name:string
   email:string
   phone:string|number
+  team:string
   startDate: Date | undefined
   role:string
 }

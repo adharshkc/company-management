@@ -9,6 +9,8 @@ import channelIcon from "../assets/icons/hashtag-solid 1.svg";
 import channelIconDark from "../assets/icons/hashtag-solid 1 (2).svg";
 import attendanceIconLight from "../assets/icons/attendanceLight.svg";
 import attendanceIconDark from "../assets/icons/attendanceDark.svg";
+import teamIconDark from "../assets/icons/people-group-solid 1.svg"
+import teamIconLight from "../assets/icons/people-group-solid 1 (1).svg"
 import { useEffect } from "react";
 import { getHr } from "../services/HrApi";
 import useHrStore from "../zustand/HrStore";
@@ -50,6 +52,13 @@ const HrLayout = () => {
     },
     {
       id: 4,
+      name: "Teams",
+      path: "/hr/teams",
+      darkIcon: teamIconDark,
+      lightIcon: teamIconLight,
+    },
+    {
+      id: 5,
       name: "Channels",
       path: "/hr/channels",
       darkIcon: channelIconDark,

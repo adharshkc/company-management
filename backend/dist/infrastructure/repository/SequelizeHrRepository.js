@@ -45,6 +45,7 @@ class SequelizeHrRepository {
     }
     async addEmployee(data) {
         try {
+            console.log(data);
             const newEmployee = await UserModel_1.default.create({ role: data.role });
             console.log(newEmployee);
             if (newEmployee) {
@@ -56,7 +57,7 @@ class SequelizeHrRepository {
                         joiningDate: data.startDate,
                         user_id: newEmployee.user_id,
                         role: data.role,
-                        team_id: data.team_id,
+                        team_id: 1
                     });
                     console.log(result);
                     return result;
@@ -71,6 +72,7 @@ class SequelizeHrRepository {
             }
         }
         catch (error) {
+            console.log(error);
             throw new Error(error);
         }
     }
@@ -78,6 +80,15 @@ class SequelizeHrRepository {
         try {
             const employee = await EmployeeModel_1.default.findOne({ where: { email: email } });
             return employee === null || employee === void 0 ? void 0 : employee.email;
+        }
+        catch (error) {
+            throw new Error(error);
+        }
+    }
+    async getEmployees() {
+        try {
+            const employees = await EmployeeModel_1.default.findAll();
+            return employees;
         }
         catch (error) {
             throw new Error(error);

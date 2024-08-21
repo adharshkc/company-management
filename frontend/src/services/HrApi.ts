@@ -1,4 +1,4 @@
-import { Otp } from "../types/types";
+import { EmployeeDetail, Otp } from "../types/types";
 import { hrAxiosInstance } from "../apis/hrAxiosInstance";
 
 
@@ -12,4 +12,12 @@ export const verifyOtp = async ({email, otp}:Otp)=>{
 
 export const getHr = async()=>{
     return await hrAxiosInstance.get('/')
+}
+
+export const createEmployee = async(data:EmployeeDetail)=>{
+    return await hrAxiosInstance.post('/add-employee', data)
+}
+
+export const allEmployees = async()=>{
+    return await hrAxiosInstance.get('/employees')
 }
