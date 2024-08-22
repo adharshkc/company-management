@@ -48,9 +48,12 @@ export type EmployeeDetail = {
   name:string
   email:string
   phone:string|number
-  team:string
-  startDate: Date | undefined
+  team?:string
+  startDate?: Date | undefined
   role:string
+  joiningDate?:Date|undefined
+  user_id?:number|null
+  employee_id?:number|null
 }
 
 export type Otp = {
@@ -90,4 +93,9 @@ export type HrType = {
   phone:string
   hr_id:number
   user_id:number
+}
+
+export type TeamType = {
+  name:string
+  team_id?:number
 }

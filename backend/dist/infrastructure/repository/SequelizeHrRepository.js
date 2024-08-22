@@ -54,7 +54,7 @@ class SequelizeHrRepository {
                         name: data.name,
                         email: data.email,
                         phone: data.phone,
-                        joiningDate: data.startDate,
+                        joiningDate: data.joiningDate,
                         user_id: newEmployee.user_id,
                         role: data.role,
                         team_id: 1

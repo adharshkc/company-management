@@ -10,51 +10,27 @@ export class HrUsecase {
   private nodeMailer: MailerRepository;
   private otpManager: OtpRepository;
   private createToken: TokenRepository;
-  private teamRepository:TeamRepository
+  private teamRepository: TeamRepository;
 
   constructor(
     hrRepository: HrRepository,
     nodeMailer: MailerRepository,
     otpManager: OtpRepository,
     createToken: TokenRepository,
-    teamRepository:TeamRepository
+    teamRepository: TeamRepository
   ) {
     this.hrRepository = hrRepository;
     this.nodeMailer = nodeMailer;
     this.otpManager = otpManager;
     this.createToken = createToken;
-    this.teamRepository = teamRepository
+    this.teamRepository = teamRepository;
   }
 
   async hrLogin(email: string) {
     try {
       const hr = await this.hrRepository.checkHr(email);
       console.log(hr);
-      if (hr) {
-        const otp = this.otpManager.generateOtp();
-        console.log(otp);
-
-        const from = "codilary.solutions@gmail.com";
-        const to = hr.email;
-        const user_id = hr.user_id?.toString();
-        const subject = "Login Otp";
-        const html = `<p>Dear <strong>${hr.name}</strong>,</p>
-                <p>Your One-Time Password (OTP) for verifying your account is:</p>
-                <h2>${otp}</h2>
-                <p>Please enter this OTP in the verification screen to complete your registration.</p>
-                <p>This OTP is valid for only 10 minutes. If you did not request this, please ignore this email.</p>
-                <p>Thank you,<br />The Codilary Team</p>
-              `;
-        await this.nodeMailer.sendMail(from, to, subject, html);
-        await this.otpManager.saveOtp(otp, user_id);
-        return {
-          status: 200,
-          data: {
-            success: true,
-            message: "Email sent ",
-          },
-        };
-      } else {
+      if (!hr) {
         return {
           status: 404,
           data: {
@@ -63,6 +39,39 @@ export class HrUsecase {
           },
         };
       }
+      const otp = this.otpManager.generateOtp();
+      console.log(otp);
+
+      const from = "codilary.solutions@gmail.com";
+      const to = hr.email;
+      const user_id = hr.user_id?.toString();
+      const subject = "Login Otp";
+      const html = `<p>Dear <strong>${hr.name}</strong>,</p>
+                <p>Your One-Time Password (OTP) for verifying your account is:</p>
+                <h2>${otp}</h2>
+                <p>Please enter this OTP in the verification screen to complete your registration.</p>
+                <p>This OTP is valid for only 10 minutes. If you did not request this, please ignore this email.</p>
+                <p>Thank you,<br />The Codilary Team</p>
+              `;
+      const response = await this.nodeMailer.sendMail(from, to, subject, html);
+      if (!response) {
+        return {
+          status: 500,
+          data: {
+            success: false,
+            message: "Failed to sent email",
+          },
+        };
+      }
+
+      await this.otpManager.saveOtp(otp, user_id);
+      return {
+        status: 200,
+        data: {
+          success: true,
+          message: "Email sent ",
+        },
+      };
     } catch (error: any) {
       console.log(error);
       throw new Error(error);
@@ -71,40 +80,7 @@ export class HrUsecase {
   async verifyOtp(otp: string, email: string) {
     try {
       const hr = await this.hrRepository.checkHr(email);
-      if (hr) {
-        const user_id = hr.user_id?.toString();
-        const otpMatch = await this.otpManager.checkOtp(otp, user_id);
-        if (otpMatch) {
-          const role = "hr";
-          const accessToken = await this.createToken.createAccessToken(
-            hr.hr_id,
-            hr.user_id,
-            role
-          );
-          const refreshToken = await this.createToken.createRefreshToken(
-            hr.hr_id,
-            hr.user_id,
-            role
-          );
-          return {
-            status: 200,
-            data: {
-              success: true,
-              hr,
-              accessToken,
-              refreshToken,
-            },
-          };
-        } else {
-          return {
-            status: 400,
-            data: {
-              success: false,
-              message: "Incorrect Otp",
-            },
-          };
-        }
-      } else {
+      if (!hr) {
         return {
           status: 404,
           data: {
@@ -113,6 +89,37 @@ export class HrUsecase {
           },
         };
       }
+      const user_id = hr.user_id?.toString();
+      const otpMatch = await this.otpManager.checkOtp(otp, user_id);
+      if (!otpMatch) {
+        return {
+          status: 400,
+          data: {
+            success: false,
+            message: "Incorrect Otp",
+          },
+        };
+      }
+      const role = "hr";
+      const accessToken = await this.createToken.createAccessToken(
+        hr.hr_id,
+        hr.user_id,
+        role
+      );
+      const refreshToken = await this.createToken.createRefreshToken(
+        hr.hr_id,
+        hr.user_id,
+        role
+      );
+      return {
+        status: 200,
+        data: {
+          success: true,
+          hr,
+          accessToken,
+          refreshToken,
+        },
+      };
     } catch (error: any) {
       throw new Error(error);
     }
@@ -144,11 +151,11 @@ export class HrUsecase {
         data.email
       );
       if (existingEmployee) {
-        console.log("hello")
+        console.log("hello");
         throw new Error("Employee Already exists");
       }
       const employee = await this.hrRepository.addEmployee(data);
-      console.log(employee)
+      console.log(employee);
       if (employee) {
         const accessToken = await this.createToken.createAccessToken(
           employee.employee_id,
@@ -175,42 +182,57 @@ export class HrUsecase {
     }
   }
 
-  async getAllEmployees (){
+  async getAllEmployees() {
     try {
-      const employees = await this.hrRepository.getEmployees()
-      if(employees){
+      const employees = await this.hrRepository.getEmployees();
+      if (employees) {
         return {
-          status:200,
-          data:{
-            success:true,
-            employees
-          }
-        }
+          status: 200,
+          data: {
+            success: true,
+            employees,
+          },
+        };
       }
-      return{
-        status:500,
-        data:{
-          success:false,
-          message: "could not retrieve the data"
-        }
-      }
+      return {
+        status: 500,
+        data: {
+          success: false,
+          message: "could not retrieve the data",
+        },
+      };
     } catch (error) {
-      throw new Error((error as Error).message)
+      throw new Error((error as Error).message);
     }
   }
 
-  async createTeam (name:string){
+  async createTeam(name: string) {
     try {
-      const team = await this.teamRepository.addTeam(name)
+      const team = await this.teamRepository.addTeam(name);
       return {
+        status: 200,
+        data: {
+          success: true,
+          team,
+        },
+      };
+    } catch (error) {
+      throw new Error((error as Error).message);
+    }
+  }
+
+  async getAllTeams(){
+    try {
+      const teams = await this.teamRepository.getTeams()
+      return{
         status:200,
         data:{
           success:true,
-          team
+          teams
         }
       }
     } catch (error) {
-      throw new Error((error as Error).message)
+      throw new Error((error as Error).message);
     }
   }
 }

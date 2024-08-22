@@ -26,6 +26,7 @@ router.get('/', verifyHrAccessToken, hrController.getHr.bind(hrController))
 router.post('/add-employee', verifyHrAccessToken, hrController.addEmployee.bind(hrController))
 router.get('/employees', verifyHrAccessToken, hrController.getEmployees.bind(hrController))
 router.post('/add-team', verifyHrAccessToken, hrController.createTeam.bind(hrController))
+router.get('/teams', verifyHrAccessToken, hrController.getTeams.bind(hrController))
 
 
 export default router

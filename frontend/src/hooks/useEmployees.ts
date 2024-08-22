@@ -9,6 +9,7 @@ export const useEmployees = ()=>{
     const getEmployees = async function(){
         try {
             const response = await allEmployees()
+            console.log(response.data.employees)
             setEmployees(response.data.employees)
         } catch (error) {
             toast.error(("something went wrong"));

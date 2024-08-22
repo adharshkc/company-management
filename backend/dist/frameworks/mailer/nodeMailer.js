@@ -24,9 +24,11 @@ class NodeMailer {
         try {
             await this.transporter.sendMail(mailOptions);
             console.log("email sent successfully");
+            return { success: true, message: "Email sent successfully" };
         }
         catch (error) {
             console.log(error);
+            throw new Error(error.message);
         }
     }
 }

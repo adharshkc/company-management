@@ -90,4 +90,13 @@ export class HrController {
       next(error)
     }
   }
+
+  async getTeams(req:Request, res:Response, next:NextFunction){
+    try {
+      const result = await this.hrUsecase.getAllTeams()
+      return res.status(result.status).json(result.data)
+    } catch (error) {
+      next(error)
+    }
+  }
 }

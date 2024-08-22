@@ -87,5 +87,14 @@ class HrController {
             next(error);
         }
     }
+    async getTeams(req, res, next) {
+        try {
+            const result = await this.hrUsecase.getAllTeams();
+            return res.status(result.status).json(result.data);
+        }
+        catch (error) {
+            next(error);
+        }
+    }
 }
 exports.HrController = HrController;

@@ -27,4 +27,5 @@ router.get('/', hrMiddleware_1.verifyHrAccessToken, hrController.getHr.bind(hrCo
 router.post('/add-employee', hrMiddleware_1.verifyHrAccessToken, hrController.addEmployee.bind(hrController));
 router.get('/employees', hrMiddleware_1.verifyHrAccessToken, hrController.getEmployees.bind(hrController));
 router.post('/add-team', hrMiddleware_1.verifyHrAccessToken, hrController.createTeam.bind(hrController));
+router.get('/teams', hrMiddleware_1.verifyHrAccessToken, hrController.getTeams.bind(hrController));
 exports.default = router;

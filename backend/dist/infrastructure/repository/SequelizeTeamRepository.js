@@ -16,5 +16,14 @@ class SequelizeTeamRepository {
             throw new Error(error);
         }
     }
+    async getTeams() {
+        try {
+            const teams = await TeamModel_1.default.findAll();
+            return teams;
+        }
+        catch (error) {
+            throw new Error(error);
+        }
+    }
 }
 exports.SequelizeTeamRepository = SequelizeTeamRepository;

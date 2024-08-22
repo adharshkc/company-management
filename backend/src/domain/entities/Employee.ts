@@ -5,7 +5,7 @@ export interface IEmployee {
   role: string;
   employee_id?: number;
   user_id?: number;
-  startDate?: Date;
+  joiningDate?: Date;
   team_id?: number;
 }
 
@@ -16,7 +16,7 @@ export class Employee implements IEmployee {
   role: string;
   employee_id?: number;
   user_id?: number;
-  startDate?: Date;
+  joiningDate?: Date;
   team_id?: number;
   constructor(
     name: string,
@@ -25,7 +25,7 @@ export class Employee implements IEmployee {
     role: string,
     employee_id?: number,
     user_id?: number,
-    startDate?: Date,
+    joiningDate?: Date,
     team_id?: number
   ) {
     this.name = name;
@@ -34,7 +34,7 @@ export class Employee implements IEmployee {
     this.role = role;
     this.employee_id = employee_id;
     this.user_id = user_id;
-    this.startDate = startDate;
+    this.joiningDate = joiningDate;
     team_id = team_id;
   }
 }

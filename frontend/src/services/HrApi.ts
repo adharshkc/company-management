@@ -25,3 +25,7 @@ export const allEmployees = async()=>{
 export const createTeam = async (name:string)=>{
     return await hrAxiosInstance.post('/add-team', {name})
 }
+
+export const allTeams = async ()=>{
+    return await hrAxiosInstance.get('/teams')
+}

@@ -14,4 +14,12 @@ export class SequelizeTeamRepository implements TeamRepository{
             throw new Error(error)
         }
     }
+    async getTeams(): Promise<ITeam[] | null> {
+        try {
+            const teams = await TeamModel.findAll()
+            return teams
+        } catch (error:any) {
+            throw new Error(error);
+        }
+    }
 }

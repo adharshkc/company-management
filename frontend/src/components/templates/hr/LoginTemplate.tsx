@@ -32,6 +32,7 @@ const Login = () => {
     try {
       setBackDrop(true);
       const response = await hrLogin(email);
+      console.log(response)
       navigate("/hr/verify-otp");
       sessionStorage.setItem("email", email);
       return response;

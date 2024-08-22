@@ -15,9 +15,9 @@ const EmployeeTemplate = () => {
   const [openModal, setOpenModal] = useState<boolean>(false)
 
   const {employees, getEmployees} = useEmployees()
-  const addEmployee = async function name({name, email, phone, role, team, startDate,}:EmployeeDetail) {
+  const addEmployee = async function name({name, email, phone, role, team, joiningDate,}:EmployeeDetail) {
     try {
-      await createEmployee({name, email, phone, role, team, startDate})
+      await createEmployee({name, email, phone, role, team, joiningDate})
       setOpenModal(false)
       toast.success("Successfully created Employee")
       getEmployees()
@@ -66,9 +66,9 @@ const EmployeeTemplate = () => {
       <Box 
       sx={{display:"flex", justifyContent:"flex-start", width:"100%", marginY:5 , flexWrap:"wrap", gap:2}}
       >{
-        employees.map((employee)=>(
+        employees.map((employee:EmployeeDetail)=>(
 
-          <EmployeeCard employee={employee}/>
+          <EmployeeCard key={employee?.employee_id} employee={employee}/>
         ))
       }
         

@@ -39,9 +39,9 @@ const AddEmployee: React.FC<AddEmployeeProps> = ({
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [date, setDate] = useState("");
-  const [startDate, setStartDate] = useState<Date>();
+  const [joiningDate, setJoiningDate] = useState<Date>();
   const [backDrop, setBackdrop] = useState<boolean>(false);
-  const [startDateError, setStartDateError] = useState("");
+  const [joiningDateError, setJoiningDateError] = useState("");
   const [team, setTeam] = useState('')
   const [role, setRole] = useState('')
 
@@ -62,7 +62,7 @@ const AddEmployee: React.FC<AddEmployeeProps> = ({
       }
       if(!role) return toast.error("Please select a role..")
       if(!team) return toast.error("Please select a team..")
-      if (!startDate) {
+      if (!joiningDate) {
         toast.error("Please enter a valid date");
         return;
       }
@@ -74,7 +74,7 @@ const AddEmployee: React.FC<AddEmployeeProps> = ({
         phone,
         role, 
         team,
-        startDate,
+        joiningDate,
       });
       setBackdrop(false)
     } catch (error) {
@@ -83,16 +83,16 @@ const AddEmployee: React.FC<AddEmployeeProps> = ({
   };
 
   const handleDate = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setStartDateError("");
+    setJoiningDateError("");
     const selectedDate = event.target.value
       ? new Date(event.target.value)
       : null;
     const currentDate = new Date();
     currentDate.setHours(0, 0, 0, 0);
-    if (selectedDate === null) return setStartDateError("date is required");
+    if (selectedDate === null) return setJoiningDateError("date is required");
     if (selectedDate < currentDate)
-      return setStartDateError("Select a future date");
-    setStartDate(selectedDate);
+      return setJoiningDateError("Select a future date");
+    setJoiningDate(selectedDate);
     setDate(event.target.value);
   };
   const handleTeam = (e:SelectChangeEvent<string>)=> setTeam(e.target.value)
@@ -242,8 +242,8 @@ const AddEmployee: React.FC<AddEmployeeProps> = ({
               id="filled-basic "
               label=""
               required
-              error={!!startDateError}
-              helperText={startDateError ? startDateError : ""}
+              error={!!joiningDateError}
+              helperText={joiningDateError ? joiningDateError : ""}
               type="date"
               color="info"
               value={date}

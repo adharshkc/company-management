@@ -19,7 +19,7 @@ class NodeMailer implements MailerRepository {
     to: string,
     subject: string,
     html: string
-  ): Promise<void> {
+  ): Promise<any|null> {
     const mailOptions = {
       from: from,
       to: to,
@@ -30,8 +30,10 @@ class NodeMailer implements MailerRepository {
     try {
       await this.transporter.sendMail(mailOptions);
       console.log("email sent successfully");
+      return { success: true, message: "Email sent successfully" };
     } catch (error) {
       console.log(error);
+      throw new Error((error as Error).message)
     }
   }
 }

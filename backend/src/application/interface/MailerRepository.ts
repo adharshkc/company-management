@@ -1,3 +1,3 @@
 export interface MailerRepository {
-    sendMail(from: string, to: string, subject:string, html:string):Promise<void>;
+    sendMail(from: string, to: string, subject:string, html:string):Promise<any|null>;
 }   
