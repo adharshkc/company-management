@@ -13,14 +13,14 @@ class SequelizeAdminRepository {
         const admin = await AdminModel_1.default.findOne({ where: { email } });
         console.log(admin, "admin");
         if (admin) {
-            return new Admin_1.Admin(admin.name, admin.email, admin.password, admin.dob, admin.gender, admin.phone, admin.userId, admin.admin_id);
+            return new Admin_1.Admin(admin.name, admin.email, admin.password, admin.dob, admin.gender, admin.phone, admin.user_id, admin.admin_id);
         }
         return null;
     }
     async getAdmin(adminId) {
         const admin = await AdminModel_1.default.findOne({ where: { admin_id: adminId } });
         if (admin) {
-            return new Admin_1.Admin(admin.name, admin.email, admin.password, admin.dob, admin.gender, admin.phone, admin.userId, admin.admin_id);
+            return new Admin_1.Admin(admin.name, admin.email, admin.password, admin.dob, admin.gender, admin.phone, admin.user_id, admin.admin_id);
         }
         return null;
     }

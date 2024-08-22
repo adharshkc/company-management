@@ -23,7 +23,7 @@ export class SequelizeAdminRepository implements AdminRepository {
         admin.dob,
         admin.gender,
         admin.phone,
-        admin.userId,
+        admin.user_id,
         admin.admin_id,
       );
     }
@@ -40,7 +40,7 @@ export class SequelizeAdminRepository implements AdminRepository {
         admin.dob,
         admin.gender,
         admin.phone,
-        admin.userId,
+        admin.user_id,
         admin.admin_id,
       )
     }

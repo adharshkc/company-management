@@ -52,7 +52,7 @@ __decorate([
     (0, sequelize_typescript_1.ForeignKey)(() => UserModel_1.default),
     sequelize_typescript_1.NotEmpty,
     (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.INTEGER, allowNull: false })
-], AdminModel.prototype, "userId", void 0);
+], AdminModel.prototype, "user_id", void 0);
 __decorate([
     (0, sequelize_typescript_1.BelongsTo)(() => UserModel_1.default)
 ], AdminModel.prototype, "user", void 0);

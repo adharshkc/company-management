@@ -21,7 +21,7 @@ export interface AdminI {
   dob: Date;
   gender: string;
   phone: string;
-  userId: number;
+  user_id: number;
 }
 
 @Table({
@@ -68,7 +68,7 @@ class AdminModel extends Model implements AdminI {
   @ForeignKey(() => UserModel)
   @NotEmpty
   @Column({ type: DataType.INTEGER, allowNull: false })
-  userId!: number;
+  user_id!: number;
 
   @BelongsTo(() => UserModel)
   user!: UserModel;
