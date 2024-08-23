@@ -142,11 +142,19 @@ export const LoginOtp: React.FC<LoginOtpProps> = ({ handleSubmit, role }) => {
           >
             <span>Request OTP</span>
           </LoadingButton>
+          {role==='hr'?
+          
           <Link to={"/login"} style={{ color: "#0956b5" }}>
             <Typography sx={{ marginTop: 2 }} align="center" variant="body1">
               Employee Login?
             </Typography>
+          </Link>:
+          <Link to={"/hr/login"} style={{ color: "#0956b5" }}>
+            <Typography sx={{ marginTop: 2 }} align="center" variant="body1">
+              HR Login?
+            </Typography>
           </Link>
+        }
         </div>
       </Paper>
     </>

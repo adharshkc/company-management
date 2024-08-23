@@ -27,4 +27,9 @@ export class EmployeeController {
       next(error);
     }
   }
+
+  async checkSession(req:Request, res:Response, next:NextFunction){
+    console.log("hdf")
+     return res.status(200).json({data:{success:true, message:"Session is valid"}})
+  }
 }

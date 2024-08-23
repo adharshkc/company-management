@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const EmployeeUsecase_1 = require("@application/use-cases/EmployeeUsecase");
 const EmployeeController_1 = require("@frameworks/controllers/EmployeeController");
 const nodeMailer_1 = __importDefault(require("@frameworks/mailer/nodeMailer"));
+const employeeMiddleware_1 = require("@frameworks/middlewares/authentication/employeeMiddleware");
 const generateToken_1 = __importDefault(require("@frameworks/utils/generateToken"));
 const otpManager_1 = require("@frameworks/utils/otpManager");
 const SequelizeEmployeeRepository_1 = require("@infrastructure/repository/SequelizeEmployeeRepository");
@@ -19,4 +20,5 @@ const employeeUsecase = new EmployeeUsecase_1.EmployeeUsecase(sequelizeEmployeeR
 const employeeController = new EmployeeController_1.EmployeeController(employeeUsecase);
 router.post('/login', employeeController.login.bind(employeeController));
 router.post('/verify-otp', employeeController.verifyOtp.bind(employeeController));
+router.get('/check-session', employeeMiddleware_1.verifyEmployeeAccessToken, employeeController.checkSession.bind(employeeController));
 exports.default = router;
