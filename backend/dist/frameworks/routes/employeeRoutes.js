@@ -1,0 +1,22 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const EmployeeUsecase_1 = require("@application/use-cases/EmployeeUsecase");
+const EmployeeController_1 = require("@frameworks/controllers/EmployeeController");
+const nodeMailer_1 = __importDefault(require("@frameworks/mailer/nodeMailer"));
+const generateToken_1 = __importDefault(require("@frameworks/utils/generateToken"));
+const otpManager_1 = require("@frameworks/utils/otpManager");
+const SequelizeEmployeeRepository_1 = require("@infrastructure/repository/SequelizeEmployeeRepository");
+const express_1 = require("express");
+const router = (0, express_1.Router)();
+const generateToken = new generateToken_1.default();
+const otpManager = new otpManager_1.OtpManager();
+const nodeMailer = new nodeMailer_1.default();
+const sequelizeEmployeeRepository = new SequelizeEmployeeRepository_1.SequelizeEmployeeRepository;
+const employeeUsecase = new EmployeeUsecase_1.EmployeeUsecase(sequelizeEmployeeRepository, otpManager, nodeMailer, generateToken);
+const employeeController = new EmployeeController_1.EmployeeController(employeeUsecase);
+router.post('/login', employeeController.login.bind(employeeController));
+router.post('/verify-otp', employeeController.verifyOtp.bind(employeeController));
+exports.default = router;

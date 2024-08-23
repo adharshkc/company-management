@@ -5,6 +5,7 @@ import { connectDatabase } from "@infrastructure/database/postgresql";
 import adminRouter from "@frameworks/routes/adminRoutes";
 import userRouter from "@frameworks/routes/userRoutes"
 import hrRouter from "@frameworks/routes/hrRoutes"
+import employeeRouter from "@frameworks/routes/employeeRoutes"
 import ErrorHandler from "@frameworks/middlewares/errors/ErrorHandler";
 import GlobalErrorHandler from "@frameworks/middlewares/errors/GlobalErrorHandler";
 import cors from 'cors'
@@ -23,6 +24,7 @@ app.use(morganMiddleware)
 app.use("/api/v1/admin", adminRouter);
 app.use("/api/v1/common", userRouter)
 app.use("/api/v1/hr", hrRouter)
+app.use("/api/v1/", employeeRouter)
 
 app.use(ErrorHandler);
 app.use(GlobalErrorHandler);
