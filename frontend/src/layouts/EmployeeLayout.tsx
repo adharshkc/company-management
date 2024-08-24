@@ -66,21 +66,21 @@ const EmployeeLayout = () => {
     },
   ];
 
-  const fetchHr = async function () {
-    try {
-      const response = await getHr();
-      const hrDetails = response.data?.hr;
-      setHr(hrDetails);
-    } catch (error) {
-      setError("couldn't connect server");
-      navigate("/hr/login");
-    }
-  };
-  useEffect(() => {
-    if (!hr || Object.keys(hr as HrType).length === 0) {
-      fetchHr();
-    }
-  }, []);
+  // const fetchHr = async function () {
+  //   try {
+  //     const response = await getHr();
+  //     const hrDetails = response.data?.hr;
+  //     setHr(hrDetails);
+  //   } catch (error) {
+  //     setError("couldn't connect server");
+  //     navigate("/hr/login");
+  //   }
+  // };
+  // useEffect(() => {
+  //   if (!hr || Object.keys(hr as HrType).length === 0) {
+  //     fetchHr();
+  //   }
+  // }, []);
   return (
     <div>
       <CommonNav username={username} layout={layout} />

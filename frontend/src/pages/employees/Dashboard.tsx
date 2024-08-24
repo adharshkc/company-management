@@ -1,7 +1,8 @@
+import Home from "@components/templates/Employee/Home"
 
 const Dashboard = () => {
   return (
-    <div>Dashboard</div>
+    <Home/>
   )
 }
 

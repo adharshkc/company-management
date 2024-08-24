@@ -6,7 +6,6 @@ import {Navigate, Outlet } from "react-router-dom"
 const EmployeeProtectedRoute = ()=>{
     useUserAuth()
     const isAuthenticated = useSessionStore((state) => state.isAuthenticated);
-    console.log(isAuthenticated)
     return isAuthenticated?<Outlet/>:<Navigate to="/login" replace/>
 
 
