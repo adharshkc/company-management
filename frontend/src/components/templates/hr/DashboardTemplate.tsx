@@ -9,7 +9,7 @@ const DashboardTemplate = () => {
   return (
     <div className={style.bodyPart}>
       {/* <Quotes /> */}
-      <div>
+      <div className={style.clock}>
 
       <Clock />
       </div>

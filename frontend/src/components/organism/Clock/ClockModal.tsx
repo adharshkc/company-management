@@ -2,7 +2,14 @@ import { Button } from "@components/atoms/button/Button";
 import { Typography } from "@components/atoms/typography/Typography";
 import { Box } from "@mui/material";
 import { theme } from "../../../theme";
-const Clock = () => {
+import CloseIcon from "@mui/icons-material/Close"
+
+type ClockModalProps = {
+    handleModal:()=>void
+}
+
+const ClockModal:React.FC<ClockModalProps> = ({handleModal}) => {
+    
   return (
     <Box
       sx={{
@@ -12,10 +19,13 @@ const Clock = () => {
         borderRadius: "5px",
       }}
     >
+      <Box sx={{display:"flex", justifyContent:"space-between"}}>
 
-      <Typography sx={{ padding: 1 }} variant="h6">
+      <Typography sx={{ padding: 2 }} variant="h6">
         Clock In{" "}
       </Typography>
+      <Typography variant="h6" sx={{ padding:2, cursor:"pointer" }} onClick={handleModal}><CloseIcon/></Typography>
+      </Box>
       <Box
         sx={{
           border: " #bdbdbd 0.5px solid",
@@ -69,4 +79,4 @@ const Clock = () => {
   );
 };
 
-export default Clock;
+export default ClockModal;

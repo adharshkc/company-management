@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Typography as MuiTypography, TypographyProps } from "@mui/material";
 
 type Typography = {
   className?: string;
   align?:TypographyProps["align"];
-  children?: JSX.Element | string| string[] | (JSX.Element | string)[];
+  children?: any
   props?: unknown;
   sx?: object;
   variant?: TypographyProps["variant"];
