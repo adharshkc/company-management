@@ -1,10 +1,11 @@
-import { Typography } from "@components/atoms/typography/Typography"
+
 import { Box } from "@mui/material"
 // import { Button } from "@components/atoms/button/Button"
 // import { Link } from "react-router-dom"
 // import {theme} from "../../../theme"
 import style from "../../styles/hrAttendanceTemplate.module.scss"
 import AttendanceTable from "@components/organism/Table/AttendanceTable"
+import Header from "@components/molecules/Header"
 
 const AttendanceTemplate = () => {
   return (
@@ -16,10 +17,7 @@ const AttendanceTemplate = () => {
       boxSizing: "border-box",
     }}
   >
-    <Typography variant="body1" className={style.heading}>
-      <span className={style.heading1}>Dashboard </span>
-      <span className="heading2">/ Attendance</span>{" "}
-    </Typography>
+    <Header header1="Dashboard" header2="Attendance"/>
     {/* <Link to={"/admin/projects/add"}>
       <Button
         sx={{

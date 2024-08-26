@@ -1,6 +1,5 @@
 import { Box } from "@mui/material"
 import style from "../../styles/hrTeamTemplate.module.scss"
-import { Typography } from "@components/atoms/typography/Typography"
 import { Button } from "@components/atoms/button/Button"
 import {theme} from "../../../theme"
 import { useState } from "react"
@@ -10,6 +9,7 @@ import { createTeam } from "../../../services/HrApi"
 import { useTeams } from "../../../hooks/useTeams"
 import TeamCard from "@components/organism/Cards/TeamCard"
 import { TeamType } from "../../../types/types"
+import Header from "@components/molecules/Header"
 
 const TeamTemplate = () => {
   const [openModal, setOpenModal] = useState(false)
@@ -44,10 +44,7 @@ const TeamTemplate = () => {
           boxSizing: "border-box",
         }}
       >
-        <Typography variant="body1" className={style.heading}>
-          <span className={style.heading1}>Dashboard </span>
-          <span className="heading2">/ Teams</span>{" "}
-        </Typography>
+        <Header header1="Dashboard" header2="Teams"/>
           <Button
             sx={{
               backgroundColor: theme.palette.primary.dark,

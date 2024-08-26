@@ -4,6 +4,7 @@ import { Route, Routes } from "react-router-dom"
 import EmployeeProtectedRoute from "./EmployeeProtectedRoutes"
 import Dashboard from "../pages/employees/Dashboard"
 import EmployeeLayout from "../layouts/EmployeeLayout"
+import Backlog from "../pages/employees/Backlog"
 
 
 
@@ -17,6 +18,7 @@ const EmployeeRoute = function(){
             <Route element={<EmployeeLayout/>}>
             
                 <Route path="/" element={<Dashboard/>}/>
+                <Route path="/backlogs" element={<Backlog/>}/>
             </Route>
             </Route>
         </Routes>

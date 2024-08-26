@@ -15,7 +15,9 @@ import cookieParser from "cookie-parser"
 
 app.use(cookieParser())
 const corsOptions = {
-  origin:process.env.CORS_ORIGIN,
+  origin:process.env.CORS_ORIGIN||'http://localhost:5173/',
+  methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
   credentials:true,
   optionSuccessStatus:200
 }

@@ -2,7 +2,7 @@ import { Button } from "@components/atoms/button/Button";
 import { theme } from "../../../theme";
 import style from "../../styles/hrEmployeeTemplate.module.scss";
 import { Box } from "@mui/material";
-import { Typography } from "@components/atoms/typography/Typography";
+// import { Typography } from "@components/atoms/typography/Typography";
 import EmployeeCard from "@components/organism/Cards/EmployeeCard";
 import AddEmployee from "@components/organism/Form/AddEmployee";
 import { useState } from "react";
@@ -10,6 +10,7 @@ import { createEmployee } from "../../../services/HrApi";
 import { EmployeeDetail } from "../../../types/types";
 import toast, { Toaster } from "react-hot-toast";
 import { useEmployees } from "../../../hooks/useEmployees";
+import Header from "@components/molecules/Header";
 
 const EmployeeTemplate = () => {
   const [openModal, setOpenModal] = useState<boolean>(false)
@@ -44,10 +45,7 @@ const EmployeeTemplate = () => {
           boxSizing: "border-box",
         }}
       >
-        <Typography variant="body1" className={style.heading}>
-          <span className={style.heading1}>Dashboard </span>
-          <span className="heading2">/ Employees</span>{" "}
-        </Typography>
+        <Header header1="Dashboard" header2="Employees"/>
           <Button
             sx={{
               backgroundColor: theme.palette.primary.dark,

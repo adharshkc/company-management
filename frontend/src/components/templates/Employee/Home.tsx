@@ -1,14 +1,16 @@
 import { Button } from "@components/atoms/button/Button";
 import style from "../../styles/EmployeeHomeTemplate.module.scss";
 import { theme } from "../../../theme";
-import { Dialog } from "@mui/material";
+import { Dialog, Typography } from "@mui/material";
 import { useState } from "react";
 import ClockModal from "@components/organism/Clock/ClockModal";
 import { useDateAndTime } from "../../../hooks/useDateAndTime";
+import HomeTask from "@components/organism/Task/HomeTask";
 
 const Home = () => {
   const [open, setOpen] = useState<boolean>(false);
-  useDateAndTime()
+  const {dayDate, timeOfDay} = useDateAndTime()
+  console.log(dayDate)
   const handleClose = () => {
     setOpen(false);
   };
@@ -29,6 +31,12 @@ const Home = () => {
           Clock In
         </Button>
       </div>
+      <div className={style.time}>
+            <Typography variant="body1" >{dayDate}</Typography>
+            <Typography variant="h4">Good {timeOfDay}, Adharsh</Typography>
+
+      </div>
+      <div><HomeTask/></div>
       <Dialog sx={{ margin: 1 }} open={open}>
         <ClockModal handleModal={handleClose} />
       </Dialog>

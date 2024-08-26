@@ -19,7 +19,9 @@ const redis_1 = require("@infrastructure/database/redis");
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 ExpressServer_1.default.use((0, cookie_parser_1.default)());
 const corsOptions = {
-    origin: process.env.CORS_ORIGIN,
+    origin: process.env.CORS_ORIGIN || 'http://localhost:5173/',
+    methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true,
     optionSuccessStatus: 200
 };

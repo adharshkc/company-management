@@ -23,42 +23,51 @@ const EmployeeLayout = () => {
   const navigate = useNavigate()
   const username = hr?.name
   const layout: NavbarLayout[] = [
-    { id: 1, name: "Dashboard", path: "/" },
-    { id: 2, name: "Projects", path: "/hr/employees" },
-    { id: 3, name: "Attendance", path: "/hr/attendance" },
-    { id: 4, name: "Channels", path: "/hr/channels" },
+    { id: 1, name: "Home", path: "/" },
+    { id: 2, name: "Backlogs", path: "/backlogs" },
+    { id: 3, name: "Board", path: "/board" },
+    { id: 4, name: "Team", path: "/team" },
+    { id: 5, name: "Attendance", path: "/attendance" },
+    { id: 6, name: "Channels", path: "/hr/channels" },
   ];
   const sideLayout: SideLayout[] = [
     {
       id: 1,
-      name: "Dashboard",
+      name: "Home",
       path: "/",
       darkIcon: homeIconDark,
       lightIcon: homeIcon,
     },
     {
       id: 2,
-      name: "Employees",
-      path: "/hr/employees",
+      name: "Backlogs",
+      path: "/backlogs",
       darkIcon: employeesIconDark,
       lightIcon: employeesIcon,
     },
     {
       id: 3,
-      name: "Attendance",
-      path: "/hr/attendance",
+      name: "Board",
+      path: "/board",
       darkIcon: attendanceIconDark,
       lightIcon: attendanceIconLight,
     },
     {
       id: 4,
-      name: "Teams",
-      path: "/hr/teams",
+      name: "Team",
+      path: "/team",
       darkIcon: teamIconDark,
       lightIcon: teamIconLight,
     },
     {
       id: 5,
+      name: "Attendance",
+      path: "/attendance",
+      darkIcon: channelIconDark,
+      lightIcon: channelIcon,
+    },
+    {
+      id: 6,
       name: "Channels",
       path: "/hr/channels",
       darkIcon: channelIconDark,
