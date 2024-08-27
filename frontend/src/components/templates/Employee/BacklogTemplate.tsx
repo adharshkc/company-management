@@ -1,12 +1,32 @@
-import style from "../../styles/backlogTemplate.module.scss"
+import Header from "@components/molecules/Header";
+import style from "../../styles/backlogTemplate.module.scss";
+import { Button } from "@components/atoms/button/Button";
+import { theme } from "../../../theme";
+import Sprint from "@components/organism/Sprints/Sprint";
 const BacklogTemplate = () => {
   return (
     <div className={style.bodyPart}>
-      <header>
-        
-      </header>
+      <div className={style.header}>
+        <Header header1="Home" header2="Backlog" />
+        <Button
+          sx={{
+            backgroundColor: theme.palette.primary.dark,
+            color: "white",
+            marginRight: 4,
+            "&:hover": {
+              backgroundColor: "secondary.main",
+            },
+          }}
+          // onClick = {()=>setOpenModal(true)}
+        >
+          create sprint
+        </Button>
+      </div>
+      <div>
+        <Sprint/>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default BacklogTemplate
+export default BacklogTemplate;

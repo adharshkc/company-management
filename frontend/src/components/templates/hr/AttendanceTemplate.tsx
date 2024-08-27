@@ -4,7 +4,7 @@ import { Box } from "@mui/material"
 // import { Link } from "react-router-dom"
 // import {theme} from "../../../theme"
 import style from "../../styles/hrAttendanceTemplate.module.scss"
-import AttendanceTable from "@components/organism/Table/AttendanceTable"
+// import AttendanceTable from "@components/organism/Table/AttendanceTable"
 import Header from "@components/molecules/Header"
 
 const AttendanceTemplate = () => {
