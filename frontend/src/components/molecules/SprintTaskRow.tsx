@@ -24,6 +24,7 @@ const SprintTaskRow = () => {
           paddingX: 4,
           display: "flex",
           justifyContent: "space-between",
+          alignItems:"center",
           "&:hover .edit-icon": {
             visibility: "visible",
           },
@@ -31,7 +32,7 @@ const SprintTaskRow = () => {
       >
         <Box sx={{ display: "flex", justifyContent: "space-between" }}>
           <Typography
-            variant="body1"
+            variant="body2"
             sx={{ fontSize: "16px", fontWeight: 400 }}
           >
             Isuse name
@@ -59,7 +60,7 @@ const SprintTaskRow = () => {
               sx={{ fontSize: "0.75rem", padding: "4px" }}
               disableUnderline
             >
-              <MenuItem value="In Progress" sx={{ fontSize: "0.75rem" }}>
+              <MenuItem value="Todo" sx={{ fontSize: "0.75rem" }}>
                 TODO
               </MenuItem>
               <MenuItem value="In Progress" sx={{ fontSize: "0.75rem" }}>

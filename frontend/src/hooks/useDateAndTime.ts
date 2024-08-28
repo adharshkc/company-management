@@ -10,7 +10,7 @@ export const useDateAndTime = () => {
   } else if (hour >= 12 && hour < 18) {
     timeOfDay = "afternoon";
   } else {
-    timeOfDay = "night";
+    timeOfDay = "evening";
   }
   return {dayDate, timeOfDay}
 };
