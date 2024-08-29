@@ -10,56 +10,55 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_typescript_1 = require("sequelize-typescript");
-const TeamModel_1 = __importDefault(require("./TeamModel"));
-const SprintModel_1 = __importDefault(require("./SprintModel"));
-// import CommentModel from "./CommentModel";
-let ProjectModel = class ProjectModel extends sequelize_typescript_1.Model {
+const ProjectModel_1 = __importDefault(require("./ProjectModel"));
+const IssueModel_1 = __importDefault(require("./IssueModel"));
+const CommentModel_1 = __importDefault(require("./CommentModel"));
+let SprintModel = class SprintModel extends sequelize_typescript_1.Model {
 };
 __decorate([
     sequelize_typescript_1.AutoIncrement,
     sequelize_typescript_1.PrimaryKey,
     (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.INTEGER })
-], ProjectModel.prototype, "project_id", void 0);
+], SprintModel.prototype, "sprint_id", void 0);
 __decorate([
     (0, sequelize_typescript_1.AllowNull)(false),
     sequelize_typescript_1.NotEmpty,
     (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.STRING(100), allowNull: false })
-], ProjectModel.prototype, "name", void 0);
-__decorate([
-    (0, sequelize_typescript_1.AllowNull)(false),
-    sequelize_typescript_1.NotEmpty,
-    (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.STRING(50), allowNull: false })
-], ProjectModel.prototype, "priority", void 0);
+], SprintModel.prototype, "name", void 0);
 __decorate([
     (0, sequelize_typescript_1.AllowNull)(false),
     sequelize_typescript_1.NotEmpty,
     (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.DATE, allowNull: false })
-], ProjectModel.prototype, "startDate", void 0);
-__decorate([
-    (0, sequelize_typescript_1.AllowNull)(true),
-    (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.TEXT })
-], ProjectModel.prototype, "description", void 0);
+], SprintModel.prototype, "startDate", void 0);
 __decorate([
     (0, sequelize_typescript_1.AllowNull)(false),
     sequelize_typescript_1.NotEmpty,
-    (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.STRING(50), allowNull: false, defaultValue: 'pending' })
-], ProjectModel.prototype, "status", void 0);
+    (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.DATE, allowNull: false })
+], SprintModel.prototype, "endDate", void 0);
 __decorate([
-    (0, sequelize_typescript_1.ForeignKey)(() => TeamModel_1.default),
+    (0, sequelize_typescript_1.AllowNull)(false),
     sequelize_typescript_1.NotEmpty,
+    (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.ENUM("start", "completed"), allowNull: false })
+], SprintModel.prototype, "status", void 0);
+__decorate([
+    (0, sequelize_typescript_1.ForeignKey)(() => ProjectModel_1.default),
+    (0, sequelize_typescript_1.AllowNull)(false),
     (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.INTEGER, allowNull: false })
-], ProjectModel.prototype, "team_id", void 0);
+], SprintModel.prototype, "project_id", void 0);
 __decorate([
-    (0, sequelize_typescript_1.BelongsTo)(() => TeamModel_1.default)
-], ProjectModel.prototype, "team", void 0);
+    (0, sequelize_typescript_1.BelongsTo)(() => ProjectModel_1.default)
+], SprintModel.prototype, "project", void 0);
 __decorate([
-    (0, sequelize_typescript_1.HasMany)(() => SprintModel_1.default)
-], ProjectModel.prototype, "sprints", void 0);
-ProjectModel = __decorate([
+    (0, sequelize_typescript_1.HasMany)(() => IssueModel_1.default)
+], SprintModel.prototype, "issues", void 0);
+__decorate([
+    (0, sequelize_typescript_1.HasMany)(() => CommentModel_1.default)
+], SprintModel.prototype, "comments", void 0);
+SprintModel = __decorate([
     (0, sequelize_typescript_1.Table)({
-        tableName: "Project",
+        tableName: "Sprint",
         timestamps: true,
-        modelName: 'ProjectModel'
+        modelName: "SprintModel",
     })
-], ProjectModel);
-exports.default = ProjectModel;
+], SprintModel);
+exports.default = SprintModel;

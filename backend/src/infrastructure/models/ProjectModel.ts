@@ -13,6 +13,7 @@ import {
   Table,
 } from "sequelize-typescript";
 import TeamModel from "./TeamModel";
+import SprintModel from "./SprintModel";
 // import CommentModel from "./CommentModel";
 
 @Table({
@@ -57,6 +58,9 @@ class ProjectModel extends Model implements IProject {
 
   @BelongsTo(() => TeamModel)
   team!: TeamModel;
+
+  @HasMany(()=>SprintModel)
+  sprints!:SprintModel[]
 }
 
 export default ProjectModel;

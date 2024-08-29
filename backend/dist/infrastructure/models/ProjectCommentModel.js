@@ -14,21 +14,6 @@ __decorate([
     sequelize_typescript_1.PrimaryKey,
     (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.INTEGER })
 ], ProjectCommentModel.prototype, "comment_id", void 0);
-__decorate([
-    (0, sequelize_typescript_1.AllowNull)(false),
-    sequelize_typescript_1.NotEmpty,
-    (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.TEXT, allowNull: false })
-], ProjectCommentModel.prototype, "comment", void 0);
-__decorate([
-    (0, sequelize_typescript_1.AllowNull)(false),
-    sequelize_typescript_1.NotEmpty,
-    (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.INTEGER, allowNull: false })
-], ProjectCommentModel.prototype, "user_id", void 0);
-__decorate([
-    (0, sequelize_typescript_1.AllowNull)(false),
-    sequelize_typescript_1.NotEmpty,
-    (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.INTEGER, allowNull: false })
-], ProjectCommentModel.prototype, "project_id", void 0);
 ProjectCommentModel = __decorate([
     (0, sequelize_typescript_1.Table)({
         tableName: "ProjectComment",

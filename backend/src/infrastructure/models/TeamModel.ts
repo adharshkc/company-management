@@ -34,7 +34,7 @@ class TeamModel extends Model {
   projects!: ProjectModel;
 
   @HasMany(()=>EmployeeModel)
-  employee!: EmployeeModel
+  employee!: EmployeeModel[]
 }
 
 export default TeamModel;
