@@ -21,4 +21,5 @@ const employeeController = new EmployeeController_1.EmployeeController(employeeU
 router.post('/login', employeeController.login.bind(employeeController));
 router.post('/verify-otp', employeeController.verifyOtp.bind(employeeController));
 router.get('/check-session', employeeMiddleware_1.verifyEmployeeAccessToken, employeeController.checkSession.bind(employeeController));
+router.post('/project/createSprint', employeeMiddleware_1.verifyEmployeeAccessToken, emp);
 exports.default = router;

@@ -1,5 +1,3 @@
-
-
 import { EmployeeUsecase } from "@application/use-cases/EmployeeUsecase";
 import { EmployeeController } from "@frameworks/controllers/EmployeeController";
 import NodeMailer from "@frameworks/mailer/nodeMailer";
@@ -22,5 +20,8 @@ const employeeController = new EmployeeController(employeeUsecase)
 router.post('/login', employeeController.login.bind(employeeController))
 router.post('/verify-otp', employeeController.verifyOtp.bind(employeeController))
 router.get('/check-session',verifyEmployeeAccessToken, employeeController.checkSession.bind(employeeController))
+
+
+router.post('/project/createSprint', verifyEmployeeAccessToken, emp)
 
 export default router

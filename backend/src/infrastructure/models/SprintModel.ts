@@ -44,7 +44,7 @@ class SprintModel extends Model {
   @AllowNull(false)
   @NotEmpty
   @Column({ type: DataType.ENUM("start", "completed"), allowNull: false })
-  status!: string;
+  status!: 'start'|'completed';
 
   @ForeignKey(() => ProjectModel)
   @AllowNull(false)
@@ -55,10 +55,10 @@ class SprintModel extends Model {
   project!: ProjectModel;
 
   @HasMany(()=>IssueModel)
-  issues!:IssueModel
+  issues!:IssueModel[]
 
   @HasMany(()=>CommentModel)
-  comments!:CommentModel
+  comments!:CommentModel[]
 }
 
 export default SprintModel;
