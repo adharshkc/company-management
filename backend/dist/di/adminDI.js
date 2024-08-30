@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.addHrUsecase = exports.adminController = void 0;
+exports.adminController = void 0;
 const AddHrUsecase_1 = require("@application/use-cases/admin/AddHrUsecase");
 const AdminLoginUsecase_1 = require("@application/use-cases/admin/AdminLoginUsecase");
 const GetAdminUsecase_1 = require("@application/use-cases/admin/GetAdminUsecase");
@@ -18,7 +18,6 @@ const generateMail = new nodeMailer_1.default();
 const adminRepository = new SequelizeAdminRepository_1.SequelizeAdminRepository();
 const adminLoginUsecase = new AdminLoginUsecase_1.AdminLoginUsecase(adminRepository, bcrypt, generateToken);
 const addHrUsecase = new AddHrUsecase_1.AddHrUsecase(adminRepository, generateToken, generateMail);
-exports.addHrUsecase = addHrUsecase;
 const getAdmin = new GetAdminUsecase_1.GetAdminUsecase(adminRepository);
 const adminController = new AdminController_1.AdminController(adminLoginUsecase, addHrUsecase, getAdmin);
 exports.adminController = adminController;

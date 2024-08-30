@@ -23,4 +23,4 @@ const adminController = new AdminController(adminLoginUsecase, addHrUsecase, get
 
 
 
-export {adminController, addHrUsecase}
+export {adminController}

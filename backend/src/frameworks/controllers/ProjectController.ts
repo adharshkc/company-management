@@ -1,6 +1,5 @@
 import { AddProjectUsecase } from "@application/use-cases/project/AddProjectUsecase";
 import { GetProjectsUsecase } from "@application/use-cases/project/GetProjectsUsecase";
-import { ProjectUsecase } from "@application/use-cases/ProjectUsecase";
 import { NextFunction, Request, Response } from "express";
 
 export class ProjectController {

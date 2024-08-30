@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.HrController = void 0;
-class HrController {
+exports.HrCon = void 0;
+class HrCon {
     constructor(hrLoginUsecase, hrVerifyOtpUsecase, getHrUsecase, createEmployeeUsecase, getAllEmployeesUsecase, getAllTeamsUsecase, createTeamUsecase) {
         this.hrLoginUsecase = hrLoginUsecase;
         this.hrVerifyOtpUsecase = hrVerifyOtpUsecase;
@@ -91,4 +91,4 @@ class HrController {
         }
     }
 }
-exports.HrController = HrController;
+exports.HrCon = HrCon;
