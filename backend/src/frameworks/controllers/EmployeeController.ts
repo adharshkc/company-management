@@ -1,27 +1,27 @@
-import { EmployeeUsecase } from "@application/use-cases/EmployeeUsecase";
+import { LoginUsecase } from "@application/use-cases/employee/LoginUsecase";
+import { VerifyOtpUsecase } from "@application/use-cases/employee/VerifyOtpUsecase";
 import { NextFunction, Request, Response } from "express";
 
 export class EmployeeController {
-  private employeeUseCase: EmployeeUsecase;
-  constructor(employeeUsecase: EmployeeUsecase) {
-    this.employeeUseCase = employeeUsecase;
+  constructor(private loginUsecase:LoginUsecase,private verifyOtp: VerifyOtpUsecase) {
+    
   }
 
   async login(req: Request, res: Response, next: NextFunction) {
       try {
         const email = req.body.email;
         console.log(req.body)
-      const result = await this.employeeUseCase.Login(email);
+      const result = await this.loginUsecase.execute(email);
       return res.status(result.status).json(result.data);
     } catch (error) {
       next(error);
     }
   }
-  async verifyOtp(req: Request, res: Response, next: NextFunction) {
+  async otpVerify(req: Request, res: Response, next: NextFunction) {
     try {
       const { email, otp } = req.body;
       console.log(email)
-      const result = await this.employeeUseCase.verifyOtp(otp, email);
+      const result = await this.verifyOtp.execute(otp, email);
       return res.status(result.status).json(result.data);
     } catch (error) {
       next(error);

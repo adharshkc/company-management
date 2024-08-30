@@ -1,4 +1,4 @@
-import { hrController } from "@di/hrDi";
+import { hrController } from "@di/hrDI";
 import { verifyHrAccessToken } from "@frameworks/middlewares/authentication/hrMiddleware";
 import { Router } from "express";
 

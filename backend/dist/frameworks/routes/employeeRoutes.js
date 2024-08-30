@@ -1,31 +1,27 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const EmployeeUsecase_1 = require("@application/use-cases/EmployeeUsecase");
-const SprintUsecase_1 = require("@application/use-cases/SprintUsecase");
-const EmployeeController_1 = require("@frameworks/controllers/EmployeeController");
-const SprintController_1 = require("@frameworks/controllers/SprintController");
-const nodeMailer_1 = __importDefault(require("@infrastructure/services/nodeMailer"));
-const employeeMiddleware_1 = require("@frameworks/middlewares/authentication/employeeMiddleware");
-const generateToken_1 = __importDefault(require("@infrastructure/services/generateToken"));
-const otpManager_1 = require("@infrastructure/services/otpManager");
-const SequelizeEmployeeRepository_1 = require("@infrastructure/repository/SequelizeEmployeeRepository");
-const SequelizeSprintRepository_1 = require("@infrastructure/repository/SequelizeSprintRepository");
-const express_1 = require("express");
-const router = (0, express_1.Router)();
-const generateToken = new generateToken_1.default();
-const otpManager = new otpManager_1.OtpManager();
-const nodeMailer = new nodeMailer_1.default();
-const sequelizeEmployeeRepository = new SequelizeEmployeeRepository_1.SequelizeEmployeeRepository();
-const employeeUsecase = new EmployeeUsecase_1.EmployeeUsecase(sequelizeEmployeeRepository, otpManager, nodeMailer, generateToken);
-const employeeController = new EmployeeController_1.EmployeeController(employeeUsecase);
-router.post('/login', employeeController.login.bind(employeeController));
-router.post('/verify-otp', employeeController.verifyOtp.bind(employeeController));
-router.get('/check-session', employeeMiddleware_1.verifyEmployeeAccessToken, employeeController.checkSession.bind(employeeController));
-const sequelizeSprintRepository = new SequelizeSprintRepository_1.SequelizeSprintRepository();
-const sprintUsecase = new SprintUsecase_1.SprintUsecase(sequelizeSprintRepository);
-const sprintController = new SprintController_1.SprintController(sprintUsecase);
-router.post('/project/sprint/create', employeeMiddleware_1.verifyEmployeeAccessToken, sprintController.createSprint.bind(sprintController));
-exports.default = router;
+// import { EmployeeUsecase } from "@application/use-cases/EmployeeUsecase";
+// import { SprintUsecase } from "@application/use-cases/SprintUsecase";
+// import { EmployeeController } from "@frameworks/controllers/EmployeeController";
+// import { SprintController } from "@frameworks/controllers/SprintController";
+// import NodeMailer from "@infrastructure/services/nodeMailer";
+// import { verifyEmployeeAccessToken } from "@frameworks/middlewares/authentication/employeeMiddleware";
+// import GenerateToken from "@infrastructure/services/generateToken";
+// import { OtpManager } from "@infrastructure/services/otpManager";
+// import { SequelizeEmployeeRepository } from "@infrastructure/repository/SequelizeEmployeeRepository";
+// import { SequelizeSprintRepository } from "@infrastructure/repository/SequelizeSprintRepository";
+// import { Router } from "express";
+// const router = Router()
+// const generateToken = new GenerateToken()
+// const otpManager = new OtpManager()
+// const nodeMailer = new NodeMailer()
+// const sequelizeEmployeeRepository = new SequelizeEmployeeRepository()
+// const employeeUsecase = new EmployeeUsecase(sequelizeEmployeeRepository,otpManager, nodeMailer,generateToken)
+// const employeeController = new EmployeeController(employeeUsecase)
+// router.post('/login', employeeController.login.bind(employeeController))
+// router.post('/verify-otp', employeeController.verifyOtp.bind(employeeController))
+// router.get('/check-session',verifyEmployeeAccessToken, employeeController.checkSession.bind(employeeController))
+// const sequelizeSprintRepository = new SequelizeSprintRepository()
+// const sprintUsecase = new SprintUsecase(sequelizeSprintRepository)
+// const sprintController = new SprintController(sprintUsecase)
+// router.post('/project/sprint/create', verifyEmployeeAccessToken, sprintController.createSprint.bind(sprintController))
+// export default router

@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const employeeDI_1 = require("@di/employeeDI");
+const employeeMiddleware_1 = require("@frameworks/middlewares/authentication/employeeMiddleware");
+const express_1 = require("express");
+const employeeRouter = (0, express_1.Router)();
+employeeRouter.post("/login", employeeDI_1.employeeController.login.bind(employeeDI_1.employeeController));
+employeeRouter.post("/verify-otp", employeeDI_1.employeeController.otpVerify.bind(employeeDI_1.employeeController));
+employeeRouter.get("/check-session", employeeMiddleware_1.verifyEmployeeAccessToken, employeeDI_1.employeeController.checkSession.bind(employeeDI_1.employeeController));
+exports.default = employeeRouter;

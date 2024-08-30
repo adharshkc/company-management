@@ -5,7 +5,7 @@ import { connectDatabase } from "@infrastructure/database/postgresql";
 
 import userRouter from "@frameworks/routes/userRoutes"
 import hrRouter from "@frameworks/routes/hrRoute"
-import employeeRouter from "@frameworks/routes/employeeRoutes"
+import employeeRouter from "@frameworks/routes/employeeRoute"
 import ErrorHandler from "@frameworks/middlewares/errors/ErrorHandler";
 import GlobalErrorHandler from "@frameworks/middlewares/errors/GlobalErrorHandler";
 import cors from 'cors'
