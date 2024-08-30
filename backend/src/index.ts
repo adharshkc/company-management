@@ -13,7 +13,8 @@ import cors from 'cors'
 import morganMiddleware from "@frameworks/middlewares/logging/logger";
 import { initializeRedisConnection } from "@infrastructure/database/redis";
 import cookieParser from "cookie-parser"
-import adminRo from "@frameworks/routes/adminRo";
+import adminRo from "@frameworks/routes/adminRoutes";
+import projectRouter from "@frameworks/routes/projectRoute";
 
 app.use(cookieParser())
 const corsOptions = {
@@ -28,6 +29,7 @@ app.use(morganMiddleware)
 // app.use("/api/v1/admin", adminRouter);
 app.use("/api/v1/admin", adminRo);
 app.use("/api/v1/common", userRouter)
+app.use("/api/v1/projects",projectRouter)
 app.use("/api/v1/hr", hrRouter)
 app.use("/api/v1/", employeeRouter)
 app.use

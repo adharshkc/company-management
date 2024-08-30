@@ -8,7 +8,6 @@ class GetAdminUsecase {
     async execute(adminId) {
         try {
             const admin = await this.adminRepository.getAdmin(adminId);
-            console.log(admin);
             return {
                 status: 200,
                 data: {

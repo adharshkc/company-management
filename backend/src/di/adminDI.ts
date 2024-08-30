@@ -1,6 +1,6 @@
 import { AddHrUsecase } from "@application/use-cases/admin/AddHrUsecase";
 import { AdminLoginUsecase } from "@application/use-cases/admin/AdminLoginUsecase";
-import { GetAdmin } from "@application/use-cases/admin/GetAdmin";
+import { GetAdminUsecase } from "@application/use-cases/admin/GetAdminUsecase";
 import { AdminController } from "@frameworks/controllers/AdminController";
 import { SequelizeAdminRepository } from "@infrastructure/repository/SequelizeAdminRepository";
 import Bcrypt from "@infrastructure/services/bcrypt";
@@ -18,7 +18,7 @@ const adminRepository = new SequelizeAdminRepository()
 const adminLoginUsecase = new AdminLoginUsecase(adminRepository,bcrypt,generateToken)
 
 const addHrUsecase = new AddHrUsecase(adminRepository, generateToken, generateMail)
-const getAdmin = new GetAdmin(adminRepository)
+const getAdmin = new GetAdminUsecase(adminRepository)
 const adminController = new AdminController(adminLoginUsecase, addHrUsecase, getAdmin)
 
 

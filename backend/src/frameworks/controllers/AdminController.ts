@@ -1,13 +1,13 @@
 import { AddHrUsecase } from "@application/use-cases/admin/AddHrUsecase";
 import { AdminLoginUsecase } from "@application/use-cases/admin/AdminLoginUsecase";
-import { GetAdmin } from "@application/use-cases/admin/GetAdmin";
+import { GetAdminUsecase } from "@application/use-cases/admin/GetAdminUsecase";
 import { NextFunction, Request, Response } from "express";
 
 export class AdminController {
   constructor(
     private loginAdmin: AdminLoginUsecase,
     private addHr: AddHrUsecase,
-    private getAdmin: GetAdmin
+    private getAdmin: GetAdminUsecase
   ) {}
 
   async adminLogin(req: Request, res: Response, next: NextFunction) {

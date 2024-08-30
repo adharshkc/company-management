@@ -15,7 +15,6 @@ const jwtAccessSecret = process.env.JWT_ACCESS_SECRET;
 
 export const verifyAdminAccess = (req: Request, res: Response, next: NextFunction) => {
   const authorization = req.header("Authorization");
-  console.log(authorization)
   if (!authorization) return next(createError.Unauthorized());
   const bearerToken = authorization.split(" ");
   const token = bearerToken[1];
@@ -46,7 +45,6 @@ export const VerifyCommonAccess = (req: Request, res: Response, next: NextFuncti
         return next(createError.Unauthorized(message))
       }
       req.commonId = payload as string;
-      console.log(payload)
       next();
     });
   }
