@@ -2,10 +2,13 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TodoController = void 0;
 class TodoController {
-    constructor(makeTodo) {
-        this.todoUseCase = makeTodo;
+    constructor(makeTodo, getTodo, updateStatus, deleteTodo) {
+        this.makeTodo = makeTodo;
+        this.getTodo = getTodo;
+        this.updateStatus = updateStatus;
+        this.deleteTodo = deleteTodo;
     }
-    async makeTodo(req, res, next) {
+    async addTodo(req, res, next) {
         try {
             const todo = req.body;
             console.log(todo);
@@ -13,18 +16,18 @@ class TodoController {
                 return res.status(400).json("body is missing");
             const payload = req.commonId;
             const userId = payload === null || payload === void 0 ? void 0 : payload.commonId;
-            const result = await this.todoUseCase.makeTodo(todo, parseInt(userId));
+            const result = await this.makeTodo.execute(todo, parseInt(userId));
             res.status(result.status).json(result.data);
         }
         catch (error) {
             next(error);
         }
     }
-    async getTodo(req, res, next) {
+    async todo(req, res, next) {
         try {
             const payload = req.commonId;
             const userId = payload === null || payload === void 0 ? void 0 : payload.commonId;
-            const result = await this.todoUseCase.getTodo(parseInt(userId));
+            const result = await this.getTodo.execute(parseInt(userId));
             res.status(result.status).json(result.data);
         }
         catch (error) {
@@ -37,19 +40,19 @@ class TodoController {
             const userId = payload === null || payload === void 0 ? void 0 : payload.commonId;
             const todoId = req.params.id;
             console.log(todoId);
-            const result = await this.todoUseCase.updateStatus(parseInt(todoId), parseInt(userId));
+            const result = await this.updateStatus.execute(parseInt(todoId), parseInt(userId));
             res.status(result.status).json(result.data);
         }
         catch (error) {
             next(error);
         }
     }
-    async deleteTodo(req, res, next) {
+    async todoDelete(req, res, next) {
         try {
             const payload = req.commonId;
             const userId = payload === null || payload === void 0 ? void 0 : payload.commonId;
             const todoId = req.params.id;
-            const result = await this.todoUseCase.deleteTodo(parseInt(todoId), parseInt(userId));
+            const result = await this.deleteTodo.execute(parseInt(todoId), parseInt(userId));
             res.status(result.status).json(result.data);
         }
         catch (error) {
