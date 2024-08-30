@@ -1,28 +1,28 @@
 import { Router } from "express";
-import { AdminController } from "@frameworks/controllers/AdminController";
+// import { AdminController } from "@frameworks/controllers/AdminController";
 import { SequelizeAdminRepository } from "@infrastructure/repository/SequelizeAdminRepository";
-import { AdminUsecase } from "@application/use-cases/AdminUsecase";
-import Bcrypt from "@frameworks/utils/bcrypt";
-import GenerateToken from "@frameworks/utils/generateToken";
+// import { AdminUsecase } from "@application/use-cases/AdminUsecase";
+import Bcrypt from "@infrastructure/services/bcrypt";
+import GenerateToken from "@infrastructure/services/generateToken";
 import { verifyAdminAccess } from "@frameworks/middlewares/authentication/jwtVerify";
-import NodeMailer from "@frameworks/mailer/nodeMailer";
+import NodeMailer from "@infrastructure/services/nodeMailer";
 
 const router = Router();
 
-const bcypt = new Bcrypt();
-const generateToken = new GenerateToken();
-const nodeMailer = new NodeMailer
-const adminRepository = new SequelizeAdminRepository();
-const adminUsecase = new AdminUsecase(adminRepository, bcypt, generateToken, nodeMailer);
-const adminController = new AdminController(adminUsecase);
+// const bcypt = new Bcrypt();
+// const generateToken = new GenerateToken();
+// const nodeMailer = new NodeMailer
+// const adminRepository = new SequelizeAdminRepository();
+// const adminUsecase = new AdminUsecase(adminRepository, bcypt, generateToken, nodeMailer);
+// const adminController = new AdminController(adminUsecase);
 
-router.post("/login", adminController.adminLogin.bind(adminController));
-router.get(
-  "/",
-  verifyAdminAccess,
-  adminController.getAdmin.bind(adminController)
-);
-router.post("/addHr", adminController.createHr.bind(adminController))
+// router.post("/login", adminController.adminLogin.bind(adminController));
+// router.get(
+//   "/",
+//   verifyAdminAccess,
+//   adminController.getAdmin.bind(adminController)
+// );
+// router.post("/addHr", adminController.createHr.bind(adminController))
 
 
 import { ProjectUsecase } from "@application/use-cases/ProjectUsecase";

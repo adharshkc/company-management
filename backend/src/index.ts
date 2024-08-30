@@ -2,7 +2,8 @@ import "module-alias/register";
 import app from "@frameworks/webserver/ExpressServer";
 import "dotenv/config";
 import { connectDatabase } from "@infrastructure/database/postgresql";
-import adminRouter from "@frameworks/routes/adminRoutes";
+// import adminRouter from "@frameworks/routes/adminRoutes";
+
 import userRouter from "@frameworks/routes/userRoutes"
 import hrRouter from "@frameworks/routes/hrRoutes"
 import employeeRouter from "@frameworks/routes/employeeRoutes"
@@ -12,6 +13,7 @@ import cors from 'cors'
 import morganMiddleware from "@frameworks/middlewares/logging/logger";
 import { initializeRedisConnection } from "@infrastructure/database/redis";
 import cookieParser from "cookie-parser"
+import adminRo from "@frameworks/routes/adminRo";
 
 app.use(cookieParser())
 const corsOptions = {
@@ -23,10 +25,12 @@ const corsOptions = {
 }
 app.use(cors(corsOptions))
 app.use(morganMiddleware)
-app.use("/api/v1/admin", adminRouter);
+// app.use("/api/v1/admin", adminRouter);
+app.use("/api/v1/admin", adminRo);
 app.use("/api/v1/common", userRouter)
 app.use("/api/v1/hr", hrRouter)
 app.use("/api/v1/", employeeRouter)
+app.use
 
 app.use(ErrorHandler);
 app.use(GlobalErrorHandler);

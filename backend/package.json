@@ -51,6 +51,7 @@
     "@application": "dist/application",
     "@infrastructure": "dist/infrastructure",
     "@frameworks": "dist/frameworks",
-    "@utils": "dist/utils"
+    "@utils": "dist/utils",
+    "@di": "dist/di"
   }
 }

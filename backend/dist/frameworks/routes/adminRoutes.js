@@ -1,26 +1,21 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const AdminController_1 = require("@frameworks/controllers/AdminController");
-const SequelizeAdminRepository_1 = require("@infrastructure/repository/SequelizeAdminRepository");
-const AdminUsecase_1 = require("@application/use-cases/AdminUsecase");
-const bcrypt_1 = __importDefault(require("@frameworks/utils/bcrypt"));
-const generateToken_1 = __importDefault(require("@frameworks/utils/generateToken"));
 const jwtVerify_1 = require("@frameworks/middlewares/authentication/jwtVerify");
-const nodeMailer_1 = __importDefault(require("@frameworks/mailer/nodeMailer"));
 const router = (0, express_1.Router)();
-const bcypt = new bcrypt_1.default();
-const generateToken = new generateToken_1.default();
-const nodeMailer = new nodeMailer_1.default;
-const adminRepository = new SequelizeAdminRepository_1.SequelizeAdminRepository();
-const adminUsecase = new AdminUsecase_1.AdminUsecase(adminRepository, bcypt, generateToken, nodeMailer);
-const adminController = new AdminController_1.AdminController(adminUsecase);
-router.post("/login", adminController.adminLogin.bind(adminController));
-router.get("/", jwtVerify_1.verifyAdminAccess, adminController.getAdmin.bind(adminController));
-router.post("/addHr", adminController.createHr.bind(adminController));
+// const bcypt = new Bcrypt();
+// const generateToken = new GenerateToken();
+// const nodeMailer = new NodeMailer
+// const adminRepository = new SequelizeAdminRepository();
+// const adminUsecase = new AdminUsecase(adminRepository, bcypt, generateToken, nodeMailer);
+// const adminController = new AdminController(adminUsecase);
+// router.post("/login", adminController.adminLogin.bind(adminController));
+// router.get(
+//   "/",
+//   verifyAdminAccess,
+//   adminController.getAdmin.bind(adminController)
+// );
+// router.post("/addHr", adminController.createHr.bind(adminController))
 const ProjectUsecase_1 = require("@application/use-cases/ProjectUsecase");
 const SequelizeProjectRepository_1 = require("@infrastructure/repository/SequelizeProjectRepository");
 const ProjectController_1 = require("@frameworks/controllers/ProjectController");

@@ -1,9 +1,9 @@
 import { HrUsecase } from "@application/use-cases/HrUsecase";
 import { HrController } from "@frameworks/controllers/HrController";
-import NodeMailer from "@frameworks/mailer/nodeMailer";
+import NodeMailer from "@infrastructure/services/nodeMailer";
 import { verifyHrAccessToken } from "@frameworks/middlewares/authentication/hrMiddleware";
-import GenerateToken from "@frameworks/utils/generateToken";
-import { OtpManager } from "@frameworks/utils/otpManager";
+import GenerateToken from "@infrastructure/services/generateToken";
+import { OtpManager } from "@infrastructure/services/otpManager";
 import { SequelizeHrRepository } from "@infrastructure/repository/SequelizeHrRepository";
 import { SequelizeTeamRepository } from "@infrastructure/repository/SequelizeTeamRepository";
 import { Router } from "express";

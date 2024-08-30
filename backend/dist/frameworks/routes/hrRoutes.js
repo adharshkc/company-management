@@ -5,10 +5,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const HrUsecase_1 = require("@application/use-cases/HrUsecase");
 const HrController_1 = require("@frameworks/controllers/HrController");
-const nodeMailer_1 = __importDefault(require("@frameworks/mailer/nodeMailer"));
+const nodeMailer_1 = __importDefault(require("@infrastructure/services/nodeMailer"));
 const hrMiddleware_1 = require("@frameworks/middlewares/authentication/hrMiddleware");
-const generateToken_1 = __importDefault(require("@frameworks/utils/generateToken"));
-const otpManager_1 = require("@frameworks/utils/otpManager");
+const generateToken_1 = __importDefault(require("@infrastructure/services/generateToken"));
+const otpManager_1 = require("@infrastructure/services/otpManager");
 const SequelizeHrRepository_1 = require("@infrastructure/repository/SequelizeHrRepository");
 const SequelizeTeamRepository_1 = require("@infrastructure/repository/SequelizeTeamRepository");
 const express_1 = require("express");

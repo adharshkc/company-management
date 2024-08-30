@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const diContainer_1 = require("@di/diContainer");
+const jwtVerify_1 = require("@frameworks/middlewares/authentication/jwtVerify");
+const express_1 = require("express");
+const adminRo = (0, express_1.Router)();
+adminRo.post('/login', diContainer_1.adminController.adminLogin.bind(diContainer_1.adminController));
+adminRo.get('/', jwtVerify_1.verifyAdminAccess, diContainer_1.adminController.admin.bind(diContainer_1.adminController));
+adminRo.post('/addHr', jwtVerify_1.verifyAdminAccess, diContainer_1.adminController.createHr.bind(diContainer_1.adminController));
+exports.default = adminRo;

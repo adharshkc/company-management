@@ -7,7 +7,7 @@ require("module-alias/register");
 const ExpressServer_1 = __importDefault(require("@frameworks/webserver/ExpressServer"));
 require("dotenv/config");
 const postgresql_1 = require("@infrastructure/database/postgresql");
-const adminRoutes_1 = __importDefault(require("@frameworks/routes/adminRoutes"));
+// import adminRouter from "@frameworks/routes/adminRoutes";
 const userRoutes_1 = __importDefault(require("@frameworks/routes/userRoutes"));
 const hrRoutes_1 = __importDefault(require("@frameworks/routes/hrRoutes"));
 const employeeRoutes_1 = __importDefault(require("@frameworks/routes/employeeRoutes"));
@@ -17,6 +17,7 @@ const cors_1 = __importDefault(require("cors"));
 const logger_1 = __importDefault(require("@frameworks/middlewares/logging/logger"));
 const redis_1 = require("@infrastructure/database/redis");
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
+const adminRo_1 = __importDefault(require("@frameworks/routes/adminRo"));
 ExpressServer_1.default.use((0, cookie_parser_1.default)());
 const corsOptions = {
     origin: process.env.CORS_ORIGIN || 'http://localhost:5173/',
@@ -27,10 +28,12 @@ const corsOptions = {
 };
 ExpressServer_1.default.use((0, cors_1.default)(corsOptions));
 ExpressServer_1.default.use(logger_1.default);
-ExpressServer_1.default.use("/api/v1/admin", adminRoutes_1.default);
+// app.use("/api/v1/admin", adminRouter);
+ExpressServer_1.default.use("/api/v1/admin", adminRo_1.default);
 ExpressServer_1.default.use("/api/v1/common", userRoutes_1.default);
 ExpressServer_1.default.use("/api/v1/hr", hrRoutes_1.default);
 ExpressServer_1.default.use("/api/v1/", employeeRoutes_1.default);
+ExpressServer_1.default.use;
 ExpressServer_1.default.use(ErrorHandler_1.default);
 ExpressServer_1.default.use(GlobalErrorHandler_1.default);
 (0, postgresql_1.connectDatabase)();

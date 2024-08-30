@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AdminController = void 0;
-class AdminController {
+exports.AdminCon = void 0;
+class AdminCon {
     constructor(loginAdmin, addHr, getAdmin) {
         this.loginAdmin = loginAdmin;
         this.addHr = addHr;
@@ -44,4 +44,4 @@ class AdminController {
         }
     }
 }
-exports.AdminController = AdminController;
+exports.AdminCon = AdminCon;
