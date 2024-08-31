@@ -1,13 +1,12 @@
-import { SprintUsecase } from "@application/use-cases/SprintUsecase";
+
+import { AddSprintUsecase } from "@application/use-cases/sprint/AddSprintUsecase";
 import { NextFunction, Request, Response } from "express";
 
 
 
 
 export class SprintController {
-    private sprintUsecase : SprintUsecase
-    constructor(sprintUsecase:SprintUsecase){
-        this.sprintUsecase= sprintUsecase
+    constructor(private addSprint:AddSprintUsecase){
     }
 
    async createSprint(req:Request, res:Response, next:NextFunction){
@@ -21,7 +20,7 @@ export class SprintController {
                 project_id:req.body.project_id
             }
 
-            const {status, data} = await this.sprintUsecase.createSprint(sprint)
+            const {status, data} = await this.addSprint.execute(sprint)
             res.status(status).json(data)
         } catch (error) {
             next(error)

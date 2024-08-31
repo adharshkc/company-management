@@ -1,8 +1,5 @@
 import { Router } from "express";
 import { VerifyCommonAccess } from "@frameworks/middlewares/authentication/jwtVerify";
-import { TodoUseCase } from "@application/use-cases/TodoUseCase";
-import { TodoController } from "@frameworks/controllers/TodoController";
-import { SequelizeTodoRepository } from "@infrastructure/repository/SequelizeTodoRepository";
 import { todoController } from "@di/userDI";
 
 const router = Router();

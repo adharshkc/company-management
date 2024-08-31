@@ -2,7 +2,6 @@ import { DeleteTodoUsecase } from "@application/use-cases/todo/DeleteTodoUsecase
 import { GetTodoUsecase } from "@application/use-cases/todo/GetTodoUsecase";
 import { MakeTodoUsecase } from "@application/use-cases/todo/MakeTodoUsecase";
 import { UpdateStatusUsecase } from "@application/use-cases/todo/UpdateStatusUsecase";
-import { TodoUseCase } from "@application/use-cases/TodoUseCase";
 import { NextFunction, Request, Response } from "express";
 
 export class TodoController {

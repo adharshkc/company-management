@@ -3,12 +3,10 @@ import { Sprint } from "@domain/entities/Sprint";
 
 
 
-export class SprintUsecase{
-    private sprintRepository:SprintRepository;
-    constructor(sprintRepository:SprintRepository){
-        this.sprintRepository = sprintRepository
+export class AddSprintUsecase{
+    constructor(private sprintRepository:SprintRepository){
     }
-    async createSprint(sprintDetails:Sprint){
+    async execute(sprintDetails:Sprint){
         try {
             const newSprint = await this.sprintRepository.createSprint(sprintDetails)
             if(!newSprint){

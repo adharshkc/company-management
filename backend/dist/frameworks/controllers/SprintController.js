@@ -2,8 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SprintController = void 0;
 class SprintController {
-    constructor(sprintUsecase) {
-        this.sprintUsecase = sprintUsecase;
+    constructor(addSprint) {
+        this.addSprint = addSprint;
     }
     async createSprint(req, res, next) {
         try {
@@ -14,7 +14,7 @@ class SprintController {
                 status: req.body.status,
                 project_id: req.body.project_id
             };
-            const { status, data } = await this.sprintUsecase.createSprint(sprint);
+            const { status, data } = await this.addSprint.execute(sprint);
             res.status(status).json(data);
         }
         catch (error) {
