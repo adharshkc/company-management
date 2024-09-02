@@ -5,9 +5,9 @@ const EmptySprintRow = () => {
     <>
        <Box
         sx={{
-          borderBottom: "1px solid #C9D4E4",
+          borderBottom: "1px solid #388BFF",
           paddingY: 1,
-          paddingX: 4,
+          paddingX: 3,
           display: "flex",
           justifyContent: "space-between",
           alignItems:"center",
@@ -22,48 +22,31 @@ const EmptySprintRow = () => {
         // variant="outlined"
         placeholder="What needs to be done?"
         sx={{
-            border:"none",
-          '& .MuiInputBase-input': {
-            border:"none",
-            padding: '4px 8px',
-            fontSize: '16px',
-          },
-          '&::placeholder': {
-            boder:"none",
-            color: '#999',
-            opacity: 1,
-          },
-        }}
+            '& .MuiOutlinedInput-root': {
+              '& fieldset': {
+                border: 'none', 
+              },
+              '&:hover fieldset': {
+                border: 'none', 
+              },
+              '&.Mui-focused fieldset': {
+                border: 'none', 
+              },
+            },
+            '& .MuiInputBase-input': {
+              border: 'none', 
+              padding: '4px 8px',
+              fontSize: '16px',
+            },
+            '&::placeholder': {
+              color: '#707C91',
+              opacity: 1,
+            },
+          }}
+        
       />
         </Box>
         <Box>
-          {/* <FormControl variant="standard" size="small" style={{}}>
-            <Select
-              value={status}
-              onChange={handleChange}
-              sx={{ fontSize: "0.75rem", padding: "4px" }}
-              disableUnderline
-            >
-              <MenuItem value="Todo" sx={{ fontSize: "0.75rem" }}>
-                TODO
-              </MenuItem>
-              <MenuItem value="In Progress" sx={{ fontSize: "0.75rem" }}>
-                IN PROGRESS
-              </MenuItem>
-              <MenuItem value="Done" sx={{ fontSize: "0.75rem" }}>
-                DONE
-              </MenuItem>
-            </Select>
-          </FormControl>
-          <Button
-            sx={{
-              "&:hover": { backgroundColor: "#D5D9DF" },
-              height: "25px",
-              marginLeft: "2px",
-            }}
-          >
-            <MoreHorizIcon />
-          </Button> */}
         </Box>
       </Box>
     </>

@@ -6,13 +6,12 @@ import { theme } from "../../../theme";
 import Sprint from "@components/organism/Sprints/Sprint";
 import { useState } from "react";
 const BacklogTemplate = () => {
-  const [sprints, setSprints] = useState<number[]>([])
-  const createSprint = ()=>{
-    console.log("thisd", sprints)
-    setSprints((old:number[])=>[ ...old, 1])
-  }
+  const [sprints, setSprints] = useState<number[]>([]);
+  const createSprint = () => {
+    console.log("thisd", sprints);
+    setSprints((old: number[]) => [...old, 1]);
+  };
   return (
-    
     <div className={style.bodyPart}>
       <div className={style.header}>
         <Header header1="Home" header2="Backlog" />
@@ -25,15 +24,16 @@ const BacklogTemplate = () => {
               backgroundColor: "secondary.main",
             },
           }}
-          onClick = {createSprint}
+          onClick={createSprint}
         >
           create sprint
         </Button>
       </div>
       <div className={style.sprints}>
-        {sprints.map(()=>(
-
-        <Sprint/>
+        {sprints.map(() => (
+          <>
+            <Sprint />
+          </>
         ))}
       </div>
     </div>

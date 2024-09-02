@@ -38,19 +38,21 @@ const Sprint = () => {
       </Box>
         {
           sprintRows.length ===0?<EmptySprintRow/>:
-      <Box sx={{marginY:2, borderRadius:"5px",border: "1px solid #C9D4E4", borderBottom:0, backgroundColor:"white"}}>
+      <Box sx={{marginTop:2, borderRadius:"5px",border: "1px solid #C9D4E4", borderBottom:0, backgroundColor:"white"}}>
         
          { sprintRows.map(()=>(
-
+            <>
             <SprintTaskRow /> 
+            <SprintTaskRow /> 
+            </>
           ))}
       </Box>
         }
         {
           newIssue?
-<Box sx={{ borderRadius:"5px",border: "1px solid #C9D4E4", borderBottom:0, backgroundColor:"white"}}>
+<Box sx={{ borderRadius:"5px",border: "1px solid #388BFF", borderBottom:0, backgroundColor:"white"}}>
           <EmptySprintRow/></Box>:
-  <Box sx={{paddingX:3, paddingBottom:"10px"}}>
+  <Box sx={{paddingX:3,paddingY:2, paddingBottom:"10px"}}>
 <Typography sx={{color:"#172B4D", cursor:"pointer"}} onClick={handleClick}> + Create Issue</Typography>
       </Box>
         }
