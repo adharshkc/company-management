@@ -16,7 +16,7 @@ const EmptySprintRow = () => {
           },
         }}
       >
-        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+        <Box sx={{ display: "flex", justifyContent: "space-between", width:"100%" }}>
         <TextField
         fullWidth
         // variant="outlined"

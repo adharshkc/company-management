@@ -9,6 +9,7 @@ interface Hrstore<T> {
   hrLogout: ()=>void
 }
 
+
 const useHrStore = create<Hrstore<HrType>>((set) => ({
   hr: null,
   isHrAuth: false,

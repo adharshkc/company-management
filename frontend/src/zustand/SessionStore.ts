@@ -10,6 +10,7 @@ type SessionStore = {
 
 export const useSessionStore = create(
   persist<SessionStore>((set) => ({
+  
     isAuthenticated: false,
     setIsAuthenticated: (authStatus) => set({ isAuthenticated: authStatus }),
     checkSession: async () => {

@@ -13,3 +13,7 @@ export const verifyOtp = async ({email, otp}:Otp)=>{
 export const employeeLogin= async(email:string)=>{
     return await employeeAxiosInstance.post('/login', {email})
 }
+
+export const getSprints = async ()=>{
+    return await employeeAxiosInstance.get('/projects/sprints')
+}

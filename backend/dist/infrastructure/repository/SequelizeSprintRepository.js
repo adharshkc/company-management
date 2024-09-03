@@ -24,5 +24,14 @@ class SequelizeSprintRepository {
             throw new Error(error);
         }
     }
+    async getSprints() {
+        try {
+            const sprints = await SprintModel_1.default.findAll();
+            return sprints;
+        }
+        catch (error) {
+            throw new Error(error);
+        }
+    }
 }
 exports.SequelizeSprintRepository = SequelizeSprintRepository;

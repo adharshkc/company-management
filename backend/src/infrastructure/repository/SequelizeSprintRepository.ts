@@ -23,4 +23,13 @@ export class SequelizeSprintRepository implements SprintRepository{
             throw new Error(error)
         }
     }
+
+    async getSprints(): Promise<Sprint[] | null> {
+        try {
+            const sprints =await SprintModel.findAll()
+            return sprints
+        } catch (error:any) {
+            throw new Error(error)
+        }
+    }
 }

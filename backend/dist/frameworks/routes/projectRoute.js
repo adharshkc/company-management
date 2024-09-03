@@ -1,9 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const projectDI_1 = require("@di/projectDI");
+const sprintDI_1 = require("@di/sprintDI");
+const employeeMiddleware_1 = require("@frameworks/middlewares/authentication/employeeMiddleware");
 const jwtVerify_1 = require("@frameworks/middlewares/authentication/jwtVerify");
 const express_1 = require("express");
 const projectRouter = (0, express_1.Router)();
 projectRouter.get('/', jwtVerify_1.verifyAdminAccess, projectDI_1.projectController.getProjects.bind(projectDI_1.projectController));
 projectRouter.post('/create', jwtVerify_1.verifyAdminAccess, projectDI_1.projectController.createProject.bind(projectDI_1.projectController));
+projectRouter.get('/sprints', employeeMiddleware_1.verifyEmployeeAccessToken, sprintDI_1.sprintController.getAllSprint.bind(sprintDI_1.sprintController));
+projectRouter.post('/sprints/add', employeeMiddleware_1.verifyEmployeeAccessToken, sprintDI_1.sprintController.createSprint.bind(sprintDI_1.sprintController));
 exports.default = projectRouter;

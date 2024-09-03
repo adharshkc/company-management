@@ -10,7 +10,6 @@ export const useUserAuth = function () {
   useEffect(() => {
     const validateSession = async () => {
       await checkSession();
-      console.log(isAuthenticated)
       // if (isAuthenticated===false) {
       //   console.log("djsfk")
       //   navigate("/login");

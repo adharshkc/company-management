@@ -31,7 +31,6 @@ export const verifyEmployeeAccessToken = (
           err.name === "JsonWebTokenError" ? "Unauthorized" : err.message;
         return next(createError.Unauthorized(message));
       }
-      console.log(payload)
       req.employee = payload ;
       next()
     });

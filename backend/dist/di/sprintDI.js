@@ -2,9 +2,11 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.sprintController = void 0;
 const AddSprintUsecase_1 = require("@application/use-cases/sprint/AddSprintUsecase");
+const GetSprintUsecase_1 = require("@application/use-cases/sprint/GetSprintUsecase");
 const SprintController_1 = require("@frameworks/controllers/SprintController");
 const SequelizeSprintRepository_1 = require("@infrastructure/repository/SequelizeSprintRepository");
 const sprintRepository = new SequelizeSprintRepository_1.SequelizeSprintRepository();
 const addSprintUsecase = new AddSprintUsecase_1.AddSprintUsecase(sprintRepository);
-const sprintController = new SprintController_1.SprintController(addSprintUsecase);
+const getSprintUsecase = new GetSprintUsecase_1.GetSprintUsecase(sprintRepository);
+const sprintController = new SprintController_1.SprintController(addSprintUsecase, getSprintUsecase);
 exports.sprintController = sprintController;

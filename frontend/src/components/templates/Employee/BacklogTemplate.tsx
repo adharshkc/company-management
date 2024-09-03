@@ -4,13 +4,17 @@ import style from "../../styles/backlogTemplate.module.scss";
 import { Button } from "@components/atoms/button/Button";
 import { theme } from "../../../theme";
 import Sprint from "@components/organism/Sprints/Sprint";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSprints } from "../../../hooks/useSprints";
 const BacklogTemplate = () => {
-  const [sprints, setSprints] = useState<number[]>([]);
-  const createSprint = () => {
-    console.log("thisd", sprints);
-    setSprints((old: number[]) => [...old, 1]);
-  };
+  const {sprints, loading, error, fetchSprints} = useSprints()
+  console.log(loading)
+  console.log(sprints)
+  useEffect(()=>{
+    fetchSprints()}
+  , [fetchSprints])
+
+  const addSprint = 
   return (
     <div className={style.bodyPart}>
       <div className={style.header}>
@@ -24,18 +28,19 @@ const BacklogTemplate = () => {
               backgroundColor: "secondary.main",
             },
           }}
-          onClick={createSprint}
+          // onClick={createSprint}
         >
           create sprint
         </Button>
       </div>
-      <div className={style.sprints}>
-        {sprints.map(() => (
-          <>
-            <Sprint />
-          </>
-        ))}
-      </div>
+      
+      {
+        sprints===null?(<h1>Loading</h1>):<div className={style.sprints}>
+          {sprints.map(()=>(
+            <Sprint/>
+          ))}
+          </div>
+      }
     </div>
   );
 };
