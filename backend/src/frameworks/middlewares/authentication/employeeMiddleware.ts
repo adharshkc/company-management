@@ -7,7 +7,7 @@ declare global {
     interface Request {
       employee_id: string;
       commonId: string;
-      employee: JwtPayload|undefined|string;
+      employee: any|JwtPayload;
     }
   }
 }

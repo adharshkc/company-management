@@ -1,34 +1,42 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.verifyTeamLeaderMiddleware = void 0;
-const http_errors_1 = __importDefault(require("http-errors"));
-const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const jwtAccessSecret = process.env.JWT_ACCESS_SECRET;
-const jwtRefreshSecret = process.env.JWT_REFRESH_SECRET;
-const verifyTeamLeaderMiddleware = (req, res, next) => {
-    const authorization = req.header("Authorization");
-    if (!authorization)
-        return next(http_errors_1.default.Unauthorized());
-    const bearerToken = authorization.split(" ");
-    const token = bearerToken[1];
-    if (jwtAccessSecret) {
-        jsonwebtoken_1.default.verify(token, jwtAccessSecret, (err, payload) => {
-            if (err) {
-                const message = err.name === "JsonWebTokenError" ? "Unauthorized" : err.message;
-                return next(http_errors_1.default.Unauthorized(message));
-            }
-            console.log(payload);
-            if (payload === 'team leader') {
-                req.employee = payload;
-            }
-            else {
-                return next(http_errors_1.default.Unauthorized());
-            }
-            next();
-        });
-    }
-};
-exports.verifyTeamLeaderMiddleware = verifyTeamLeaderMiddleware;
+// import { NextFunction, Request, Response } from "express";
+// import createError from "http-errors";
+// import jwt from "jsonwebtoken";
+// import { JwtPayload } from "jsonwebtoken";
+// declare global {
+//   namespace Express {
+//     interface Request {
+//       employee_id: string;
+//       commonId: string;
+//       employee: JwtPayload|undefined|string;
+//     }
+//   }
+// }
+// const jwtAccessSecret = process.env.JWT_ACCESS_SECRET;
+// const jwtRefreshSecret = process.env.JWT_REFRESH_SECRET;
+// export const verifyTeamLeaderMiddleware = (
+//   req: Request,
+//   res: Response,
+//   next: NextFunction
+// ) => {
+//   const authorization = req.header("Authorization");
+//   if (!authorization) return next(createError.Unauthorized());
+//   const bearerToken = authorization.split(" ");
+//   const token = bearerToken[1];
+//   if (jwtAccessSecret) {
+//     jwt.verify(token, jwtAccessSecret, (err, payload) => {
+//       if (err) {
+//         const message =
+//           err.name === "JsonWebTokenError" ? "Unauthorized" : err.message;
+//         return next(createError.Unauthorized(message));
+//       }
+//       console.log(payload)
+//       if(payload ==='team leader'){
+//           req.employee = payload ;
+//       }else{
+//         return next(createError.Unauthorized())
+//       }
+//       next()
+//     });
+//   }
+// };

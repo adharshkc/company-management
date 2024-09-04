@@ -15,7 +15,8 @@ class SprintController {
                 status: req.body.status,
                 project_id: req.body.project_id,
             };
-            const { status, data } = await this.addSprint.execute(sprint);
+            const { userId } = req === null || req === void 0 ? void 0 : req.employee;
+            const { status, data } = await this.addSprint.execute(sprint, userId);
             res.status(status).json(data);
         }
         catch (error) {

@@ -195,7 +195,7 @@ const AddEmployee: React.FC<AddEmployeeProps> = ({
                 <em>None</em>
               </MenuItem>
               <MenuItem value="High">Frontend</MenuItem>
-              <MenuItem value="Medium">Backend</MenuItem>
+              <MenuItem value="Team Lead">Team lead</MenuItem>
               <MenuItem value="Low">Full Stack</MenuItem>
             </Select>
             {/* {PriorityError && (
@@ -226,9 +226,9 @@ const AddEmployee: React.FC<AddEmployeeProps> = ({
               <MenuItem value="">
                 <em>None</em>
               </MenuItem>
-              <MenuItem value="High">1</MenuItem>
-              <MenuItem value="Medium">Team 2</MenuItem>
-              <MenuItem value="Low">Team 3</MenuItem>
+              <MenuItem value="1">1</MenuItem>
+              <MenuItem value="2">Team 2</MenuItem>
+              <MenuItem value="3">Team 3</MenuItem>
             </Select>
             {/* {PriorityError && (
                 <FormHelperText>select a severity</FormHelperText>

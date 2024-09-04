@@ -31,7 +31,7 @@ class TeamModel extends Model {
   name!: string;
 
   @HasMany(() => ProjectModel)
-  projects!: ProjectModel;
+  projects!: ProjectModel[];
 
   @HasMany(()=>EmployeeModel)
   employee!: EmployeeModel[]

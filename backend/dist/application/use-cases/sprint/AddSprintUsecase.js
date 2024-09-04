@@ -5,22 +5,32 @@ class AddSprintUsecase {
     constructor(sprintRepository) {
         this.sprintRepository = sprintRepository;
     }
-    async execute(sprintDetails) {
+    async execute(sprintDetails, empId) {
         try {
+            const projectId = await this.sprintRepository.getProjectId(empId);
+            if (!projectId) {
+                return {
+                    status: 401,
+                    data: { success: false, message: "You are not authorized..." },
+                };
+            }
+            sprintDetails.project_id = projectId;
             const newSprint = await this.sprintRepository.createSprint(sprintDetails);
             if (!newSprint) {
-                return { status: 500,
+                return {
+                    status: 500,
                     data: {
                         success: false,
-                        message: "Error creating sprint"
-                    } };
+                        message: "Error creating sprint",
+                    },
+                };
             }
             return {
                 status: 200,
                 data: {
                     success: true,
-                    newSprint
-                }
+                    newSprint,
+                },
             };
         }
         catch (error) {
