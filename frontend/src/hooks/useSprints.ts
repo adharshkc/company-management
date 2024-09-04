@@ -13,8 +13,12 @@ export const useSprints = function(){
         try {
             const response = await getSprints()
             setFetchSprint(response?.data?.sprints)
+            if(response){
+                setLoading(false)
+            }
 
         } catch (error) {
+            setLoading(false)
             setError("Something went wrong...")
         }
     },[setFetchSprint, setLoading, setError] )

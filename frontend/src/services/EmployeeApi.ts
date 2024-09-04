@@ -17,3 +17,7 @@ export const employeeLogin= async(email:string)=>{
 export const getSprints = async ()=>{
     return await employeeAxiosInstance.get('/projects/sprints')
 }
+
+export const createSprint = async(sprintName:string)=>{
+    return await employeeAxiosInstance.post('/projects/sprints/add', {sprintName})
+}

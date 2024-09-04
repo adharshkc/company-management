@@ -8,11 +8,12 @@ const SprintModel_1 = __importDefault(require("@infrastructure/models/SprintMode
 class SequelizeSprintRepository {
     async createSprint(sprint) {
         try {
+            // const project = await
             const newSprint = await SprintModel_1.default.create({
                 name: sprint.name,
-                startDate: sprint.startDate,
-                endDate: sprint.endDate,
-                status: sprint.status,
+                startDate: sprint === null || sprint === void 0 ? void 0 : sprint.startDate,
+                endDate: sprint === null || sprint === void 0 ? void 0 : sprint.endDate,
+                status: sprint === null || sprint === void 0 ? void 0 : sprint.status,
                 project_id: sprint.project_id
             });
             if (newSprint) {
@@ -27,6 +28,9 @@ class SequelizeSprintRepository {
     async getSprints() {
         try {
             const sprints = await SprintModel_1.default.findAll();
+            // if(sprints){
+            //     return null
+            // }
             return sprints;
         }
         catch (error) {

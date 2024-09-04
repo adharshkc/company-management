@@ -2,9 +2,9 @@
 
 interface ISprint {
   name: string;
-  startDate: Date;
-  endDate: Date;
-  status: 'start'|'completed';
+  startDate?: Date;
+  endDate?: Date;
+  status?: 'start'|'completed';
   sprint_id?: number;
   project_id?: number;
   //future issues
@@ -13,16 +13,16 @@ interface ISprint {
 
 export class Sprint implements ISprint {
   name: string;
-  startDate: Date;
-  endDate: Date;
-  status: 'start'|'completed'
+  startDate?: Date;
+  endDate?: Date;
+  status?: 'start'|'completed'
   project_id?: number | undefined;
   sprint_id?: number | undefined;
   constructor(
     name: string,
-    startDate: Date,
-    endDate: Date,
-    status: 'start'|'completed',
+    startDate?: Date,
+    endDate?: Date,
+    status?: 'start'|'completed',
     sprint_id?:number,
     project_id?:number
   ) {

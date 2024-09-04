@@ -28,22 +28,22 @@ class SprintModel extends Model {
 
   @AllowNull(false)
   @NotEmpty
-  @Column({ type: DataType.STRING(100), allowNull: false })
+  @Column({ type: DataType.STRING(100), allowNull: false})
   name!: string;
 
-  @AllowNull(false)
+  @AllowNull(true)
   @NotEmpty
-  @Column({ type: DataType.DATE, allowNull: false })
-  startDate!: Date;
+  @Column({ type: DataType.DATE, allowNull: true })
+  startDate?: Date;
+
+  @AllowNull(true)
+  @NotEmpty
+  @Column({ type: DataType.DATE, allowNull: true })
+  endDate?: Date;
 
   @AllowNull(false)
   @NotEmpty
-  @Column({ type: DataType.DATE, allowNull: false })
-  endDate!: Date;
-
-  @AllowNull(false)
-  @NotEmpty
-  @Column({ type: DataType.ENUM("start", "completed"), allowNull: false })
+  @Column({ type: DataType.ENUM("start", "completed"),defaultValue:"start", allowNull: false })
   status!: 'start'|'completed';
 
   @ForeignKey(() => ProjectModel)

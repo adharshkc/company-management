@@ -26,19 +26,19 @@ __decorate([
     (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.STRING(100), allowNull: false })
 ], SprintModel.prototype, "name", void 0);
 __decorate([
-    (0, sequelize_typescript_1.AllowNull)(false),
+    (0, sequelize_typescript_1.AllowNull)(true),
     sequelize_typescript_1.NotEmpty,
-    (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.DATE, allowNull: false })
+    (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.DATE, allowNull: true })
 ], SprintModel.prototype, "startDate", void 0);
 __decorate([
-    (0, sequelize_typescript_1.AllowNull)(false),
+    (0, sequelize_typescript_1.AllowNull)(true),
     sequelize_typescript_1.NotEmpty,
-    (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.DATE, allowNull: false })
+    (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.DATE, allowNull: true })
 ], SprintModel.prototype, "endDate", void 0);
 __decorate([
     (0, sequelize_typescript_1.AllowNull)(false),
     sequelize_typescript_1.NotEmpty,
-    (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.ENUM("start", "completed"), allowNull: false })
+    (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.ENUM("start", "completed"), defaultValue: "start", allowNull: false })
 ], SprintModel.prototype, "status", void 0);
 __decorate([
     (0, sequelize_typescript_1.ForeignKey)(() => ProjectModel_1.default),

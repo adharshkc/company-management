@@ -5,6 +5,6 @@ export const useSprintStore = create((set) => ({
   loading: false,
   sprints: null,
   setIsAddSprint: (status: boolean) => set({ isAddSprint: status }),
-  setFetchSprint: (data) => set({ sprints: data, loading: false }),
+  setFetchSprint: (data) => set({ sprints: data }),
   setLoading: (loading: boolean) => set({ loading }),
 }));
