@@ -1,166 +1,190 @@
 import { Button } from "@components/atoms/button/Button";
 import { theme } from "../../../theme";
 import {
-  Backdrop,
-  Box,
+    Backdrop,
   CircularProgress,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  SelectChangeEvent,
   TextField,
-  Typography,
 } from "@mui/material";
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { emailPattern, phonePattern } from "../../../constants/constants";
-import { EmployeeDetail } from "../../../types/types";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import dayjs, { Dayjs } from "dayjs";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { Dayjs } from "dayjs";
 
-type AddEmployeeProps = {
+type SprintFormProp = {
   openModal: (isOpen: boolean) => void;
-  sprintName:string
-  addEmployee: ({
-    name,
-    phone,
-    email,
-    startDate,
-    role,
-  }: EmployeeDetail) => void;
+  sprintName: string;
+  updateSprint: (
+    name:string,
+    startDate:Date|undefined,
+    endDate:Dayjs|Date|null|undefined,
+  ) => void;
 };
 
-const SprintForm: React.FC<AddEmployeeProps> = ({
-    sprintName,
-  addEmployee,
-  openModal,
+const SprintForm: React.FC<SprintFormProp> = ({
+    openModal,
+  sprintName,
+  updateSprint,
 }) => {
   const [name, setName] = useState(sprintName);
-  const [date, setDate] = useState<Dayjs>();
-  const [joiningDate, setJoiningDate] = useState<Date>();
+  const [endDate, setEndDate] = useState<Dayjs | null>();
+  const [startDate, setStartDate] = useState<Dayjs | null>();
+  const [sDate, setSDate] = useState<Date>();
+  //   const [eDate, setEDate] = useState<Date>()
   const [backDrop, setBackdrop] = useState<boolean>(false);
-  const [joiningDateError, setJoiningDateError] = useState("");
-  const [team, setTeam] = useState('')
-  const [role, setRole] = useState('')
+  const [startDateError, setStartDateError] = useState("");
+  const [endDateError, setEndDateError] = useState("");
 
   const handleClick = async (event?: React.MouseEvent<HTMLButtonElement>) => {
     event?.preventDefault();
     try {
-      if (!name.trim() || name.length < 3) {
+      if (!name.trim() || name.length < 3||name.length>30) {
         toast.error("Please enter a valid name");
         return;
       }
-      
       setBackdrop(true);
-      addEmployee({
+      updateSprint(
         name,
-        role, 
-        team,
-        joiningDate,
-      });
-      setBackdrop(false)
+        sDate,
+        endDate,
+      );
+      setBackdrop(false);
     } catch (error) {
       toast.error("something went wrong");
     }
   };
 
-  const handleDate = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setJoiningDateError("");
-    const selectedDate = event.target.value
-      ? new Date(event.target.value)
-      : null;
+  const handleStartDate = (value: Dayjs | null) => {
+    setStartDateError("");
+    if (value === null) {
+      setStartDateError("Date is required");
+      setStartDate(null);
+      return;
+    }
+    const selectedDate = value.toDate();
     const currentDate = new Date();
     currentDate.setHours(0, 0, 0, 0);
-    if (selectedDate === null) return setJoiningDateError("date is required");
-    if (selectedDate < currentDate)
-      return setJoiningDateError("Select a future date");
-    setJoiningDate(selectedDate);
-    setDate(event.target.value);
+
+    if (selectedDate < currentDate) {
+      setStartDateError("Select a future date");
+    } else {
+      setSDate(selectedDate);
+      setStartDate(value);
+      if (endDate && endDate.toDate() < selectedDate) {
+        setEndDateError("End date should not be before start date");
+      } else {
+        setEndDateError("");
+      }
+    }
+  };
+  const handleEndDate = (value: Dayjs | null) => {
+    setEndDateError("");
+    if (value === null) {
+      setEndDateError("Date is required");
+      setEndDate(null);
+      return;
+    }
+    const selectedEndDate = value.toDate();
+    if (startDate && selectedEndDate < startDate.toDate()) {
+      setEndDateError("End date should not be before start date");
+    } else {
+      setEndDate(value);
+    }
   };
   const handleClose = () => openModal(false);
   return (
     <div>
       <Toaster position="top-right" />
       <Dialog open={true} onClose={handleClose}>
-      <DialogTitle color="#28231d">Edit Sprint: {sprintName}</DialogTitle>
-      <DialogContent>
-        <TextField
-          margin="dense"
-          id="name"
-          label="Name*"
-          type="text"
-        sx={{width: '300px',  
-            marginBottom: '26px',
-            "& .MuiInputBase-input": {
-                color: "#000" // Text color
+        <DialogTitle color="#28231d">Edit Sprint: {sprintName}</DialogTitle>
+        <DialogContent>
+          <TextField
+            margin="dense"
+            id="name"
+            label="Name*"
+            type="text"
+            sx={{
+              width: "300px",
+              marginBottom: "26px",
+              "& .MuiInputBase-input": {
+                color: "#000",
               },
               "& .MuiInputLabel-root": {
-                color: "#000", // Label color
+                color: "#000",
               },
               "& .MuiInputLabel-root.Mui-focused": {
-                color: "#000", // Label color on focus
+                color: "#000",
               },
               "& .MuiInput-underline:after": {
-                borderBottomColor: "#000" // Bottom border color on focus
-              }
+                borderBottomColor: "#000",
+              },
             }}
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DatePicker
-            label="Start Date"
-            sx={{width: '300px',
-                "& .MuiInputBase-input": {
-                    color: "#000" 
-                  },
-                  "& .MuiInputLabel-root": {
-                    color: "#000", 
-                  },
-                  "& .MuiInputLabel-root.Mui-focused": {
-                    color: "#000", 
-                  },
-                  "& .MuiInput-underline:after": {
-                    borderBottomColor: "#000" 
-                  }}}
-            value={date}
-            // onChange={(newDate) => setDate(newDate)}
-            // renderInput={(params) => <TextField {...params} fullWidth margin="dense" />}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
           />
-        </LocalizationProvider>
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DatePicker
-            label="End Date"
-            sx={{width: '300px',
-                marginTop: '26px',
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DatePicker
+              label="Start Date"
+              sx={{
+                width: "300px",
                 "& .MuiInputBase-input": {
-                    color: "#000" 
-                  },
-                  "& .MuiInputLabel-root": {
-                    color: "#000", 
-                  },
-                  "& .MuiInputLabel-root.Mui-focused": {
-                    color: "#000", 
-                  },
-                  "& .MuiInput-underline:after": {
-                    borderBottomColor: "#000" 
-                  }}}
-            value={date}
-            // onChange={(newDate) => setDate(newDate)}
-            // renderInput={(params) => <TextField {...params} fullWidth margin="dense" />}
-          />
-        </LocalizationProvider>
-        
-      </DialogContent>
-      <DialogActions
-          sx={{ justifyContent: "flex-end",margin:3}}
-        >
+                  color: "#000",
+                },
+                "& .MuiInputLabel-root": {
+                  color: "#000",
+                },
+                "& .MuiInputLabel-root.Mui-focused": {
+                  color: "#000",
+                },
+                "& .MuiInput-underline:after": {
+                  borderBottomColor: "#000",
+                },
+              }}
+              value={startDate}
+              onChange={handleStartDate}
+              slotProps={{
+                textField: {
+                  error: !!startDateError,
+                  helperText: startDateError,
+                },
+              }}
+            />
+          </LocalizationProvider>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DatePicker
+              label="End Date"
+              sx={{
+                width: "300px",
+                marginTop: "26px",
+                "& .MuiInputBase-input": {
+                  color: "#000",
+                },
+                "& .MuiInputLabel-root": {
+                  color: "#000",
+                },
+                "& .MuiInputLabel-root.Mui-focused": {
+                  color: "#000",
+                },
+                "& .MuiInput-underline:after": {
+                  borderBottomColor: "#000",
+                },
+              }}
+              value={endDate}
+              onChange={handleEndDate}
+              slotProps={{
+                textField: {
+                  error: !!endDateError,
+                  helperText: endDateError,
+                },
+              }}
+            />
+          </LocalizationProvider>
+        </DialogContent>
+        <DialogActions sx={{ justifyContent: "flex-end", margin: 3 }}>
           <Button
             sx={{ backgroundColor: theme.palette.primary.dark, color: "white" }}
             onClick={(e) => handleClick(e)}
@@ -179,7 +203,10 @@ const SprintForm: React.FC<AddEmployeeProps> = ({
             Cancel
           </Button>
         </DialogActions>
-    </Dialog>
+        <Backdrop onClick={handleClose} open={backDrop}>
+          <CircularProgress color="inherit" />
+        </Backdrop>
+      </Dialog>
     </div>
   );
 };

@@ -7,11 +7,14 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { Box, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import SprintForm from "../Form/SprintForm";
+import { Dayjs } from "dayjs";
+import { updateSprint } from "../../../services/EmployeeApi";
+import toast, {Toaster} from "react-hot-toast";
 
 const Sprint = ({ sprint }) => {
   const [startButton, setStartButton] = useState<boolean>(true);
   const [newIssue, setNewIssue] = useState(false);
-  const [openModal, setOpenModal] = useState<boolean>(false)
+  const [openModal, setOpenModal] = useState<boolean>(false);
 
   const buttonDisable = () => {
     setStartButton(sprint.issues.length === 0);
@@ -19,11 +22,29 @@ const Sprint = ({ sprint }) => {
   useEffect(() => {
     buttonDisable();
   }, [sprint?.issues]);
-
-  const handleClick = ()=> setNewIssue(true);
-  const handleModal = (bool:boolean)=> setOpenModal(bool)
+  const updateSprintHandler = async(
+    name: string,
+    startDate: Date | undefined,
+    endDate: Dayjs | Date | null | undefined
+  ) => {
+    try {
+      const response = await updateSprint(name, startDate, endDate)
+      if(response.status == 200){
+        setOpenModal(false)
+      }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error:any) {
+      console.log(error.response.data.error.message)
+      if(error.response.data.error.message){
+        toast.error(error.response.data.error.message)
+      }
+    }
+  };
+  const handleClick = () => setNewIssue(true);
+  const handleModal = (bool: boolean) => setOpenModal(bool);
   return (
     <>
+    <Toaster position="top-right"/>
       <Box
         sx={{
           backgroundColor: "#f7f8f9",
@@ -34,7 +55,13 @@ const Sprint = ({ sprint }) => {
       >
         <Box sx={{ display: "flex", justifyContent: "space-between" }}>
           <Box sx={{ display: "flex", alignItems: "center", paddingX: 3 }}>
-            {openModal&&<SprintForm sprintName={sprint.name} openModal={handleModal}/>}
+            {openModal && (
+              <SprintForm
+                sprintName={sprint.name}
+                updateSprint={updateSprintHandler}
+                openModal={handleModal}
+              />
+            )}
             <Typography
               variant="body1"
               sx={{ fontSize: "16px", fontWeight: 400, color: "#172B4D" }}
@@ -59,7 +86,7 @@ const Sprint = ({ sprint }) => {
                     borderRadius: "5px",
                   },
                 }}
-                onClick={()=>handleModal(true)}
+                onClick={() => handleModal(true)}
               >
                 <EditIcon sx={{ marginTop: "2px", height: "15px" }} />
                 <Typography variant="body2" sx={{ color: "#172B4D" }}>

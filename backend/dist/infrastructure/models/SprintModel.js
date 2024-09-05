@@ -38,7 +38,7 @@ __decorate([
 __decorate([
     (0, sequelize_typescript_1.AllowNull)(false),
     sequelize_typescript_1.NotEmpty,
-    (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.ENUM("start", "completed"), defaultValue: "start", allowNull: false })
+    (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.ENUM("start", "completed", "pending"), defaultValue: "start", allowNull: false })
 ], SprintModel.prototype, "status", void 0);
 __decorate([
     (0, sequelize_typescript_1.ForeignKey)(() => ProjectModel_1.default),

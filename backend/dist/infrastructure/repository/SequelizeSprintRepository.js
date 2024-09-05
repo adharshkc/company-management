@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SequelizeSprintRepository = void 0;
 const EmployeeModel_1 = __importDefault(require("@infrastructure/models/EmployeeModel"));
+const IssueModel_1 = __importDefault(require("@infrastructure/models/IssueModel"));
 const ProjectModel_1 = __importDefault(require("@infrastructure/models/ProjectModel"));
 const SprintModel_1 = __importDefault(require("@infrastructure/models/SprintModel"));
 const TeamModel_1 = __importDefault(require("@infrastructure/models/TeamModel"));
@@ -30,7 +31,7 @@ class SequelizeSprintRepository {
     }
     async getSprints() {
         try {
-            const sprints = await SprintModel_1.default.findAll();
+            const sprints = await SprintModel_1.default.findAll({ include: { model: IssueModel_1.default } });
             // if(sprints){
             //     return null
             // }
@@ -67,6 +68,26 @@ class SequelizeSprintRepository {
         catch (error) {
             console.log(error);
             throw new Error("You are not authorized");
+        }
+    }
+    async updateSprint(name, startDate, endDate, sprintId) {
+        try {
+            const [numberOfAffectedRows, [updatedSprint]] = await SprintModel_1.default.update({
+                name: name,
+                startDate: startDate,
+                endDate: endDate,
+            }, {
+                where: {
+                    sprint_id: sprintId,
+                },
+                returning: true,
+            });
+            if (numberOfAffectedRows === 0) {
+                return null;
+            }
+            return updatedSprint;
+        }
+        catch (error) {
         }
     }
 }

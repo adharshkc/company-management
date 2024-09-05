@@ -15,5 +15,6 @@ projectRouter.get('/', verifyAdminAccess, projectController.getProjects.bind(pro
 projectRouter.post('/create', verifyAdminAccess, projectController.createProject.bind(projectController))
 projectRouter.get('/sprints', verifyEmployeeAccessToken, sprintController.getAllSprint.bind(sprintController))
 projectRouter.post('/sprints/add', verifyEmployeeAccessToken, sprintController.createSprint.bind(sprintController))
+projectRouter.put('/sprints/update/:id', verifyEmployeeAccessToken, sprintController.sprintUpdate.bind(sprintController))
 
 export default projectRouter

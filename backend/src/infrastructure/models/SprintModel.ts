@@ -43,8 +43,8 @@ class SprintModel extends Model {
 
   @AllowNull(false)
   @NotEmpty
-  @Column({ type: DataType.ENUM("start", "completed"),defaultValue:"start", allowNull: false })
-  status!: 'start'|'completed';
+  @Column({ type: DataType.ENUM("start", "completed", "pending"),defaultValue:"start", allowNull: false })
+  status!: 'start'|'completed'|'pending';
 
   @ForeignKey(() => ProjectModel)
   @AllowNull(false)
