@@ -252,7 +252,6 @@ const AddEmployee: React.FC<AddEmployeeProps> = ({
               sx={{
                 "& .MuiFilledInput-root": {
                   color: "#000",
-                  // marginTop: 5,
                   height: "56px",
                   fontWeight: 200,
                   width: "100%",

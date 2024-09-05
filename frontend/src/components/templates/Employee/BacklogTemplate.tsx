@@ -9,7 +9,7 @@ import { useSprints } from "../../../hooks/useSprints";
 import { createSprint } from "../../../services/EmployeeApi";
 const BacklogTemplate = () => {
   const {sprints, loading, error, fetchSprints} = useSprints()
-  console.log(loading)
+  console.log(sprints)
   useEffect(()=>{
     fetchSprints()}
   , [fetchSprints])
@@ -17,6 +17,7 @@ const BacklogTemplate = () => {
   const addSprint = async function(){
     const sprintName = `Sprint ${sprints.length+1}`
     try {
+      console.log(sprintName)
       const response = await createSprint(sprintName)
       if(response.status===200){
   
@@ -61,8 +62,8 @@ const BacklogTemplate = () => {
       
       {
         (sprints===null||sprints.length===0)?(<h1>No sprints found</h1>):<div className={style.sprints}>
-          {sprints.map(()=>(
-            <Sprint/>
+          {sprints.map((sprint)=>(
+            <Sprint key={sprint.sprint_id} sprint={sprint}/>
           ))}
           </div>
       }
