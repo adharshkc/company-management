@@ -1,24 +1,31 @@
-import { Button } from "@components/atoms/button/Button";
+
 import EmptySprintRow from "@components/molecules/EmptySprintRow";
 import NewSprintRow from "@components/molecules/NewSprintRow";
 import EditIcon from "@mui/icons-material/Edit";
 import SprintTaskRow from "@components/molecules/SprintTaskRow";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import { Box, Typography } from "@mui/material";
+import { Box, Button, Menu, MenuItem, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import SprintForm from "../Form/SprintForm";
 import { Dayjs } from "dayjs";
 import { updateSprint } from "../../../services/EmployeeApi";
 import toast, {Toaster} from "react-hot-toast";
+import { useMonthAndDay } from "../../../hooks/useMonthAndDay";
+import { useSprints } from "../../../hooks/useSprints";
 
 const Sprint = ({ sprint }) => {
   const [startButton, setStartButton] = useState<boolean>(true);
   const [newIssue, setNewIssue] = useState(false);
   const [openModal, setOpenModal] = useState<boolean>(false);
+  const [anchorEl, setAnchorEl] = useState<null|HTMLElement>(null)
+  const {fetchSprints} = useSprints()
 
   const buttonDisable = () => {
     setStartButton(sprint.issues.length === 0);
   };
+  const startDay = useMonthAndDay(sprint?.startDate)
+  const endDay = useMonthAndDay(sprint?.endDate)
+
   useEffect(() => {
     buttonDisable();
   }, [sprint?.issues]);
@@ -28,20 +35,23 @@ const Sprint = ({ sprint }) => {
     endDate: Dayjs | Date | null | undefined
   ) => {
     try {
-      const response = await updateSprint(name, startDate, endDate)
+      const response = await updateSprint(name, startDate, endDate, sprint.sprint_id)
       if(response.status == 200){
         setOpenModal(false)
+        fetchSprints()
       }
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error:any) {
-      console.log(error.response.data.error.message)
-      if(error.response.data.error.message){
-        toast.error(error.response.data.error.message)
+      console.log(error)
+      if(error.response.data.message){
+        toast.error(error.response.data.message)
       }
     }
   };
   const handleClick = () => setNewIssue(true);
   const handleModal = (bool: boolean) => setOpenModal(bool);
+  const handleMenuOpen = (e:React.MouseEvent<HTMLElement>)=>setAnchorEl(e)
+  const handleMenuClose = ()=>setAnchorEl(null)
   return (
     <>
     <Toaster position="top-right"/>
@@ -73,7 +83,7 @@ const Sprint = ({ sprint }) => {
                 variant="body2"
                 sx={{ marginLeft: 2, marginTop: "1px", color: "#172B4D" }}
               >
-                {sprint.startDate} - {sprint.endDate}
+                {startDay} - {endDay}
               </Typography>
             ) : (
               <Box
@@ -114,9 +124,28 @@ const Sprint = ({ sprint }) => {
             </Button>
             <Button
               sx={{ "&:hover": { backgroundColor: "#D5D9DF" }, marginX: "2px" }}
+              onClick={handleMenuOpen}
             >
               <MoreHorizIcon sx={{ color: "#172B4D" }} />
             </Button>
+            <Menu
+              anchorEl={anchorEl}
+              open={Boolean(anchorEl)}
+              onClose={handleMenuClose}
+              anchorOrigin={{
+                vertical: 'bottom', // Adjust anchor position if needed
+                horizontal: 'right',
+              }}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+            >
+              <MenuItem>Option 1</MenuItem>
+              <MenuItem>Option 1</MenuItem>
+              <MenuItem>Option 1</MenuItem>
+             
+            </Menu>
           </Box>
         </Box>
         {sprint.issues.length === 0 ? (

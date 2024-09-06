@@ -28,6 +28,7 @@ class SprintController {
         try {
             console.log("hasdfh");
             const { status, data } = await this.getSprint.execute();
+            console.log("data", data);
             res.status(status).json(data);
         }
         catch (error) {
@@ -39,7 +40,9 @@ class SprintController {
         var _a;
         try {
             const { name, startDate, endDate } = req === null || req === void 0 ? void 0 : req.body;
+            console.log(name, startDate, endDate);
             const sprintId = (_a = req === null || req === void 0 ? void 0 : req.params) === null || _a === void 0 ? void 0 : _a.id;
+            console.log(sprintId);
             const { status, data } = await this.updateSprint.execute(name, startDate, endDate, sprintId);
             res.status(status).json(data);
         }

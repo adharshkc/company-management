@@ -28,6 +28,7 @@ const BacklogTemplate = () => {
     }
   }
   if(error){
+    console.log(error)
     return(
       <div className={style.bodyPart}>
         <h3>Something went wrong!!!</h3>

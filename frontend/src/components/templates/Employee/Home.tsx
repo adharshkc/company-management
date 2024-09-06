@@ -4,12 +4,12 @@ import { theme } from "../../../theme";
 import { Dialog, Typography } from "@mui/material";
 import { useState } from "react";
 import ClockModal from "@components/organism/Clock/ClockModal";
-import { useDateAndTime } from "../../../hooks/useDateAndTime";
+import { useDayAndWeek } from "../../../hooks/useDayAndWeek";
 import HomeTask from "@components/organism/Task/HomeTask";
 
 const Home = () => {
   const [open, setOpen] = useState<boolean>(false);
-  const {dayDate, timeOfDay} = useDateAndTime()
+  const {dayDate, timeOfDay} = useDayAndWeek()
   console.log(dayDate)
   const handleClose = () => {
     setOpen(false);

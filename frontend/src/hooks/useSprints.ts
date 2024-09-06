@@ -15,9 +15,11 @@ export const useSprints = function(){
             setFetchSprint(response?.data?.sprints)
             if(response){
                 setLoading(false)
+                setError(null)
             }
 
         } catch (error) {
+            console.log(error)
             setLoading(false)
             setError("Something went wrong...")
         }

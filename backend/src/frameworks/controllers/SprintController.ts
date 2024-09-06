@@ -31,6 +31,7 @@ export class SprintController {
     try {
       console.log("hasdfh");
       const { status, data } = await this.getSprint.execute();
+      console.log("data", data)
       res.status(status).json(data);
     } catch (error) {
       console.log(error);
@@ -41,7 +42,9 @@ export class SprintController {
   async sprintUpdate(req: Request, res: Response, next: NextFunction) {
     try {
       const { name, startDate, endDate } = req?.body;
+      console.log(name, startDate, endDate)
       const sprintId = req?.params?.id;
+      console.log(sprintId)
       const { status, data } = await this.updateSprint.execute(
         name,
         startDate,

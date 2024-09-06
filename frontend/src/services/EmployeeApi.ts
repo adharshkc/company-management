@@ -25,9 +25,10 @@ export const createSprint = async (name: string) => {
 export const updateSprint = async (
   name: string,
   startDate: Date | undefined,
-  endDate: Dayjs | Date | null | undefined
+  endDate: Dayjs | Date | null | undefined,
+  sprintId:number|string
 ) => {
-  return await employeeAxiosInstance.put("/projects/sprints/update", {
+  return await employeeAxiosInstance.put(`/projects/sprints/update/${sprintId}`, {
     name,
     startDate,
     endDate,
