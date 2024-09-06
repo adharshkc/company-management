@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.sprintController = void 0;
 const AddSprintUsecase_1 = require("@application/use-cases/sprint/AddSprintUsecase");
+const DeleteSprintUsecase_1 = require("@application/use-cases/sprint/DeleteSprintUsecase");
 const GetSprintUsecase_1 = require("@application/use-cases/sprint/GetSprintUsecase");
 const UpdateSprintUsecase_1 = require("@application/use-cases/sprint/UpdateSprintUsecase");
 const SprintController_1 = require("@frameworks/controllers/SprintController");
@@ -10,5 +11,6 @@ const sprintRepository = new SequelizeSprintRepository_1.SequelizeSprintReposito
 const addSprintUsecase = new AddSprintUsecase_1.AddSprintUsecase(sprintRepository);
 const getSprintUsecase = new GetSprintUsecase_1.GetSprintUsecase(sprintRepository);
 const updateSprintUsecase = new UpdateSprintUsecase_1.UpdateSprintUsecase(sprintRepository);
-const sprintController = new SprintController_1.SprintController(addSprintUsecase, getSprintUsecase, updateSprintUsecase);
+const deleteSprintUsecase = new DeleteSprintUsecase_1.DeleteSprintUsecase(sprintRepository);
+const sprintController = new SprintController_1.SprintController(addSprintUsecase, getSprintUsecase, updateSprintUsecase, deleteSprintUsecase);
 exports.sprintController = sprintController;

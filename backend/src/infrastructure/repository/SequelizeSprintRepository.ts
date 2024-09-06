@@ -28,7 +28,9 @@ export class SequelizeSprintRepository implements SprintRepository {
 
   async getSprints(): Promise<Sprint[] | null> {
     try {
-      const sprints = await SprintModel.findAll({include:{model:IssueModel}});
+      const sprints = await SprintModel.findAll({
+        include: { model: IssueModel },
+      });
       // if(sprints){
       //     return null
       // }
@@ -56,37 +58,56 @@ export class SequelizeSprintRepository implements SprintRepository {
         ],
       });
       if (employee && employee.team && employee.team.projects.length > 0) {
-      return employee?.team.projects[0].project_id;
-      }
-      else{
-        return null
+        return employee?.team.projects[0].project_id;
+      } else {
+        return null;
       }
     } catch (error) {
       console.log(error);
       throw new Error("You are not authorized");
     }
   }
- async updateSprint(name: string, startDate: Date, endDate: Date, sprintId: number | string): Promise<Sprint | null | undefined> {
-      try {
-        const [numberOfAffectedRows, [updatedSprint]] = await SprintModel.update(
-          {
-            name: name,
-            startDate: startDate,
-            endDate: endDate,
+  async updateSprint(
+    name: string,
+    startDate: Date,
+    endDate: Date,
+    sprintId: number | string
+  ): Promise<Sprint | null | undefined> {
+    try {
+      const [numberOfAffectedRows, [updatedSprint]] = await SprintModel.update(
+        {
+          name: name,
+          startDate: startDate,
+          endDate: endDate,
+        },
+        {
+          where: {
+            sprint_id: sprintId,
           },
-          {
-            where: {
-              sprint_id: sprintId,
-            },
-            returning: true, 
-          })
-    if (numberOfAffectedRows === 0) {
-      return null;
-    }
-
-    return updatedSprint;
-      } catch (error) {
-        
+          returning: true,
+        }
+      );
+      if (numberOfAffectedRows === 0) {
+        return null;
       }
+
+      return updatedSprint;
+    } catch (error) {
+      throw new Error("Error updating Sprint");
+    }
+  }
+
+  async deleteSprint(sprintId: number|string): Promise<string | null | undefined> {
+    try {
+      const sprint = await SprintModel.destroy({
+        where: { sprint_id: sprintId },
+      });
+      if (sprint) {
+        return "success";
+      }
+      return null;
+    } catch (error) {
+      throw new Error("Error deleting Sprint");
+    }
   }
 }

@@ -34,3 +34,8 @@ export const updateSprint = async (
     endDate,
   });
 };
+
+
+export const deleteSprint = async (sprintId:number)=>{
+  return await employeeAxiosInstance.delete(`/projects/sprints/delete/${sprintId}`)
+}

@@ -1,60 +1,78 @@
-
 import EmptySprintRow from "@components/molecules/EmptySprintRow";
 import NewSprintRow from "@components/molecules/NewSprintRow";
 import EditIcon from "@mui/icons-material/Edit";
 import SprintTaskRow from "@components/molecules/SprintTaskRow";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import { Box, Button, Menu, MenuItem, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
+import { Box, Button, Typography } from "@mui/material";
+import { useEffect, useRef, useState } from "react";
 import SprintForm from "../Form/SprintForm";
 import { Dayjs } from "dayjs";
-import { updateSprint } from "../../../services/EmployeeApi";
-import toast, {Toaster} from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 import { useMonthAndDay } from "../../../hooks/useMonthAndDay";
 import { useSprints } from "../../../hooks/useSprints";
+import MoreOptions from "@components/molecules/MoreOptions";
+import DeleteSprint from "@components/molecules/DeleteSprint";
 
 const Sprint = ({ sprint }) => {
   const [startButton, setStartButton] = useState<boolean>(true);
   const [newIssue, setNewIssue] = useState(false);
   const [openModal, setOpenModal] = useState<boolean>(false);
-  const [anchorEl, setAnchorEl] = useState<null|HTMLElement>(null)
-  const {fetchSprints} = useSprints()
+  const [openMenu, setOpenMenu] = useState<boolean>(false);
+  const [deleteModal, setDeleteModal] = useState<boolean>(false)
+  const { fetchSprints, sprintUpdate, sprintDelete } = useSprints();
 
-  const buttonDisable = () => {
-    setStartButton(sprint.issues.length === 0);
-  };
-  const startDay = useMonthAndDay(sprint?.startDate)
-  const endDay = useMonthAndDay(sprint?.endDate)
+  const optionsRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (optionsRef.current && !optionsRef.current.contains(event.target as Node)) {
+        setOpenMenu(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [optionsRef]);
+  const startDay = useMonthAndDay(sprint?.startDate);
+  const endDay = useMonthAndDay(sprint?.endDate);
 
   useEffect(() => {
     buttonDisable();
   }, [sprint?.issues]);
-  const updateSprintHandler = async(
+
+  const updateSprintHandler = async (
     name: string,
     startDate: Date | undefined,
     endDate: Dayjs | Date | null | undefined
   ) => {
-    try {
-      const response = await updateSprint(name, startDate, endDate, sprint.sprint_id)
-      if(response.status == 200){
-        setOpenModal(false)
-        fetchSprints()
-      }
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error:any) {
-      console.log(error)
-      if(error.response.data.message){
-        toast.error(error.response.data.message)
-      }
+    const response = await sprintUpdate(
+      name,
+      startDate,
+      endDate,
+      sprint.sprint_id
+    );
+    if (response?.status == 200) {
+      setOpenModal(false);
+      fetchSprints();
     }
   };
+  
+  const deleteSprintHandler=async()=>{
+    const response = await sprintDelete(sprint.sprint_id)
+    if (response?.status == 200) {
+      setOpenModal(false);
+      fetchSprints();
+    }
+  }
+  const buttonDisable = () => setStartButton(sprint?.issues?.length === 0);
   const handleClick = () => setNewIssue(true);
   const handleModal = (bool: boolean) => setOpenModal(bool);
-  const handleMenuOpen = (e:React.MouseEvent<HTMLElement>)=>setAnchorEl(e)
-  const handleMenuClose = ()=>setAnchorEl(null)
+  const handleMenuOpen = () => setOpenMenu(true);
+  const handleDeleteModal = (bool:boolean)=>setDeleteModal(bool)
   return (
     <>
-    <Toaster position="top-right"/>
+      {/* <Toaster position="top-right" /> */}
       <Box
         sx={{
           backgroundColor: "#f7f8f9",
@@ -72,6 +90,7 @@ const Sprint = ({ sprint }) => {
                 openModal={handleModal}
               />
             )}
+            {deleteModal&&<DeleteSprint deleteModal={handleDeleteModal} deleteSprintHandler={deleteSprintHandler}/>}
             <Typography
               variant="body1"
               sx={{ fontSize: "16px", fontWeight: 400, color: "#172B4D" }}
@@ -128,24 +147,11 @@ const Sprint = ({ sprint }) => {
             >
               <MoreHorizIcon sx={{ color: "#172B4D" }} />
             </Button>
-            <Menu
-              anchorEl={anchorEl}
-              open={Boolean(anchorEl)}
-              onClose={handleMenuClose}
-              anchorOrigin={{
-                vertical: 'bottom', // Adjust anchor position if needed
-                horizontal: 'right',
-              }}
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-            >
-              <MenuItem>Option 1</MenuItem>
-              <MenuItem>Option 1</MenuItem>
-              <MenuItem>Option 1</MenuItem>
-             
-            </Menu>
+            {openMenu && (
+              <Box ref={optionsRef} sx={{ zIndex: 1, position: "absolute" }}>
+                <MoreOptions clickEdit={handleModal} clickDelete={handleDeleteModal} />
+              </Box>
+            )}
           </Box>
         </Box>
         {sprint.issues.length === 0 ? (

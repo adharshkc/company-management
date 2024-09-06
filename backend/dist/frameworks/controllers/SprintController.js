@@ -2,10 +2,11 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SprintController = void 0;
 class SprintController {
-    constructor(addSprint, getSprint, updateSprint) {
+    constructor(addSprint, getSprint, updateSprint, deleteSprint) {
         this.addSprint = addSprint;
         this.getSprint = getSprint;
         this.updateSprint = updateSprint;
+        this.deleteSprint = deleteSprint;
     }
     async createSprint(req, res, next) {
         try {
@@ -44,6 +45,17 @@ class SprintController {
             const sprintId = (_a = req === null || req === void 0 ? void 0 : req.params) === null || _a === void 0 ? void 0 : _a.id;
             console.log(sprintId);
             const { status, data } = await this.updateSprint.execute(name, startDate, endDate, sprintId);
+            res.status(status).json(data);
+        }
+        catch (error) {
+            console.log(error);
+            next(error);
+        }
+    }
+    async sprintDelete(req, res, next) {
+        try {
+            const sprintId = req.params.id;
+            const { status, data } = await this.deleteSprint.execute(sprintId);
             res.status(status).json(data);
         }
         catch (error) {

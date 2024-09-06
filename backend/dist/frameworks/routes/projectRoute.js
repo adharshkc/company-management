@@ -11,4 +11,5 @@ projectRouter.post('/create', jwtVerify_1.verifyAdminAccess, projectDI_1.project
 projectRouter.get('/sprints', employeeMiddleware_1.verifyEmployeeAccessToken, sprintDI_1.sprintController.getAllSprint.bind(sprintDI_1.sprintController));
 projectRouter.post('/sprints/add', employeeMiddleware_1.verifyEmployeeAccessToken, sprintDI_1.sprintController.createSprint.bind(sprintDI_1.sprintController));
 projectRouter.put('/sprints/update/:id', employeeMiddleware_1.verifyEmployeeAccessToken, sprintDI_1.sprintController.sprintUpdate.bind(sprintDI_1.sprintController));
+projectRouter.delete('/sprints/delete/:id', employeeMiddleware_1.verifyEmployeeAccessToken, sprintDI_1.sprintController.sprintDelete.bind(sprintDI_1.sprintController));
 exports.default = projectRouter;

@@ -1,28 +1,28 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UpdateSprintUsecase = void 0;
-class UpdateSprintUsecase {
+exports.DeleteSprintUsecase = void 0;
+class DeleteSprintUsecase {
     constructor(sprintRepository) {
         this.sprintRepository = sprintRepository;
     }
-    async execute(name, startDate, endDate, sprintId) {
+    async execute(sprintId) {
         try {
-            const sprint = await this.sprintRepository.updateSprint(name, startDate, endDate, sprintId);
+            const sprint = await this.sprintRepository.deleteSprint(sprintId);
             if (!sprint) {
                 return {
                     status: 500,
                     data: {
                         success: false,
-                        message: "Something went wrong..."
-                    }
+                        message: "Something went wrong...",
+                    },
                 };
             }
             return {
                 status: 200,
                 data: {
                     success: true,
-                    sprint
-                }
+                    sprint,
+                },
             };
         }
         catch (error) {
@@ -30,4 +30,4 @@ class UpdateSprintUsecase {
         }
     }
 }
-exports.UpdateSprintUsecase = UpdateSprintUsecase;
+exports.DeleteSprintUsecase = DeleteSprintUsecase;

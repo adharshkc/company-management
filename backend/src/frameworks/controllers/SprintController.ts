@@ -1,4 +1,5 @@
 import { AddSprintUsecase } from "@application/use-cases/sprint/AddSprintUsecase";
+import { DeleteSprintUsecase } from "@application/use-cases/sprint/DeleteSprintUsecase";
 import { GetSprintUsecase } from "@application/use-cases/sprint/GetSprintUsecase";
 import { UpdateSprintUsecase } from "@application/use-cases/sprint/UpdateSprintUsecase";
 import { NextFunction, Request, Response } from "express";
@@ -7,7 +8,8 @@ export class SprintController {
   constructor(
     private addSprint: AddSprintUsecase,
     private getSprint: GetSprintUsecase,
-    private updateSprint: UpdateSprintUsecase
+    private updateSprint: UpdateSprintUsecase,
+    private deleteSprint: DeleteSprintUsecase
   ) {}
 
   async createSprint(req: Request, res: Response, next: NextFunction) {
@@ -49,6 +51,19 @@ export class SprintController {
         name,
         startDate,
         endDate,
+        sprintId
+      );
+      res.status(status).json(data);
+    } catch (error) {
+      console.log(error);
+      next(error);
+    }
+  }
+
+  async sprintDelete(req:Request, res:Response, next:NextFunction){
+    try {
+      const sprintId = req.params.id;
+      const { status, data } = await this.deleteSprint.execute(
         sprintId
       );
       res.status(status).json(data);

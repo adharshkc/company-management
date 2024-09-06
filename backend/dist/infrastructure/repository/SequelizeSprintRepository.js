@@ -31,7 +31,9 @@ class SequelizeSprintRepository {
     }
     async getSprints() {
         try {
-            const sprints = await SprintModel_1.default.findAll({ include: { model: IssueModel_1.default } });
+            const sprints = await SprintModel_1.default.findAll({
+                include: { model: IssueModel_1.default },
+            });
             // if(sprints){
             //     return null
             // }
@@ -88,6 +90,21 @@ class SequelizeSprintRepository {
             return updatedSprint;
         }
         catch (error) {
+            throw new Error("Error updating Sprint");
+        }
+    }
+    async deleteSprint(sprintId) {
+        try {
+            const sprint = await SprintModel_1.default.destroy({
+                where: { sprint_id: sprintId },
+            });
+            if (sprint) {
+                return "success";
+            }
+            return null;
+        }
+        catch (error) {
+            throw new Error("Error deleting Sprint");
         }
     }
 }
