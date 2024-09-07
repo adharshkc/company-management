@@ -7,7 +7,6 @@ import { Box, Button, Typography } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
 import SprintForm from "../Form/SprintForm";
 import { Dayjs } from "dayjs";
-import { Toaster } from "react-hot-toast";
 import { useMonthAndDay } from "../../../hooks/useMonthAndDay";
 import { useSprints } from "../../../hooks/useSprints";
 import MoreOptions from "@components/molecules/MoreOptions";
@@ -72,7 +71,6 @@ const Sprint = ({ sprint }) => {
   const handleDeleteModal = (bool:boolean)=>setDeleteModal(bool)
   return (
     <>
-      {/* <Toaster position="top-right" /> */}
       <Box
         sx={{
           backgroundColor: "#f7f8f9",
@@ -177,15 +175,15 @@ const Sprint = ({ sprint }) => {
           <Box
             sx={{
               borderRadius: "5px",
-              border: "1px solid #388BFF",
-              borderBottom: 0,
+              border: "2px solid #00a3bf",
+              borderBottom: "1px solid #00a3bf",
               backgroundColor: "white",
             }}
           >
             <EmptySprintRow />
           </Box>
         ) : (
-          <Box sx={{ paddingX: 3, paddingY: 2, paddingBottom: "10px" }}>
+          <Box sx={{ paddingX: 3,borderRadius: "5px", paddingY: 2, paddingBottom: "10px", "&:hover": {backgroundColor:"#e9ebee"} }}>
             <Typography
               sx={{ color: "#172B4D", cursor: "pointer" }}
               onClick={handleClick}

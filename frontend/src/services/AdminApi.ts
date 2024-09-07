@@ -13,7 +13,7 @@ export const AdminDetails = async()=>{
 }
 
 export const createProject = async(projectDetails:Project)=>{
-    return await adminAxiosInstance.post('/projects/create', projectDetails)
+    return await adminAxiosInstance.post('/projects/', projectDetails)
 }
 
 export const getAllProjects = async()=>{

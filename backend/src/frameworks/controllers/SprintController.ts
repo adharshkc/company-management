@@ -43,10 +43,8 @@ export class SprintController {
 
   async sprintUpdate(req: Request, res: Response, next: NextFunction) {
     try {
-      const { name, startDate, endDate } = req?.body;
+      const { name, startDate, endDate, sprintId } = req?.body;
       console.log(name, startDate, endDate)
-      const sprintId = req?.params?.id;
-      console.log(sprintId)
       const { status, data } = await this.updateSprint.execute(
         name,
         startDate,
@@ -62,7 +60,8 @@ export class SprintController {
 
   async sprintDelete(req:Request, res:Response, next:NextFunction){
     try {
-      const sprintId = req.params.id;
+   
+      const sprintId = req?.params.id
       const { status, data } = await this.deleteSprint.execute(
         sprintId
       );

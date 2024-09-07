@@ -17,6 +17,7 @@ const NewSprintRow = () => {
       justifyContent: "center",
       alignItems:"center",
       "&:hover .edit-icon": {
+        
         visibility: "visible",
       },
     }}

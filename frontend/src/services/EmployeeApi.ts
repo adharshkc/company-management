@@ -19,7 +19,7 @@ export const getSprints = async () => {
 };
 
 export const createSprint = async (name: string) => {
-  return await employeeAxiosInstance.post("/projects/sprints/add", { name });
+  return await employeeAxiosInstance.post("/projects/sprints/", { name });
 };
 
 export const updateSprint = async (
@@ -28,14 +28,18 @@ export const updateSprint = async (
   endDate: Dayjs | Date | null | undefined,
   sprintId:number|string
 ) => {
-  return await employeeAxiosInstance.put(`/projects/sprints/update/${sprintId}`, {
+  return await employeeAxiosInstance.put(`/projects/sprints/`, {
     name,
     startDate,
     endDate,
+    sprintId
   });
 };
 
-
 export const deleteSprint = async (sprintId:number)=>{
-  return await employeeAxiosInstance.delete(`/projects/sprints/delete/${sprintId}`)
+  return await employeeAxiosInstance.delete(`/projects/sprints/${sprintId}`)
+}
+
+export const createIssue = async (issueName:string, issueId:number)=>{
+  return await employeeAxiosInstance.post('/project/sprints/issue', {issueName, issueId})
 }
