@@ -40,6 +40,11 @@ export const deleteSprint = async (sprintId:number)=>{
   return await employeeAxiosInstance.delete(`/projects/sprints/${sprintId}`)
 }
 
-export const createIssue = async (issueName:string, issueId:number)=>{
-  return await employeeAxiosInstance.post('/project/sprints/issue', {issueName, issueId})
+export const createIssue = async (name:string, sprintId:number)=>{
+  console.log(sprintId)
+  return await employeeAxiosInstance.post('/projects/sprints/issues', {name, sprintId})
+}
+
+export const getIssue = async ()=>{
+  return await employeeAxiosInstance.get('/project/sprints/issues')
 }

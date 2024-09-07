@@ -3,6 +3,7 @@ import { projectController } from "./projectDI";
 import { hrController } from "./hrDI";
 import { employeeController } from "./employeeDI";
 import { sprintController } from "./sprintDI";
+import { issueController } from "./issueDi";
 
 export {
   adminController,
@@ -10,4 +11,5 @@ export {
   hrController,
   employeeController,
   sprintController,
+  issueController
 };

@@ -1,10 +1,17 @@
 import { Box, TextField } from "@mui/material";
 import { useState } from "react";
-const EmptySprintRow = () => {
+
+
+type EmptySprintRowProps ={
+  createIssue:(sprintName:string)=>void
+}
+
+const EmptySprintRow:React.FC<EmptySprintRowProps> = ({createIssue}) => {
   const [input, setInput] = useState<string>("")
-  const handleIssue =async (e: React.FormEvent<HTMLFormElement>)=>{
+  const handleIssue = (e: React.FormEvent<HTMLFormElement>)=>{
     e.preventDefault()
-    const response = await createIssue(input)
+    console.log(input)
+      createIssue(input)
   }
   return (
     <>

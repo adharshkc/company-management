@@ -35,12 +35,18 @@ __decorate([
     })
 ], IssueModel.prototype, "status", void 0);
 __decorate([
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.TEXT, allowNull: true,
+    })
+], IssueModel.prototype, "description", void 0);
+__decorate([
     (0, sequelize_typescript_1.ForeignKey)(() => EmployeeModel_1.default),
     (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.INTEGER })
 ], IssueModel.prototype, "assignee_id", void 0);
 __decorate([
     (0, sequelize_typescript_1.ForeignKey)(() => SprintModel_1.default),
-    (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.INTEGER })
+    sequelize_typescript_1.NotEmpty,
+    (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.INTEGER, allowNull: false })
 ], IssueModel.prototype, "sprint_id", void 0);
 __decorate([
     (0, sequelize_typescript_1.BelongsTo)(() => EmployeeModel_1.default)

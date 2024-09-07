@@ -11,6 +11,7 @@ import { useMonthAndDay } from "../../../hooks/useMonthAndDay";
 import { useSprints } from "../../../hooks/useSprints";
 import MoreOptions from "@components/molecules/MoreOptions";
 import DeleteSprint from "@components/molecules/DeleteSprint";
+import { useIssue } from "../../../hooks/useIssues";
 
 const Sprint = ({ sprint }) => {
   const [startButton, setStartButton] = useState<boolean>(true);
@@ -19,6 +20,7 @@ const Sprint = ({ sprint }) => {
   const [openMenu, setOpenMenu] = useState<boolean>(false);
   const [deleteModal, setDeleteModal] = useState<boolean>(false)
   const { fetchSprints, sprintUpdate, sprintDelete } = useSprints();
+  const {issueCreate} = useIssue()
 
   const optionsRef = useRef<HTMLDivElement>(null);
 
@@ -40,6 +42,7 @@ const Sprint = ({ sprint }) => {
     buttonDisable();
   }, [sprint?.issues]);
 
+  
   const updateSprintHandler = async (
     name: string,
     startDate: Date | undefined,
@@ -64,6 +67,19 @@ const Sprint = ({ sprint }) => {
       fetchSprints();
     }
   }
+  
+  useEffect(()=>{
+    
+  })
+
+  const createIssue = async(issueName:string)=>{
+    const response = await issueCreate(issueName, sprint.sprint_id)
+    if(response?.status==200){
+      fetchSprints()
+      setNewIssue(false)
+    }
+  }
+
   const buttonDisable = () => setStartButton(sprint?.issues?.length === 0);
   const handleClick = () => setNewIssue(true);
   const handleModal = (bool: boolean) => setOpenModal(bool);
@@ -164,9 +180,9 @@ const Sprint = ({ sprint }) => {
               backgroundColor: "white",
             }}
           >
-            {sprint.issues.map(() => (
+            {sprint.issues.map((issue) => (
               <>
-                <SprintTaskRow />
+                <SprintTaskRow key={issue.issue_id} issue={issue} />
               </>
             ))}
           </Box>
@@ -180,7 +196,7 @@ const Sprint = ({ sprint }) => {
               backgroundColor: "white",
             }}
           >
-            <EmptySprintRow />
+            <EmptySprintRow createIssue={createIssue}/>
           </Box>
         ) : (
           <Box sx={{ paddingX: 3,borderRadius: "5px", paddingY: 2, paddingBottom: "10px", "&:hover": {backgroundColor:"#e9ebee"} }}>

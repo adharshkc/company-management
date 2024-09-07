@@ -11,7 +11,8 @@ import { useState } from "react";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { Button } from "@components/atoms/button/Button";
 
-const SprintTaskRow = () => {
+const SprintTaskRow = ({issue}) => {
+  console.log(issue)
   const [status, setStatus] = useState("In Progress");
   const handleChange = (e: SelectChangeEvent<string>) =>
     setStatus(e.target.value);
@@ -35,7 +36,7 @@ const SprintTaskRow = () => {
             variant="body2"
             sx={{ fontSize: "16px", fontWeight: 400 }}
           >
-            Isuse name
+            {issue.name}
           </Typography>
           <EditIcon
             className="edit-icon"

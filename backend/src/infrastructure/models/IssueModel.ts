@@ -40,12 +40,18 @@ class IssueModel extends Model {
   })
   status!: string;
 
+  @Column({
+    type:DataType.TEXT, allowNull:true,
+  })
+  description?:string
+
   @ForeignKey(() => EmployeeModel) 
   @Column({ type: DataType.INTEGER })
   assignee_id!: number;
 
-  @ForeignKey(() => SprintModel) 
-  @Column({ type: DataType.INTEGER })
+  @ForeignKey(() => SprintModel)
+  @NotEmpty
+  @Column({ type: DataType.INTEGER, allowNull:false })
   sprint_id!: number; 
 
   @BelongsTo(()=>EmployeeModel)

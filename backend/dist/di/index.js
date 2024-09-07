@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.sprintController = exports.employeeController = exports.hrController = exports.projectController = exports.adminController = void 0;
+exports.issueController = exports.sprintController = exports.employeeController = exports.hrController = exports.projectController = exports.adminController = void 0;
 const adminDI_1 = require("./adminDI");
 Object.defineProperty(exports, "adminController", { enumerable: true, get: function () { return adminDI_1.adminController; } });
 const projectDI_1 = require("./projectDI");
@@ -11,3 +11,5 @@ const employeeDI_1 = require("./employeeDI");
 Object.defineProperty(exports, "employeeController", { enumerable: true, get: function () { return employeeDI_1.employeeController; } });
 const sprintDI_1 = require("./sprintDI");
 Object.defineProperty(exports, "sprintController", { enumerable: true, get: function () { return sprintDI_1.sprintController; } });
+const issueDi_1 = require("./issueDi");
+Object.defineProperty(exports, "issueController", { enumerable: true, get: function () { return issueDi_1.issueController; } });
