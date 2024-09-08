@@ -21,13 +21,13 @@ const Sprint = ({ sprint }) => {
   const [deleteModal, setDeleteModal] = useState<boolean>(false)
   const { fetchSprints, sprintUpdate, sprintDelete } = useSprints();
   const {issueCreate} = useIssue()
-
   const optionsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (optionsRef.current && !optionsRef.current.contains(event.target as Node)) {
         setOpenMenu(false);
+        setNewIssue(false)
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
@@ -100,6 +100,8 @@ const Sprint = ({ sprint }) => {
             {openModal && (
               <SprintForm
                 sprintName={sprint.name}
+                sprintStartDate={sprint.startDate}
+                sprintEndDate={sprint.endDate}
                 updateSprint={updateSprintHandler}
                 openModal={handleModal}
               />
@@ -189,6 +191,7 @@ const Sprint = ({ sprint }) => {
         )}
         {newIssue ? (
           <Box
+          ref={optionsRef}
             sx={{
               borderRadius: "5px",
               border: "2px solid #00a3bf",

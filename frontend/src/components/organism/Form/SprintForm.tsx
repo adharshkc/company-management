@@ -18,21 +18,25 @@ import { Dayjs } from "dayjs";
 type SprintFormProp = {
   openModal: (isOpen: boolean) => void;
   sprintName: string;
+  sprintStartDate:Date|undefined|Dayjs
+  sprintEndDate:Dayjs|Date|null|undefined
   updateSprint: (
     name:string,
     startDate:Date|undefined,
-    endDate:Dayjs|Date|null|undefined,
+    endDate:Date|null|undefined,
   ) => void;
 };
 
 const SprintForm: React.FC<SprintFormProp> = ({
     openModal,
   sprintName,
+  sprintStartDate,
+  sprintEndDate,
   updateSprint,
 }) => {
   const [name, setName] = useState(sprintName);
-  const [endDate, setEndDate] = useState<Dayjs | null>();
-  const [startDate, setStartDate] = useState<Dayjs | null>();
+  const [endDate, setEndDate] = useState<Dayjs |Date| null|undefined>(Dayjs(sprintStartDate));
+  const [startDate, setStartDate] = useState<Dayjs |Date| null|undefined>(sprintEndDate);
   const [sDate, setSDate] = useState<Date>();
   //   const [eDate, setEDate] = useState<Date>()
   const [backDrop, setBackdrop] = useState<boolean>(false);
@@ -184,7 +188,7 @@ const SprintForm: React.FC<SprintFormProp> = ({
             />
           </LocalizationProvider>
         </DialogContent>
-        <DialogActions sx={{ justifyContent: "flex-end", margin: 3 }}>
+        <DialogActions sx={{ justifyContent: "flex-start", margin: 3 }}>
           <Button
             sx={{ backgroundColor: theme.palette.primary.dark, color: "white" }}
             onClick={(e) => handleClick(e)}
