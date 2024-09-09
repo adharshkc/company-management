@@ -51,7 +51,7 @@ class IssueModel extends Model {
 
   @ForeignKey(() => SprintModel)
   @NotEmpty
-  @Column({ type: DataType.INTEGER, allowNull:false })
+  @Column({ type: DataType.INTEGER, allowNull:false, onDelete:'CASCADE' })
   sprint_id!: number; 
 
   @BelongsTo(()=>EmployeeModel)

@@ -4,9 +4,10 @@ import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Typography }
 
 type DeleteSprintProps={
     deleteModal:(bool:boolean)=>void
+    totalIssues:number
     deleteSprintHandler:()=>void
 }
-const DeleteSprint:React.FC<DeleteSprintProps> = ({deleteModal, deleteSprintHandler}) => {
+const DeleteSprint:React.FC<DeleteSprintProps> = ({deleteModal,totalIssues, deleteSprintHandler}) => {
   return (
     <div><Dialog
     open={true}
@@ -16,11 +17,22 @@ const DeleteSprint:React.FC<DeleteSprintProps> = ({deleteModal, deleteSprintHand
     sx={{ marginBottom: 2 }}
   >
     <DialogTitle marginTop={2}>Delete Sprint</DialogTitle>
-    <DialogContent sx={{display:"flex"}}>
+    <DialogContent sx={{}}>
+        {
+    totalIssues==0?
+        <Typography variant='body2' >
+
+    Are you sure you want to delete sprint?
+        </Typography>:
+        <>
         <Typography variant='body2'>
 
     Are you sure you want to delete sprint?
         </Typography>
+        <Typography variant='body2' marginTop={1}>You have {totalIssues} pending issues </Typography>
+        </>
+
+        }
     </DialogContent>
     <DialogActions
       sx={{ justifyContent: "flex-end", marginRight: 2, marginBottom: 3 }}

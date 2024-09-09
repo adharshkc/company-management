@@ -5,6 +5,7 @@ export class DeleteSprintUsecase {
   async execute(sprintId: number|string) {
     try {
       const sprint = await this.sprintRepository.deleteSprint(sprintId);
+      console.log(sprint)
       if (!sprint) {
         return {
           status: 500,

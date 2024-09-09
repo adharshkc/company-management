@@ -98,6 +98,7 @@ export class SequelizeSprintRepository implements SprintRepository {
   }
 
   async deleteSprint(sprintId: number|string): Promise<string | null | undefined> {
+
     try {
       const sprint = await SprintModel.destroy({
         where: { sprint_id: sprintId },
@@ -107,6 +108,7 @@ export class SequelizeSprintRepository implements SprintRepository {
       }
       return null;
     } catch (error) {
+      console.log(error)
       throw new Error("Error deleting Sprint");
     }
   }

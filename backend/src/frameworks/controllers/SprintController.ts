@@ -62,6 +62,7 @@ export class SprintController {
     try {
    
       const sprintId = req?.params.id
+      console.log(sprintId)
       const { status, data } = await this.deleteSprint.execute(
         sprintId
       );

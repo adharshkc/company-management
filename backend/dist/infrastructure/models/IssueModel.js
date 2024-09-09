@@ -46,7 +46,7 @@ __decorate([
 __decorate([
     (0, sequelize_typescript_1.ForeignKey)(() => SprintModel_1.default),
     sequelize_typescript_1.NotEmpty,
-    (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.INTEGER, allowNull: false })
+    (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.INTEGER, allowNull: false, onDelete: 'CASCADE' })
 ], IssueModel.prototype, "sprint_id", void 0);
 __decorate([
     (0, sequelize_typescript_1.BelongsTo)(() => EmployeeModel_1.default)

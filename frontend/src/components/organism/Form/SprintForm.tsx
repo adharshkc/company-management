@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button } from "@components/atoms/button/Button";
 import { theme } from "../../../theme";
 import {
@@ -13,7 +14,7 @@ import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { Dayjs } from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 
 type SprintFormProp = {
   openModal: (isOpen: boolean) => void;
@@ -34,11 +35,13 @@ const SprintForm: React.FC<SprintFormProp> = ({
   sprintEndDate,
   updateSprint,
 }) => {
+
+  console.log(sprintEndDate)
   const [name, setName] = useState(sprintName);
-  const [endDate, setEndDate] = useState<Dayjs |Date| null|undefined>(Dayjs(sprintStartDate));
-  const [startDate, setStartDate] = useState<Dayjs |Date| null|undefined>(sprintEndDate);
-  const [sDate, setSDate] = useState<Date>();
-  //   const [eDate, setEDate] = useState<Date>()
+  const [endDate, setEndDate] = useState<any>(dayjs(sprintEndDate));
+  const [startDate, setStartDate] = useState<any>(dayjs(sprintStartDate));
+  const [sDate, setSDate] = useState<any>();
+  const [eDate, setEDate] = useState<any>()
   const [backDrop, setBackdrop] = useState<boolean>(false);
   const [startDateError, setStartDateError] = useState("");
   const [endDateError, setEndDateError] = useState("");
@@ -54,7 +57,7 @@ const SprintForm: React.FC<SprintFormProp> = ({
       updateSprint(
         name,
         sDate,
-        endDate,
+        eDate,
       );
       setBackdrop(false);
     } catch (error) {
@@ -96,6 +99,7 @@ const SprintForm: React.FC<SprintFormProp> = ({
     if (startDate && selectedEndDate < startDate.toDate()) {
       setEndDateError("End date should not be before start date");
     } else {
+      setEDate(value)
       setEndDate(value);
     }
   };

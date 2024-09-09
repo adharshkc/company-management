@@ -52,6 +52,7 @@ class SprintController {
     async sprintDelete(req, res, next) {
         try {
             const sprintId = req === null || req === void 0 ? void 0 : req.params.id;
+            console.log(sprintId);
             const { status, data } = await this.deleteSprint.execute(sprintId);
             res.status(status).json(data);
         }

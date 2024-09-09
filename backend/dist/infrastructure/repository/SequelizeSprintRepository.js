@@ -104,6 +104,7 @@ class SequelizeSprintRepository {
             return null;
         }
         catch (error) {
+            console.log(error);
             throw new Error("Error deleting Sprint");
         }
     }

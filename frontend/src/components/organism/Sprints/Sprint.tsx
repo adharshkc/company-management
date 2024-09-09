@@ -106,7 +106,7 @@ const Sprint = ({ sprint }) => {
                 openModal={handleModal}
               />
             )}
-            {deleteModal&&<DeleteSprint deleteModal={handleDeleteModal} deleteSprintHandler={deleteSprintHandler}/>}
+            {deleteModal&&<DeleteSprint totalIssues={sprint?.issues?.length} deleteModal={handleDeleteModal} deleteSprintHandler={deleteSprintHandler}/>}
             <Typography
               variant="body1"
               sx={{ fontSize: "16px", fontWeight: 400, color: "#172B4D" }}
