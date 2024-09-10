@@ -18,16 +18,20 @@ const Sprint = ({ sprint }) => {
   const [newIssue, setNewIssue] = useState(false);
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [openMenu, setOpenMenu] = useState<boolean>(false);
-  const [deleteModal, setDeleteModal] = useState<boolean>(false)
+  const [deleteModal, setDeleteModal] = useState<boolean>(false);
   const { fetchSprints, sprintUpdate, sprintDelete } = useSprints();
-  const {issueCreate} = useIssue()
+  const {issues} = useIssue()
+  console.log(issues)
   const optionsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (optionsRef.current && !optionsRef.current.contains(event.target as Node)) {
+      if (
+        optionsRef.current &&
+        !optionsRef.current.contains(event.target as Node)
+      ) {
         setOpenMenu(false);
-        setNewIssue(false)
+        setNewIssue(false);
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
@@ -42,7 +46,6 @@ const Sprint = ({ sprint }) => {
     buttonDisable();
   }, [sprint?.issues]);
 
-  
   const updateSprintHandler = async (
     name: string,
     startDate: Date | undefined,
@@ -59,32 +62,30 @@ const Sprint = ({ sprint }) => {
       fetchSprints();
     }
   };
-  
-  const deleteSprintHandler=async()=>{
-    const response = await sprintDelete(sprint.sprint_id)
+
+  const deleteSprintHandler = async () => {
+    const response = await sprintDelete(sprint.sprint_id);
     if (response?.status == 200) {
       setOpenModal(false);
       fetchSprints();
     }
-  }
-  
-  useEffect(()=>{
-    
-  })
+  };
 
-  const createIssue = async(issueName:string)=>{
-    const response = await issueCreate(issueName, sprint.sprint_id)
-    if(response?.status==200){
-      fetchSprints()
-      setNewIssue(false)
+  useEffect(() => {});
+
+  const createIssue = async (issueName: string) => {
+    const response = await issueCreate(issueName, sprint.sprint_id);
+    if (response?.status == 200) {
+      fetchSprints();
+      setNewIssue(false);
     }
-  }
+  };
 
   const buttonDisable = () => setStartButton(sprint?.issues?.length === 0);
   const handleClick = () => setNewIssue(true);
   const handleModal = (bool: boolean) => setOpenModal(bool);
   const handleMenuOpen = () => setOpenMenu(true);
-  const handleDeleteModal = (bool:boolean)=>setDeleteModal(bool)
+  const handleDeleteModal = (bool: boolean) => setDeleteModal(bool);
   return (
     <>
       <Box
@@ -106,7 +107,13 @@ const Sprint = ({ sprint }) => {
                 openModal={handleModal}
               />
             )}
-            {deleteModal&&<DeleteSprint totalIssues={sprint?.issues?.length} deleteModal={handleDeleteModal} deleteSprintHandler={deleteSprintHandler}/>}
+            {deleteModal && (
+              <DeleteSprint
+                totalIssues={sprint?.issues?.length}
+                deleteModal={handleDeleteModal}
+                deleteSprintHandler={deleteSprintHandler}
+              />
+            )}
             <Typography
               variant="body1"
               sx={{ fontSize: "16px", fontWeight: 400, color: "#172B4D" }}
@@ -144,7 +151,8 @@ const Sprint = ({ sprint }) => {
               variant="caption"
               sx={{ marginX: 1, marginTop: "2.5px", color: "#172B4D" }}
             >
-              (0 Issues)
+              ({sprint?.issues?.length}{" "}
+              {sprint?.issues?.length === 1 ? "Issue" : "Issues"})
             </Typography>
           </Box>
           <Box>
@@ -165,12 +173,15 @@ const Sprint = ({ sprint }) => {
             </Button>
             {openMenu && (
               <Box ref={optionsRef} sx={{ zIndex: 1, position: "absolute" }}>
-                <MoreOptions clickEdit={handleModal} clickDelete={handleDeleteModal} />
+                <MoreOptions
+                  clickEdit={handleModal}
+                  clickDelete={handleDeleteModal}
+                />
               </Box>
             )}
           </Box>
         </Box>
-        {sprint.issues.length === 0 ? (
+        {issues.length === 0 ? (
           <NewSprintRow />
         ) : (
           <Box
@@ -182,7 +193,7 @@ const Sprint = ({ sprint }) => {
               backgroundColor: "white",
             }}
           >
-            {sprint.issues.map((issue) => (
+            {issues.map((issue) => (
               <>
                 <SprintTaskRow key={issue.issue_id} issue={issue} />
               </>
@@ -191,7 +202,7 @@ const Sprint = ({ sprint }) => {
         )}
         {newIssue ? (
           <Box
-          ref={optionsRef}
+            ref={optionsRef}
             sx={{
               borderRadius: "5px",
               border: "2px solid #00a3bf",
@@ -199,10 +210,18 @@ const Sprint = ({ sprint }) => {
               backgroundColor: "white",
             }}
           >
-            <EmptySprintRow createIssue={createIssue}/>
+            <EmptySprintRow issueHandler={createIssue} issueName="" />
           </Box>
         ) : (
-          <Box sx={{ paddingX: 3,borderRadius: "5px", paddingY: 2, paddingBottom: "10px", "&:hover": {backgroundColor:"#e9ebee"} }}>
+          <Box
+            sx={{
+              paddingX: 3,
+              borderRadius: "5px",
+              paddingY: 2,
+              paddingBottom: "10px",
+              "&:hover": { backgroundColor: "#e9ebee" },
+            }}
+          >
             <Typography
               sx={{ color: "#172B4D", cursor: "pointer" }}
               onClick={handleClick}

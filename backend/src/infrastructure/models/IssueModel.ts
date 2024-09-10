@@ -36,7 +36,7 @@ class IssueModel extends Model {
   @Column({
     type: DataType.STRING(100),
     allowNull: false,
-    defaultValue: "todo",
+    defaultValue: "Todo",
   })
   status!: string;
 

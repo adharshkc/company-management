@@ -46,5 +46,15 @@ export const createIssue = async (name:string, sprintId:number)=>{
 }
 
 export const getIssue = async ()=>{
-  return await employeeAxiosInstance.get('/project/sprints/issues')
+  return await employeeAxiosInstance.get('/projects/sprints/issues')
+}
+
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const updateIssue = async(issueId:number, updatedIssue:any)=>{
+  return await employeeAxiosInstance.put('/projects/sprints/issues', {issueId, updatedIssue})
+}
+
+export const deleteIssue = async(issueId:number)=>{
+  return await employeeAxiosInstance.delete('/projects/sprints/issues/'+issueId)
 }

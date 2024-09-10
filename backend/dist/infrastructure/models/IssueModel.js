@@ -31,7 +31,7 @@ __decorate([
     (0, sequelize_typescript_1.Column)({
         type: sequelize_typescript_1.DataType.STRING(100),
         allowNull: false,
-        defaultValue: "todo",
+        defaultValue: "Todo",
     })
 ], IssueModel.prototype, "status", void 0);
 __decorate([

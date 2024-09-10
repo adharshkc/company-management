@@ -3,15 +3,16 @@ import { useState } from "react";
 
 
 type EmptySprintRowProps ={
-  createIssue:(sprintName:string)=>void
+  issueHandler:(sprintName:string)=>void
+  issueName:string
 }
 
-const EmptySprintRow:React.FC<EmptySprintRowProps> = ({createIssue}) => {
-  const [input, setInput] = useState<string>("")
+const EmptySprintRow:React.FC<EmptySprintRowProps> = ({issueHandler, issueName}) => {
+  const [input, setInput] = useState<string>(issueName)
   const handleIssue = (e: React.FormEvent<HTMLFormElement>)=>{
     e.preventDefault()
     console.log(input)
-      createIssue(input)
+      issueHandler(input)
   }
   return (
     <>

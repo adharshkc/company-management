@@ -7,17 +7,52 @@ import {
   SelectChangeEvent,
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { Button } from "@components/atoms/button/Button";
+import EmptySprintRow from "./EmptySprintRow";
 
-const SprintTaskRow = ({issue}) => {
-  console.log(issue)
-  const [status, setStatus] = useState("In Progress");
+const SprintTaskRow = ({ issue }) => {
+  console.log(issue.status);
+  const [status, setStatus] = useState(issue?.status);
+  const [sprintEdit, setSprintEdit] = useState<boolean>(false)
+  const editRef=useRef<HTMLDivElement>()
+  useEffect(()=>{
+    const handleClickOutside = (event:MouseEvent)=>{
+      if(editRef.current&&!editRef.current.contains(event.target as Node)){
+        setSprintEdit(false)
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return()=>{
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+  }, [editRef])
+
+  const handleUpdate = (issueName:string)=>{
+    try {
+      // const response = 
+    } catch (error) {
+      console.log(error)
+    }
+  }
   const handleChange = (e: SelectChangeEvent<string>) =>
     setStatus(e.target.value);
+
+  const editClick = ()=>{
+    setSprintEdit(true)
+  }
+  if(!issue){
+    return <h3>loading</h3>
+  }
   return (
     <>
+    {sprintEdit?
+    <Box ref={editRef}>
+      <EmptySprintRow issueHandler={handleUpdate} issueName={issue.name}/>
+
+    </Box>:
+
       <Box
         sx={{
           borderBottom: "1px solid #C9D4E4",
@@ -25,7 +60,7 @@ const SprintTaskRow = ({issue}) => {
           paddingX: 4,
           display: "flex",
           justifyContent: "space-between",
-          alignItems:"center",
+          alignItems: "center",
           "&:hover .edit-icon": {
             visibility: "visible",
           },
@@ -40,6 +75,7 @@ const SprintTaskRow = ({issue}) => {
           </Typography>
           <EditIcon
             className="edit-icon"
+            onClick={editClick}
             sx={{
               visibility: "hidden",
               height: "25px",
@@ -83,6 +119,7 @@ const SprintTaskRow = ({issue}) => {
           </Button>
         </Box>
       </Box>
+    }
     </>
   );
 };
