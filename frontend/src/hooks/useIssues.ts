@@ -1,28 +1,37 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useIssueStore } from "../zustand/IssueStore";
 import useErrorStore from "../zustand/ErrorStore";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 
 export const useIssue = () => {
-  const { issues, fetchIssues, addIssue, updateIssue, removeIssue } =
+  const { issues, setIssues, addIssue, updateIssue, removeIssue } =
     useIssueStore((state) => ({
       issues: state.issues,
-      fetchIssues: state.fetchIssues,
+      setIssues: state.setIssues,
       addIssue: state.addIssue,
       updateIssue: state.updateIssue,
       removeIssue: state.removeIssue,
     }));
   const [loading, setLoading] = useState(false);
   const { setError } = useErrorStore();
-  useEffect(() => {
-    setLoading(true);
-    fetchIssues()
-      .then(() => setLoading(false))
-      .catch((err) => {
-        setError(err.message);
-        setLoading(false);
-      });
-  }, [fetchIssues, setError]);
+//   useEffect(() => {
+//     setLoading(true);
+//     fetchIssues()
+//       .then(() => setLoading(false))
+//       .catch((err) => {
+//         setError(err.message);
+//         setLoading(false);
+//       });
+//   }, [fetchIssues, setError]);
+
+//   const handleFetchIssues = useCallback(async(sprintId:number)=>{
+//         setLoading(true)
+//          fetchIssues(sprintId).then(()=>setLoading(false)).catch((err)=>{
+//             setError(err.message)
+//             setLoading(false)
+//          })
+    
+//   }, [fetchIssues,setLoading, setError])
   const handleAddIssue = useCallback(
     async (issue: any, sprintId: any) => {
       try {
@@ -68,6 +77,8 @@ export const useIssue = () => {
   return {
     issues,
     loading,
+    // handleFetchIssues,
+    setIssues,
     handleAddIssue,
     handleUpdateIssue,
     handleRemoveIssue,

@@ -11,11 +11,14 @@ import { useEffect, useRef, useState } from "react";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { Button } from "@components/atoms/button/Button";
 import EmptySprintRow from "./EmptySprintRow";
+import { useIssueStore } from "../../zustand/IssueStore";
+import IssueForm from "@components/organism/Form/IssueForm";
 
 const SprintTaskRow = ({ issue }) => {
   console.log(issue.status);
   const [status, setStatus] = useState(issue?.status);
   const [sprintEdit, setSprintEdit] = useState<boolean>(false)
+  const {isModalIssue, setIsModalIssue} = useIssueStore()
   const editRef=useRef<HTMLDivElement>()
   useEffect(()=>{
     const handleClickOutside = (event:MouseEvent)=>{
@@ -28,7 +31,9 @@ const SprintTaskRow = ({ issue }) => {
       document.removeEventListener("mousedown", handleClickOutside);
     }
   }, [editRef])
-
+  const handleOpenIssueModal = ()=>{
+    setIsModalIssue(true)
+  }
   const handleUpdate = (issueName:string)=>{
     try {
       // const response = 
@@ -65,6 +70,7 @@ const SprintTaskRow = ({ issue }) => {
             visibility: "visible",
           },
         }}
+        onClick={handleOpenIssueModal}
       >
         <Box sx={{ display: "flex", justifyContent: "space-between" }}>
           <Typography
@@ -120,6 +126,7 @@ const SprintTaskRow = ({ issue }) => {
         </Box>
       </Box>
     }
+    
     </>
   );
 };

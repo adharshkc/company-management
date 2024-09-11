@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { create } from "zustand";
 import {
-  getIssue as fetchIssuesAPI,
+  // getIssue as fetchIssuesAPI,
   createIssue as createIssueAPI,
   updateIssue as updatedIssueAPI,
   deleteIssue as deleteIssueAPI,
@@ -20,7 +20,9 @@ interface Issue {
 }
 interface IssueState {
   issues: Issue[];
-  fetchIssues: () => Promise<void>;
+  isModalIssue:boolean
+  setIsModalIssue:(status:boolean)=>void
+  setIssues: (issues:Issue[]) => void
   addIssue: (issue: Issue, sprintId: number) => Promise<void>;
   updateIssue: (issueId: number, updatedIssue: Issue) => Promise<void>;
   removeIssue: (issueId: number) => Promise<void>;
@@ -28,14 +30,9 @@ interface IssueState {
 
 export const useIssueStore = create<IssueState>((set, get) => ({
   issues: [],
-  fetchIssues: async () => {
-    try {
-      const response = await fetchIssuesAPI();
-      set({ issues: response.data });
-    } catch (error) {
-      console.error("Failed to fetch issues", error);
-    }
-  },
+  isModalIssue:false,
+  setIsModalIssue:(status)=>set({isModalIssue:status}),
+  setIssues:  (issues)=>set({issues:issues}),
   addIssue: async (issue, sprintId) => {
     set((state) => ({ issues: [...state.issues, issue] }));
 
@@ -53,7 +50,7 @@ export const useIssueStore = create<IssueState>((set, get) => ({
       }));
     }
   },
-  updateIssue: async (issueId, updatedIssue) => {
+  updateIssue: async (issueId, updatedIssue,) => {
     set((state) => ({
       issues: state.issues.map((issue) =>
         issue.issue_id === issueId ? { ...issue, ...updatedIssue } : issue
@@ -67,7 +64,7 @@ export const useIssueStore = create<IssueState>((set, get) => ({
         ),
       }));
     } catch (error) {
-      await get().fetchIssues();
+     console.log(error)
     }
   },
   removeIssue: async (issueId) => {

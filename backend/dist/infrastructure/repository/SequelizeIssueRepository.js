@@ -18,5 +18,14 @@ class SequelizeIssueRepository {
             throw new Error(error);
         }
     }
+    async getIssues(sprintId) {
+        try {
+            const issues = await IssueModel_1.default.findAll({ where: { sprint_id: sprintId } });
+            return issues;
+        }
+        catch (error) {
+            throw new Error(error);
+        }
+    }
 }
 exports.SequelizeIssueRepository = SequelizeIssueRepository;

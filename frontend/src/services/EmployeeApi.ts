@@ -45,8 +45,8 @@ export const createIssue = async (name:string, sprintId:number)=>{
   return await employeeAxiosInstance.post('/projects/sprints/issues', {name, sprintId})
 }
 
-export const getIssue = async ()=>{
-  return await employeeAxiosInstance.get('/projects/sprints/issues')
+export const getIssue = async (sprintId:number)=>{
+  return await employeeAxiosInstance.get(`/projects/sprints/${sprintId}/issues`)
 }
 
 

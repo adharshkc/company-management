@@ -7,14 +7,19 @@ import Sprint from "@components/organism/Sprints/Sprint";
 import { useEffect } from "react";
 import { useSprints } from "../../../hooks/useSprints";
 import { createSprint } from "../../../services/EmployeeApi";
+import { useIssueStore } from "../../../zustand/IssueStore";
+import IssueDetails from "@components/organism/Issues/IssueDetails";
+
 const BacklogTemplate = () => {
   const {sprints, loading, error, fetchSprints} = useSprints()
+  const {isModalIssue} = useIssueStore()
   console.log(sprints)
   useEffect(()=>{
     fetchSprints()}
   , [fetchSprints])
 
   const addSprint = async function(){
+    
     const sprintName = `Sprint ${sprints.length+1}`
     try {
       console.log(sprintName)
@@ -61,6 +66,10 @@ const BacklogTemplate = () => {
         </Button>
       </div>
       
+      <div className={style.issueDetail}>
+      {isModalIssue&&<IssueDetails/>}
+
+      </div>
       {
         (sprints===null||sprints.length===0)?(<h1>No sprints found</h1>):<div className={style.sprints}>
           {sprints.map((sprint)=>(

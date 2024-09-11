@@ -15,4 +15,13 @@ export class SequelizeIssueRepository implements IssueRepository{
             throw new Error(error)
         }
     }
+
+    async getIssues(sprintId: number | string): Promise<any> {
+        try {
+            const issues = await IssueModel.findAll({where :{sprint_id:sprintId}})
+            return issues
+        } catch (error:any) {
+            throw new Error(error)
+        }
+    }
 }
