@@ -17,6 +17,8 @@
       .issueDetail{
         position: absolute; // Changed from `flex` to `absolute` for overlapping
         right: 0; // Align it to the right
+        margin-top: inherit;
+        height: -webkit-fill-available;
         transform: translateY(-50%); // Centers it vertically
         width: 50%; // Adjust as needed
         z-index: 10; // Higher z-index to bring it above other elements

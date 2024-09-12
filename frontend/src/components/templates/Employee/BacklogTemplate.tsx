@@ -49,6 +49,10 @@ const BacklogTemplate = () => {
   }
   return (
     <div className={style.bodyPart}>
+      <div className={style.issueDetail}>
+
+{isModalIssue&&<IssueDetails/>}
+    </div>
       <div className={style.header}>
         <Header header1="Home" header2="Backlog" />
         <Button
@@ -66,10 +70,6 @@ const BacklogTemplate = () => {
         </Button>
       </div>
       
-      <div className={style.issueDetail}>
-      {isModalIssue&&<IssueDetails/>}
-
-      </div>
       {
         (sprints===null||sprints.length===0)?(<h1>No sprints found</h1>):<div className={style.sprints}>
           {sprints.map((sprint)=>(
@@ -77,6 +77,7 @@ const BacklogTemplate = () => {
           ))}
           </div>
       }
+      
     </div>
   );
 };
