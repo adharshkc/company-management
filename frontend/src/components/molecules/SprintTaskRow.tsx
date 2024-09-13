@@ -12,13 +12,14 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { Button } from "@components/atoms/button/Button";
 import EmptySprintRow from "./EmptySprintRow";
 import { useIssueStore } from "../../zustand/IssueStore";
-import IssueForm from "@components/organism/Form/IssueForm";
+import style from "../styles/issueDetail.module.scss"
+import IssueDetails from "@components/organism/Issues/IssueDetails";
 
 const SprintTaskRow = ({ issue }) => {
-  console.log(issue.status);
+  console.log(issue);
   const [status, setStatus] = useState(issue?.status);
   const [sprintEdit, setSprintEdit] = useState<boolean>(false)
-  const {isModalIssue, setIsModalIssue} = useIssueStore()
+  const { isModalIssue, setIsModalIssue, setIssues} = useIssueStore()
   const editRef=useRef<HTMLDivElement>()
   useEffect(()=>{
     const handleClickOutside = (event:MouseEvent)=>{
@@ -33,6 +34,13 @@ const SprintTaskRow = ({ issue }) => {
   }, [editRef])
   const handleOpenIssueModal = ()=>{
     setIsModalIssue(true)
+    setIssues({
+      issue_id:issue.issue_id,
+      name:issue.name,
+      status:issue.status,
+      assignee_id:issue.assingee_id,
+      description:issue.description
+    })
   }
   const handleUpdate = (issueName:string)=>{
     try {
@@ -52,6 +60,13 @@ const SprintTaskRow = ({ issue }) => {
   }
   return (
     <>
+    {isModalIssue&&
+      <div className={style.issueDetail}>
+
+<IssueDetails/>
+    </div>
+}
+
     {sprintEdit?
     <Box ref={editRef}>
       <EmptySprintRow issueHandler={handleUpdate} issueName={issue.name}/>

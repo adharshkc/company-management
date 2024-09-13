@@ -13,7 +13,7 @@ import IssueDetails from "@components/organism/Issues/IssueDetails";
 const BacklogTemplate = () => {
   const {sprints, loading, error, fetchSprints} = useSprints()
   const {isModalIssue} = useIssueStore()
-  console.log(sprints)
+  console.log(isModalIssue)
   useEffect(()=>{
     fetchSprints()}
   , [fetchSprints])
@@ -48,11 +48,11 @@ const BacklogTemplate = () => {
       </div>)
   }
   return (
-    <div className={style.bodyPart}>
-      <div className={style.issueDetail}>
+    <>
+    
+  
 
-{isModalIssue&&<IssueDetails/>}
-    </div>
+    <div className={style.bodyPart}>
       <div className={style.header}>
         <Header header1="Home" header2="Backlog" />
         <Button
@@ -79,6 +79,7 @@ const BacklogTemplate = () => {
       }
       
     </div>
+    </>
   );
 };
 

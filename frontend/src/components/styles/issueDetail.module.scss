@@ -2,17 +2,27 @@
     display: flex;
     justify-content: end;
     padding: 20px 30px 0 0;
-    margin-top: 170px;
+    // margin-top: 170px;
 }
 
+.issueDetail{
+    position: absolute; // Changed from `flex` to `absolute` for overlapping
+    right: 0; // Align it to the right
+    margin-top: inherit;
+    height: -webkit-fill-available;
+    transform: translateY(-50%); // Centers it vertically
+    width: 50%; // Adjust as needed
+    z-index: 10; // Higher z-index to bring it above other elements
+    background-color: white; // Optional: Add background for better visibility
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
 .taskCard {
-    // border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 16px;
-    width: 400px;
+    padding: 0 16px 16px 16px;
+    // width: 400px;
     background-color: #fff;
     font-family: Arial, sans-serif;
-  
+    
     .taskTitle {
       font-size: 18px;
       font-weight: bold;
