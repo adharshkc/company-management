@@ -9,6 +9,7 @@ import { useSprints } from "../../../hooks/useSprints";
 import { createSprint } from "../../../services/EmployeeApi";
 import { useIssueStore } from "../../../zustand/IssueStore";
 import IssueDetails from "@components/organism/Issues/IssueDetails";
+import { Dialog, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
 
 const BacklogTemplate = () => {
   const {sprints, loading, error, fetchSprints} = useSprints()
@@ -49,7 +50,22 @@ const BacklogTemplate = () => {
   }
   return (
     <>
-    
+      <Dialog open={isModalIssue} BackdropProps={{
+    style: {
+      backdropFilter: 'blur(0px)', // Adjust the blur value to your preference
+      backgroundColor: 'rgba(0, 0, 0, 0.3)', // Adjust the background opacity
+    },
+  }}>
+      <DialogTitle id="alert-dialog-title">
+          {"Use Google's location service?"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Let Google help apps determine location. This means sending anonymous
+            location data to Google, even when no apps are running.
+          </DialogContentText>
+        </DialogContent>
+</Dialog>
   
 
     <div className={style.bodyPart}>
