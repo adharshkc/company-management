@@ -50,10 +50,10 @@ const BacklogTemplate = () => {
   }
   return (
     <>
-      <Dialog open={isModalIssue} BackdropProps={{
+      <Dialog open={isModalIssue} slotProps={{
     style: {
-      backdropFilter: 'blur(0px)', // Adjust the blur value to your preference
-      backgroundColor: 'rgba(0, 0, 0, 0.3)', // Adjust the background opacity
+      backdropFilter: 'blur(0px)', 
+      backgroundColor: 'rgba(0, 0, 0, 0.3)', 
     },
   }}>
       <DialogTitle id="alert-dialog-title">
