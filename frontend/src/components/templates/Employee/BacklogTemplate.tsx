@@ -9,92 +9,104 @@ import { useSprints } from "../../../hooks/useSprints";
 import { createSprint } from "../../../services/EmployeeApi";
 import { useIssueStore } from "../../../zustand/IssueStore";
 import IssueDetails from "@components/organism/Issues/IssueDetails";
-import { Dialog, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
+import {
+  Dialog,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from "@mui/material";
 
 const BacklogTemplate = () => {
-  const {sprints, loading, error, fetchSprints} = useSprints()
-  const {isModalIssue} = useIssueStore()
-  console.log(isModalIssue)
-  useEffect(()=>{
-    fetchSprints()}
-  , [fetchSprints])
+  const { sprints, loading, error, fetchSprints } = useSprints();
+  const { isModalIssue } = useIssueStore();
+  console.log(isModalIssue);
+  useEffect(() => {
+    fetchSprints();
+  }, [fetchSprints]);
 
-  const addSprint = async function(){
-    
-    const sprintName = `Sprint ${sprints.length+1}`
+  const addSprint = async function () {
+    const sprintName = `Sprint ${sprints.length + 1}`;
     try {
-      console.log(sprintName)
-      const response = await createSprint(sprintName)
-      if(response.status===200){
-  
-        fetchSprints()
+      console.log(sprintName);
+      const response = await createSprint(sprintName);
+      if (response.status === 200) {
+        fetchSprints();
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
-  if(error){
-    console.log(error)
-    return(
+  };
+  if (error) {
+    console.log(error);
+    return (
       <div className={style.bodyPart}>
         <h3>Something went wrong!!!</h3>
         <h5>Please reload the page</h5>
       </div>
-    )
+    );
   }
-  if(loading){
+  if (loading) {
     return (
       <div className={style.bodyPart}>
         <h3>Loading!!!</h3>
-      </div>)
+      </div>
+    );
   }
   return (
     <>
-      <Dialog open={isModalIssue} slotProps={{
-    style: {
-      backdropFilter: 'blur(0px)', 
-      backgroundColor: 'rgba(0, 0, 0, 0.3)', 
-    },
-  }}>
-      <DialogTitle id="alert-dialog-title">
+      <Dialog
+        open={isModalIssue}
+        slotProps={{
+          backdrop: {
+            style: {
+              width:"auto",
+              backdropFilter: "blur(0px)",
+              backgroundColor: "rgba(0, 0, 0, 0.3)",
+            },
+          },
+        }}
+      >
+
+        <IssueDetails/>
+        {/* <DialogTitle id="alert-dialog-title">
           {"Use Google's location service?"}
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Let Google help apps determine location. This means sending anonymous
-            location data to Google, even when no apps are running.
+            Let Google help apps determine location. This means sending
+            anonymous location data to Google, even when no apps are running.
           </DialogContentText>
-        </DialogContent>
-</Dialog>
-  
+        </DialogContent> */}
+      </Dialog>
 
-    <div className={style.bodyPart}>
-      <div className={style.header}>
-        <Header header1="Home" header2="Backlog" />
-        <Button
-          sx={{
-            backgroundColor: theme.palette.primary.dark,
-            color: "white",
-            marginRight: 4,
-            "&:hover": {
-              backgroundColor: "secondary.main",
-            },
-          }}
-          onClick={addSprint}
-        >
-          create sprint
-        </Button>
-      </div>
-      
-      {
-        (sprints===null||sprints.length===0)?(<h1>No sprints found</h1>):<div className={style.sprints}>
-          {sprints.map((sprint)=>(
-            <Sprint key={sprint.sprint_id} sprint={sprint}/>
-          ))}
+      <div className={style.bodyPart}>
+        <div className={style.header}>
+          <Header header1="Home" header2="Backlog" />
+          <Button
+            sx={{
+              backgroundColor: theme.palette.primary.dark,
+              color: "white",
+              marginRight: 4,
+              "&:hover": {
+                backgroundColor: "secondary.main",
+              },
+            }}
+            onClick={addSprint}
+          >
+            create sprint
+          </Button>
+        </div>
+
+        {sprints === null || sprints.length === 0 ? (
+          <h1>No sprints found</h1>
+        ) : (
+          <div className={style.sprints}>
+            {sprints.map((sprint) => (
+              <Sprint key={sprint.sprint_id} sprint={sprint} />
+            ))}
           </div>
-      }
-      
-    </div>
+        )}
+      </div>
     </>
   );
 };

@@ -93,6 +93,7 @@ const SprintTaskRow = ({ issue }) => {
             "&:hover .edit-icon": {
               visibility: "visible",
             },
+            cursor:"pointer"
           }}
           onClick={handleOpenIssueModal}
         >

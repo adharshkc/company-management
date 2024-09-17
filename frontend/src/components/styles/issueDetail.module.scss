@@ -1,75 +1,172 @@
-.header{
-    display: flex;
-    justify-content: end;
-    padding: 20px 30px 0 0;
-    // margin-top: 170px;
+.header {
+  display: flex;
+  justify-content: end;
+  padding: 20px 15px 0 0;
+  // margin-top: 170px;
+  .headerIcon{
+    margin: 4px 0 0 12px;
+    height: 20px;
+  }
 }
 
-.issueDetail{
-    position: absolute; // Changed from `flex` to `absolute` for overlapping
-    right: 0; // Align it to the right
-    margin-top: inherit;
-    height: -webkit-fill-available;
-    transform: translateY(-50%); // Centers it vertically
-    width: 50%; // Adjust as needed
-    z-index: 10; // Higher z-index to bring it above other elements
-    background-color: white; // Optional: Add background for better visibility
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
+.closeIcon {
+  margin-left: 10px;
+}
+
+.issueDetail {
+  position: absolute; // Changed from `flex` to `absolute` for overlapping
+  right: 0; // Align it to the right
+  margin-top: inherit;
+  height: -webkit-fill-available;
+  transform: translateY(-50%); // Centers it vertically
+  width: 50%; // Adjust as needed
+  z-index: 10; // Higher z-index to bring it above other elements
+  background-color: white; // Optional: Add background for better visibility
+  // box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 
 .taskCard {
-    padding: 0 16px 16px 16px;
-    // width: 400px;
-    background-color: #fff;
-    font-family: Arial, sans-serif;
-    
-    .taskTitle {
-      font-size: 18px;
-      font-weight: bold;
-      margin-bottom: 16px;
-    }
-  
-    .taskDetails {
-      display: flex;
-      flex-direction: column;
-      margin-bottom: 16px;
-  
-     
-    }
+  padding: 0 16px 16px 16px;
+  // width: 400px;
+  background-color: #fff;
+  font-family: Arial, sans-serif;
+
+  .taskTitle {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 16px;
   }
 
   .taskDetails {
-    background-color: white;
-    border-radius: 8px;
-    padding: 20px;
-    max-width: 400px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    // margin-bottom: 16px;
+    margin-left: 25px;
+  }
+}
+
+.taskDetails {
+  background-color: white;
+  border-radius: 8px;
+  padding: 10px 20px 20px 20px;
+  max-width: 400px;
+  // box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 .detailRow {
-    display: flex;
-    margin-bottom: 10px;
+  display: flex;
+  margin-bottom: 10px;
 }
 .detailLabel {
-    flex: 1;
-    color: #666;
+  flex: 1;
+  color: #666;
 }
 .detailValue {
-    flex: 2;
-    font-weight: bold;
+  flex: 1;
+  padding: 4px;
+  font-weight: lighter;
+  
 }
+.detailValueAssignee {
+  flex: 1;
+  padding: 4px;
+  font-weight: lighter;
+  
+}
+.detailValueAssignee:hover {
+  background-color: #f1f2f4; /* Changes the background color when the element is hovered. */
+}
+
+.description{
+  display: flex;
+  flex-direction: column;
+  margin-left: 16px;
+}
+
+.Descriptionheader {
+  display: flex;
+  padding: 0 15px 15px 0;
+  // margin-top: 170px;
+}
+.sideIcon{
+  margin: 2px 0 0 10px;
+  height: 20px;
+  width: 22px;
+  
+}
+.activityHeader{
+  display: flex;
+  padding: 20px 15px 20px 0;
+
+}
+.descriptionDetailLabel{
+  flex: 1;
+  color: #172b4d;
+  font-size: 16px;
+  margin-left: 1px;
+  font-weight: 600;
+  font-family: Poppins, Arial, sans-serif ;
+}
+
 .avatar {
-    width: 24px;
-    height: 24px;
-    background-color: #00a8e8;
-    border-radius: 50%;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 12px;
-    margin-right: 8px;
+  width: 24px;
+  height: 24px;
+  background-color: #00a8e8;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 12px;
+  margin-right: 8px;
 }
 .sprint {
-    color: #00a8e8;
-    text-decoration: none;
+  color: #00a8e8;
+  text-decoration: none;
+}
+
+.commentBox {
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 5px;
+  box-shadow: 0 1px 5px rgba(4, 3, 3, 0.463);
+  width: 350px;
+  margin-bottom: 30px;
+  margin-left: 10px;
+  
+}
+
+.avatars {
+  width: 30px;
+            height: 30px;
+            background-color: #007bff;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            margin-left: 10px; 
+            margin-top: 3px;
+}
+
+.commentHeader{
+  display: flex;
+}
+
+.commentInput {
+  flex-grow: 1;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  padding: 5px;
+}
+
+.commentInput::placeholder {
+  color: #aaa;
+}
+
+.commentBox:hover {
+  border-color: #888;
 }
