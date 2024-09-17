@@ -1,21 +1,18 @@
 import CloseIcon from "@mui/icons-material/Close";
 import style from "../../styles/issueDetail.module.scss";
 import {
-  Box,
   FormControl,
-  IconButton,
   MenuItem,
   Select,
   SelectChangeEvent,
-  TextareaAutosize,
   TextField,
 } from "@mui/material";
 import { useState } from "react";
 import { useIssueStore } from "../../../zustand/IssueStore";
 import CallToActionOutlinedIcon from "@mui/icons-material/CallToActionOutlined";
 import NotesOutlinedIcon from "@mui/icons-material/NotesOutlined";
-import TimelineOutlinedIcon from '@mui/icons-material/TimelineOutlined';
-// import IosShareOutlinedIcon from '@mui/icons-material/IosShareOutlined';
+import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
+import IosShareOutlinedIcon from "@mui/icons-material/IosShareOutlined";
 
 const IssueDetails = () => {
   const { issues, setIsModalIssue } = useIssueStore();
@@ -34,11 +31,10 @@ const IssueDetails = () => {
     setSelectInput(e.target.value);
   };
   return (
-    <div>
+    <div style={{width:"500px"}}>
       <div className={style.header}>
         <div className={style.headerIcon}>
           <CallToActionOutlinedIcon />
-        </div>
         <form onSubmit={handleIssue}>
           <TextField
             // fullWidth
@@ -61,13 +57,14 @@ const IssueDetails = () => {
               },
               "& .MuiInputBase-input": {
                 border: "none",
-                padding: "4px 0",
+                padding: "0 0",
                 fontSize: "16px",
                 fontWeight: "600",
               },
             }}
           />
         </form>
+        </div>
         <div>
           <CloseIcon className={style.closeIcon} onClick={handleClose} />
         </div>
@@ -90,10 +87,6 @@ const IssueDetails = () => {
             )}
           </div>
 
-          <div className={style.detailRow}>
-            <span className={style.detailLabel}>Team</span>
-            <span className={style.detailValue}>None</span>
-          </div>
           <div className={style.detailRow}>
             <span className={style.detailLabel}>Status</span>
             <FormControl
@@ -124,6 +117,10 @@ const IssueDetails = () => {
             <span className={style.detailLabel}>Sprint</span>
             <span className={style.detailValue}>SP Sprint asdf</span>
           </div>
+          <div className={style.detailRow}>
+            <span className={style.detailLabel}>Team</span>
+            <span className={style.detailValue}>None</span>
+          </div>
         </div>
       </div>
       <div className={style.Descriptionheader}>
@@ -151,20 +148,50 @@ const IssueDetails = () => {
       </div>
       <div className={style.activityHeader}>
         <div className={style.sideIcon}>
-          <TimelineOutlinedIcon fontSize="medium"/>
+          <TimelineOutlinedIcon fontSize="medium" />
         </div>
         <div className={style.description}>
           <span className={style.descriptionDetailLabel}>Activity</span>
         </div>
       </div>
       <div className={style.commentHeader}>
-
-  <div className={style.avatars}>AC</div>
-      <div className={style.commentBox}>
-  <input type="text" placeholder="Write a comment..." className={style.commentInput}/>
-  <IosShareOutlinedIcon/>
+        <div className={style.avatars}>AC</div>
+        <div className={style.commentBox}>
+          <input
+            type="text"
+            placeholder="Write a comment..."
+            className={style.commentInput}
+          />
+          <IosShareOutlinedIcon
+            color="secondary"
+            sx={{
+              cursor: "pointer",
+              "& .hover": { backgroundColor: "yellow" },
+            }}
+          />
+        </div>
       </div>
-</div>
+      <div className={style.commentHeader}>
+        <div className={style.avatars}>AC</div>
+        <div>
+
+        <h4 className={style.commentName}>Adharsh <span>4 sept 2026</span></h4 >
+        <div className={style.commentNameBox}>
+          <h3 className={style.commentBody}>hello</h3>
+        </div>
+        </div>
+      </div>
+      <div className={style.commentHeader}>
+        <div className={style.avatars}>AC</div>
+        <div>
+
+        <h4 className={style.commentName}>Adharsh <span>4 sept 2026</span></h4 >
+        <div className={style.commentNameBox}>
+          <h3 className={style.commentBody}>hello</h3>
+        </div>
+        </div>
+      </div>
+     
     </div>
   );
 };

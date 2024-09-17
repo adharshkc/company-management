@@ -1,9 +1,10 @@
 .header {
   display: flex;
-  justify-content: end;
+  justify-content: space-between;
   padding: 20px 15px 0 0;
   // margin-top: 170px;
-  .headerIcon{
+  .headerIcon {
+    display: flex;
     margin: 4px 0 0 12px;
     height: 20px;
   }
@@ -64,19 +65,17 @@
   flex: 1;
   padding: 4px;
   font-weight: lighter;
-  
 }
 .detailValueAssignee {
   flex: 1;
   padding: 4px;
   font-weight: lighter;
-  
 }
 .detailValueAssignee:hover {
   background-color: #f1f2f4; /* Changes the background color when the element is hovered. */
 }
 
-.description{
+.description {
   display: flex;
   flex-direction: column;
   margin-left: 16px;
@@ -87,24 +86,22 @@
   padding: 0 15px 15px 0;
   // margin-top: 170px;
 }
-.sideIcon{
+.sideIcon {
   margin: 2px 0 0 10px;
   height: 20px;
   width: 22px;
-  
 }
-.activityHeader{
+.activityHeader {
   display: flex;
   padding: 20px 15px 20px 0;
-
 }
-.descriptionDetailLabel{
+.descriptionDetailLabel {
   flex: 1;
   color: #172b4d;
   font-size: 16px;
   margin-left: 1px;
   font-weight: 600;
-  font-family: Poppins, Arial, sans-serif ;
+  font-family: Poppins, Arial, sans-serif;
 }
 
 .avatar {
@@ -131,27 +128,26 @@
   border-radius: 8px;
   padding: 5px;
   box-shadow: 0 1px 5px rgba(4, 3, 3, 0.463);
-  width: 350px;
-  margin-bottom: 30px;
+  width: 400px;
+  margin-bottom: 20px;
   margin-left: 10px;
-  
 }
 
 .avatars {
   width: 30px;
-            height: 30px;
-            background-color: #007bff;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            font-weight: bold;
-            margin-left: 10px; 
-            margin-top: 3px;
+  height: 30px;
+  background-color: #007bff;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-weight: bold;
+  margin-left: 10px;
+  margin-top: 3px;
 }
 
-.commentHeader{
+.commentHeader {
   display: flex;
 }
 
@@ -169,4 +165,36 @@
 
 .commentBox:hover {
   border-color: #888;
+}
+
+.commentBody {
+  font-size: 16px;
+  font-weight: 400;
+  font-family: Poppins;
+}
+
+.commentName {
+  margin-left: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: Poppins;
+  margin-bottom: 0px;
+  span{
+    font-weight: 300;
+    font-size: small;
+  }
+}
+
+.commentNameBox{
+  
+    display: flex;
+    align-items: center;
+    background-color: #ffffff;
+    border-radius: 8px;
+    // padding: 5px;
+    // box-shadow: 0 1px 5px rgba(4, 3, 3, 0.463);
+    width: 350px;
+    margin-bottom: 20px;
+    margin-left: 15px;
+  
 }
