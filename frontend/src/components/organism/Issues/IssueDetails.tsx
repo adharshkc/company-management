@@ -147,11 +147,17 @@ const IssueDetails = () => {
         </div>
       </div>
       <div className={style.activityHeader}>
+        <div className={style.act}>
+
         <div className={style.sideIcon}>
           <TimelineOutlinedIcon fontSize="medium" />
         </div>
         <div className={style.description}>
           <span className={style.descriptionDetailLabel}>Activity</span>
+        </div>
+        </div>
+        <div className={style.actButton}>
+          <button>Show Details</button>
         </div>
       </div>
       <div className={style.commentHeader}>
