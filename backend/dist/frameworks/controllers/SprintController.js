@@ -28,7 +28,8 @@ class SprintController {
     async getAllSprint(req, res, next) {
         try {
             console.log("hasdfh");
-            const { status, data } = await this.getSprint.execute();
+            const project_id = req.params.projectId;
+            const { status, data } = await this.getSprint.execute(parseInt(project_id));
             console.log("data", data);
             res.status(status).json(data);
         }

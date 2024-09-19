@@ -4,9 +4,9 @@ import { SprintRepository } from "@application/interface/SprintRepository";
 
 export class GetSprintUsecase {
     constructor(private sprintRepository:SprintRepository){}
-    async execute(){
+    async execute(project_id:number){
         try {
-            const sprints = await this.sprintRepository.getSprints()
+            const sprints = await this.sprintRepository.getSprints(project_id)
             console.log(sprints)
             return {
                 status:200,

@@ -37,7 +37,7 @@ class IssueController {
     async updateName(req, res, next) {
         try {
             const issueName = req.body.issueName;
-            const issue_id = req.params.id;
+            const issue_id = req.params.issueId;
             console.log(issue_id);
             const { status, data } = await this.updateNameUsecase.execute(issueName, issue_id);
             return res.status(status).json(data);
@@ -49,7 +49,7 @@ class IssueController {
     async updateStatus(req, res, next) {
         try {
             const issueStatus = req.body.issueStatus;
-            const issue_id = req.params.id;
+            const issue_id = req.params.issueId;
             const { status, data } = await this.updateStatusUsecase.execute(issueStatus, issue_id);
             return res.status(status).json(data);
         }

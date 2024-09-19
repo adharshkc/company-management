@@ -18,14 +18,16 @@ projectRouter.post(
   projectController.createProject.bind(projectController)
 );
 
+projectRouter.get("/single", verifyEmployeeAccessToken, projectController.getProjectByTeamId.bind(projectController))
+
 //Sprint
 projectRouter.get(
-  "/sprints",
+  "/:projectId/sprints",
   verifyEmployeeAccessToken,
   sprintController.getAllSprint.bind(sprintController)
 );
 projectRouter.post(
-  "/sprints/",
+  "/:projectId/sprints/",
   verifyEmployeeAccessToken,
   sprintController.createSprint.bind(sprintController)
 );
@@ -52,7 +54,17 @@ projectRouter.get(
   issueController.getIssues.bind(issueController)
 );
 
-projectRouter.patch('/sprints/issues/:id/update-name', verifyEmployeeAccessToken, issueController.updateName.bind(issueController))
-projectRouter.patch('/sprints/issues/:id/update-status', verifyEmployeeAccessToken, issueController.updateStatus.bind(issueController))
+projectRouter.get("/sprints/:sprintId/issues");
+
+projectRouter.patch(
+  "/sprints/issues/:issueId/update-name",
+  verifyEmployeeAccessToken,
+  issueController.updateName.bind(issueController)
+);
+projectRouter.patch(
+  "/sprints/issues/:issueId/update-status",
+  verifyEmployeeAccessToken,
+  issueController.updateStatus.bind(issueController)
+);
 
 export default projectRouter;

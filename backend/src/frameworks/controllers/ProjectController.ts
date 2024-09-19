@@ -1,11 +1,12 @@
-import { AddProjectUsecase } from "@application/use-cases/project/AddProjectUsecase";
-import { GetProjectsUsecase } from "@application/use-cases/project/GetProjectsUsecase";
+
+import { AddProjectUsecase, GetProjectsUsecase, GetSingleProjectUsecase } from "@application/use-cases/project";
 import { NextFunction, Request, Response } from "express";
 
 export class ProjectController {
   constructor(
     private addProject: AddProjectUsecase,
-    private getProject: GetProjectsUsecase
+    private getProject: GetProjectsUsecase,
+    private getSingleProject:GetSingleProjectUsecase
   ) {}
 
   async createProject(req: Request, res: Response, next: NextFunction) {
@@ -32,6 +33,17 @@ export class ProjectController {
       res.status(result.status).json(result.data);
     } catch (error) {
       next(error);
+    }
+  }
+
+  async getProjectByTeamId(req:Request, res:Response, next:NextFunction){
+    try {
+      const employeeId = req.employee?.userId
+      console.log(req.employee)
+      const {status, data} = await this.getSingleProject.execute(parseInt(employeeId))
+      res.status(status).json(data);
+    } catch (error) {
+      next(error)
     }
   }
 }

@@ -12,7 +12,6 @@ const TeamModel_1 = __importDefault(require("@infrastructure/models/TeamModel"))
 class SequelizeSprintRepository {
     async createSprint(sprint) {
         try {
-            // const project = await
             const newSprint = await SprintModel_1.default.create({
                 name: sprint.name,
                 startDate: sprint === null || sprint === void 0 ? void 0 : sprint.startDate,
@@ -29,14 +28,13 @@ class SequelizeSprintRepository {
             throw new Error(error);
         }
     }
-    async getSprints() {
+    async getSprints(project_id) {
         try {
             const sprints = await SprintModel_1.default.findAll({
+                where: { project_id: project_id },
                 include: { model: IssueModel_1.default },
+                order: [['createdAt', 'ASC']],
             });
-            // if(sprints){
-            //     return null
-            // }
             return sprints;
         }
         catch (error) {

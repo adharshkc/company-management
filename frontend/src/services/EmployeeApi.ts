@@ -14,12 +14,12 @@ export const employeeLogin = async (email: string) => {
   return await employeeAxiosInstance.post("/login", { email });
 };
 
-export const getSprints = async () => {
-  return await employeeAxiosInstance.get("/projects/sprints");
+export const getSprints = async (project_id:string|null) => {
+  return await employeeAxiosInstance.get(`/projects/${project_id}/sprints`);
 };
 
-export const createSprint = async (name: string) => {
-  return await employeeAxiosInstance.post("/projects/sprints/", { name });
+export const createSprint = async (name: string, project_id:string|null) => {
+  return await employeeAxiosInstance.post(`/projects/${project_id}/sprints/`, { name });
 };
 
 export const updateSprint = async (
@@ -65,4 +65,9 @@ export const updateIssueStatus = async (status:string, issue_id:number)=>{
 
 export const updateIssueName = async (issueName:string, issue_id:number)=>{
   return await employeeAxiosInstance.patch(`/projects/sprints/issues/${issue_id}/update-name`, {issueName})
+}
+
+
+export const fetchProject = async ()=>{
+  return await employeeAxiosInstance.get(`/projects/single`)
 }

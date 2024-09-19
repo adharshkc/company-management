@@ -11,16 +11,21 @@ import attendanceIconLight from "../assets/icons/attendanceLight.svg";
 import attendanceIconDark from "../assets/icons/attendanceDark.svg";
 import teamIconDark from "../assets/icons/people-group-solid 1.svg"
 import teamIconLight from "../assets/icons/people-group-solid 1 (1).svg"
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { getHr } from "../services/HrApi";
 import useHrStore from "../zustand/HrStore";
 import useErrorStore from "../zustand/ErrorStore";
 import { Outlet, useNavigate } from "react-router-dom";
+import { useFetchProject } from "../hooks/useProjects";
 
 const EmployeeLayout = () => {
   const {setError} = useErrorStore()
   const {hr, setHr} = useHrStore()
   const navigate = useNavigate()
+  const getProject = useFetchProject()
+  useEffect(()=>{
+    getProject()
+  },[])
   const username = hr?.name
   const layout: NavbarLayout[] = [
     { id: 1, name: "Home", path: "/" },

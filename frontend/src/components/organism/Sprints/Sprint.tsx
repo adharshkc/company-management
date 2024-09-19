@@ -25,7 +25,6 @@ const Sprint: React.FC<SprintProps> = ({ sprint }) => {
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [openMenu, setOpenMenu] = useState<boolean>(false);
   const [deleteModal, setDeleteModal] = useState<boolean>(false);
-  // const { fetchSprints, sprintUpdate, sprintDelete } = useSprints();
   // const { issueCreate } = useIssue();
   const { mutate: updateSprint } = useUpdateSprint();
   const {mutate: sprintDelete} = useDeleteSprint()
@@ -176,7 +175,7 @@ const Sprint: React.FC<SprintProps> = ({ sprint }) => {
             )}
           </Box>
         </Box>
-        {sprint?.issues.length === 0 ? (
+        {(!sprint.issues||sprint?.issues.length === 0) ? (
           <NewSprintRow />
         ) : (
           <Box

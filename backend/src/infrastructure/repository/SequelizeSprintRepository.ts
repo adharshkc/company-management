@@ -9,7 +9,6 @@ import TeamModel from "@infrastructure/models/TeamModel";
 export class SequelizeSprintRepository implements SprintRepository {
   async createSprint(sprint: Sprint): Promise<Sprint | null | undefined> {
     try {
-      // const project = await
       const newSprint = await SprintModel.create({
         name: sprint.name,
         startDate: sprint?.startDate,
@@ -26,14 +25,13 @@ export class SequelizeSprintRepository implements SprintRepository {
     }
   }
 
-  async getSprints(): Promise<Sprint[] | null> {
+  async getSprints(project_id:number): Promise<Sprint[] | null> {
     try {
       const sprints = await SprintModel.findAll({
+        where:{project_id:project_id},
         include: { model: IssueModel },
+        order: [['createdAt', 'ASC']],
       });
-      // if(sprints){
-      //     return null
-      // }
       return sprints;
     } catch (error: any) {
       throw new Error(error);

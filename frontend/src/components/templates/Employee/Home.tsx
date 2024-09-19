@@ -10,6 +10,7 @@ import HomeTask from "@components/organism/Task/HomeTask";
 const Home = () => {
   const [open, setOpen] = useState<boolean>(false);
   const {dayDate, timeOfDay} = useDayAndWeek()
+ 
   console.log(dayDate)
   const handleClose = () => {
     setOpen(false);

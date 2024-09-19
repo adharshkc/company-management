@@ -5,9 +5,9 @@ class GetSprintUsecase {
     constructor(sprintRepository) {
         this.sprintRepository = sprintRepository;
     }
-    async execute() {
+    async execute(project_id) {
         try {
-            const sprints = await this.sprintRepository.getSprints();
+            const sprints = await this.sprintRepository.getSprints(project_id);
             console.log(sprints);
             return {
                 status: 200,
