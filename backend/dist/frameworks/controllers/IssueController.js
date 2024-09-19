@@ -2,9 +2,11 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.IssueController = void 0;
 class IssueController {
-    constructor(createIssueUsecase, getIssueUsecase) {
+    constructor(createIssueUsecase, getIssueUsecase, updateNameUsecase, updateStatusUsecase) {
         this.createIssueUsecase = createIssueUsecase;
         this.getIssueUsecase = getIssueUsecase;
+        this.updateNameUsecase = updateNameUsecase;
+        this.updateStatusUsecase = updateStatusUsecase;
     }
     async createIssue(req, res, next) {
         try {
@@ -26,6 +28,29 @@ class IssueController {
             const sprintId = req.params.sprintId;
             console.log(sprintId);
             const { status, data } = await this.getIssueUsecase.execute(sprintId);
+            return res.status(status).json(data);
+        }
+        catch (error) {
+            next(error);
+        }
+    }
+    async updateName(req, res, next) {
+        try {
+            const issueName = req.body.issueName;
+            const issue_id = req.params.id;
+            console.log(issue_id);
+            const { status, data } = await this.updateNameUsecase.execute(issueName, issue_id);
+            return res.status(status).json(data);
+        }
+        catch (error) {
+            next(error);
+        }
+    }
+    async updateStatus(req, res, next) {
+        try {
+            const issueStatus = req.body.issueStatus;
+            const issue_id = req.params.id;
+            const { status, data } = await this.updateStatusUsecase.execute(issueStatus, issue_id);
             return res.status(status).json(data);
         }
         catch (error) {

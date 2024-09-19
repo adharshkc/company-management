@@ -1,10 +1,6 @@
 import { Typography } from "@components/atoms/typography/Typography";
 import {
   Box,
-  Dialog,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
   FormControl,
   MenuItem,
   Select,
@@ -16,14 +12,15 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { Button } from "@components/atoms/button/Button";
 import EmptySprintRow from "./EmptySprintRow";
 import { useIssueStore } from "../../zustand/IssueStore";
-import style from "../styles/issueDetail.module.scss";
-import IssueDetails from "@components/organism/Issues/IssueDetails";
+import { updateIssueName, updateIssueStatus } from "../../services/EmployeeApi";
+import { Snackbar, SnackbarCloseReason } from "@mui/material";
+import { Alert } from "@mui/material";
 
 const SprintTaskRow = ({ issue }) => {
-  console.log(issue);
   const [status, setStatus] = useState(issue?.status);
   const [sprintEdit, setSprintEdit] = useState<boolean>(false);
-  const { isModalIssue, setIsModalIssue, setIssues } = useIssueStore();
+  const { setIsModalIssue, setIssues } = useIssueStore();
+  const [errorSnack, setErrorSnack] = useState<boolean>(false);
   const editRef = useRef<HTMLDivElement>();
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -46,25 +43,46 @@ const SprintTaskRow = ({ issue }) => {
       description: issue.description,
     });
   };
-  const handleUpdate = (issueName: string) => {
+  const handleUpdate = async () => {
     try {
-      // const response =
+      await updateIssueStatus(status, issue?.issue_id);
     } catch (error) {
       console.log(error);
+      setErrorSnack(true);
+    }
+  };
+
+  const handleUpdateName = async (issueName: string) => {
+    try {
+      await updateIssueName( issueName,issue?.issue_id);
+    } catch (error) {
+      console.log(error);
+      setErrorSnack(true);
     }
   };
   const handleChange = (e: SelectChangeEvent<string>) =>
     setStatus(e.target.value);
 
   const editClick = () => {
+    console.log("hdfhas");
     setSprintEdit(true);
   };
   if (!issue) {
     return <h3>loading</h3>;
   }
+  const handleSnackClose = (
+    event: React.SyntheticEvent | Event,
+    reason?: SnackbarCloseReason
+  ) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setErrorSnack(false);
+  };
   return (
     <>
-    {/* {isModalIssue && (
+      {/* {isModalIssue && (
           
         <div className={style.issueDetail}>
           <IssueDetails />
@@ -72,14 +90,30 @@ const SprintTaskRow = ({ issue }) => {
         
       )} */}
 
-{/* <div className={style.issueDetail}>
+      {/* <div className={style.issueDetail}>
   <IssueDetails />
 </div> */}
-
+      <Snackbar
+        open={errorSnack}
+        onClose={handleSnackClose}
+        autoHideDuration={3000}
+      >
+        <Alert
+          // onClose={handleClose}
+          severity="error"
+          variant="filled"
+          sx={{ width: "100%" }}
+        >
+          Something went wrong!
+        </Alert>
+      </Snackbar>
 
       {sprintEdit ? (
         <Box ref={editRef}>
-          <EmptySprintRow issueHandler={handleUpdate} issueName={issue.name} />
+          <EmptySprintRow
+            issueHandler={handleUpdateName}
+            issueName={issue.name}
+          />
         </Box>
       ) : (
         <Box
@@ -93,7 +127,7 @@ const SprintTaskRow = ({ issue }) => {
             "&:hover .edit-icon": {
               visibility: "visible",
             },
-            cursor:"pointer"
+            cursor: "pointer",
           }}
           onClick={handleOpenIssueModal}
         >
@@ -106,7 +140,10 @@ const SprintTaskRow = ({ issue }) => {
             </Typography>
             <EditIcon
               className="edit-icon"
-              onClick={editClick}
+              onClick={(event)=>{
+                event.stopPropagation()
+                editClick()
+              }}
               sx={{
                 visibility: "hidden",
                 height: "25px",
@@ -124,7 +161,11 @@ const SprintTaskRow = ({ issue }) => {
             <FormControl variant="standard" size="small" style={{}}>
               <Select
                 value={status}
-                onChange={handleChange}
+                onClick={(event) => event.stopPropagation()}
+                onChange={(event) => {
+                  event.stopPropagation();
+                  handleChange(event);
+                }}
                 sx={{ fontSize: "0.75rem", padding: "4px" }}
                 disableUnderline
               >

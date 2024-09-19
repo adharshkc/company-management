@@ -10,7 +10,7 @@ class SequelizeIssueRepository {
         try {
             const issue = await IssueModel_1.default.create({
                 name: name,
-                sprint_id: sprintId
+                sprint_id: sprintId,
             });
             return issue;
         }
@@ -20,8 +20,30 @@ class SequelizeIssueRepository {
     }
     async getIssues(sprintId) {
         try {
-            const issues = await IssueModel_1.default.findAll({ where: { sprint_id: sprintId } });
+            const issues = await IssueModel_1.default.findAll({
+                where: { sprint_id: sprintId },
+            });
             return issues;
+        }
+        catch (error) {
+            throw new Error(error);
+        }
+    }
+    async updateName(issueName, issue_id) {
+        try {
+            const issue = await IssueModel_1.default.update({
+                name: issueName,
+            }, { where: { issue_id: issue_id }, returning: true });
+        }
+        catch (error) {
+            throw new Error(error);
+        }
+    }
+    async updateStatus(issueStatus, issue_id) {
+        try {
+            const issue = await IssueModel_1.default.update({
+                status: issueStatus,
+            }, { where: { issue_id: issue_id }, returning: true });
         }
         catch (error) {
             throw new Error(error);

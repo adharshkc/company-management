@@ -52,4 +52,7 @@ projectRouter.get(
   issueController.getIssues.bind(issueController)
 );
 
+projectRouter.patch('/sprints/issues/:id/update-name', verifyEmployeeAccessToken, issueController.updateName.bind(issueController))
+projectRouter.patch('/sprints/issues/:id/update-status', verifyEmployeeAccessToken, issueController.updateStatus.bind(issueController))
+
 export default projectRouter;

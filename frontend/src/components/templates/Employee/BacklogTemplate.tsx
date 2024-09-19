@@ -4,37 +4,22 @@ import style from "../../styles/backlogTemplate.module.scss";
 import { Button } from "@components/atoms/button/Button";
 import { theme } from "../../../theme";
 import Sprint from "@components/organism/Sprints/Sprint";
-import { useEffect } from "react";
-import { useSprints } from "../../../hooks/useSprints";
-import { createSprint } from "../../../services/EmployeeApi";
+import { useAddSprint, useFetchSprints } from "../../../hooks/useSprints";
 import { useIssueStore } from "../../../zustand/IssueStore";
 import IssueDetails from "@components/organism/Issues/IssueDetails";
-import {
-  Dialog,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-} from "@mui/material";
+import { Dialog } from "@mui/material";
+import { Sprint as SprintType } from "../../../types/types";
 
 const BacklogTemplate = () => {
-  const { sprints, loading, error, fetchSprints } = useSprints();
+  const { data: sprints, error, isLoading } = useFetchSprints();
+  const { mutate: createSprint } = useAddSprint();
+
   const { isModalIssue } = useIssueStore();
-  console.log(isModalIssue);
-  useEffect(() => {
-    fetchSprints();
-  }, [fetchSprints]);
 
   const addSprint = async function () {
     const sprintName = `Sprint ${sprints.length + 1}`;
-    try {
-      console.log(sprintName);
-      const response = await createSprint(sprintName);
-      if (response.status === 200) {
-        fetchSprints();
-      }
-    } catch (error) {
-      console.log(error);
-    }
+    console.log(sprintName);
+    createSprint(sprintName);
   };
   if (error) {
     console.log(error);
@@ -45,7 +30,7 @@ const BacklogTemplate = () => {
       </div>
     );
   }
-  if (loading) {
+  if (isLoading) {
     return (
       <div className={style.bodyPart}>
         <h3>Loading!!!</h3>
@@ -59,24 +44,14 @@ const BacklogTemplate = () => {
         slotProps={{
           backdrop: {
             style: {
-              width:"auto",
+              width: "auto",
               backdropFilter: "blur(0px)",
               backgroundColor: "rgba(0, 0, 0, 0.3)",
             },
           },
         }}
       >
-
-        <IssueDetails/>
-        {/* <DialogTitle id="alert-dialog-title">
-          {"Use Google's location service?"}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            Let Google help apps determine location. This means sending
-            anonymous location data to Google, even when no apps are running.
-          </DialogContentText>
-        </DialogContent> */}
+        <IssueDetails />
       </Dialog>
 
       <div className={style.bodyPart}>
@@ -101,7 +76,7 @@ const BacklogTemplate = () => {
           <h1>No sprints found</h1>
         ) : (
           <div className={style.sprints}>
-            {sprints.map((sprint) => (
+            {sprints?.map((sprint: SprintType) => (
               <Sprint key={sprint.sprint_id} sprint={sprint} />
             ))}
           </div>

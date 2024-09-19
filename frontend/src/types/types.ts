@@ -99,3 +99,14 @@ export type TeamType = {
   name:string
   team_id?:number
 }
+
+export type Sprint = {
+  name: string;
+  startDate?: Date|string;
+  endDate?: Date|string;
+  status?: 'start'|'completed'|'pending';
+  sprint_id: number;
+  project_id?: number;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  issues?:any[]
+}

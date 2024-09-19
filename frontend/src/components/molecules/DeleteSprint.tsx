@@ -4,7 +4,7 @@ import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Typography }
 
 type DeleteSprintProps={
     deleteModal:(bool:boolean)=>void
-    totalIssues:number
+    totalIssues:number|undefined
     deleteSprintHandler:()=>void
 }
 const DeleteSprint:React.FC<DeleteSprintProps> = ({deleteModal,totalIssues, deleteSprintHandler}) => {

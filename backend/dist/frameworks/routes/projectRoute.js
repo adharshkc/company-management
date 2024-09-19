@@ -18,4 +18,6 @@ projectRouter.delete("/sprints/:id", employeeMiddleware_1.verifyEmployeeAccessTo
 //issues
 projectRouter.post("/sprints/issues/", employeeMiddleware_1.verifyEmployeeAccessToken, issueDi_1.issueController.createIssue.bind(issueDi_1.issueController));
 projectRouter.get("/sprints/:sprintId/issues", employeeMiddleware_1.verifyEmployeeAccessToken, issueDi_1.issueController.getIssues.bind(issueDi_1.issueController));
+projectRouter.patch('/sprints/issues/:id/update-name', employeeMiddleware_1.verifyEmployeeAccessToken, issueDi_1.issueController.updateName.bind(issueDi_1.issueController));
+projectRouter.patch('/sprints/issues/:id/update-status', employeeMiddleware_1.verifyEmployeeAccessToken, issueDi_1.issueController.updateStatus.bind(issueDi_1.issueController));
 exports.default = projectRouter;

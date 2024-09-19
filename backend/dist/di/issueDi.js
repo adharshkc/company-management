@@ -1,12 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.issueController = void 0;
-const CreateIssueUsecase_1 = require("@application/use-cases/issues/CreateIssueUsecase");
 const SequelizeIssueRepository_1 = require("@infrastructure/repository/SequelizeIssueRepository");
 const IssueController_1 = require("@frameworks/controllers/IssueController");
-const GetIssueUsecase_1 = require("@application/use-cases/issues/GetIssueUsecase");
+const issues_1 = require("@application/use-cases/issues");
 const issueRepository = new SequelizeIssueRepository_1.SequelizeIssueRepository();
-const createIssueUsecase = new CreateIssueUsecase_1.CreateIssueUsecase(issueRepository);
-const getIssuesUsecase = new GetIssueUsecase_1.GetIssueUsecase(issueRepository);
-const issueController = new IssueController_1.IssueController(createIssueUsecase, getIssuesUsecase);
+const createIssueUsecase = new issues_1.CreateIssueUsecase(issueRepository);
+const getIssuesUsecase = new issues_1.GetIssueUsecase(issueRepository);
+const updateNameUsecase = new issues_1.UpdateNameUsecase(issueRepository);
+const updateStatusUsecase = new issues_1.UpdateStatusUsecase(issueRepository);
+const issueController = new IssueController_1.IssueController(createIssueUsecase, getIssuesUsecase, updateNameUsecase, updateStatusUsecase);
 exports.issueController = issueController;

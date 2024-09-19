@@ -1,4 +1,4 @@
-export const useMonthAndDay = (dateString: string): string => {
+export const useMonthAndDay = (dateString: Date|string|undefined): string => {
   const date = new Date(dateString);
   const options: Intl.DateTimeFormatOptions = {
     day: "2-digit",

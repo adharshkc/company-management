@@ -17,7 +17,6 @@ export const useSessionStore = create(
       try {
         const response = await checkSession();
         if (response.status === 200) {
-          console.log(response);
           set({ isAuthenticated: true });
         } else {
           set({ isAuthenticated: false });

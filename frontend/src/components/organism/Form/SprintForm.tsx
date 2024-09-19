@@ -19,8 +19,8 @@ import dayjs, { Dayjs } from "dayjs";
 type SprintFormProp = {
   openModal: (isOpen: boolean) => void;
   sprintName: string;
-  sprintStartDate:Date|undefined|Dayjs
-  sprintEndDate:Dayjs|Date|null|undefined
+  sprintStartDate:Date|undefined|Dayjs|string
+  sprintEndDate:Dayjs|Date|null|undefined|string
   updateSprint: (
     name:string,
     startDate:Date|undefined,
