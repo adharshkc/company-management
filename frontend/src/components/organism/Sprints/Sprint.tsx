@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import EmptySprintRow from "@components/molecules/EmptySprintRow";
 import NewSprintRow from "@components/molecules/NewSprintRow";
 import EditIcon from "@mui/icons-material/Edit";
 import SprintTaskRow from "@components/molecules/SprintTaskRow";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, Typography, Skeleton } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
 import SprintForm from "../Form/SprintForm";
 import { Dayjs } from "dayjs";
@@ -11,9 +12,9 @@ import { useMonthAndDay } from "../../../hooks/useMonthAndDay";
 import { useDeleteSprint, useUpdateSprint } from "../../../hooks/useSprints";
 import MoreOptions from "@components/molecules/MoreOptions";
 import DeleteSprint from "@components/molecules/DeleteSprint";
-// import { useIssue } from "../../../hooks/useIssues";
-import { createIssue } from "../../../services/EmployeeApi";
+import { createIssue, getIssue } from "../../../services/EmployeeApi";
 import { Sprint as SprintType } from "types/types";
+import IssueSkeleton from "../Skeleton/IssueSkeleton";
 
 type SprintProps = {
   sprint: SprintType;
@@ -23,9 +24,12 @@ const Sprint: React.FC<SprintProps> = ({ sprint }) => {
   const [startButton, setStartButton] = useState<boolean>(true);
   const [newIssue, setNewIssue] = useState(false);
   const [openModal, setOpenModal] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true)
   const [openMenu, setOpenMenu] = useState<boolean>(false);
   const [deleteModal, setDeleteModal] = useState<boolean>(false);
-  // const { issueCreate } = useIssue();
+  // const { data:issues } = useIssueFetch(sprint.sprint_id);
+  const [issues, setIssues] = useState([])
+  console.log("iss",sprint.sprint_id,issues)
   const { mutate: updateSprint } = useUpdateSprint();
   const {mutate: sprintDelete} = useDeleteSprint()
   const optionsRef = useRef<HTMLDivElement>(null);
@@ -65,8 +69,15 @@ const Sprint: React.FC<SprintProps> = ({ sprint }) => {
      sprintDelete(sprint.sprint_id);
     
   };
-
-  useEffect(() => {});
+const fetchIssue = async()=>{
+  setLoading(true)
+  const response = await getIssue(sprint.sprint_id)
+  setIssues(response.data.issues)
+  setLoading(false)
+}
+  useEffect(() => {
+    fetchIssue()
+  },[]);
 
   const addIssue = async (issueName: string) => {
     const response = await createIssue(issueName, sprint.sprint_id);
@@ -81,6 +92,7 @@ const Sprint: React.FC<SprintProps> = ({ sprint }) => {
   const handleModal = (bool: boolean) => setOpenModal(bool);
   const handleMenuOpen = () => setOpenMenu(true);
   const handleDeleteModal = (bool: boolean) => setDeleteModal(bool);
+  
   return (
     <>
       <Box
@@ -93,6 +105,7 @@ const Sprint: React.FC<SprintProps> = ({ sprint }) => {
       >
         <Box sx={{ display: "flex", justifyContent: "space-between" }}>
           <Box sx={{ display: "flex", alignItems: "center", paddingX: 3 }}>
+            <Skeleton/>
             {openModal && (
               <SprintForm
                 sprintName={sprint.name}
@@ -175,6 +188,21 @@ const Sprint: React.FC<SprintProps> = ({ sprint }) => {
             )}
           </Box>
         </Box>
+        {loading&&
+        <Box
+            sx={{
+              marginTop: 2,
+              borderRadius: "5px",
+              border: "1px solid #C9D4E4",
+              backgroundColor: "white",
+            }}
+          >
+            <IssueSkeleton/>
+            <IssueSkeleton/>
+            <IssueSkeleton/>
+            
+          </Box>
+          }
         {(!sprint.issues||sprint?.issues.length === 0) ? (
           <NewSprintRow />
         ) : (
@@ -187,7 +215,7 @@ const Sprint: React.FC<SprintProps> = ({ sprint }) => {
               backgroundColor: "white",
             }}
           >
-            {sprint?.issues.map((issue) => (
+            {issues?.map((issue:any) => (
               <>
                 <SprintTaskRow key={issue.issue_id} issue={issue} />
               </>
@@ -224,8 +252,10 @@ const Sprint: React.FC<SprintProps> = ({ sprint }) => {
               + Create Issue
             </Typography>
           </Box>
+          
         )}
       </Box>
+
     </>
   );
 };

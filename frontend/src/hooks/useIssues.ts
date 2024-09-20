@@ -3,6 +3,9 @@
 // import useErrorStore from "../zustand/ErrorStore";
 // import { useCallback, useState } from "react";
 
+import { useQuery } from "@tanstack/react-query"
+import { getIssue } from "../services/EmployeeApi";
+
 // export const useIssue = () => {
 //   const { issues, setIssues, addIssue, updateIssue, removeIssue } =
 //     useIssueStore((state) => ({
@@ -83,3 +86,18 @@
 //     handleUpdateIssue,
 //     handleRemoveIssue,
 //   };
+
+
+const fetchIssues = async(sprint_id:number)=>{
+  console.log(sprint_id)
+  const response = await getIssue(sprint_id)
+  return response.data.issues;
+}
+
+export const useIssueFetch=(sprint_id:number)=>{
+  console.log(sprint_id)
+  return useQuery({
+    queryKey:['issues'],
+    queryFn:()=>fetchIssues(sprint_id)
+  })
+}

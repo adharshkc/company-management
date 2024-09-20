@@ -22,6 +22,7 @@ class SequelizeIssueRepository {
         try {
             const issues = await IssueModel_1.default.findAll({
                 where: { sprint_id: sprintId },
+                order: [['createdAt', 'ASC']],
             });
             return issues;
         }

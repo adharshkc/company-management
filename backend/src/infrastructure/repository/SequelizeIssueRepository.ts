@@ -18,6 +18,7 @@ export class SequelizeIssueRepository implements IssueRepository {
     try {
       const issues = await IssueModel.findAll({
         where: { sprint_id: sprintId },
+        order: [['createdAt', 'ASC']],
       });
       return issues;
     } catch (error: any) {
