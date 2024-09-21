@@ -23,7 +23,7 @@ export class IssueController {
         name,
         sprintId
       );
-        return res.status(status).json(data);
+      return res.status(status).json(data);
     } catch (error) {
       console.log(error);
       next(error);
@@ -35,8 +35,8 @@ export class IssueController {
       const sprintId = req.params.sprintId;
       console.log(sprintId);
       const { status, data } = await this.getIssueUsecase.execute(sprintId);
-      console.log(data.issues.length)
-        return res.status(status).json(data);
+      console.log(data.issues.length);
+      return res.status(status).json(data);
     } catch (error) {
       next(error);
     }
@@ -46,7 +46,6 @@ export class IssueController {
     try {
       const issueName = req.body.issueName;
       const issue_id = req.params.issueId;
-      console.log(issue_id)
       const { status, data } = await this.updateNameUsecase.execute(
         issueName,
         issue_id
@@ -58,7 +57,9 @@ export class IssueController {
   }
   async updateStatus(req: Request, res: Response, next: NextFunction) {
     try {
-      const issueStatus = req.body.issueStatus;
+      const issueStatus = req.body.status;
+      if (!issueStatus)
+        return res.status(400).json({ message: "status is required" });
       const issue_id = req.params.issueId;
       const { status, data } = await this.updateStatusUsecase.execute(
         issueStatus,

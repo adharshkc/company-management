@@ -15,7 +15,7 @@ import DeleteSprint from "@components/molecules/DeleteSprint";
 import { createIssue, getIssue } from "../../../services/EmployeeApi";
 import { Sprint as SprintType } from "types/types";
 import IssueSkeleton from "../Skeleton/IssueSkeleton";
-import { PulseLoader} from "react-spinners"
+import { PulseLoader } from "react-spinners";
 
 type SprintProps = {
   sprint: SprintType;
@@ -25,14 +25,14 @@ const Sprint: React.FC<SprintProps> = ({ sprint }) => {
   const [startButton, setStartButton] = useState<boolean>(true);
   const [newIssue, setNewIssue] = useState(false);
   const [openModal, setOpenModal] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(true)
-  const [issueLoading, setIssueLoading] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(true);
+  const [issueLoading, setIssueLoading] = useState<boolean>(false);
   const [openMenu, setOpenMenu] = useState<boolean>(false);
   const [deleteModal, setDeleteModal] = useState<boolean>(false);
   // const { data:issues } = useIssueFetch(sprint.sprint_id);
-  const [issues, setIssues] = useState([])
+  const [issues, setIssues] = useState([]);
   const { mutate: updateSprint } = useUpdateSprint();
-  const {mutate: sprintDelete} = useDeleteSprint()
+  const { mutate: sprintDelete } = useDeleteSprint();
   const optionsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -68,25 +68,23 @@ const Sprint: React.FC<SprintProps> = ({ sprint }) => {
   };
 
   const deleteSprintHandler = async () => {
-     sprintDelete(sprint.sprint_id);
-    
+    sprintDelete(sprint.sprint_id);
   };
-const fetchIssue = async()=>{
-  const response = await getIssue(sprint.sprint_id)
-  console.log(response.data.issues)
-  setIssues(response.data.issues)
-  setLoading(false)
-  setIssueLoading(false)
-}
-useEffect(() => {
-  fetchIssue()
-  },[]);
+  const fetchIssue = async () => {
+    const response = await getIssue(sprint.sprint_id);
+    setIssues(response.data.issues);
+    setLoading(false);
+    setIssueLoading(false);
+  };
+  useEffect(() => {
+    fetchIssue();
+  }, []);
 
   const addIssue = async (issueName: string) => {
-    setIssueLoading(true)
+    setIssueLoading(true);
     const response = await createIssue(issueName, sprint.sprint_id);
     if (response?.status == 200) {
-      fetchIssue()
+      fetchIssue();
       setNewIssue(false);
     }
   };
@@ -96,14 +94,9 @@ useEffect(() => {
   const handleModal = (bool: boolean) => setOpenModal(bool);
   const handleMenuOpen = () => setOpenMenu(true);
   const handleDeleteModal = (bool: boolean) => setDeleteModal(bool);
-  
+
   return (
     <>
-     {/* <Dialog open={issueLoading}> */}
-{/* <DialogContent> */}
-
-    {/* </DialogContent> */}
-    {/* </Dialog> */}
       <Box
         sx={{
           backgroundColor: "#f7f8f9",
@@ -111,19 +104,14 @@ useEffect(() => {
           padding: 1,
           marginTop: 2,
         }}
-        >
-        
+      >
         <Box sx={{ display: "flex", justifyContent: "space-between" }}>
           <Box sx={{ display: "flex", alignItems: "center", paddingX: 3 }}>
-            {/* {issueLoading&& */}
-            
-             
-            {/* } */}
             {openModal && (
               <SprintForm
-              sprintName={sprint.name}
-              sprintStartDate={sprint.startDate}
-              sprintEndDate={sprint.endDate}
+                sprintName={sprint.name}
+                sprintStartDate={sprint.startDate}
+                sprintEndDate={sprint.endDate}
                 updateSprint={updateSprintHandler}
                 openModal={handleModal}
               />
@@ -174,16 +162,14 @@ useEffect(() => {
             >
               ({issues?.length} Issues)
             </Typography>
-            <PulseLoader size={9} loading={issueLoading} color="#94a5ff"cssOverride={{ position: 'relative',
-          // top: '50%',
-          // left: '50%',       
-          // transform: 'translate(-50%, -50%)', 
-          // zIndex: 9999, 
-          
-        }}/>
+            <PulseLoader
+              size={9}
+              loading={issueLoading}
+              color="#94a5ff"
+              cssOverride={{ position: "relative" }}
+            />
           </Box>
-          <Box >
-         
+          <Box>
             <Button
               disabled={startButton}
               sx={{
@@ -209,8 +195,8 @@ useEffect(() => {
             )}
           </Box>
         </Box>
-        {loading&&
-        <Box
+        {loading && (
+          <Box
             sx={{
               marginTop: 2,
               borderRadius: "5px",
@@ -218,13 +204,12 @@ useEffect(() => {
               backgroundColor: "white",
             }}
           >
-            <IssueSkeleton/>
-            <IssueSkeleton/>
-            <IssueSkeleton/>
-            
+            <IssueSkeleton />
+            <IssueSkeleton />
+            <IssueSkeleton />
           </Box>
-          }
-        {(!issues||issues?.length === 0) ? (
+        )}
+        {!issues || issues?.length === 0 ? (
           <NewSprintRow />
         ) : (
           <Box
@@ -236,10 +221,13 @@ useEffect(() => {
               backgroundColor: "white",
             }}
           >
-            {issues?.map((issue:any) => (
-              <>
-                <SprintTaskRow key={issue.issue_id} issue={issue} />
-              </>
+            {issues?.map((issue: any) => (
+              <SprintTaskRow
+                key={issue.issue_id}
+                issue={issue}
+                sprintColumns={sprint.columns}
+                fetchIssue={fetchIssue}
+              />
             ))}
           </Box>
         )}
@@ -273,7 +261,6 @@ useEffect(() => {
               + Create Issue
             </Typography>
           </Box>
-          
         )}
       </Box>
     </>

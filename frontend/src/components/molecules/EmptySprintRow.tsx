@@ -1,19 +1,21 @@
 import { Box, TextField } from "@mui/material";
 import { useState } from "react";
 
+type EmptySprintRowProps = {
+  issueHandler: (sprintName: string) => void;
+  issueName: string;
+};
 
-type EmptySprintRowProps ={
-  issueHandler:(sprintName:string)=>void
-  issueName:string
-}
-
-const EmptySprintRow:React.FC<EmptySprintRowProps> = ({issueHandler, issueName}) => {
-  const [input, setInput] = useState<string>(issueName)
-  const handleIssue = (e: React.FormEvent<HTMLFormElement>)=>{
-    e.preventDefault()
-    console.log(input)
-      issueHandler(input)
-  }
+const EmptySprintRow: React.FC<EmptySprintRowProps> = ({
+  issueHandler,
+  issueName,
+}) => {
+  const [input, setInput] = useState<string>(issueName);
+  const handleIssue = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log(input);
+    issueHandler(input);
+  };
   return (
     <>
       <Box
@@ -37,37 +39,36 @@ const EmptySprintRow:React.FC<EmptySprintRowProps> = ({issueHandler, issueName})
           }}
         >
           <form onSubmit={handleIssue}>
-
-          <TextField
-            fullWidth
-            value={input}
-            onChange={(e)=>setInput(e.target.value)}
-            // variant="outlined"
-            placeholder="What needs to be done?"
-            sx={{
-              "& .MuiOutlinedInput-root": {
-                "& fieldset": {
-                  border: "none",
+            <TextField
+              fullWidth
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              // variant="outlined"
+              placeholder="What needs to be done?"
+              sx={{
+                "& .MuiOutlinedInput-root": {
+                  "& fieldset": {
+                    border: "none",
+                  },
+                  "&:hover fieldset": {
+                    border: "none",
+                  },
+                  "&.Mui-focused fieldset": {
+                    border: "none",
+                  },
                 },
-                "&:hover fieldset": {
+                "& .MuiInputBase-input": {
                   border: "none",
+                  padding: "4px 8px",
+                  fontSize: "16px",
                 },
-                "&.Mui-focused fieldset": {
-                  border: "none",
+                "&::placeholder": {
+                  color: "#707C91",
+                  opacity: 1,
                 },
-              },
-              "& .MuiInputBase-input": {
-                border: "none",
-                padding: "4px 8px",
-                fontSize: "16px",
-              },
-              "&::placeholder": {
-                color: "#707C91",
-                opacity: 1,
-              },
-            }}
+              }}
             />
-            </form>
+          </form>
         </Box>
         <Box></Box>
       </Box>

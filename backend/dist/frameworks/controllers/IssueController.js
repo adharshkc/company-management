@@ -39,7 +39,6 @@ class IssueController {
         try {
             const issueName = req.body.issueName;
             const issue_id = req.params.issueId;
-            console.log(issue_id);
             const { status, data } = await this.updateNameUsecase.execute(issueName, issue_id);
             return res.status(status).json(data);
         }
@@ -49,7 +48,9 @@ class IssueController {
     }
     async updateStatus(req, res, next) {
         try {
-            const issueStatus = req.body.issueStatus;
+            const issueStatus = req.body.status;
+            if (!issueStatus)
+                return res.status(400).json({ message: "status is required" });
             const issue_id = req.params.issueId;
             const { status, data } = await this.updateStatusUsecase.execute(issueStatus, issue_id);
             return res.status(status).json(data);

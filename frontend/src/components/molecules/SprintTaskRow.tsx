@@ -15,8 +15,19 @@ import { useIssueStore } from "../../zustand/IssueStore";
 import { updateIssueName, updateIssueStatus } from "../../services/EmployeeApi";
 import { Snackbar, SnackbarCloseReason } from "@mui/material";
 import { Alert } from "@mui/material";
+import { Issue } from "types/types";
 
-const SprintTaskRow = ({ issue }) => {
+type SprintTaskRowProps = {
+  issue: Issue;
+  sprintColumns: string[];
+  fetchIssue: () => void;
+};
+
+const SprintTaskRow: React.FC<SprintTaskRowProps> = ({
+  issue,
+  sprintColumns,
+  fetchIssue,
+}) => {
   const [status, setStatus] = useState(issue?.status);
   const [sprintEdit, setSprintEdit] = useState<boolean>(false);
   const { setIsModalIssue, setIssues } = useIssueStore();
@@ -39,13 +50,14 @@ const SprintTaskRow = ({ issue }) => {
       issue_id: issue.issue_id,
       name: issue.name,
       status: issue.status,
-      assignee_id: issue.assingee_id,
+      assignee_id: issue.assignee_id,
       description: issue.description,
     });
   };
-  const handleUpdate = async () => {
+  const handleUpdate = async (issueStatus: string) => {
+    console.log(issueStatus);
     try {
-      await updateIssueStatus(status, issue?.issue_id);
+      await updateIssueStatus(issueStatus, issue.issue_id);
     } catch (error) {
       console.log(error);
       setErrorSnack(true);
@@ -54,14 +66,21 @@ const SprintTaskRow = ({ issue }) => {
 
   const handleUpdateName = async (issueName: string) => {
     try {
-      await updateIssueName( issueName,issue?.issue_id);
+      const response = await updateIssueName(issueName, issue?.issue_id);
+      if (response.status == 200) {
+        setSprintEdit(false);
+        fetchIssue();
+      }
     } catch (error) {
       console.log(error);
       setErrorSnack(true);
     }
   };
-  const handleChange = (e: SelectChangeEvent<string>) =>
+  const handleChange = (e: SelectChangeEvent<string>) => {
+    console.log(e.target.value);
     setStatus(e.target.value);
+    handleUpdate(e.target.value);
+  };
 
   const editClick = () => {
     console.log("hdfhas");
@@ -140,9 +159,9 @@ const SprintTaskRow = ({ issue }) => {
             </Typography>
             <EditIcon
               className="edit-icon"
-              onClick={(event)=>{
-                event.stopPropagation()
-                editClick()
+              onClick={(event) => {
+                event.stopPropagation();
+                editClick();
               }}
               sx={{
                 visibility: "hidden",
@@ -169,15 +188,15 @@ const SprintTaskRow = ({ issue }) => {
                 sx={{ fontSize: "0.75rem", padding: "4px" }}
                 disableUnderline
               >
-                <MenuItem value="Todo" sx={{ fontSize: "0.75rem" }}>
-                  TODO
-                </MenuItem>
-                <MenuItem value="In Progress" sx={{ fontSize: "0.75rem" }}>
-                  IN PROGRESS
-                </MenuItem>
-                <MenuItem value="Done" sx={{ fontSize: "0.75rem" }}>
-                  DONE
-                </MenuItem>
+                {sprintColumns.map((column, index) => (
+                  <MenuItem
+                    key={index}
+                    value={column}
+                    sx={{ fontSize: "0.75rem" }}
+                  >
+                    {column.toUpperCase()}
+                  </MenuItem>
+                ))}
               </Select>
             </FormControl>
             <Button

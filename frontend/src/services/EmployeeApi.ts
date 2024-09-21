@@ -59,11 +59,11 @@ export const deleteIssue = async(issueId:number)=>{
   return await employeeAxiosInstance.delete('/projects/sprints/issues/'+issueId)
 }
 
-export const updateIssueStatus = async (status:string, issue_id:number)=>{
-  return await employeeAxiosInstance.put(`/projects/sprints/issues/${issue_id}/update-age`, {status})
+export const updateIssueStatus = async (status:string, issue_id?:number)=>{
+  return await employeeAxiosInstance.patch(`/projects/sprints/issues/${issue_id}/update-status`, {status})
 }
 
-export const updateIssueName = async (issueName:string, issue_id:number)=>{
+export const updateIssueName = async (issueName:string, issue_id?:number)=>{
   return await employeeAxiosInstance.patch(`/projects/sprints/issues/${issue_id}/update-name`, {issueName})
 }
 

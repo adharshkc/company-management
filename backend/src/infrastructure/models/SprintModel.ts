@@ -28,7 +28,7 @@ class SprintModel extends Model {
 
   @AllowNull(false)
   @NotEmpty
-  @Column({ type: DataType.STRING(100), allowNull: false})
+  @Column({ type: DataType.STRING(100), allowNull: false })
   name!: string;
 
   @AllowNull(true)
@@ -43,8 +43,20 @@ class SprintModel extends Model {
 
   @AllowNull(false)
   @NotEmpty
-  @Column({ type: DataType.ENUM("start", "completed", "pending"),defaultValue:"start", allowNull: false })
-  status!: 'start'|'completed'|'pending';
+  @Column({
+    type: DataType.ENUM("start", "completed", "pending"),
+    defaultValue: "start",
+    allowNull: false,
+  })
+  status!: "start" | "completed" | "pending";
+
+  @AllowNull(false)
+  @NotEmpty
+  @Column({
+    type: DataType.ARRAY(DataType.STRING),
+    defaultValue: ["Todo", "In Progress", "Done"],
+  })
+  columns!: string[];
 
   @ForeignKey(() => ProjectModel)
   @AllowNull(false)
@@ -54,11 +66,11 @@ class SprintModel extends Model {
   @BelongsTo(() => ProjectModel)
   project!: ProjectModel;
 
-  @HasMany(()=>IssueModel)
-  issues!:IssueModel[]
+  @HasMany(() => IssueModel)
+  issues!: IssueModel[];
 
-  @HasMany(()=>CommentModel)
-  comments!:CommentModel[]
+  @HasMany(() => CommentModel)
+  comments!: CommentModel[];
 }
 
 export default SprintModel;

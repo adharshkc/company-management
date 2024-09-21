@@ -104,9 +104,20 @@ export type Sprint = {
   name: string;
   startDate?: Date|string;
   endDate?: Date|string;
+  columns:string[],
   status?: 'start'|'completed'|'pending';
   sprint_id: number;
   project_id?: number;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   issues?:any[]
+}
+
+export type Issue ={
+  name: string;
+  status: string;
+  sprint_id:number
+  description?: string;
+  issue_id?: number ;
+  assignee?:string
+  assignee_id?:number
 }
