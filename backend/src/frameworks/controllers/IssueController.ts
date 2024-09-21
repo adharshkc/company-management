@@ -23,7 +23,7 @@ export class IssueController {
         name,
         sprintId
       );
-      return res.status(status).json(data);
+        return res.status(status).json(data);
     } catch (error) {
       console.log(error);
       next(error);
@@ -36,10 +36,7 @@ export class IssueController {
       console.log(sprintId);
       const { status, data } = await this.getIssueUsecase.execute(sprintId);
       console.log(data.issues.length)
-      setTimeout(()=>{
         return res.status(status).json(data);
-
-      }, 5000)
     } catch (error) {
       next(error);
     }

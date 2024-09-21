@@ -29,9 +29,7 @@ class IssueController {
             console.log(sprintId);
             const { status, data } = await this.getIssueUsecase.execute(sprintId);
             console.log(data.issues.length);
-            setTimeout(() => {
-                return res.status(status).json(data);
-            }, 5000);
+            return res.status(status).json(data);
         }
         catch (error) {
             next(error);

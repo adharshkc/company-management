@@ -24,4 +24,11 @@ export default defineConfig({
       '@components': path.resolve(__dirname, 'src/components'),
     },
   },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        api: 'modern-compiler' // or "modern"
+      }
+    }
+  }
 });

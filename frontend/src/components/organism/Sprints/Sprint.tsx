@@ -4,7 +4,7 @@ import NewSprintRow from "@components/molecules/NewSprintRow";
 import EditIcon from "@mui/icons-material/Edit";
 import SprintTaskRow from "@components/molecules/SprintTaskRow";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import { Box, Button, Typography, Skeleton } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
 import SprintForm from "../Form/SprintForm";
 import { Dayjs } from "dayjs";
@@ -15,6 +15,7 @@ import DeleteSprint from "@components/molecules/DeleteSprint";
 import { createIssue, getIssue } from "../../../services/EmployeeApi";
 import { Sprint as SprintType } from "types/types";
 import IssueSkeleton from "../Skeleton/IssueSkeleton";
+import { PulseLoader} from "react-spinners"
 
 type SprintProps = {
   sprint: SprintType;
@@ -25,11 +26,11 @@ const Sprint: React.FC<SprintProps> = ({ sprint }) => {
   const [newIssue, setNewIssue] = useState(false);
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true)
+  const [issueLoading, setIssueLoading] = useState<boolean>(false)
   const [openMenu, setOpenMenu] = useState<boolean>(false);
   const [deleteModal, setDeleteModal] = useState<boolean>(false);
   // const { data:issues } = useIssueFetch(sprint.sprint_id);
   const [issues, setIssues] = useState([])
-  console.log("iss",sprint.sprint_id,issues)
   const { mutate: updateSprint } = useUpdateSprint();
   const {mutate: sprintDelete} = useDeleteSprint()
   const optionsRef = useRef<HTMLDivElement>(null);
@@ -54,8 +55,9 @@ const Sprint: React.FC<SprintProps> = ({ sprint }) => {
 
   useEffect(() => {
     buttonDisable();
-  }, [sprint?.issues]);
+  }, [issues]);
 
+  // const handleBackdropClose=()=>{setIssueLoading(false)}
   const updateSprintHandler = async (
     name: string,
     startDate: Date | undefined,
@@ -70,24 +72,26 @@ const Sprint: React.FC<SprintProps> = ({ sprint }) => {
     
   };
 const fetchIssue = async()=>{
-  setLoading(true)
   const response = await getIssue(sprint.sprint_id)
+  console.log(response.data.issues)
   setIssues(response.data.issues)
   setLoading(false)
+  setIssueLoading(false)
 }
-  useEffect(() => {
-    fetchIssue()
+useEffect(() => {
+  fetchIssue()
   },[]);
 
   const addIssue = async (issueName: string) => {
+    setIssueLoading(true)
     const response = await createIssue(issueName, sprint.sprint_id);
     if (response?.status == 200) {
-      // fetchSprints();
+      fetchIssue()
       setNewIssue(false);
     }
   };
 
-  const buttonDisable = () => setStartButton(sprint?.issues?.length === 0);
+  const buttonDisable = () => setStartButton(issues?.length === 0);
   const handleClick = () => setNewIssue(true);
   const handleModal = (bool: boolean) => setOpenModal(bool);
   const handleMenuOpen = () => setOpenMenu(true);
@@ -95,6 +99,11 @@ const fetchIssue = async()=>{
   
   return (
     <>
+     {/* <Dialog open={issueLoading}> */}
+{/* <DialogContent> */}
+
+    {/* </DialogContent> */}
+    {/* </Dialog> */}
       <Box
         sx={{
           backgroundColor: "#f7f8f9",
@@ -102,22 +111,26 @@ const fetchIssue = async()=>{
           padding: 1,
           marginTop: 2,
         }}
-      >
+        >
+        
         <Box sx={{ display: "flex", justifyContent: "space-between" }}>
           <Box sx={{ display: "flex", alignItems: "center", paddingX: 3 }}>
-            <Skeleton/>
+            {/* {issueLoading&& */}
+            
+             
+            {/* } */}
             {openModal && (
               <SprintForm
-                sprintName={sprint.name}
-                sprintStartDate={sprint.startDate}
-                sprintEndDate={sprint.endDate}
+              sprintName={sprint.name}
+              sprintStartDate={sprint.startDate}
+              sprintEndDate={sprint.endDate}
                 updateSprint={updateSprintHandler}
                 openModal={handleModal}
               />
             )}
             {deleteModal && (
               <DeleteSprint
-                totalIssues={sprint?.issues?.length}
+                totalIssues={issues?.length}
                 deleteModal={handleDeleteModal}
                 deleteSprintHandler={deleteSprintHandler}
               />
@@ -159,10 +172,18 @@ const fetchIssue = async()=>{
               variant="caption"
               sx={{ marginX: 1, marginTop: "2.5px", color: "#172B4D" }}
             >
-              (0 Issues)
+              ({issues?.length} Issues)
             </Typography>
+            <PulseLoader size={9} loading={issueLoading} color="#94a5ff"cssOverride={{ position: 'relative',
+          // top: '50%',
+          // left: '50%',       
+          // transform: 'translate(-50%, -50%)', 
+          // zIndex: 9999, 
+          
+        }}/>
           </Box>
-          <Box>
+          <Box >
+         
             <Button
               disabled={startButton}
               sx={{
@@ -203,7 +224,7 @@ const fetchIssue = async()=>{
             
           </Box>
           }
-        {(!sprint.issues||sprint?.issues.length === 0) ? (
+        {(!issues||issues?.length === 0) ? (
           <NewSprintRow />
         ) : (
           <Box
@@ -255,7 +276,6 @@ const fetchIssue = async()=>{
           
         )}
       </Box>
-
     </>
   );
 };
