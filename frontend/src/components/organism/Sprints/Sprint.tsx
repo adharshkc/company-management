@@ -4,7 +4,7 @@ import NewSprintRow from "@components/molecules/NewSprintRow";
 import EditIcon from "@mui/icons-material/Edit";
 import SprintTaskRow from "@components/molecules/SprintTaskRow";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, Dialog, Typography } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
 import SprintForm from "../Form/SprintForm";
 import { Dayjs } from "dayjs";
@@ -16,6 +16,8 @@ import { createIssue, getIssue } from "../../../services/EmployeeApi";
 import { Sprint as SprintType } from "types/types";
 import IssueSkeleton from "../Skeleton/IssueSkeleton";
 import { PulseLoader } from "react-spinners";
+import { useIssueStore } from "../../../zustand/IssueStore";
+import IssueDetails from "../Issues/IssueDetails";
 
 type SprintProps = {
   sprint: SprintType;
@@ -31,8 +33,10 @@ const Sprint: React.FC<SprintProps> = ({ sprint }) => {
   const [deleteModal, setDeleteModal] = useState<boolean>(false);
   // const { data:issues } = useIssueFetch(sprint.sprint_id);
   const [issues, setIssues] = useState([]);
+  const { isFetchIssue, setFetchIssue } = useIssueStore();
   const { mutate: updateSprint } = useUpdateSprint();
   const { mutate: sprintDelete } = useDeleteSprint();
+  const { isModalIssue } = useIssueStore();
   const optionsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -54,6 +58,7 @@ const Sprint: React.FC<SprintProps> = ({ sprint }) => {
   const endDay = useMonthAndDay(sprint?.endDate);
 
   useEffect(() => {
+    const buttonDisable = () => setStartButton(issues?.length === 0);
     buttonDisable();
   }, [issues]);
 
@@ -63,20 +68,28 @@ const Sprint: React.FC<SprintProps> = ({ sprint }) => {
     startDate: Date | undefined,
     endDate: Dayjs | Date | null | undefined
   ) => {
-    updateSprint({ name, startDate, endDate, sprint_id: sprint.sprint_id });
+    updateSprint({ name, startDate, endDate, sprint_id: sprint?.sprint_id });
     setOpenModal(false);
   };
 
   const deleteSprintHandler = async () => {
-    sprintDelete(sprint.sprint_id);
+    sprintDelete(sprint?.sprint_id);
   };
   const fetchIssue = async () => {
-    const response = await getIssue(sprint.sprint_id);
+    const response = await getIssue(sprint?.sprint_id);
+    console.log(response)
     setIssues(response.data.issues);
     setLoading(false);
     setIssueLoading(false);
   };
+
+  if (isFetchIssue === true) {
+    fetchIssue();
+    setFetchIssue(false);
+  }
+  
   useEffect(() => {
+    console.log("dhdf");
     fetchIssue();
   }, []);
 
@@ -89,7 +102,6 @@ const Sprint: React.FC<SprintProps> = ({ sprint }) => {
     }
   };
 
-  const buttonDisable = () => setStartButton(issues?.length === 0);
   const handleClick = () => setNewIssue(true);
   const handleModal = (bool: boolean) => setOpenModal(bool);
   const handleMenuOpen = () => setOpenMenu(true);
@@ -97,6 +109,21 @@ const Sprint: React.FC<SprintProps> = ({ sprint }) => {
 
   return (
     <>
+    <Dialog
+        open={isModalIssue}
+        slotProps={{
+          backdrop: {
+            style: {
+              width: "auto",
+              backdropFilter: "blur(0px)",
+              backgroundColor: "rgba(0, 0, 0, 0.3)",
+              opacity:0.5
+            },
+          },
+        }}
+      >
+        <IssueDetails />
+      </Dialog>
       <Box
         sx={{
           backgroundColor: "#f7f8f9",

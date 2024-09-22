@@ -52,6 +52,10 @@ const SprintTaskRow: React.FC<SprintTaskRowProps> = ({
       status: issue.status,
       assignee_id: issue.assignee_id,
       description: issue.description,
+      sprint_id: issue.sprint_id,
+      columns: sprintColumns,
+      sprint: { name: issue.sprint.name },
+      assignee: { name: issue?.assignee?.name },
     });
   };
   const handleUpdate = async (issueStatus: string) => {

@@ -66,5 +66,10 @@ projectRouter.patch(
   verifyEmployeeAccessToken,
   issueController.updateStatus.bind(issueController)
 );
+projectRouter.patch(
+  "/sprints/issues/:issueId/update-description",
+  verifyEmployeeAccessToken,
+  issueController.updateDescription.bind(issueController)
+);
 
 export default projectRouter;

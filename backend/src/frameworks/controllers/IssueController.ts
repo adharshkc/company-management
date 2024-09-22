@@ -4,6 +4,7 @@ import {
 } from "@application/use-cases/issues";
 import { CreateIssueUsecase } from "@application/use-cases/issues/CreateIssueUsecase";
 import { GetIssueUsecase } from "@application/use-cases/issues/GetIssueUsecase";
+import { UpdateDescriptionUsecase } from "@application/use-cases/issues/UpdateDescriptionUsecase";
 import { NextFunction, Request, Response } from "express";
 
 export class IssueController {
@@ -11,7 +12,8 @@ export class IssueController {
     private createIssueUsecase: CreateIssueUsecase,
     private getIssueUsecase: GetIssueUsecase,
     private updateNameUsecase: UpdateNameUsecase,
-    private updateStatusUsecase: UpdateStatusUsecase
+    private updateStatusUsecase: UpdateStatusUsecase,
+    private updateDescriptionUsecase:UpdateDescriptionUsecase
   ) {}
   async createIssue(req: Request, res: Response, next: NextFunction) {
     try {
@@ -68,6 +70,22 @@ export class IssueController {
       return res.status(status).json(data);
     } catch (error) {
       next(error);
+    }
+  }
+  
+  async updateDescription (req:Request, res:Response, next:NextFunction) {
+    try {
+      const issueDescription = req.body.description
+      console.log(issueDescription)
+      const issue_id = req.params.issueId;
+      const { status, data } = await this.updateDescriptionUsecase.execute(
+        issueDescription,
+        issue_id
+      );
+      return res.status(status).json(data);
+      
+    } catch (error) {
+      
     }
   }
 }

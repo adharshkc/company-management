@@ -22,4 +22,5 @@ projectRouter.get("/sprints/:sprintId/issues", employeeMiddleware_1.verifyEmploy
 projectRouter.get("/sprints/:sprintId/issues");
 projectRouter.patch("/sprints/issues/:issueId/update-name", employeeMiddleware_1.verifyEmployeeAccessToken, issueDi_1.issueController.updateName.bind(issueDi_1.issueController));
 projectRouter.patch("/sprints/issues/:issueId/update-status", employeeMiddleware_1.verifyEmployeeAccessToken, issueDi_1.issueController.updateStatus.bind(issueDi_1.issueController));
+projectRouter.patch("/sprints/issues/:issueId/update-description", employeeMiddleware_1.verifyEmployeeAccessToken, issueDi_1.issueController.updateDescription.bind(issueDi_1.issueController));
 exports.default = projectRouter;

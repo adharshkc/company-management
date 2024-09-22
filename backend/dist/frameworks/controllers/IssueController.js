@@ -2,11 +2,12 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.IssueController = void 0;
 class IssueController {
-    constructor(createIssueUsecase, getIssueUsecase, updateNameUsecase, updateStatusUsecase) {
+    constructor(createIssueUsecase, getIssueUsecase, updateNameUsecase, updateStatusUsecase, updateDescriptionUsecase) {
         this.createIssueUsecase = createIssueUsecase;
         this.getIssueUsecase = getIssueUsecase;
         this.updateNameUsecase = updateNameUsecase;
         this.updateStatusUsecase = updateStatusUsecase;
+        this.updateDescriptionUsecase = updateDescriptionUsecase;
     }
     async createIssue(req, res, next) {
         try {
@@ -57,6 +58,17 @@ class IssueController {
         }
         catch (error) {
             next(error);
+        }
+    }
+    async updateDescription(req, res, next) {
+        try {
+            const issueDescription = req.body.description;
+            console.log(issueDescription);
+            const issue_id = req.params.issueId;
+            const { status, data } = await this.updateDescriptionUsecase.execute(issueDescription, issue_id);
+            return res.status(status).json(data);
+        }
+        catch (error) {
         }
     }
 }

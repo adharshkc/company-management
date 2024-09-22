@@ -39,21 +39,6 @@ const BacklogTemplate = () => {
   }
   return (
     <>
-      <Dialog
-        open={isModalIssue}
-        slotProps={{
-          backdrop: {
-            style: {
-              width: "auto",
-              backdropFilter: "blur(0px)",
-              backgroundColor: "rgba(0, 0, 0, 0.3)",
-            },
-          },
-        }}
-      >
-        <IssueDetails />
-      </Dialog>
-
       <div className={style.bodyPart}>
         <div className={style.header}>
           <Header header1="Home" header2="Backlog" />

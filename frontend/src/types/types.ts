@@ -45,16 +45,16 @@ export type HrDetails = {
 };
 
 export type EmployeeDetail = {
-  name:string
-  email:string
-  phone:string|number
-  team?:string
-  startDate?: Date | undefined
-  role:string
-  joiningDate?:Date|undefined
-  user_id?:number|null
-  employee_id?:number|null
-}
+  name: string;
+  email: string;
+  phone: string | number;
+  team?: string;
+  startDate?: Date | undefined;
+  role: string;
+  joiningDate?: Date | undefined;
+  user_id?: number | null;
+  employee_id?: number | null;
+};
 
 export type Otp = {
   email: string | null;
@@ -86,38 +86,43 @@ export type SideLayout = {
   lightIcon: string;
 };
 
-
 export type HrType = {
-  name:string
-  email:string
-  phone:string
-  hr_id:number
-  user_id:number
-}
+  name: string;
+  email: string;
+  phone: string;
+  hr_id: number;
+  user_id: number;
+};
 
 export type TeamType = {
-  name:string
-  team_id?:number
-}
+  name: string;
+  team_id?: number;
+};
 
 export type Sprint = {
   name: string;
-  startDate?: Date|string;
-  endDate?: Date|string;
-  columns:string[],
-  status?: 'start'|'completed'|'pending';
+  startDate?: Date | string;
+  endDate?: Date | string;
+  columns: string[];
+  status?: "start" | "completed" | "pending";
   sprint_id: number;
+
   project_id?: number;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  issues?:any[]
-}
+  issues?: any[];
+};
 
-export type Issue ={
+export type Issue = {
   name: string;
   status: string;
-  sprint_id:number
+  sprint_id?: number;
   description?: string;
-  issue_id?: number ;
-  assignee?:string
-  assignee_id?:number
-}
+  issue_id?: number;
+  assignee_id?: number;
+  sprint: {
+    name: string;
+  };
+  assignee: {
+    name?: string | null;
+  } | null;
+};

@@ -1,69 +1,97 @@
 import CloseIcon from "@mui/icons-material/Close";
 import style from "../../styles/issueDetail.module.scss";
-import {
-  FormControl,
-  MenuItem,
-  Select,
-  SelectChangeEvent,
-  TextField,
-} from "@mui/material";
+import { Snackbar, SnackbarCloseReason, TextField } from "@mui/material";
 import { useState } from "react";
 import { useIssueStore } from "../../../zustand/IssueStore";
 import CallToActionOutlinedIcon from "@mui/icons-material/CallToActionOutlined";
 import NotesOutlinedIcon from "@mui/icons-material/NotesOutlined";
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import IosShareOutlinedIcon from "@mui/icons-material/IosShareOutlined";
+import {
+  updateIssueDescription,
+  updateIssueName,
+} from "../../../services/EmployeeApi";
 
 const IssueDetails = () => {
-  const { issues, setIsModalIssue } = useIssueStore();
-
-  console.log(issues);
+  const { issues, setIsModalIssue, setFetchIssue } = useIssueStore();
   const [input, setInput] = useState(issues.name);
-  const [selectInput, setSelectInput] = useState("Todo");
+  const [description, setDescription] = useState<string | undefined>(
+    issues?.description
+  );
+  const [descError, setDescError] = useState<boolean>(false)
+  const [descButton, setDescButton] = useState<boolean>(false)
+  // const [selectInput, setSelectInput] = useState(issues.status);
   const handleIssue = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(input);
+    updateIssueName(input, issues.issue_id);
   };
   const handleClose = () => {
+    setFetchIssue(true);
     setIsModalIssue(false);
   };
-  const handleSelectChange = (e: SelectChangeEvent<string>) => {
-    setSelectInput(e.target.value);
+
+  const handleDescription = () => {
+    if(!description?.trim())return setDescError(true)
+    updateIssueDescription(description, issues.issue_id);
+  setDescButton(false)
   };
+  const handleSnackClose = (
+    event: React.SyntheticEvent | Event,
+    reason?: SnackbarCloseReason
+  ) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setDescError(false);
+  };
+
+  // const handleSelectChange =async (e: SelectChangeEvent<string>) => {
+  //   try {
+  //     const response = await updateIssueStatus(e.target.value, issues.issue_id)
+  //    if(response.status==200){
+  //      setSelectInput(e.target.value);
+  //    }
+  // } catch (error) {
+  //   console.log(error)
+  // }
+
+  // };
   return (
-    <div style={{width:"500px"}}>
+    <div style={{ width: "500px" }}>
       <div className={style.header}>
         <div className={style.headerIcon}>
           <CallToActionOutlinedIcon />
-        <form onSubmit={handleIssue}>
-          <TextField
-            // fullWidth
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            // variant="outlined"
-            sx={{
-              marginLeft: 2,
-              "&:hover": { backgroundColor: "#F1F2F4" },
-              "& .MuiOutlinedInput-root": {
-                "& fieldset": {
-                  border: "none",
+          <form onSubmit={handleIssue}>
+            <TextField
+              // fullWidth
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              // variant="outlined"
+              sx={{
+                marginLeft: 2,
+                "&:hover": { backgroundColor: "#F1F2F4" },
+                "& .MuiOutlinedInput-root": {
+                  "& fieldset": {
+                    border: "none",
+                  },
+                  "&:hover fieldset": {
+                    border: "none",
+                  },
+                  "&.Mui-focused fieldset": {
+                    border: "none",
+                  },
                 },
-                "&:hover fieldset": {
+                "& .MuiInputBase-input": {
                   border: "none",
+                  padding: "0 0",
+                  fontSize: "16px",
+                  fontWeight: "600",
                 },
-                "&.Mui-focused fieldset": {
-                  border: "none",
-                },
-              },
-              "& .MuiInputBase-input": {
-                border: "none",
-                padding: "0 0",
-                fontSize: "16px",
-                fontWeight: "600",
-              },
-            }}
-          />
-        </form>
+              }}
+            />
+          </form>
         </div>
         <div>
           <CloseIcon className={style.closeIcon} onClick={handleClose} />
@@ -89,38 +117,16 @@ const IssueDetails = () => {
 
           <div className={style.detailRow}>
             <span className={style.detailLabel}>Status</span>
-            <FormControl
-              className={style.detailValue}
-              variant="standard"
-              size="small"
-              style={{}}
-            >
-              <Select
-                value={selectInput}
-                onChange={handleSelectChange}
-                sx={{ fontSize: "0.75rem", width: "60%" }}
-                disableUnderline
-              >
-                <MenuItem value="Todo" sx={{ fontSize: "0.75rem" }}>
-                  TODO
-                </MenuItem>
-                <MenuItem value="In Progress" sx={{ fontSize: "0.75rem" }}>
-                  IN PROGRESS
-                </MenuItem>
-                <MenuItem value="Done" sx={{ fontSize: "0.75rem" }}>
-                  DONE
-                </MenuItem>
-              </Select>
-            </FormControl>
+            <span className={style.detailValue}>{issues.status}</span>
           </div>
           <div className={style.detailRow}>
             <span className={style.detailLabel}>Sprint</span>
-            <span className={style.detailValue}>SP Sprint asdf</span>
+            <span className={style.detailValue}>{issues.sprint?.name}</span>
           </div>
-          <div className={style.detailRow}>
+          {/* <div className={style.detailRow}>
             <span className={style.detailLabel}>Team</span>
             <span className={style.detailValue}>None</span>
-          </div>
+          </div> */}
         </div>
       </div>
       <div className={style.Descriptionheader}>
@@ -129,32 +135,41 @@ const IssueDetails = () => {
         </div>
         <div className={style.description}>
           <span className={style.descriptionDetailLabel}>Description</span>
-          <TextField
-            multiline
-            placeholder="Add a more detailed Description..."
-            sx={{
-              marginTop: 1,
-              "& .MuiInputBase-input": {
-                border: "none",
-                padding: "none",
-                fontSize: "14px",
-              },
-              "& .MuiInputBase-root": {
-                padding: "10px",
-              },
-            }}
-          />
+          <div  onClick={()=>setDescButton(true)}>
+            <TextField
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              multiline
+              placeholder="Add a more detailed Description..."
+              sx={{
+                marginTop: 1,
+                "& .MuiInputBase-input": {
+                  border: "none",
+                  padding: "none",
+                  fontSize: "14px",
+                },
+                "& .MuiInputBase-root": {
+                  padding: "10px",
+                },
+              }}
+            />
+          </div>
+          {descButton&&
+          <div className={style.descriptionButton}>
+            <button className={style.saveButton} onClick={handleDescription}>save</button>
+            <button className={style.cancelButton} onClick={()=>setDescButton(false)}>cancel</button>
+          </div>
+          }
         </div>
       </div>
       <div className={style.activityHeader}>
         <div className={style.act}>
-
-        <div className={style.sideIcon}>
-          <TimelineOutlinedIcon fontSize="medium" />
-        </div>
-        <div className={style.description}>
-          <span className={style.descriptionDetailLabel}>Activity</span>
-        </div>
+          <div className={style.sideIcon}>
+            <TimelineOutlinedIcon fontSize="medium" />
+          </div>
+          <div className={style.description}>
+            <span className={style.descriptionDetailLabel}>Activity</span>
+          </div>
         </div>
         <div className={style.actButton}>
           <button>Show Details</button>
@@ -180,24 +195,31 @@ const IssueDetails = () => {
       <div className={style.commentHeader}>
         <div className={style.avatars}>AC</div>
         <div>
-
-        <h4 className={style.commentName}>Adharsh <span>4 sept 2026</span></h4 >
-        <div className={style.commentNameBox}>
-          <h3 className={style.commentBody}>hello</h3>
-        </div>
+          <h4 className={style.commentName}>
+            Adharsh <span>4 sept 2026</span>
+          </h4>
+          <div className={style.commentNameBox}>
+            <h3 className={style.commentBody}>hello</h3>
+          </div>
         </div>
       </div>
       <div className={style.commentHeader}>
         <div className={style.avatars}>AC</div>
         <div>
-
-        <h4 className={style.commentName}>Adharsh <span>4 sept 2026</span></h4 >
-        <div className={style.commentNameBox}>
-          <h3 className={style.commentBody}>hello</h3>
-        </div>
+          <h4 className={style.commentName}>
+            Adharsh <span>4 sept 2026</span>
+          </h4>
+          <div className={style.commentNameBox}>
+            <h3 className={style.commentBody}>hello</h3>
+          </div>
         </div>
       </div>
-     
+      <Snackbar
+        open={descError}
+        onClose={handleSnackClose}
+        autoHideDuration={3000}
+        message={"Please add the description"}
+      />
     </div>
   );
 };
