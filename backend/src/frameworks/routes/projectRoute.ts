@@ -18,7 +18,11 @@ projectRouter.post(
   projectController.createProject.bind(projectController)
 );
 
-projectRouter.get("/single", verifyEmployeeAccessToken, projectController.getProjectByTeamId.bind(projectController))
+projectRouter.get(
+  "/single",
+  verifyEmployeeAccessToken,
+  projectController.getProjectByTeamId.bind(projectController)
+);
 
 //Sprint
 projectRouter.get(
@@ -40,6 +44,12 @@ projectRouter.delete(
   "/sprints/:id",
   verifyEmployeeAccessToken,
   sprintController.sprintDelete.bind(sprintController)
+);
+
+projectRouter.get(
+  "/:projectId/sprints/started",
+  verifyEmployeeAccessToken,
+  sprintController.getStartedSprints.bind(sprintController)
 );
 
 //issues

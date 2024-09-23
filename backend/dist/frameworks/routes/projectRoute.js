@@ -16,6 +16,7 @@ projectRouter.get("/:projectId/sprints", employeeMiddleware_1.verifyEmployeeAcce
 projectRouter.post("/:projectId/sprints/", employeeMiddleware_1.verifyEmployeeAccessToken, sprintDI_1.sprintController.createSprint.bind(sprintDI_1.sprintController));
 projectRouter.put("/sprints/", employeeMiddleware_1.verifyEmployeeAccessToken, sprintDI_1.sprintController.sprintUpdate.bind(sprintDI_1.sprintController));
 projectRouter.delete("/sprints/:id", employeeMiddleware_1.verifyEmployeeAccessToken, sprintDI_1.sprintController.sprintDelete.bind(sprintDI_1.sprintController));
+projectRouter.get("/:projectId/sprints/started", employeeMiddleware_1.verifyEmployeeAccessToken, sprintDI_1.sprintController.getStartedSprints.bind(sprintDI_1.sprintController));
 //issues
 projectRouter.post("/sprints/issues/", employeeMiddleware_1.verifyEmployeeAccessToken, issueDi_1.issueController.createIssue.bind(issueDi_1.issueController));
 projectRouter.get("/sprints/:sprintId/issues", employeeMiddleware_1.verifyEmployeeAccessToken, issueDi_1.issueController.getIssues.bind(issueDi_1.issueController));

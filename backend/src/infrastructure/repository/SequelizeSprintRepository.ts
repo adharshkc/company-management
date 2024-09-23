@@ -110,4 +110,16 @@ export class SequelizeSprintRepository implements SprintRepository {
       throw new Error("Error deleting Sprint");
     }
   }
+
+  async getStartedSprints(project_id: number): Promise<any> {
+      try {
+        const sprints = await SprintModel.findAll({
+          where:{project_id:project_id, status:"pending"}
+        })
+
+        return sprints
+      } catch (error:any) {
+        throw new Error( error);
+      }
+  }
 }

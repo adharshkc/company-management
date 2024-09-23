@@ -1,6 +1,7 @@
 import { AddSprintUsecase } from "@application/use-cases/sprint/AddSprintUsecase";
 import { DeleteSprintUsecase } from "@application/use-cases/sprint/DeleteSprintUsecase";
 import { GetSprintUsecase } from "@application/use-cases/sprint/GetSprintUsecase";
+import { GetStartedSprintUsecase } from "@application/use-cases/sprint/GetStartedSprintUsecase";
 import { UpdateSprintUsecase } from "@application/use-cases/sprint/UpdateSprintUsecase";
 import { NextFunction, Request, Response } from "express";
 
@@ -9,7 +10,8 @@ export class SprintController {
     private addSprint: AddSprintUsecase,
     private getSprint: GetSprintUsecase,
     private updateSprint: UpdateSprintUsecase,
-    private deleteSprint: DeleteSprintUsecase
+    private deleteSprint: DeleteSprintUsecase,
+    private getAllStartedSprints : GetStartedSprintUsecase,
   ) {}
 
   async createSprint(req: Request, res: Response, next: NextFunction) {
@@ -35,6 +37,16 @@ export class SprintController {
       const project_id = req.params.projectId
       const { status, data } = await this.getSprint.execute(parseInt(project_id));
       console.log("data", data)
+      res.status(status).json(data);
+    } catch (error) {
+      console.log(error);
+      next(error);
+    }
+  }
+  async getStartedSprints(req: Request, res: Response, next: NextFunction) {
+    try {
+      const project_id = req.params.projectId
+      const { status, data } = await this.getAllStartedSprints.execute(parseInt(project_id));
       res.status(status).json(data);
     } catch (error) {
       console.log(error);

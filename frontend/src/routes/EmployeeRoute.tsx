@@ -5,6 +5,7 @@ import EmployeeProtectedRoute from "./EmployeeProtectedRoutes"
 import Dashboard from "../pages/employees/Dashboard"
 import EmployeeLayout from "../layouts/EmployeeLayout"
 import Backlog from "../pages/employees/Backlog"
+import Board from "../pages/employees/Board"
 
 
 
@@ -19,6 +20,7 @@ const EmployeeRoute = function(){
             
                 <Route path="/" element={<Dashboard/>}/>
                 <Route path="/backlogs" element={<Backlog/>}/>
+                <Route path="/board" element={<Board/>}/>
             </Route>
             </Route>
         </Routes>

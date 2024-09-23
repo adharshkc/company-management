@@ -106,5 +106,16 @@ class SequelizeSprintRepository {
             throw new Error("Error deleting Sprint");
         }
     }
+    async getStartedSprints(project_id) {
+        try {
+            const sprints = await SprintModel_1.default.findAll({
+                where: { project_id: project_id, status: "pending" }
+            });
+            return sprints;
+        }
+        catch (error) {
+            throw new Error(error);
+        }
+    }
 }
 exports.SequelizeSprintRepository = SequelizeSprintRepository;

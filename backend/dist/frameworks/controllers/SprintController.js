@@ -2,11 +2,12 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SprintController = void 0;
 class SprintController {
-    constructor(addSprint, getSprint, updateSprint, deleteSprint) {
+    constructor(addSprint, getSprint, updateSprint, deleteSprint, getAllStartedSprints) {
         this.addSprint = addSprint;
         this.getSprint = getSprint;
         this.updateSprint = updateSprint;
         this.deleteSprint = deleteSprint;
+        this.getAllStartedSprints = getAllStartedSprints;
     }
     async createSprint(req, res, next) {
         try {
@@ -31,6 +32,17 @@ class SprintController {
             const project_id = req.params.projectId;
             const { status, data } = await this.getSprint.execute(parseInt(project_id));
             console.log("data", data);
+            res.status(status).json(data);
+        }
+        catch (error) {
+            console.log(error);
+            next(error);
+        }
+    }
+    async getStartedSprints(req, res, next) {
+        try {
+            const project_id = req.params.projectId;
+            const { status, data } = await this.getAllStartedSprints.execute(parseInt(project_id));
             res.status(status).json(data);
         }
         catch (error) {

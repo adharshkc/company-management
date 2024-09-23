@@ -4,7 +4,7 @@ import NewSprintRow from "@components/molecules/NewSprintRow";
 import EditIcon from "@mui/icons-material/Edit";
 import SprintTaskRow from "@components/molecules/SprintTaskRow";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import { Box, Button, Dialog, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
 import SprintForm from "../Form/SprintForm";
 import { Dayjs } from "dayjs";
@@ -17,7 +17,6 @@ import { Sprint as SprintType } from "types/types";
 import IssueSkeleton from "../Skeleton/IssueSkeleton";
 import { PulseLoader } from "react-spinners";
 import { useIssueStore } from "../../../zustand/IssueStore";
-import IssueDetails from "../Issues/IssueDetails";
 
 type SprintProps = {
   sprint: SprintType;
@@ -31,12 +30,10 @@ const Sprint: React.FC<SprintProps> = ({ sprint }) => {
   const [issueLoading, setIssueLoading] = useState<boolean>(false);
   const [openMenu, setOpenMenu] = useState<boolean>(false);
   const [deleteModal, setDeleteModal] = useState<boolean>(false);
-  // const { data:issues } = useIssueFetch(sprint.sprint_id);
   const [issues, setIssues] = useState([]);
   const { isFetchIssue, setFetchIssue } = useIssueStore();
   const { mutate: updateSprint } = useUpdateSprint();
   const { mutate: sprintDelete } = useDeleteSprint();
-  const { isModalIssue } = useIssueStore();
   const optionsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -87,7 +84,7 @@ const Sprint: React.FC<SprintProps> = ({ sprint }) => {
     fetchIssue();
     setFetchIssue(false);
   }
-  
+
   useEffect(() => {
     console.log("dhdf");
     fetchIssue();
@@ -109,7 +106,7 @@ const Sprint: React.FC<SprintProps> = ({ sprint }) => {
 
   return (
     <>
-    <Dialog
+    {/* <Dialog
         open={isModalIssue}
         slotProps={{
           backdrop: {
@@ -123,7 +120,7 @@ const Sprint: React.FC<SprintProps> = ({ sprint }) => {
         }}
       >
         <IssueDetails />
-      </Dialog>
+      </Dialog> */}
       <Box
         sx={{
           backgroundColor: "#f7f8f9",

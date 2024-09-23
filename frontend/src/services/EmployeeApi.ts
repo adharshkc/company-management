@@ -18,6 +18,13 @@ export const getSprints = async (project_id: string | null) => {
   return await employeeAxiosInstance.get(`/projects/${project_id}/sprints`);
 };
 
+export const getSingleSprint = async (sprint_id:number)=>{
+  return await employeeAxiosInstance.get(`/projects/sprints/${sprint_id}`)
+}
+export const getStartedSprints = async (project_id: string | null)=>{
+  return await employeeAxiosInstance.get(`/projects/${project_id}/sprints/started`)
+}
+
 export const createSprint = async (name: string, project_id: string | null) => {
   return await employeeAxiosInstance.post(`/projects/${project_id}/sprints/`, {
     name,

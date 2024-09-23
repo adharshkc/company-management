@@ -3,6 +3,7 @@ import {
   createSprint,
   deleteSprint,
   getSprints,
+  getStartedSprints,
   updateSprint as sprintUpdate,
 } from "../services/EmployeeApi";
 import { Dayjs } from "dayjs";
@@ -78,4 +79,16 @@ export const useDeleteSprint = () => {
       });
     },
   });
-};
+}
+  const singleSprintFetch = async ()=>{
+    const project_id = localStorage.getItem("project_id")
+    const response = await getStartedSprints(project_id);
+    return response.data.sprint;
+  }
+  export const useFetchStartedSprint = ()=>{
+    return useQuery({
+      queryKey: ["startedSprint", ],
+      queryFn: singleSprintFetch,
+      refetchOnWindowFocus: false,
+    });
+  }
