@@ -2,12 +2,13 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SprintController = void 0;
 class SprintController {
-    constructor(addSprint, getSprint, updateSprint, deleteSprint, getAllStartedSprints) {
+    constructor(addSprint, getSprint, updateSprint, deleteSprint, getAllStartedSprints, changeSprintStatus) {
         this.addSprint = addSprint;
         this.getSprint = getSprint;
         this.updateSprint = updateSprint;
         this.deleteSprint = deleteSprint;
         this.getAllStartedSprints = getAllStartedSprints;
+        this.changeSprintStatus = changeSprintStatus;
     }
     async createSprint(req, res, next) {
         try {
@@ -31,7 +32,6 @@ class SprintController {
             console.log("hasdfh");
             const project_id = req.params.projectId;
             const { status, data } = await this.getSprint.execute(parseInt(project_id));
-            console.log("data", data);
             res.status(status).json(data);
         }
         catch (error) {
@@ -65,8 +65,21 @@ class SprintController {
     async sprintDelete(req, res, next) {
         try {
             const sprintId = req === null || req === void 0 ? void 0 : req.params.id;
-            console.log(sprintId);
             const { status, data } = await this.deleteSprint.execute(sprintId);
+            res.status(status).json(data);
+        }
+        catch (error) {
+            console.log(error);
+            next(error);
+        }
+    }
+    async changeStatus(req, res, next) {
+        try {
+            const sprintId = req === null || req === void 0 ? void 0 : req.params.sprintId;
+            const { status: sprintStatus } = req.body;
+            console.log("sprint:", sprintId);
+            console.log("status:", sprintStatus);
+            const { status, data } = await this.changeSprintStatus.execute(sprintStatus, parseInt(sprintId));
             res.status(status).json(data);
         }
         catch (error) {

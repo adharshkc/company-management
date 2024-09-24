@@ -45,6 +45,10 @@ export const updateSprint = async (
   });
 };
 
+export const changeSprintStatus=async(status:string, sprint_id:number|string)=>{
+  return await employeeAxiosInstance.patch(`/projects/sprints/${sprint_id}`, {status})
+}
+
 export const deleteSprint = async (sprintId: number) => {
   return await employeeAxiosInstance.delete(`/projects/sprints/${sprintId}`);
 };

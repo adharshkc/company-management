@@ -5,12 +5,12 @@ import { theme } from "../../../theme";
 import PlusIcon from "../../../assets/icons/PlusIcon";
 import TrashIcon from "../../../assets/icons/TrashIcon";
 import { useState } from "react";
-import { useFetchSingleSprint } from "../../../hooks/useSprints";
+import { useFetchStartedSprint } from "../../../hooks/useSprints";
 
 const BoardTemplate = () => {
   const [columns, setColumns] = useState([])
   
-  const {data:response} = useFetchSingleSprint()
+  const {data:response} = useFetchStartedSprint()
   console.log(response)
   return (
     <div className={style.bodyPart}>

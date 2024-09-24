@@ -52,6 +52,12 @@ projectRouter.get(
   sprintController.getStartedSprints.bind(sprintController)
 );
 
+projectRouter.patch(
+  "/sprints/:sprintId",
+  verifyEmployeeAccessToken,
+  sprintController.changeStatus.bind(sprintController)
+);
+
 //issues
 projectRouter.post(
   "/sprints/issues/",

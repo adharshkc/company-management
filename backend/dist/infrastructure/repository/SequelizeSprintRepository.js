@@ -117,5 +117,18 @@ class SequelizeSprintRepository {
             throw new Error(error);
         }
     }
+    async changeSprintStatus(status, sprintId) {
+        try {
+            const sprint = await SprintModel_1.default.update({
+                status: status,
+            }, {
+                where: { sprint_id: sprintId }
+            });
+            return sprint;
+        }
+        catch (error) {
+            throw new Error(error);
+        }
+    }
 }
 exports.SequelizeSprintRepository = SequelizeSprintRepository;

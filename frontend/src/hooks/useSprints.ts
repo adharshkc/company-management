@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
+  changeSprintStatus,
   createSprint,
   deleteSprint,
   getSprints,
@@ -64,6 +65,22 @@ export const useUpdateSprint = () => {
     },
   });
 };
+
+const updateSprintStatus = async({status, sprint_id}:{status:string, sprint_id:number})=>{
+  await changeSprintStatus(status, sprint_id)
+}
+
+export const useUpdateSprintStatus = ()=>{
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn:updateSprintStatus,
+    onSuccess:()=>{
+      queryClient.invalidateQueries({
+        queryKey:["sprints"],
+      })
+    }
+  })
+}
 
 const sprintDelete = async (sprint_id: number) => {
   await deleteSprint(sprint_id);

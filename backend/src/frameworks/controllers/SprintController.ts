@@ -1,4 +1,5 @@
 import { AddSprintUsecase } from "@application/use-cases/sprint/AddSprintUsecase";
+import { ChangeStatusUsecase } from "@application/use-cases/sprint/ChangeStatusUsecase";
 import { DeleteSprintUsecase } from "@application/use-cases/sprint/DeleteSprintUsecase";
 import { GetSprintUsecase } from "@application/use-cases/sprint/GetSprintUsecase";
 import { GetStartedSprintUsecase } from "@application/use-cases/sprint/GetStartedSprintUsecase";
@@ -12,6 +13,7 @@ export class SprintController {
     private updateSprint: UpdateSprintUsecase,
     private deleteSprint: DeleteSprintUsecase,
     private getAllStartedSprints : GetStartedSprintUsecase,
+    private changeSprintStatus: ChangeStatusUsecase
   ) {}
 
   async createSprint(req: Request, res: Response, next: NextFunction) {
@@ -36,7 +38,6 @@ export class SprintController {
       console.log("hasdfh");
       const project_id = req.params.projectId
       const { status, data } = await this.getSprint.execute(parseInt(project_id));
-      console.log("data", data)
       res.status(status).json(data);
     } catch (error) {
       console.log(error);
@@ -75,7 +76,6 @@ export class SprintController {
     try {
    
       const sprintId = req?.params.id
-      console.log(sprintId)
       const { status, data } = await this.deleteSprint.execute(
         sprintId
       );
@@ -83,6 +83,23 @@ export class SprintController {
     } catch (error) {
       console.log(error);
       next(error);
+    }
+  }
+
+  async changeStatus(req:Request, res:Response, next:NextFunction){
+    try {
+      const sprintId = req?.params.sprintId
+      const {status : sprintStatus} = req.body
+      console.log("sprint:", sprintId)
+      console.log("status:", sprintStatus)
+      const { status, data } = await this.changeSprintStatus.execute(sprintStatus,
+        parseInt(sprintId)
+      );
+      res.status(status).json(data);
+    } catch (error) {
+      console.log(error);
+      next(error);
+   
     }
   }
 }

@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.sprintController = void 0;
 const AddSprintUsecase_1 = require("@application/use-cases/sprint/AddSprintUsecase");
+const ChangeStatusUsecase_1 = require("@application/use-cases/sprint/ChangeStatusUsecase");
 const DeleteSprintUsecase_1 = require("@application/use-cases/sprint/DeleteSprintUsecase");
 const GetSprintUsecase_1 = require("@application/use-cases/sprint/GetSprintUsecase");
 const GetStartedSprintUsecase_1 = require("@application/use-cases/sprint/GetStartedSprintUsecase");
@@ -14,5 +15,6 @@ const getSprintUsecase = new GetSprintUsecase_1.GetSprintUsecase(sprintRepositor
 const updateSprintUsecase = new UpdateSprintUsecase_1.UpdateSprintUsecase(sprintRepository);
 const deleteSprintUsecase = new DeleteSprintUsecase_1.DeleteSprintUsecase(sprintRepository);
 const getStartedSprintUsecase = new GetStartedSprintUsecase_1.GetStartedSprintUsecase(sprintRepository);
-const sprintController = new SprintController_1.SprintController(addSprintUsecase, getSprintUsecase, updateSprintUsecase, deleteSprintUsecase, getStartedSprintUsecase);
+const changeStatusUsecase = new ChangeStatusUsecase_1.ChangeStatusUsecase(sprintRepository);
+const sprintController = new SprintController_1.SprintController(addSprintUsecase, getSprintUsecase, updateSprintUsecase, deleteSprintUsecase, getStartedSprintUsecase, changeStatusUsecase);
 exports.sprintController = sprintController;

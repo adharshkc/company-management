@@ -1,4 +1,5 @@
 import { AddSprintUsecase } from "@application/use-cases/sprint/AddSprintUsecase";
+import { ChangeStatusUsecase } from "@application/use-cases/sprint/ChangeStatusUsecase";
 import { DeleteSprintUsecase } from "@application/use-cases/sprint/DeleteSprintUsecase";
 import { GetSprintUsecase } from "@application/use-cases/sprint/GetSprintUsecase";
 import { GetStartedSprintUsecase } from "@application/use-cases/sprint/GetStartedSprintUsecase";
@@ -12,12 +13,14 @@ const getSprintUsecase = new GetSprintUsecase(sprintRepository);
 const updateSprintUsecase = new UpdateSprintUsecase(sprintRepository);
 const deleteSprintUsecase = new DeleteSprintUsecase(sprintRepository);
 const getStartedSprintUsecase = new GetStartedSprintUsecase(sprintRepository);
+const changeStatusUsecase = new ChangeStatusUsecase(sprintRepository)
 const sprintController = new SprintController(
   addSprintUsecase,
   getSprintUsecase,
   updateSprintUsecase,
   deleteSprintUsecase,
-  getStartedSprintUsecase
+  getStartedSprintUsecase,
+  changeStatusUsecase
 );
 
 export { sprintController };

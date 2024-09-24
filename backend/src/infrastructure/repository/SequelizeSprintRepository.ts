@@ -122,4 +122,18 @@ export class SequelizeSprintRepository implements SprintRepository {
         throw new Error( error);
       }
   }
+
+  async changeSprintStatus(status: string, sprintId: number): Promise<any> {
+      try {
+        const sprint = await SprintModel.update({
+          status:status,
+        }, {
+          where:{sprint_id:sprintId}
+        })
+
+        return sprint
+      } catch (error:any) {
+        throw new Error( error);
+      }
+  }
 }

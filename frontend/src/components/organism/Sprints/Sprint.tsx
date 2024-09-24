@@ -9,7 +9,11 @@ import { useEffect, useRef, useState } from "react";
 import SprintForm from "../Form/SprintForm";
 import { Dayjs } from "dayjs";
 import { useMonthAndDay } from "../../../hooks/useMonthAndDay";
-import { useDeleteSprint, useUpdateSprint } from "../../../hooks/useSprints";
+import {
+  useDeleteSprint,
+  useUpdateSprint,
+  useUpdateSprintStatus,
+} from "../../../hooks/useSprints";
 import MoreOptions from "@components/molecules/MoreOptions";
 import DeleteSprint from "@components/molecules/DeleteSprint";
 import { createIssue, getIssue } from "../../../services/EmployeeApi";
@@ -17,6 +21,7 @@ import { Sprint as SprintType } from "types/types";
 import IssueSkeleton from "../Skeleton/IssueSkeleton";
 import { PulseLoader } from "react-spinners";
 import { useIssueStore } from "../../../zustand/IssueStore";
+import StartSprint from "../Form/StartSprint";
 
 type SprintProps = {
   sprint: SprintType;
@@ -24,6 +29,8 @@ type SprintProps = {
 
 const Sprint: React.FC<SprintProps> = ({ sprint }) => {
   const [startButton, setStartButton] = useState<boolean>(true);
+  const [startSprint, setStartSprint] = useState<boolean>(false);
+  const [sprintStatus, setSprintStatus] = useState(sprint.status);
   const [newIssue, setNewIssue] = useState(false);
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
@@ -34,6 +41,7 @@ const Sprint: React.FC<SprintProps> = ({ sprint }) => {
   const { isFetchIssue, setFetchIssue } = useIssueStore();
   const { mutate: updateSprint } = useUpdateSprint();
   const { mutate: sprintDelete } = useDeleteSprint();
+  const { mutate: updateSprintStatus } = useUpdateSprintStatus();
   const optionsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -74,7 +82,7 @@ const Sprint: React.FC<SprintProps> = ({ sprint }) => {
   };
   const fetchIssue = async () => {
     const response = await getIssue(sprint?.sprint_id);
-    console.log(response)
+    console.log(response);
     setIssues(response.data.issues);
     setLoading(false);
     setIssueLoading(false);
@@ -90,6 +98,16 @@ const Sprint: React.FC<SprintProps> = ({ sprint }) => {
     fetchIssue();
   }, []);
 
+  const handleStartSprint = async () => {
+    let statusSprint: string;
+    if (sprint.status === "start") {
+      statusSprint = "pending";
+      updateSprintStatus({ status: statusSprint, sprint_id: sprint.sprint_id });
+      setSprintStatus("pending");
+      setStartSprint(false);
+    }
+  };
+
   const addIssue = async (issueName: string) => {
     setIssueLoading(true);
     const response = await createIssue(issueName, sprint.sprint_id);
@@ -100,27 +118,13 @@ const Sprint: React.FC<SprintProps> = ({ sprint }) => {
   };
 
   const handleClick = () => setNewIssue(true);
+  const handleStartSprintModal = (bool: boolean) => setStartSprint(bool);
   const handleModal = (bool: boolean) => setOpenModal(bool);
   const handleMenuOpen = () => setOpenMenu(true);
   const handleDeleteModal = (bool: boolean) => setDeleteModal(bool);
 
   return (
     <>
-    {/* <Dialog
-        open={isModalIssue}
-        slotProps={{
-          backdrop: {
-            style: {
-              width: "auto",
-              backdropFilter: "blur(0px)",
-              backgroundColor: "rgba(0, 0, 0, 0.3)",
-              opacity:0.5
-            },
-          },
-        }}
-      >
-        <IssueDetails />
-      </Dialog> */}
       <Box
         sx={{
           backgroundColor: "#f7f8f9",
@@ -138,6 +142,16 @@ const Sprint: React.FC<SprintProps> = ({ sprint }) => {
                 sprintEndDate={sprint.endDate}
                 updateSprint={updateSprintHandler}
                 openModal={handleModal}
+              />
+            )}
+            {startSprint && (
+              <StartSprint
+                updateSprintStatus={handleStartSprint}
+                sprintName={sprint.name}
+                sprintStartDate={sprint.startDate}
+                sprintEndDate={sprint.endDate}
+                updateSprint={updateSprintHandler}
+                openModal={handleStartSprintModal}
               />
             )}
             {deleteModal && (
@@ -200,8 +214,9 @@ const Sprint: React.FC<SprintProps> = ({ sprint }) => {
                 "&:hover": { backgroundColor: "#D5D9DF" },
                 color: "#172B4D",
               }}
+              onClick={() => setStartSprint(true)}
             >
-              {sprint.status} Sprint
+              {sprintStatus === "pending" ? "Complete" : "Start"} Sprint
             </Button>
             <Button
               sx={{ "&:hover": { backgroundColor: "#D5D9DF" }, marginX: "2px" }}
