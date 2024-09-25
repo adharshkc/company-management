@@ -1,11 +1,13 @@
-import { AddSprintUsecase } from "@application/use-cases/sprint/AddSprintUsecase";
-import { ChangeStatusUsecase } from "@application/use-cases/sprint/ChangeStatusUsecase";
-import { DeleteSprintUsecase } from "@application/use-cases/sprint/DeleteSprintUsecase";
-import { GetSprintUsecase } from "@application/use-cases/sprint/GetSprintUsecase";
-import { GetStartedSprintUsecase } from "@application/use-cases/sprint/GetStartedSprintUsecase";
-import { UpdateSprintUsecase } from "@application/use-cases/sprint/UpdateSprintUsecase";
 import { SprintController } from "@frameworks/controllers/SprintController";
 import { SequelizeSprintRepository } from "@infrastructure/repository/SequelizeSprintRepository";
+import {
+  AddSprintUsecase,
+  DeleteSprintUsecase,
+  GetSprintUsecase,
+  GetStartedSprintUsecase,
+  StartSprintUsecase,
+  UpdateSprintUsecase,
+} from "@application/use-cases/sprint";
 
 const sprintRepository = new SequelizeSprintRepository();
 const addSprintUsecase = new AddSprintUsecase(sprintRepository);
@@ -13,7 +15,7 @@ const getSprintUsecase = new GetSprintUsecase(sprintRepository);
 const updateSprintUsecase = new UpdateSprintUsecase(sprintRepository);
 const deleteSprintUsecase = new DeleteSprintUsecase(sprintRepository);
 const getStartedSprintUsecase = new GetStartedSprintUsecase(sprintRepository);
-const changeStatusUsecase = new ChangeStatusUsecase(sprintRepository)
+const changeStatusUsecase = new StartSprintUsecase(sprintRepository);
 const sprintController = new SprintController(
   addSprintUsecase,
   getSprintUsecase,

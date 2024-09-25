@@ -25,12 +25,12 @@ export class SequelizeSprintRepository implements SprintRepository {
     }
   }
 
-  async getSprints(project_id:number): Promise<Sprint[] | null> {
+  async getSprints(project_id: number): Promise<Sprint[] | null> {
     try {
       const sprints = await SprintModel.findAll({
-        where:{project_id:project_id},
+        where: { project_id: project_id },
         include: { model: IssueModel },
-        order: [['createdAt', 'ASC']],
+        order: [["createdAt", "ASC"]],
       });
       return sprints;
     } catch (error: any) {
@@ -95,8 +95,9 @@ export class SequelizeSprintRepository implements SprintRepository {
     }
   }
 
-  async deleteSprint(sprintId: number|string): Promise<string | null | undefined> {
-
+  async deleteSprint(
+    sprintId: number | string
+  ): Promise<string | null | undefined> {
     try {
       const sprint = await SprintModel.destroy({
         where: { sprint_id: sprintId },
@@ -106,34 +107,40 @@ export class SequelizeSprintRepository implements SprintRepository {
       }
       return null;
     } catch (error) {
-      console.log(error)
+      console.log(error);
       throw new Error("Error deleting Sprint");
     }
   }
 
   async getStartedSprints(project_id: number): Promise<any> {
-      try {
-        const sprints = await SprintModel.findAll({
-          where:{project_id:project_id, status:"pending"}
-        })
+    try {
+      const sprints = await SprintModel.findAll({
+        where: { project_id: project_id, status: "pending" },
+      });
 
-        return sprints
-      } catch (error:any) {
-        throw new Error( error);
-      }
+      return sprints;
+    } catch (error: any) {
+      throw new Error(error);
+    }
   }
 
-  async changeSprintStatus(status: string, sprintId: number): Promise<any> {
-      try {
-        const sprint = await SprintModel.update({
-          status:status,
-        }, {
-          where:{sprint_id:sprintId}
-        })
+  async startSprint(status: string, sprintId: number,project_id:number): Promise<any> {
+    try {
+      const sprints = await SprintModel.findAll({
+        where: { project_id: project_id,  },
+      });
+      const sprint = await SprintModel.update(
+        {
+          status: status,
+        },
+        {
+          where: { sprint_id: sprintId },
+        }
+      );
 
-        return sprint
-      } catch (error:any) {
-        throw new Error( error);
-      }
+      return sprint;
+    } catch (error: any) {
+      throw new Error(error);
+    }
   }
 }

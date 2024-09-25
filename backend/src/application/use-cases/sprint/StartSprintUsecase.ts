@@ -1,11 +1,11 @@
 import { SprintRepository } from "@application/interface/SprintRepository";
 
 
-export class ChangeStatusUsecase{
+export class StartSprintUsecase{
     constructor(private sprintRepository:SprintRepository){}
-    async execute (status:string, sprintId:number){
+    async execute (status:string, sprintId:number, project_id:number){
         try {
-            const sprint = await this.sprintRepository.changeSprintStatus(status, sprintId)
+            const sprint = await this.sprintRepository.startSprint(status, sprintId, project_id)
             if(!sprint){
                 return {
                     status:500,

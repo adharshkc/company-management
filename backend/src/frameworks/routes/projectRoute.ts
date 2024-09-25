@@ -53,9 +53,9 @@ projectRouter.get(
 );
 
 projectRouter.patch(
-  "/sprints/:sprintId",
+  "/:projectId/sprints/:sprintId/start",
   verifyEmployeeAccessToken,
-  sprintController.changeStatus.bind(sprintController)
+  sprintController.sprintStart.bind(sprintController)
 );
 
 //issues
