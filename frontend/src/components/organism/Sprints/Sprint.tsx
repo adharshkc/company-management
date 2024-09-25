@@ -11,6 +11,7 @@ import { Dayjs } from "dayjs";
 import { useMonthAndDay } from "../../../hooks/useMonthAndDay";
 import {
   useDeleteSprint,
+  useFetchSprints,
   useUpdateSprint,
   useUpdateSprintStatus,
 } from "../../../hooks/useSprints";
@@ -22,6 +23,7 @@ import IssueSkeleton from "../Skeleton/IssueSkeleton";
 import { PulseLoader } from "react-spinners";
 import { useIssueStore } from "../../../zustand/IssueStore";
 import StartSprint from "../Form/StartSprint";
+import ConflictSprint from "../Form/ConflictSprint";
 
 type SprintProps = {
   sprint: SprintType;
@@ -38,7 +40,9 @@ const Sprint: React.FC<SprintProps> = ({ sprint }) => {
   const [openMenu, setOpenMenu] = useState<boolean>(false);
   const [deleteModal, setDeleteModal] = useState<boolean>(false);
   const [issues, setIssues] = useState([]);
+  const [openConflictModal, setOpenConflictModal] = useState<boolean>(false)
   const { isFetchIssue, setFetchIssue } = useIssueStore();
+  const { data: sprints } = useFetchSprints();
   const { mutate: updateSprint } = useUpdateSprint();
   const { mutate: sprintDelete } = useDeleteSprint();
   const { mutate: updateSprintStatus } = useUpdateSprintStatus();
@@ -121,6 +125,21 @@ const Sprint: React.FC<SprintProps> = ({ sprint }) => {
   const handleStartSprintModal = (bool: boolean) => setStartSprint(bool);
   const handleModal = (bool: boolean) => setOpenModal(bool);
   const handleMenuOpen = () => setOpenMenu(true);
+  const handleOnClickStartSprint = () => {
+    const statusSprint = sprints.filter(
+      (sprint: SprintType) => sprint.status === "pending"
+    );
+    console.log(statusSprint.length);
+    if (statusSprint.length >=1) {
+      setOpenConflictModal(true)
+    }else{
+      setStartSprint(true);
+    }
+  };
+  const handleOnClickCompleteSprint = ()=>{
+
+  }
+  const handleConflictModal = (bool:boolean)=>setOpenConflictModal(bool)
   const handleDeleteModal = (bool: boolean) => setDeleteModal(bool);
 
   return (
@@ -135,6 +154,7 @@ const Sprint: React.FC<SprintProps> = ({ sprint }) => {
       >
         <Box sx={{ display: "flex", justifyContent: "space-between" }}>
           <Box sx={{ display: "flex", alignItems: "center", paddingX: 3 }}>
+            {openConflictModal&&<ConflictSprint openModal={handleConflictModal}/>}
             {openModal && (
               <SprintForm
                 sprintName={sprint.name}
@@ -208,16 +228,31 @@ const Sprint: React.FC<SprintProps> = ({ sprint }) => {
             />
           </Box>
           <Box>
+            {
+              sprintStatus==="pending"?(
+
             <Button
               disabled={startButton}
               sx={{
                 "&:hover": { backgroundColor: "#D5D9DF" },
                 color: "#172B4D",
               }}
-              onClick={() => setStartSprint(true)}
+              onClick={ handleOnClickCompleteSprint}
             >
-              {sprintStatus === "pending" ? "Complete" : "Start"} Sprint
+              Complete Sprint
             </Button>
+              ):
+            <Button
+              disabled={startButton}
+              sx={{
+                "&:hover": { backgroundColor: "#D5D9DF" },
+                color: "#172B4D",
+              }}
+              onClick={handleOnClickStartSprint}
+            >
+             Start Sprint
+            </Button>
+            }
             <Button
               sx={{ "&:hover": { backgroundColor: "#D5D9DF" }, marginX: "2px" }}
               onClick={handleMenuOpen}

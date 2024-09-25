@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import dayjs, { Dayjs } from "dayjs";
 import {
   Backdrop,
-  
   CircularProgress,
   Dialog,
   DialogActions,
@@ -28,7 +27,7 @@ type StartSprintProps = {
     startDate: Date | undefined,
     endDate: Date | null | undefined
   ) => void;
-  updateSprintStatus:()=>void
+  updateSprintStatus: () => void;
 };
 
 const StartSprint: React.FC<StartSprintProps> = ({
@@ -54,15 +53,15 @@ const StartSprint: React.FC<StartSprintProps> = ({
         toast.error("Please enter a valid name");
         return;
       }
-      if(!startDate){
-        return toast.error("please enter the start date")
+      if (startDate.$d == "Invalid Date") {
+        return toast.error("please enter the start date");
       }
-      if(!endDate){
-      return  toast.error("please enter the end date")
+      if (endDate.$d == "Invalid Date") {
+        return toast.error("please enter the end date");
       }
       setBackdrop(true);
       updateSprint(name, sDate, eDate);
-      updateSprintStatus()
+      updateSprintStatus();
       setBackdrop(false);
     } catch (error) {
       toast.error("something went wrong");
@@ -205,7 +204,7 @@ const StartSprint: React.FC<StartSprintProps> = ({
           </Button>
           <Button
             sx={{
-                color:"black",
+              color: "black",
               "&:hover": {
                 color: "black",
                 backgroundColor: "#f1f2f4",

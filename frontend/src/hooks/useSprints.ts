@@ -67,7 +67,8 @@ export const useUpdateSprint = () => {
 };
 
 const updateSprintStatus = async({status, sprint_id}:{status:string, sprint_id:number})=>{
-  await changeSprintStatus(status, sprint_id)
+  const project_id = localStorage.getItem("project_id")
+  await changeSprintStatus(status, sprint_id, project_id)
 }
 
 export const useUpdateSprintStatus = ()=>{
