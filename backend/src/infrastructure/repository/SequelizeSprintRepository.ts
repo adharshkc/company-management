@@ -1,5 +1,6 @@
 import { SprintRepository } from "@application/interface/SprintRepository";
 import { Sprint } from "@domain/entities/Sprint";
+import ColumnModel from "@infrastructure/models/ColumnModel";
 import EmployeeModel from "@infrastructure/models/EmployeeModel";
 import IssueModel from "@infrastructure/models/IssueModel";
 import ProjectModel from "@infrastructure/models/ProjectModel";
@@ -29,7 +30,7 @@ export class SequelizeSprintRepository implements SprintRepository {
     try {
       const sprints = await SprintModel.findAll({
         where: { project_id: project_id },
-        include: { model: IssueModel },
+        include: [{ model: IssueModel },{model:ColumnModel}],
         order: [["createdAt", "ASC"]],
       });
       return sprints;

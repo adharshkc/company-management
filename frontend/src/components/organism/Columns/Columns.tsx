@@ -6,7 +6,11 @@ type ColumnsProps = {
 };
 
 const Columns: React.FC<ColumnsProps> = ({ column }) => {
+    const handleDragEnd=()=>{
+      
+    }
   return (
+
     <div className={style.Column}>
       <div className={style.ColumnHeader}>
         <div className={style.columnHeaderName}>

@@ -13,7 +13,20 @@ const sequelize_typescript_1 = require("sequelize-typescript");
 const ProjectModel_1 = __importDefault(require("./ProjectModel"));
 const IssueModel_1 = __importDefault(require("./IssueModel"));
 const CommentModel_1 = __importDefault(require("./CommentModel"));
+const ColumnModel_1 = __importDefault(require("./ColumnModel"));
 let SprintModel = class SprintModel extends sequelize_typescript_1.Model {
+    static async addDefaultColumns(sprint) {
+        const defaultColumns = [{ name: "Todo", order: 1 },
+            { name: "In Progress", order: 2 },
+            { name: "Done", order: 3 },];
+        for (const column of defaultColumns) {
+            await ColumnModel_1.default.create({
+                name: column.name,
+                order: column.order,
+                sprint_id: sprint.sprint_id
+            });
+        }
+    }
 };
 __decorate([
     sequelize_typescript_1.AutoIncrement,
@@ -45,14 +58,6 @@ __decorate([
     })
 ], SprintModel.prototype, "status", void 0);
 __decorate([
-    (0, sequelize_typescript_1.AllowNull)(false),
-    sequelize_typescript_1.NotEmpty,
-    (0, sequelize_typescript_1.Column)({
-        type: sequelize_typescript_1.DataType.ARRAY(sequelize_typescript_1.DataType.STRING),
-        defaultValue: ["Todo", "In Progress", "Done"],
-    })
-], SprintModel.prototype, "columns", void 0);
-__decorate([
     (0, sequelize_typescript_1.ForeignKey)(() => ProjectModel_1.default),
     (0, sequelize_typescript_1.AllowNull)(false),
     (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.INTEGER, allowNull: false })
@@ -66,6 +71,12 @@ __decorate([
 __decorate([
     (0, sequelize_typescript_1.HasMany)(() => CommentModel_1.default)
 ], SprintModel.prototype, "comments", void 0);
+__decorate([
+    (0, sequelize_typescript_1.HasMany)(() => ColumnModel_1.default)
+], SprintModel.prototype, "columns", void 0);
+__decorate([
+    sequelize_typescript_1.AfterCreate
+], SprintModel, "addDefaultColumns", null);
 SprintModel = __decorate([
     (0, sequelize_typescript_1.Table)({
         tableName: "Sprint",

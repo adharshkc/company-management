@@ -29,6 +29,7 @@ const SprintTaskRow: React.FC<SprintTaskRowProps> = ({
   fetchIssue,
 }) => {
   const [status, setStatus] = useState(issue?.status);
+  console.log(sprintColumns)
   const [sprintEdit, setSprintEdit] = useState<boolean>(false);
   const { setIsModalIssue, setIssues } = useIssueStore();
   const [errorSnack, setErrorSnack] = useState<boolean>(false);
@@ -195,10 +196,10 @@ const SprintTaskRow: React.FC<SprintTaskRowProps> = ({
                 {sprintColumns.map((column, index) => (
                   <MenuItem
                     key={index}
-                    value={column}
+                    value={column.name}
                     sx={{ fontSize: "0.75rem" }}
                   >
-                    {column.toUpperCase()}
+                    {column.name.toUpperCase()}
                   </MenuItem>
                 ))}
               </Select>

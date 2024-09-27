@@ -112,6 +112,8 @@ const Sprint: React.FC<SprintProps> = ({ sprint }) => {
     }
   };
 
+  console.log(sprint.columns)
+
   const addIssue = async (issueName: string) => {
     setIssueLoading(true);
     const response = await createIssue(issueName, sprint.sprint_id);

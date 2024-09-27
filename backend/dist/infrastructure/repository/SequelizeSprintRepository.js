@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SequelizeSprintRepository = void 0;
+const ColumnModel_1 = __importDefault(require("@infrastructure/models/ColumnModel"));
 const EmployeeModel_1 = __importDefault(require("@infrastructure/models/EmployeeModel"));
 const IssueModel_1 = __importDefault(require("@infrastructure/models/IssueModel"));
 const ProjectModel_1 = __importDefault(require("@infrastructure/models/ProjectModel"));
@@ -32,7 +33,7 @@ class SequelizeSprintRepository {
         try {
             const sprints = await SprintModel_1.default.findAll({
                 where: { project_id: project_id },
-                include: { model: IssueModel_1.default },
+                include: [{ model: IssueModel_1.default }, { model: ColumnModel_1.default }],
                 order: [["createdAt", "ASC"]],
             });
             return sprints;

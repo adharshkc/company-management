@@ -8,17 +8,30 @@ import { useFetchStartedSprint } from "../../../hooks/useSprints";
 import Columns from "@components/organism/Columns/Columns";
 import CheckIcon from "../../../assets/icons/CheckIcon";
 import CrossIcon from "../../../assets/icons/CrossIcon";
+import {DndContext} from "@dnd-kit/core"
+import {SortableContext} from "@dnd-kit/sortable"
 
 const BoardTemplate = () => {
   const { data: sprint, isLoading } = useFetchStartedSprint();
   // console.log(sprint.columns)
-  const [columns, setColumns] = useState([]);
+  const [columns, setColumns] = useState<string[]>([]);
+  const [newColumn, setNewColumn] = useState<boolean>(false);
+  const [newColumnName, setNewColumnName] = useState("")
 
   useEffect(() => {
     if (sprint) {
       setColumns(sprint.columns);
     }
   }, [sprint]);
+
+  const handleNewColumn = ()=>{
+    if(!newColumnName.trim())return
+    
+    setColumns((col)=>[...col, newColumnName])
+    setNewColumnName("")
+    setNewColumn(false)
+  }
+  console.log(columns)
   if (isLoading) {
     return (
       <div className={style.bodyPart}>
@@ -43,35 +56,46 @@ const BoardTemplate = () => {
           Complete Sprint
         </Button>
       </div>
+      <DndContext>
+          <SortableContext>
       <div className={style.ColumnBody}>
         {columns.map((column: string) => (
           <Columns column={column} />
         ))}
-        <div>
-          <Button
-            sx={{
-              backgroundColor: theme.palette.primary.main,
-              color: "black",
-              width: "24px",
-              minWidth: "40px",
-              marginRight: 3,
-              "&:hover": {
-                backgroundColor: "#DCDFE4",
-              },
-            }}
-          >
-            <PlusIcon />
-          </Button>
-        </div>
-        <div className={style.inputContainer}>
-          <input type="text" placeholder="" />
-          <div>
-
-          <button className={style.confirm}><CheckIcon/></button>
-          <button className={style.cancel}><CrossIcon/></button>
+        {newColumn ? (
+          <div className={style.inputContainer}>
+            <input type="text" placeholder="" value={newColumnName} onChange={(e)=>setNewColumnName(e.target.value)}/>
+            <div>
+              <button className={style.confirm} onClick={handleNewColumn}>
+                <CheckIcon />
+              </button>
+              <button className={style.cancel} onClick={()=>{setNewColumn(false);setNewColumnName("")}}>
+                <CrossIcon />
+              </button>
+            </div>
           </div>
-        </div>
+        ) : (
+          <div>
+            <Button
+              sx={{
+                backgroundColor: theme.palette.primary.main,
+                color: "black",
+                width: "24px",
+                minWidth: "40px",
+                marginRight: 3,
+                "&:hover": {
+                  backgroundColor: "#DCDFE4",
+                },
+              }}
+              onClick={() => setNewColumn(true)}
+            >
+              <PlusIcon />
+            </Button>
+          </div>
+        )}
       </div>
+      </SortableContext>
+      </DndContext>
     </div>
   );
 };

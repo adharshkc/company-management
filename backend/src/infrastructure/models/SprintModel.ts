@@ -1,4 +1,5 @@
 import {
+  AfterCreate,
   AllowNull,
   AutoIncrement,
   BelongsTo,
@@ -14,6 +15,7 @@ import {
 import ProjectModel from "./ProjectModel";
 import IssueModel from "./IssueModel";
 import CommentModel from "./CommentModel";
+import ColumnModel from "./ColumnModel";
 
 @Table({
   tableName: "Sprint",
@@ -50,14 +52,6 @@ class SprintModel extends Model {
   })
   status!: "start" | "completed" | "pending";
 
-  @AllowNull(false)
-  @NotEmpty
-  @Column({
-    type: DataType.ARRAY(DataType.STRING),
-    defaultValue: ["Todo", "In Progress", "Done"],
-  })
-  columns!: string[];
-
   @ForeignKey(() => ProjectModel)
   @AllowNull(false)
   @Column({ type: DataType.INTEGER, allowNull: false })
@@ -71,6 +65,24 @@ class SprintModel extends Model {
 
   @HasMany(() => CommentModel)
   comments!: CommentModel[];
+
+  @HasMany(()=>ColumnModel)
+  columns!:ColumnModel[]
+
+  @AfterCreate
+  static async addDefaultColumns(sprint:SprintModel){
+    const defaultColumns = [{ name: "Todo", order: 1 },
+    { name: "In Progress", order: 2 },
+    { name: "Done", order: 3 },]
+    for(const column of defaultColumns){
+      await ColumnModel.create({
+        name:column.name,
+        order:column.order,
+        sprint_id:sprint.sprint_id
+
+      })
+    }
+  }
 }
 
 export default SprintModel;

@@ -77,6 +77,7 @@
     border-color: #4a90e2;
 }
 div{
+  margin-top: 2px;
   display: flex;
   gap: 8px;
   justify-content: end;
@@ -98,14 +99,17 @@ button {
 
 button:focus {
     outline: none;
+    
+  }
+  
+  button.confirm:hover {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #DCDFE4;
 }
 
-button.confirm {
-    // color: #4a90e2;
-}
-
-button.cancel {
-    // color: #d0021b;
+button.cancel:hover {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #DCDFE4;
 }
   }
 }
