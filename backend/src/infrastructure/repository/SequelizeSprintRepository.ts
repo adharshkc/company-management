@@ -116,7 +116,9 @@ export class SequelizeSprintRepository implements SprintRepository {
   async getStartedSprints(project_id: number): Promise<any> {
     try {
       const sprints = await SprintModel.findOne({
-        where: { project_id: project_id, status: "pending" },
+        where: { project_id: project_id, status: "pending" },include:{
+          model:ColumnModel
+        }
       });
 
       return sprints;

@@ -110,7 +110,9 @@ class SequelizeSprintRepository {
     async getStartedSprints(project_id) {
         try {
             const sprints = await SprintModel_1.default.findOne({
-                where: { project_id: project_id, status: "pending" },
+                where: { project_id: project_id, status: "pending" }, include: {
+                    model: ColumnModel_1.default
+                }
             });
             return sprints;
         }
