@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.columnController = void 0;
+const column_1 = require("@application/use-cases/column");
+const ColumnController_1 = require("@frameworks/controllers/ColumnController");
+const SequelizeColumnRepository_1 = require("@infrastructure/repository/SequelizeColumnRepository");
+const columnRepository = new SequelizeColumnRepository_1.SequelizeColumnRepository();
+const columnUsecase = new column_1.NewColumnUsecase(columnRepository);
+const getColumnsUsecase = new column_1.GetColumnsUsecase(columnRepository);
+const columnController = new ColumnController_1.ColumnController(columnUsecase, getColumnsUsecase);
+exports.columnController = columnController;

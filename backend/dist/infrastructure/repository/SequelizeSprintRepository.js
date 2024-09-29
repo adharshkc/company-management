@@ -94,13 +94,19 @@ class SequelizeSprintRepository {
     }
     async deleteSprint(sprintId) {
         try {
-            const sprint = await SprintModel_1.default.destroy({
-                where: { sprint_id: sprintId },
+            const sprint = await SprintModel_1.default.findByPk(sprintId, {
+                include: [ColumnModel_1.default, IssueModel_1.default]
             });
-            if (sprint) {
-                return "success";
+            if (!sprint) {
+                return null;
             }
-            return null;
+            await Promise.all([
+                ColumnModel_1.default.destroy({ where: { sprint_id: sprintId } }),
+                IssueModel_1.default.destroy({ where: { sprint_id: sprintId } }),
+                // CommentModel.destroy({ where: { sprint_id: sprintId } }),
+            ]);
+            await SprintModel_1.default.destroy({ where: { sprint_id: sprintId } });
+            return "success";
         }
         catch (error) {
             console.log(error);

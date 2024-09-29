@@ -6,6 +6,7 @@ const issueDi_1 = require("@di/issueDi");
 const employeeMiddleware_1 = require("@frameworks/middlewares/authentication/employeeMiddleware");
 const jwtVerify_1 = require("@frameworks/middlewares/authentication/jwtVerify");
 const express_1 = require("express");
+const columnDI_1 = require("@di/columnDI");
 const projectRouter = (0, express_1.Router)();
 //Projects
 projectRouter.get("/", jwtVerify_1.verifyAdminAccess, projectDI_1.projectController.getProjects.bind(projectDI_1.projectController));
@@ -25,4 +26,7 @@ projectRouter.get("/sprints/:sprintId/issues");
 projectRouter.patch("/sprints/issues/:issueId/update-name", employeeMiddleware_1.verifyEmployeeAccessToken, issueDi_1.issueController.updateName.bind(issueDi_1.issueController));
 projectRouter.patch("/sprints/issues/:issueId/update-status", employeeMiddleware_1.verifyEmployeeAccessToken, issueDi_1.issueController.updateStatus.bind(issueDi_1.issueController));
 projectRouter.patch("/sprints/issues/:issueId/update-description", employeeMiddleware_1.verifyEmployeeAccessToken, issueDi_1.issueController.updateDescription.bind(issueDi_1.issueController));
+//column
+projectRouter.post("/sprint/columns", employeeMiddleware_1.verifyEmployeeAccessToken, columnDI_1.columnController.newColumn.bind(columnDI_1.columnController));
+projectRouter.get("/:projectId/sprint/columns", employeeMiddleware_1.verifyEmployeeAccessToken, columnDI_1.columnController.getColumns.bind(columnDI_1.columnController));
 exports.default = projectRouter;

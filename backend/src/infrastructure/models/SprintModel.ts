@@ -66,7 +66,7 @@ class SprintModel extends Model {
   @HasMany(() => CommentModel)
   comments!: CommentModel[];
 
-  @HasMany(()=>ColumnModel)
+  @HasMany(()=>ColumnModel, { onDelete: 'CASCADE' })
   columns!:ColumnModel[]
 
   @AfterCreate

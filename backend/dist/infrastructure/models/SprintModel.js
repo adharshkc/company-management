@@ -72,7 +72,7 @@ __decorate([
     (0, sequelize_typescript_1.HasMany)(() => CommentModel_1.default)
 ], SprintModel.prototype, "comments", void 0);
 __decorate([
-    (0, sequelize_typescript_1.HasMany)(() => ColumnModel_1.default)
+    (0, sequelize_typescript_1.HasMany)(() => ColumnModel_1.default, { onDelete: 'CASCADE' })
 ], SprintModel.prototype, "columns", void 0);
 __decorate([
     sequelize_typescript_1.AfterCreate

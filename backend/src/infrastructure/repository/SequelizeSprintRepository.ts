@@ -100,13 +100,21 @@ export class SequelizeSprintRepository implements SprintRepository {
     sprintId: number | string
   ): Promise<string | null | undefined> {
     try {
-      const sprint = await SprintModel.destroy({
-        where: { sprint_id: sprintId },
+      const sprint = await SprintModel.findByPk(sprintId, {
+        include: [ColumnModel, IssueModel]
       });
-      if (sprint) {
-        return "success";
+  
+      if (!sprint) {
+        return null; 
       }
-      return null;
+      await Promise.all([
+        ColumnModel.destroy({ where: { sprint_id: sprintId } }),
+        IssueModel.destroy({ where: { sprint_id: sprintId } }),
+        // CommentModel.destroy({ where: { sprint_id: sprintId } }),
+      ]);
+      await SprintModel.destroy({ where: { sprint_id: sprintId } });
+  
+      return "success";
     } catch (error) {
       console.log(error);
       throw new Error("Error deleting Sprint");

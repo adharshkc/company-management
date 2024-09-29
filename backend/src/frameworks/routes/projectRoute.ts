@@ -4,6 +4,7 @@ import { issueController } from "@di/issueDi";
 import { verifyEmployeeAccessToken } from "@frameworks/middlewares/authentication/employeeMiddleware";
 import { verifyAdminAccess } from "@frameworks/middlewares/authentication/jwtVerify";
 import { Router } from "express";
+import { columnController } from "@di/columnDI";
 
 const projectRouter = Router();
 //Projects
@@ -86,6 +87,19 @@ projectRouter.patch(
   "/sprints/issues/:issueId/update-description",
   verifyEmployeeAccessToken,
   issueController.updateDescription.bind(issueController)
+);
+
+//column
+
+projectRouter.post(
+  "/sprint/columns",
+  verifyEmployeeAccessToken,
+  columnController.newColumn.bind(columnController)
+);
+projectRouter.get(
+  "/:projectId/sprint/columns",
+  verifyEmployeeAccessToken,
+  columnController.getColumns.bind(columnController)
 );
 
 export default projectRouter;
