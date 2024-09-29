@@ -112,13 +112,21 @@ export type Sprint = {
   issues?: any[];
 };
 
+export type Column = {
+  name:string,
+  order:number,
+  sprint_id:number,
+  column_id:number,
+}
 export type Issue = {
+  issue_id?: number;
   name: string;
   status: string;
-  sprint_id?: number;
-  description?: string;
-  issue_id?: number;
   assignee_id?: number;
+  description?: string;
+  sprint_id?: number;
+  comments?:[]
+  columns:Column[];
   sprint: {
     name: string;
   };

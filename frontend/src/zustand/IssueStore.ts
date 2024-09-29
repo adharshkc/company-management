@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Issue  as BaseIssue} from "types/types";
+import { Issue } from "types/types";
 import { create } from "zustand";
 
 
-interface Issue extends BaseIssue{
-  columns:string[]
-}
+// interface Issue extends BaseIssue{
+//   columns:Column[]
+// }
 
 interface IssueState {
   issues: Issue;

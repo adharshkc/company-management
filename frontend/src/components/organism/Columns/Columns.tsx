@@ -1,27 +1,59 @@
+import { Column } from "../../../types/types";
 import TrashIcon from "../../../assets/icons/TrashIcon";
 import style from "../../styles/boardTemplate.module.scss";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 
 type ColumnsProps = {
-  column: string;
+  column: Column;
 };
 
 const Columns: React.FC<ColumnsProps> = ({ column }) => {
-    const handleDragEnd=()=>{
-      
-    }
-  return (
+  const { setNodeRef, attributes, listeners, transform, transition, isDragging } =
+    useSortable({
+      id: column.column_id,
+      data: {
+        type: "Column",
+        column,
+      },
+    });
+  const styles = {
+    transform: CSS.Transform.toString(transform),
+    transition: transition || undefined,
+    // opacity: isDragging ? 0.5 : 1,
+  };
+  if(isDragging){
+    return (
 
-    <div className={style.Column}>
-      <div className={style.ColumnHeader}>
-        <div className={style.columnHeaderName}>
-          <h4>{column}</h4>
-        </div>
-        <div className={style.trashIcon}>
-          <TrashIcon />
-        </div>
+  <div
+  className={style.innerColumn} 
+  ref={setNodeRef}
+  style={styles}
+  {...attributes}
+  {...listeners}
+></div>
+    )
+  }
+
+  return (
+    <div
+    className={style.Column} 
+    ref={setNodeRef}
+    style={styles}
+    {...attributes}
+    {...listeners}
+  >
+
+    <div className={style.ColumnHeader}>
+      <div className={style.columnHeaderName}>
+        <h4>{column.name}</h4>
       </div>
-      <div className={style.ColumnSection}>content</div>
+      <div className={style.trashIcon}>
+        <TrashIcon />
+      </div>
     </div>
+    <div className={style.ColumnSection}>content</div>
+  </div>
   );
 };
 

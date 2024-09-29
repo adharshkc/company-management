@@ -101,7 +101,7 @@ export const useDeleteSprint = () => {
   const singleSprintFetch = async ()=>{
     const project_id = localStorage.getItem("project_id")
     const response = await getStartedSprints(project_id);
-    console.log(response.data)
+    // console.log(response.data)
     return response.data.sprints;
   }
   export const useFetchStartedSprint = ()=>{

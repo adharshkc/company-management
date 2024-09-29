@@ -15,11 +15,11 @@ import { useIssueStore } from "../../zustand/IssueStore";
 import { updateIssueName, updateIssueStatus } from "../../services/EmployeeApi";
 import { Snackbar, SnackbarCloseReason } from "@mui/material";
 import { Alert } from "@mui/material";
-import { Issue } from "types/types";
+import { Column, Issue } from "../../types/types";
 
 type SprintTaskRowProps = {
   issue: Issue;
-  sprintColumns: string[];
+  sprintColumns:Column[];
   fetchIssue: () => void;
 };
 
@@ -193,9 +193,9 @@ const SprintTaskRow: React.FC<SprintTaskRowProps> = ({
                 sx={{ fontSize: "0.75rem", padding: "4px" }}
                 disableUnderline
               >
-                {sprintColumns.map((column, index) => (
+                {sprintColumns.map((column) => (
                   <MenuItem
-                    key={index}
+                    key={column.column_id}
                     value={column.name}
                     sx={{ fontSize: "0.75rem" }}
                   >
