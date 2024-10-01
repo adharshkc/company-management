@@ -8,21 +8,28 @@ import { useFetchStartedSprint } from "../../../hooks/useSprints";
 import Columns from "@components/organism/Columns/Columns";
 import CheckIcon from "../../../assets/icons/CheckIcon";
 import CrossIcon from "../../../assets/icons/CrossIcon";
-import { DndContext, DragEndEvent, DragOverlay, DragStartEvent } from "@dnd-kit/core";
+import {
+  DndContext,
+  DragEndEvent,
+  DragOverlay,
+  DragStartEvent,
+} from "@dnd-kit/core";
 import { Column } from "types/types";
 import { arrayMove, SortableContext } from "@dnd-kit/sortable";
 import { createPortal } from "react-dom";
+import { useAddColumns } from "../../../hooks/useColumns";
 
 const BoardTemplate = () => {
   const { data: sprint, isLoading } = useFetchStartedSprint();
-  console.log(sprint);
+  const {mutate: addNewColumn} = useAddColumns()
+  // console.log(sprint);
   const [columns, setColumns] = useState<Column[]>([]);
   const [newColumn, setNewColumn] = useState<boolean>(false);
   const [newColumnName, setNewColumnName] = useState("");
   const [activeColumn, setActiveColumn] = useState<Column | null>(null);
 
-  const columnId = useMemo(
-    () => columns.map((col) => col.column_id),
+  const columnOrder = useMemo(
+    () => columns.map((col) => col.order),
     [columns]
   );
 
@@ -35,31 +42,45 @@ const BoardTemplate = () => {
   const handleNewColumn = () => {
     if (!newColumnName.trim()) return;
     const newCol = {
+      name: newColumnName,
+      order: columns.length + 1,
+      sprint_id: sprint.sprint_id,
+    };
+    addNewColumn(newCol);
 
-    }
-    // setColumns((col)=>[...col, newColumnName])
     setNewColumnName("");
     setNewColumn(false);
   };
   const handleDragStart = (event: DragStartEvent) => {
     if (event.active.data.current?.type === "Column") {
       setActiveColumn(event.active.data.current.column);
-      console.log(event.active.data.current.column);
+      // console.log(event.active.data)
       return;
     }
   };
-  const handleDragEnd = (event:DragEndEvent)=>{
-    const {active, over} = event;
-    if(!over) return
-    const activeColumnId = active.id
-    const overColumnId = over.id
-    if(activeColumnId===overColumnId)return
-    const activeColumnIndex = columns.findIndex((col)=>col.column_id===activeColumnId)
-    const overColumnIndex = columns.findIndex((col)=>col.column_id===overColumnId)
-    console.log(activeColumnIndex)
-    console.log(overColumnIndex)
-     setColumns((columns)=>arrayMove(columns, activeColumnIndex, overColumnIndex))
-  }
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over, collisions } = event;
+    console.log(collisions)
+    if (!over) return;
+    console.log("active", active)
+    console.log("over",over)
+    const activeColumnId = active.id;
+    const overColumnId = over.id;
+    if (activeColumnId === overColumnId) return;
+    const activeColumnIndex = columns.findIndex(
+      (col) => col.order === activeColumnId
+    );
+    const overColumnIndex = columns.findIndex(
+      (col) => col.order === overColumnId
+    );
+    console.log(activeColumnIndex);
+    console.log(overColumnIndex);
+    // console.log(arrayMove(columns, activeColumnIndex, overColumnIndex))
+    if (activeColumnIndex !== -1 && overColumnIndex !== -1) {
+      // Update columns state after reordering
+      setColumns((columns) => arrayMove(columns, activeColumnIndex, overColumnIndex));
+    }
+  };
   // console.log(columns)
   if (isLoading) {
     return (
@@ -87,7 +108,7 @@ const BoardTemplate = () => {
           </Button>
         </div>
 
-        <SortableContext items={columnId}>
+        <SortableContext items={columnOrder}>
           <div className={style.ColumnBody}>
             {columns?.map((column) => (
               <Columns column={column} key={column.column_id} />
@@ -137,11 +158,11 @@ const BoardTemplate = () => {
           </div>
         </SortableContext>
         {createPortal(
-
-        <DragOverlay>
-          {activeColumn && <Columns column={activeColumn} />}
-        </DragOverlay>, document.body)
-        }
+          <DragOverlay>
+            {activeColumn && <Columns column={activeColumn} />}
+          </DragOverlay>,
+          document.body
+        )}
       </DndContext>
     </div>
   );

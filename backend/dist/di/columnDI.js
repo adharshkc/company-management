@@ -7,5 +7,6 @@ const SequelizeColumnRepository_1 = require("@infrastructure/repository/Sequeliz
 const columnRepository = new SequelizeColumnRepository_1.SequelizeColumnRepository();
 const columnUsecase = new column_1.NewColumnUsecase(columnRepository);
 const getColumnsUsecase = new column_1.GetColumnsUsecase(columnRepository);
-const columnController = new ColumnController_1.ColumnController(columnUsecase, getColumnsUsecase);
+const updateOrderUsecase = new column_1.UpdateOrderUsecase(columnRepository);
+const columnController = new ColumnController_1.ColumnController(columnUsecase, getColumnsUsecase, updateOrderUsecase);
 exports.columnController = columnController;

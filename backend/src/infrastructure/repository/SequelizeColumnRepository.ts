@@ -30,4 +30,17 @@ export class SequelizeColumnRepository implements ColumnRepository {
       throw new Error(error);
     }
   }
+
+  async updateOrder(order: number, column_id: number): Promise<any> {
+    try {
+      const column = await ColumnModel.update(
+        {
+          order: order,
+        },
+        {
+          where: { column_id: column_id },
+        }
+      );
+    } catch (error) {}
+  }
 }

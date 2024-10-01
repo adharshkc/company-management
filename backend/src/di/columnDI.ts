@@ -1,4 +1,4 @@
-import { GetColumnsUsecase, NewColumnUsecase } from "@application/use-cases/column";
+import { GetColumnsUsecase, NewColumnUsecase, UpdateOrderUsecase } from "@application/use-cases/column";
 import { ColumnController } from "@frameworks/controllers/ColumnController";
 import { SequelizeColumnRepository } from "@infrastructure/repository/SequelizeColumnRepository";
 
@@ -7,6 +7,7 @@ import { SequelizeColumnRepository } from "@infrastructure/repository/SequelizeC
 const columnRepository = new SequelizeColumnRepository()
 const columnUsecase = new NewColumnUsecase(columnRepository)
 const getColumnsUsecase = new GetColumnsUsecase(columnRepository)
-const columnController = new ColumnController(columnUsecase,getColumnsUsecase )
+const updateOrderUsecase = new UpdateOrderUsecase(columnRepository)
+const columnController = new ColumnController(columnUsecase,getColumnsUsecase, updateOrderUsecase )
 
 export {columnController}

@@ -103,7 +103,7 @@ export type Sprint = {
   name: string;
   startDate?: Date | string;
   endDate?: Date | string;
-  columns: string[];
+  columns: Column[];
   status?: "start" | "completed" | "pending";
   sprint_id: number;
 

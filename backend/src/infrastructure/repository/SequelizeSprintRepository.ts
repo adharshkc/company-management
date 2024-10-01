@@ -125,7 +125,8 @@ export class SequelizeSprintRepository implements SprintRepository {
     try {
       const sprints = await SprintModel.findOne({
         where: { project_id: project_id, status: "pending" },include:{
-          model:ColumnModel
+          model:ColumnModel,
+          order:[['order', 'ASC']]
         }
       });
 

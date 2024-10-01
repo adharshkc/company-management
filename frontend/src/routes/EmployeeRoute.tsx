@@ -10,18 +10,17 @@ import Board from "../pages/employees/Board"
 
 
 
-const EmployeeRoute = function(){
+const EmployeeRoute = function () {
     return (
         <Routes>
-            <Route path = "/login" element={<Login/>}/>
-            <Route path="/verify-otp" element={<Otp/>}/>
-            <Route element={<EmployeeProtectedRoute/>}>
-            <Route element={<EmployeeLayout/>}>
-            
-                <Route path="/" element={<Dashboard/>}/>
-                <Route path="/backlogs" element={<Backlog/>}/>
-                <Route path="/board" element={<Board/>}/>
-            </Route>
+            <Route path="/login" element={<Login />} />
+            <Route path="/verify-otp" element={<Otp />} />
+            <Route element={<EmployeeProtectedRoute />}>
+                <Route element={<EmployeeLayout />}>
+                    <Route path="/" element={<Dashboard />} />
+                    <Route path="/backlogs" element={<Backlog />} />
+                    <Route path="/board" element={<Board />} />
+                </Route>
             </Route>
         </Routes>
     )

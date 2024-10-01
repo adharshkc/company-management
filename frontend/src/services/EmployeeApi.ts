@@ -1,6 +1,6 @@
 import { Dayjs } from "dayjs";
 import { employeeAxiosInstance } from "../apis/employeeAxiosInstance";
-import { Otp } from "../types/types";
+import { Column, Otp } from "../types/types";
 
 export const checkSession = async () => {
   return await employeeAxiosInstance.get("/check-session");
@@ -18,12 +18,14 @@ export const getSprints = async (project_id: string | null) => {
   return await employeeAxiosInstance.get(`/projects/${project_id}/sprints`);
 };
 
-export const getSingleSprint = async (sprint_id:number)=>{
-  return await employeeAxiosInstance.get(`/projects/sprints/${sprint_id}`)
-}
-export const getStartedSprints = async (project_id: string | null)=>{
-  return await employeeAxiosInstance.get(`/projects/${project_id}/sprints/started`)
-}
+export const getSingleSprint = async (sprint_id: number) => {
+  return await employeeAxiosInstance.get(`/projects/sprints/${sprint_id}`);
+};
+export const getStartedSprints = async (project_id: string | null) => {
+  return await employeeAxiosInstance.get(
+    `/projects/${project_id}/sprints/started`
+  );
+};
 
 export const createSprint = async (name: string, project_id: string | null) => {
   return await employeeAxiosInstance.post(`/projects/${project_id}/sprints/`, {
@@ -45,9 +47,16 @@ export const updateSprint = async (
   });
 };
 
-export const changeSprintStatus=async(status:string, sprint_id:number|string, project_id:string|null)=>{
-  return await employeeAxiosInstance.patch(`/projects/${project_id}/sprints/${sprint_id}/start`, {status})
-}
+export const changeSprintStatus = async (
+  status: string,
+  sprint_id: number | string,
+  project_id: string | null
+) => {
+  return await employeeAxiosInstance.patch(
+    `/projects/${project_id}/sprints/${sprint_id}/start`,
+    { status }
+  );
+};
 
 export const deleteSprint = async (sprintId: number) => {
   return await employeeAxiosInstance.delete(`/projects/sprints/${sprintId}`);
@@ -95,10 +104,22 @@ export const updateIssueName = async (issueName: string, issue_id?: number) => {
   );
 };
 
-export const updateIssueDescription = async (description?:string, issue_id?:number)=>{
-  return await employeeAxiosInstance.patch(`/projects/sprints/issues/${issue_id}/update-description`, {description})
-}
+export const updateIssueDescription = async (
+  description?: string,
+  issue_id?: number
+) => {
+  return await employeeAxiosInstance.patch(
+    `/projects/sprints/issues/${issue_id}/update-description`,
+    { description }
+  );
+};
 
 export const fetchProject = async () => {
   return await employeeAxiosInstance.get(`/projects/single`);
+};
+
+export const addNewColumn = async (newColumn: Omit<Column, 'column_id'>) => {
+  return await employeeAxiosInstance.post(`/projects/sprints/columns`, {
+    newColumn,
+  });
 };

@@ -34,5 +34,15 @@ class SequelizeColumnRepository {
             throw new Error(error);
         }
     }
+    async updateOrder(order, column_id) {
+        try {
+            const column = await ColumnModel_1.default.update({
+                order: order,
+            }, {
+                where: { column_id: column_id },
+            });
+        }
+        catch (error) { }
+    }
 }
 exports.SequelizeColumnRepository = SequelizeColumnRepository;

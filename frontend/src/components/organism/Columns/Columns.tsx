@@ -11,7 +11,7 @@ type ColumnsProps = {
 const Columns: React.FC<ColumnsProps> = ({ column }) => {
   const { setNodeRef, attributes, listeners, transform, transition, isDragging } =
     useSortable({
-      id: column.column_id,
+      id: column.order,
       data: {
         type: "Column",
         column,

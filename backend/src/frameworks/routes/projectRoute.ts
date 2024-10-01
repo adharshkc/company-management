@@ -92,7 +92,7 @@ projectRouter.patch(
 //column
 
 projectRouter.post(
-  "/sprint/columns",
+  "/sprints/columns",
   verifyEmployeeAccessToken,
   columnController.newColumn.bind(columnController)
 );
@@ -100,6 +100,12 @@ projectRouter.get(
   "/:projectId/sprint/columns",
   verifyEmployeeAccessToken,
   columnController.getColumns.bind(columnController)
+);
+
+projectRouter.patch(
+  "/sprint/columns/order",
+  verifyEmployeeAccessToken,
+  columnController.updateColumn.bind(columnController)
 );
 
 export default projectRouter;
