@@ -24,7 +24,7 @@ export const useSessionStore = create(
       } catch (error) {
         set({ isAuthenticated: false });
       }
-    },  
+    },   
   }),
 {
     name:'session-storage',

@@ -9,8 +9,8 @@ import HomeTask from "@components/organism/Task/HomeTask";
 
 const Home = () => {
   const [open, setOpen] = useState<boolean>(false);
-  const {dayDate, timeOfDay} = useDayAndWeek()
- 
+  const { dayDate, timeOfDay } = useDayAndWeek()
+
   console.log(dayDate)
   const handleClose = () => {
     setOpen(false);
@@ -33,11 +33,11 @@ const Home = () => {
         </Button>
       </div>
       <div className={style.time}>
-            <Typography variant="body1" >{dayDate}</Typography>
-            <Typography variant="h4">Good {timeOfDay}, Adharsh</Typography>
+        <Typography variant="body1" >{dayDate}</Typography>
+        <Typography variant="h4">Good {timeOfDay}, Adharsh</Typography>
 
       </div>
-      <div><HomeTask/></div>
+      <div><HomeTask /></div>
       <Dialog sx={{ margin: 1 }} open={open}>
         <ClockModal handleModal={handleClose} />
       </Dialog>
