@@ -81,7 +81,7 @@ const BoardTemplate = () => {
       setColumns((columns) => arrayMove(columns, activeColumnIndex, overColumnIndex));
     }
   };
-  // console.log(columns)
+  console.log(columns)
   if (isLoading) {
     return (
       <div className={style.bodyPart}>
@@ -89,6 +89,11 @@ const BoardTemplate = () => {
       </div>
     );
   }
+  if(columns.length===0)return(
+    <div className={style.bodyPart}>
+<h3>No columns...</h3>
+    </div>
+  )
   return (
     <div className={style.bodyPart}>
       <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
