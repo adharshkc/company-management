@@ -21,7 +21,7 @@ import { useAddColumns } from "../../../hooks/useColumns";
 
 const BoardTemplate = () => {
   const { data: sprint, isLoading } = useFetchStartedSprint();
-  const {mutate: addNewColumn} = useAddColumns()
+  const { mutate: addNewColumn } = useAddColumns()
   // console.log(sprint);
   const [columns, setColumns] = useState<Column[]>([]);
   const [newColumn, setNewColumn] = useState<boolean>(false);
@@ -63,7 +63,7 @@ const BoardTemplate = () => {
     console.log(collisions)
     if (!over) return;
     console.log("active", active)
-    console.log("over",over)
+    console.log("over", over)
     const activeColumnId = active.id;
     const overColumnId = over.id;
     if (activeColumnId === overColumnId) return;
@@ -75,7 +75,6 @@ const BoardTemplate = () => {
     );
     console.log(activeColumnIndex);
     console.log(overColumnIndex);
-    // console.log(arrayMove(columns, activeColumnIndex, overColumnIndex))
     if (activeColumnIndex !== -1 && overColumnIndex !== -1) {
       // Update columns state after reordering
       setColumns((columns) => arrayMove(columns, activeColumnIndex, overColumnIndex));
@@ -89,9 +88,9 @@ const BoardTemplate = () => {
       </div>
     );
   }
-  if(columns.length===0)return(
+  if (columns.length === 0) return (
     <div className={style.bodyPart}>
-<h3>No columns...</h3>
+      <h3>No columns...</h3>
     </div>
   )
   return (
