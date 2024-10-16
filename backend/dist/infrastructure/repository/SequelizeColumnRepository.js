@@ -42,7 +42,20 @@ class SequelizeColumnRepository {
                 where: { column_id: column_id },
             });
         }
-        catch (error) { }
+        catch (error) {
+            throw new Error(error);
+        }
+    }
+    async getSingleColumn(sprint_id) {
+        try {
+            const columns = await ColumnModel_1.default.findOne({
+                where: { sprint_id: sprint_id }
+            });
+            return columns;
+        }
+        catch (error) {
+            throw new Error(error);
+        }
     }
 }
 exports.SequelizeColumnRepository = SequelizeColumnRepository;

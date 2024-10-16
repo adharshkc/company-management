@@ -1,6 +1,7 @@
 import { Dayjs } from "dayjs";
 import { employeeAxiosInstance } from "../apis/employeeAxiosInstance";
 import { Column, Otp } from "../types/types";
+import { UniqueIdentifier } from "@dnd-kit/core";
 
 export const checkSession = async () => {
   return await employeeAxiosInstance.get("/check-session");
@@ -123,3 +124,7 @@ export const addNewColumn = async (newColumn: Omit<Column, 'column_id'>) => {
     newColumn,
   });
 };
+
+export const updateColumnOrder = async (active:number|UniqueIdentifier, over:number|UniqueIdentifier, sprint_id:number)=>{
+  return await employeeAxiosInstance.patch(`/projects/sprints/columns/order`,{active, over,sprint_id})
+}

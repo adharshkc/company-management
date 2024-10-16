@@ -30,14 +30,15 @@ class ColumnController {
     }
     async updateColumn(req, res, next) {
         try {
-            const order = req.body.order;
-            const column_id = req.body.columnId;
-            if (!column_id)
-                res.status(400).json("column id is empty");
-            if (!order)
-                return res.status(400).json("order is empty");
-            const { status, data } = await this.updateOrderUsecase.execute(parseInt(order), parseInt(column_id));
-            return res.status(status).json(data);
+            const active = req.body.active;
+            const over = req.body.over;
+            const sprint_id = req.body.sprint_id;
+            if (!sprint_id)
+                res.status(400).json("sprint id is empty");
+            console.log(active, over, sprint_id);
+            console.log("hello");
+            await this.updateOrderUsecase.execute(parseInt(active), parseInt(over), parseInt(sprint_id));
+            // return res.status(status).json(data)
         }
         catch (error) {
             next(error);

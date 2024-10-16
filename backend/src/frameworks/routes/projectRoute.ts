@@ -97,13 +97,13 @@ projectRouter.post(
   columnController.newColumn.bind(columnController)
 );
 projectRouter.get(
-  "/:projectId/sprint/columns",
+  "/:projectId/sprints/columns",
   verifyEmployeeAccessToken,
   columnController.getColumns.bind(columnController)
 );
 
 projectRouter.patch(
-  "/sprint/columns/order",
+  "/sprints/columns/order",
   verifyEmployeeAccessToken,
   columnController.updateColumn.bind(columnController)
 );

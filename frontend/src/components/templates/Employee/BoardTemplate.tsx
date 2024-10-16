@@ -18,6 +18,7 @@ import { Column } from "types/types";
 import { arrayMove, SortableContext } from "@dnd-kit/sortable";
 import { createPortal } from "react-dom";
 import { useAddColumns } from "../../../hooks/useColumns";
+import { updateColumnOrder } from "../../../services/EmployeeApi";
 
 const BoardTemplate = () => {
   const { data: sprint, isLoading } = useFetchStartedSprint();
@@ -35,7 +36,8 @@ const BoardTemplate = () => {
 
   useEffect(() => {
     if (sprint) {
-      setColumns(sprint.columns);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      setColumns(sprint.columns.sort((a:any,b:any)=>a.order-b.order));
     }
   }, [sprint]);
 
@@ -60,7 +62,7 @@ const BoardTemplate = () => {
   };
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over, collisions } = event;
-    console.log(collisions)
+    console.log("collison",collisions)
     if (!over) return;
     console.log("active", active)
     console.log("over", over)
@@ -73,14 +75,15 @@ const BoardTemplate = () => {
     const overColumnIndex = columns.findIndex(
       (col) => col.order === overColumnId
     );
-    console.log(activeColumnIndex);
+    console.log(activeColumn);
     console.log(overColumnIndex);
     if (activeColumnIndex !== -1 && overColumnIndex !== -1) {
       // Update columns state after reordering
+      console.log(typeof activeColumnId)
+      updateColumnOrder(active.id, over.id, sprint.sprint_id)
       setColumns((columns) => arrayMove(columns, activeColumnIndex, overColumnIndex));
     }
   };
-  console.log(columns)
   if (isLoading) {
     return (
       <div className={style.bodyPart}>

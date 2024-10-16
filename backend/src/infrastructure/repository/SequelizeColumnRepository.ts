@@ -41,6 +41,20 @@ export class SequelizeColumnRepository implements ColumnRepository {
           where: { column_id: column_id },
         }
       );
-    } catch (error) {}
+    }  catch (error: any) {
+      throw new Error(error);
+    }
+  }
+
+  async getSingleColumn(sprint_id:number):Promise<Column|null>{
+    try {
+      const columns = await ColumnModel.findOne({
+        where:{sprint_id:sprint_id}
+      })
+      return columns
+    }  catch (error: any) {
+      throw new Error(error);
+    }
   }
 }
+

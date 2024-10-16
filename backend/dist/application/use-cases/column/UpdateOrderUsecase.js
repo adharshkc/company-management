@@ -5,16 +5,17 @@ class UpdateOrderUsecase {
     constructor(columnRepository) {
         this.columnRepository = columnRepository;
     }
-    async execute(order, sprint_id) {
+    async execute(order, over, sprint_id) {
         try {
-            const column = await this.columnRepository.updateOrder(order, sprint_id);
-            return {
-                status: 200,
-                data: {
-                    success: false,
-                    column,
-                },
-            };
+            const column = await this.columnRepository.getSingleColumn(sprint_id);
+            console.log(column);
+            // return {
+            //   status: 200,
+            //   data: {
+            //     success: false,
+            //     column,
+            //   },
+            // };
         }
         catch (error) {
             throw new Error(error);
