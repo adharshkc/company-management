@@ -39,14 +39,12 @@ export class ColumnController {
       const over = req.body.over
       const sprint_id = req.body.sprint_id;
       if (!sprint_id) res.status(400).json("sprint id is empty");
-      console.log(active, over, sprint_id)
-      console.log("hello")
-      await this.updateOrderUsecase.execute(
+     const {status, data} = await this.updateOrderUsecase.execute(
         parseInt(active),
         parseInt(over),
         parseInt(sprint_id)
       );
-      // return res.status(status).json(data)
+      return res.status(status).json(data)
     } catch (error) {
       next(error);
     }

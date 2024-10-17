@@ -31,30 +31,45 @@ export class SequelizeColumnRepository implements ColumnRepository {
     }
   }
 
-  async updateOrder(order: number, column_id: number): Promise<any> {
+  async updateOrder(columns:Column[]): Promise<any> {
     try {
-      const column = await ColumnModel.update(
-        {
-          order: order,
-        },
-        {
-          where: { column_id: column_id },
-        }
-      );
-    }  catch (error: any) {
+      for(const col of columns){
+
+         await ColumnModel.update(
+          {
+            name:col.name,
+            order:col.order,
+            sprint_id:col.sprint_id
+          },
+          {
+            where:{column_id:col.column_id}
+          }
+         );
+      }
+    } catch (error: any) {
       throw new Error(error);
     }
   }
 
-  async getSingleColumn(sprint_id:number):Promise<Column|null>{
+  async getSingleColumn(sprint_id: number): Promise<Column | null> {
     try {
       const columns = await ColumnModel.findOne({
-        where:{sprint_id:sprint_id}
-      })
-      return columns
-    }  catch (error: any) {
+        where: { sprint_id: sprint_id },
+      });
+      return columns;
+    } catch (error: any) {
+      throw new Error(error);
+    }
+  }
+  async getColumnsBySprint(sprint_id: number): Promise<Column[]> {
+    try {
+      const columns = await ColumnModel.findAll({
+        where: { sprint_id: sprint_id },
+        raw:true
+      });
+      return columns;
+    } catch (error: any) {
       throw new Error(error);
     }
   }
 }
-

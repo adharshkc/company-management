@@ -34,13 +34,17 @@ class SequelizeColumnRepository {
             throw new Error(error);
         }
     }
-    async updateOrder(order, column_id) {
+    async updateOrder(columns) {
         try {
-            const column = await ColumnModel_1.default.update({
-                order: order,
-            }, {
-                where: { column_id: column_id },
-            });
+            for (const col of columns) {
+                await ColumnModel_1.default.update({
+                    name: col.name,
+                    order: col.order,
+                    sprint_id: col.sprint_id
+                }, {
+                    where: { column_id: col.column_id }
+                });
+            }
         }
         catch (error) {
             throw new Error(error);
@@ -49,7 +53,19 @@ class SequelizeColumnRepository {
     async getSingleColumn(sprint_id) {
         try {
             const columns = await ColumnModel_1.default.findOne({
-                where: { sprint_id: sprint_id }
+                where: { sprint_id: sprint_id },
+            });
+            return columns;
+        }
+        catch (error) {
+            throw new Error(error);
+        }
+    }
+    async getColumnsBySprint(sprint_id) {
+        try {
+            const columns = await ColumnModel_1.default.findAll({
+                where: { sprint_id: sprint_id },
+                raw: true
             });
             return columns;
         }
