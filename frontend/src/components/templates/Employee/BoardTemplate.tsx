@@ -13,12 +13,15 @@ import {
   DragEndEvent,
   DragOverlay,
   DragStartEvent,
+  PointerSensor,
+  useSensor,
+  useSensors,
 } from "@dnd-kit/core";
 import { Column } from "types/types";
 import { arrayMove, SortableContext } from "@dnd-kit/sortable";
 import { createPortal } from "react-dom";
 import { useAddColumns } from "../../../hooks/useColumns";
-import { updateColumnOrder } from "../../../services/EmployeeApi";
+import { deleteColumn, updateColumnOrder } from "../../../services/EmployeeApi";
 
 const BoardTemplate = () => {
   const { data: sprint, isLoading } = useFetchStartedSprint();
@@ -33,6 +36,14 @@ const BoardTemplate = () => {
     () => columns.map((col) => col.order),
     [columns]
   );
+
+  const sensors = useSensors(
+    useSensor(PointerSensor,{
+      activationConstraint:{
+        distance:3
+      }
+    })
+  )
 
   useEffect(() => {
     if (sprint) {
@@ -53,6 +64,10 @@ const BoardTemplate = () => {
     setNewColumnName("");
     setNewColumn(false);
   };
+  const handleDeleteColumn = async(column_id:number) => {
+    console.log(column_id)
+    await deleteColumn(column_id)
+  }
   const handleDragStart = (event: DragStartEvent) => {
     if (event.active.data.current?.type === "Column") {
       setActiveColumn(event.active.data.current.column);
@@ -98,7 +113,7 @@ const BoardTemplate = () => {
   )
   return (
     <div className={style.bodyPart}>
-      <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
+      <DndContext sensors={sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
         <div className={style.header}>
           <Header header1="Home" header2="Board" />
           <Button
@@ -118,7 +133,7 @@ const BoardTemplate = () => {
         <SortableContext items={columnOrder}>
           <div className={style.ColumnBody}>
             {columns?.map((column) => (
-              <Columns column={column} key={column.column_id} />
+              <Columns deleteColumn={handleDeleteColumn} column={column} key={column.column_id} />
             ))}
             {newColumn ? (
               <div className={style.inputContainer}>
@@ -166,7 +181,7 @@ const BoardTemplate = () => {
         </SortableContext>
         {createPortal(
           <DragOverlay>
-            {activeColumn && <Columns column={activeColumn} />}
+            {activeColumn && <Columns deleteColumn={handleDeleteColumn} column={activeColumn} />}
           </DragOverlay>,
           document.body
         )}

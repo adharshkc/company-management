@@ -6,9 +6,10 @@ import { CSS } from "@dnd-kit/utilities";
 
 type ColumnsProps = {
   column: Column;
+  deleteColumn:(column_id:number)=>void
 };
 
-const Columns: React.FC<ColumnsProps> = ({ column }) => {
+const Columns: React.FC<ColumnsProps> = ({ column, deleteColumn }) => {
   const { setNodeRef, attributes, listeners, transform, transition, isDragging } =
     useSortable({
       id: column.order,
@@ -22,38 +23,40 @@ const Columns: React.FC<ColumnsProps> = ({ column }) => {
     transition: transition || undefined,
     // opacity: isDragging ? 0.5 : 1,
   };
-  if(isDragging){
+
+  
+  if (isDragging) {
     return (
 
-  <div
-  className={style.innerColumn} 
-  ref={setNodeRef}
-  style={styles}
-  {...attributes}
-  {...listeners}
-></div>
+      <div
+        className={style.innerColumn}
+        ref={setNodeRef}
+        style={styles}
+        {...attributes}
+        {...listeners}
+      ></div>
     )
   }
 
   return (
     <div
-    className={style.Column} 
-    ref={setNodeRef}
-    style={styles}
-    {...attributes}
-    {...listeners}
-  >
+      className={style.Column}
+      ref={setNodeRef}
+      style={styles}
+      {...attributes}
+      {...listeners}
+    >
 
-    <div className={style.ColumnHeader}>
-      <div className={style.columnHeaderName}>
-        <h4>{column.name}</h4>
+      <div className={style.ColumnHeader}>
+        <div className={style.columnHeaderName}>
+          <h4>{column.name}</h4>
+        </div>
+        <div className={style.trashIcon} onClick={()=>deleteColumn(column.column_id)}>
+          <TrashIcon  />
+        </div>
       </div>
-      <div className={style.trashIcon}>
-        <TrashIcon />
-      </div>
+      <div className={style.ColumnSection}>content</div>
     </div>
-    <div className={style.ColumnSection}>content</div>
-  </div>
   );
 };
 
