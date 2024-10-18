@@ -1,6 +1,6 @@
 import Header from "@components/molecules/Header";
 import style from "../../styles/boardTemplate.module.scss";
-import { Button } from "@mui/material";
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
 import { theme } from "../../../theme";
 import PlusIcon from "../../../assets/icons/PlusIcon";
 import { useEffect, useMemo, useState } from "react";
@@ -31,6 +31,8 @@ const BoardTemplate = () => {
   const [newColumn, setNewColumn] = useState<boolean>(false);
   const [newColumnName, setNewColumnName] = useState("");
   const [activeColumn, setActiveColumn] = useState<Column | null>(null);
+  const [deleteColumnId, setDeleteColumnId] = useState<number>()
+  const [deleteColumnModal, setDeleteColumnModal] = useState(false)
 
   const columnOrder = useMemo(
     () => columns.map((col) => col.order),
@@ -38,9 +40,9 @@ const BoardTemplate = () => {
   );
 
   const sensors = useSensors(
-    useSensor(PointerSensor,{
-      activationConstraint:{
-        distance:3
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 3
       }
     })
   )
@@ -48,7 +50,7 @@ const BoardTemplate = () => {
   useEffect(() => {
     if (sprint) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      setColumns(sprint.columns.sort((a:any,b:any)=>a.order-b.order));
+      setColumns(sprint.columns.sort((a: any, b: any) => a.order - b.order));
     }
   }, [sprint]);
 
@@ -64,10 +66,20 @@ const BoardTemplate = () => {
     setNewColumnName("");
     setNewColumn(false);
   };
-  const handleDeleteColumn = async(column_id:number) => {
-    console.log(column_id)
-    await deleteColumn(column_id)
+  const handleDeleteColumn = async () => {
+    await deleteColumn(deleteColumnId)
+    const selectedColumn = columns.find((col) => col.column_id === deleteColumnId) as Column
+    const indexOfColumn = columns.indexOf(selectedColumn)
+    columns.splice(indexOfColumn, 1)
+    setColumns(columns)
+    setDeleteColumnModal(false)
   }
+
+  const handleDeleteColumnModal = (id: number, bool: boolean) => {
+    setDeleteColumnModal(bool)
+    setDeleteColumnId(id)
+  }
+
   const handleDragStart = (event: DragStartEvent) => {
     if (event.active.data.current?.type === "Column") {
       setActiveColumn(event.active.data.current.column);
@@ -77,7 +89,7 @@ const BoardTemplate = () => {
   };
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over, collisions } = event;
-    console.log("collison",collisions)
+    console.log("collison", collisions)
     if (!over) return;
     console.log("active", active)
     console.log("over", over)
@@ -133,7 +145,7 @@ const BoardTemplate = () => {
         <SortableContext items={columnOrder}>
           <div className={style.ColumnBody}>
             {columns?.map((column) => (
-              <Columns deleteColumn={handleDeleteColumn} column={column} key={column.column_id} />
+              <Columns deleteColumn={handleDeleteColumnModal} column={column} key={column.column_id} />
             ))}
             {newColumn ? (
               <div className={style.inputContainer}>
@@ -181,11 +193,40 @@ const BoardTemplate = () => {
         </SortableContext>
         {createPortal(
           <DragOverlay>
-            {activeColumn && <Columns deleteColumn={handleDeleteColumn} column={activeColumn} />}
+            {activeColumn && <Columns deleteColumn={handleDeleteColumnModal} column={activeColumn} />}
           </DragOverlay>,
           document.body
         )}
       </DndContext>
+      <Dialog
+        open={deleteColumnModal}
+        // TransitionComponent={Transition}
+        keepMounted
+        onClose={() => setDeleteColumnModal(false)}
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogTitle>Warning</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-slide-description">
+            Are you sure you want to delete?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button sx={{
+            color: "black",
+            "&:hover": {
+              color: "black",
+              backgroundColor: "#f1f2f4",
+            },
+          }} onClick={() => setDeleteColumnModal(false)}>Cancel</Button>
+          <Button sx={{
+            backgroundColor: "#c9372c", color: "white", "&:hover": {
+              color: "white",
+              backgroundColor: "#AE2E24",
+            },
+          }} onClick={handleDeleteColumn}>Delete</Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 };

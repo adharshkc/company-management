@@ -129,6 +129,6 @@ export const updateColumnOrder = async (active:number|UniqueIdentifier, over:num
   return await employeeAxiosInstance.patch(`/projects/sprints/columns/order`,{active, over,sprint_id})
 }
 
-export const deleteColumn = async (column_id:number)=>{
-  return await employeeAxiosInstance.delete(`/projects/sprint/columns/${column_id}`)
+export const deleteColumn = async (column_id?:number)=>{
+  return await employeeAxiosInstance.delete(`/projects/sprints/columns/${column_id}`)
 }

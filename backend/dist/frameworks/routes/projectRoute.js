@@ -30,4 +30,5 @@ projectRouter.patch("/sprints/issues/:issueId/update-description", employeeMiddl
 projectRouter.post("/sprints/columns", employeeMiddleware_1.verifyEmployeeAccessToken, columnDI_1.columnController.newColumn.bind(columnDI_1.columnController));
 projectRouter.get("/:projectId/sprints/columns", employeeMiddleware_1.verifyEmployeeAccessToken, columnDI_1.columnController.getColumns.bind(columnDI_1.columnController));
 projectRouter.patch("/sprints/columns/order", employeeMiddleware_1.verifyEmployeeAccessToken, columnDI_1.columnController.updateColumn.bind(columnDI_1.columnController));
+projectRouter.delete("/sprints/columns/:columnId", employeeMiddleware_1.verifyEmployeeAccessToken, columnDI_1.columnController.deleteColumn.bind(columnDI_1.columnController));
 exports.default = projectRouter;

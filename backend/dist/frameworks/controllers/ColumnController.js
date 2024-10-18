@@ -2,10 +2,11 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ColumnController = void 0;
 class ColumnController {
-    constructor(newColumnUsecase, getColumnUsecase, updateOrderUsecase) {
+    constructor(newColumnUsecase, getColumnUsecase, updateOrderUsecase, deleteColumnUsecase) {
         this.newColumnUsecase = newColumnUsecase;
         this.getColumnUsecase = getColumnUsecase;
         this.updateOrderUsecase = updateOrderUsecase;
+        this.deleteColumnUsecase = deleteColumnUsecase;
     }
     async newColumn(req, res, next) {
         try {
@@ -40,6 +41,17 @@ class ColumnController {
         }
         catch (error) {
             next(error);
+        }
+    }
+    async deleteColumn(req, res, next) {
+        try {
+            const column_id = req.params.columnId;
+            if (!column_id)
+                res.status(400).json("column id is empty");
+            const { status, data } = await this.deleteColumnUsecase.execute(parseInt(column_id));
+            res.status(status).json(data);
+        }
+        catch (error) {
         }
     }
 }

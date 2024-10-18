@@ -73,5 +73,14 @@ class SequelizeColumnRepository {
             throw new Error(error);
         }
     }
+    async deleteColumn(column_id) {
+        try {
+            const column = await ColumnModel_1.default.destroy({ where: { column_id: column_id } });
+            return column;
+        }
+        catch (error) {
+            throw new Error(error);
+        }
+    }
 }
 exports.SequelizeColumnRepository = SequelizeColumnRepository;

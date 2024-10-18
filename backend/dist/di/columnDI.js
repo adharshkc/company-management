@@ -8,5 +8,6 @@ const columnRepository = new SequelizeColumnRepository_1.SequelizeColumnReposito
 const columnUsecase = new column_1.NewColumnUsecase(columnRepository);
 const getColumnsUsecase = new column_1.GetColumnsUsecase(columnRepository);
 const updateOrderUsecase = new column_1.UpdateOrderUsecase(columnRepository);
-const columnController = new ColumnController_1.ColumnController(columnUsecase, getColumnsUsecase, updateOrderUsecase);
+const deleteColumnUsecase = new column_1.DeleteColumnUsecase(columnRepository);
+const columnController = new ColumnController_1.ColumnController(columnUsecase, getColumnsUsecase, updateOrderUsecase, deleteColumnUsecase);
 exports.columnController = columnController;

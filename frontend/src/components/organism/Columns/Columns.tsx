@@ -6,7 +6,7 @@ import { CSS } from "@dnd-kit/utilities";
 
 type ColumnsProps = {
   column: Column;
-  deleteColumn:(column_id:number)=>void
+  deleteColumn:(column_id:number, bool:boolean)=>void
 };
 
 const Columns: React.FC<ColumnsProps> = ({ column, deleteColumn }) => {
@@ -51,7 +51,7 @@ const Columns: React.FC<ColumnsProps> = ({ column, deleteColumn }) => {
         <div className={style.columnHeaderName}>
           <h4>{column.name}</h4>
         </div>
-        <div className={style.trashIcon} onClick={()=>deleteColumn(column.column_id)}>
+        <div className={style.trashIcon} onClick={()=>deleteColumn(column.column_id, true)}>
           <TrashIcon  />
         </div>
       </div>

@@ -108,4 +108,10 @@ projectRouter.patch(
   columnController.updateColumn.bind(columnController)
 );
 
+projectRouter.delete(
+  "/sprints/columns/:columnId",
+  verifyEmployeeAccessToken,
+  columnController.deleteColumn.bind(columnController)
+);
+
 export default projectRouter;

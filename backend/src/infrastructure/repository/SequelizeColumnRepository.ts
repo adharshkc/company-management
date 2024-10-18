@@ -72,4 +72,13 @@ export class SequelizeColumnRepository implements ColumnRepository {
       throw new Error(error);
     }
   }
+
+  async deleteColumn(column_id: number): Promise<any> {
+      try {
+        const column = await ColumnModel.destroy({where:{column_id:column_id}})
+        return column
+      } catch (error:any) {
+        throw new Error(error);
+      }
+  }
 }

@@ -1,4 +1,5 @@
 import {
+  DeleteColumnUsecase,
   GetColumnsUsecase,
   NewColumnUsecase,
   UpdateOrderUsecase,
@@ -9,7 +10,8 @@ export class ColumnController {
   constructor(
     private newColumnUsecase: NewColumnUsecase,
     private getColumnUsecase: GetColumnsUsecase,
-    private updateOrderUsecase: UpdateOrderUsecase
+    private updateOrderUsecase: UpdateOrderUsecase,
+    private deleteColumnUsecase: DeleteColumnUsecase
   ) {}
   async newColumn(req: Request, res: Response, next: NextFunction) {
     try {
@@ -47,6 +49,17 @@ export class ColumnController {
       return res.status(status).json(data)
     } catch (error) {
       next(error);
+    }
+  }
+
+  async deleteColumn(req:Request, res:Response, next:NextFunction){
+    try {
+      const column_id = req.params.columnId
+      if(!column_id)res.status(400).json("column id is empty");
+      const {status, data} = await this.deleteColumnUsecase.execute(parseInt(column_id))
+      res.status(status).json(data)
+    } catch (error) {
+      
     }
   }
 }

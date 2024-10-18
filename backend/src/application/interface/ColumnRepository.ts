@@ -7,4 +7,5 @@ export interface ColumnRepository{
     updateOrder(column:Column[]):Promise<any>
     getSingleColumn(sprint_id:number):Promise<Column|null>
     getColumnsBySprint(sprint_id:number):Promise<Column[]>
+    deleteColumn(column_id:number):Promise<any>
 }
