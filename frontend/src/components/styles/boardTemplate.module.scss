@@ -96,19 +96,22 @@ button.cancel:hover {
   width: 250px; /* Adjust the width as necessary */
   height: 300px;
   margin-right: 20px;
-  background-color: #E9EBEE; /* Light gray background */
+  background-color: #F7F8F9; /* Light gray background */
   // display: flex;
   // justify-content: center;
   // align-items: flex-start;
   border-radius: 2px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 
-  padding: 15px;
+  padding-top: 15px;
   .ColumnHeader {
     cursor: pointer;
     //   width: inherit;
+    padding-right: 10px;
+    padding-left: 10px;
     display: flex;
     justify-content: space-between;
+    margin-bottom: 25px;
     .columnHeaderName {
       width: 100%;
       :hover {
