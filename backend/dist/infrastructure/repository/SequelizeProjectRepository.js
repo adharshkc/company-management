@@ -4,7 +4,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SequelizeProjectRepository = void 0;
-const EmployeeModel_1 = __importDefault(require("@infrastructure/models/EmployeeModel"));
 const ProjectModel_1 = __importDefault(require("@infrastructure/models/ProjectModel"));
 const TeamModel_1 = __importDefault(require("@infrastructure/models/TeamModel"));
 class SequelizeProjectRepository {
@@ -53,11 +52,20 @@ class SequelizeProjectRepository {
     async getSingleProject(employee_id) {
         console.log(employee_id);
         try {
-            const employee = await EmployeeModel_1.default.findOne({ where: { employee_id: employee_id } });
-            console.log(employee);
-            const project = await ProjectModel_1.default.findOne({ where: { team_id: employee === null || employee === void 0 ? void 0 : employee.team_id } });
-            console.log(project);
-            return project;
+            // const employee = await EmployeeModel.findOne({
+            //   where: { employee_id: employee_id },
+            // });
+            // console.log(employee);
+            // if (!employee) {
+            //   const project: [] = [];
+            //   return project;
+            // } else {
+            //   const project = await ProjectModel.findOne({
+            //     where: { team_id: employee?.team_id },
+            //   });
+            //   console.log(project);
+            //   return project;
+            // }
         }
         catch (error) {
             console.log(error);

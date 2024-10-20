@@ -29,10 +29,16 @@ class SprintController {
     }
     async getAllSprint(req, res, next) {
         try {
-            console.log("hasdfh");
             const project_id = req.params.projectId;
-            const { status, data } = await this.getSprint.execute(parseInt(project_id));
-            res.status(status).json(data);
+            console.log(project_id);
+            console.log("lakld", !project_id);
+            if (!project_id) {
+                console.log("hel", true);
+            }
+            // const { status, data } = await this.getSprint.execute(
+            //   parseInt(project_id)
+            // );
+            // res.status(status).json(data);
         }
         catch (error) {
             console.log(error);
@@ -42,8 +48,12 @@ class SprintController {
     async getStartedSprints(req, res, next) {
         try {
             const project_id = req.params.projectId;
-            const { status, data } = await this.getAllStartedSprints.execute(parseInt(project_id));
-            res.status(status).json(data);
+            // if(!project_id) {
+            // }
+            // const { status, data } = await this.getAllStartedSprints.execute(
+            //   parseInt(project_id)
+            // );
+            // res.status(status).json(data);
         }
         catch (error) {
             console.log(error);

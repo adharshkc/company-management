@@ -1,0 +1,46 @@
+.taskCard {
+    background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: flex-start;
+            // box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            max-width: 300px;
+  }
+  
+  .content {
+    flex-grow: 1;
+}
+
+.checkbox {
+    margin-right: 12px;
+    margin-top: 3px;
+}
+
+.title {
+    color: #333;
+    margin: 0 0 4px 0;
+    font-size: 14px;
+}
+
+.subtitle {
+    color: #666;
+    margin: 0;
+    font-size: 14px;
+}
+
+.icon {
+    width: 24px;
+    height: 24px;
+    background-color: #e0e0e0;
+    border-radius: 50%;
+    margin-left: 12px;
+}
+
+input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #1a73e8;
+}

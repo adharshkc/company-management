@@ -3,6 +3,7 @@ import TrashIcon from "../../../assets/icons/TrashIcon";
 import style from "../../styles/boardTemplate.module.scss";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import BoardTask from "../Task/BoardTask";
 
 type ColumnsProps = {
   column: Column;
@@ -55,7 +56,9 @@ const Columns: React.FC<ColumnsProps> = ({ column, deleteColumn }) => {
           <TrashIcon  />
         </div>
       </div>
-      <div className={style.ColumnSection}>content</div>
+      <div className={style.ColumnSection}>
+        <BoardTask/>
+      </div>
     </div>
   );
 };

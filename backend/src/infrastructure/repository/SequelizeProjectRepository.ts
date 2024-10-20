@@ -46,17 +46,26 @@ export class SequelizeProjectRepository implements ProjectRepository {
     }
   }
 
-  async getSingleProject(employee_id: number): Promise<Project | null|any> {
-    console.log(employee_id)
-      try {
-        const employee = await EmployeeModel.findOne({where:{employee_id:employee_id}})
-        console.log(employee)
-        const project = await ProjectModel.findOne({where:{team_id:employee?.team_id}})
-        console.log(project)
-        return project;
-      } catch (error:any) {
-        console.log(error)
-        throw new Error(error)
-      }
+  async getSingleProject(employee_id: number): Promise<Project | null | any> {
+    console.log(employee_id);
+    try {
+      // const employee = await EmployeeModel.findOne({
+      //   where: { employee_id: employee_id },
+      // });
+      // console.log(employee);
+      // if (!employee) {
+      //   const project: [] = [];
+      //   return project;
+      // } else {
+      //   const project = await ProjectModel.findOne({
+      //     where: { team_id: employee?.team_id },
+      //   });
+      //   console.log(project);
+      //   return project;
+      // }
+    } catch (error: any) {
+      console.log(error);
+      throw new Error(error);
+    }
   }
 }
